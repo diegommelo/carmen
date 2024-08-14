@@ -1,9 +1,11 @@
 <template>
   <div class="sticky top-0 z-50">
-    <div class="absolute inset-0 bg-white/30 backdrop-blur-md"></div>
-    <div class="relative flex items-center h-8 border-b border-gray-300/50">
-      <div class="flex items-center space-x-2 px-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-apple"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/></svg>
+    <div class="relative flex items-center h-8 border-b border-gray-500 bg-gray-600 bg-opacity-40">
+      <div class="flex items-center space-x-2 px-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-apple">
+          <path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/>
+          <path d="M10 2c1 .5 2 2 2 5"/>
+        </svg>
         <MenubarItem
           v-for="menu in menus"
           :key="menu.label"
@@ -18,7 +20,9 @@
       <div class="flex-grow" />
       <div class="flex items-center space-x-2 px-2">
         <span class="text-sm">{{ currentTime }}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down">
+          <path d="m6 9 6 6 6-6"/>
+        </svg>
       </div>
     </div>
   </div>

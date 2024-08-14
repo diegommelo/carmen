@@ -1,7 +1,7 @@
 <template>
   <div class="relative" @mouseleave="handleMouseLeave">
     <button
-      class="px-3 py-1 hover:bg-black/10 rounded text-black/90"
+      class="px-3 py-1 rounded text-white"
       @mouseenter="handleMouseEnter"
       @click="handleClick"
       ref="menuButton"
@@ -10,13 +10,13 @@
     </button>
     <div
       v-if="isOpen"
-      class="absolute left-0 mt-1 py-1 bg-white/70 backdrop-blur-md shadow-lg rounded-md"
+      class="absolute left-0 py-1 bg-gray-700 bg-opacity-50 rounded-md border border-gray-500 border-box"
     >
-      <div class="flex flex-col w-48">
+      <div class="flex flex-col w-48 px-1">
         <button
           v-for="(item, index) in items"
           :key="index"
-          class="px-4 py-2 text-left hover:bg-black/10 text-black/90"
+          class="px-4 py-1 text-left hover:bg-black/10 text-white hover:bg-blue-600 rounded-md w-full block"
           @click="selectItem(item)"
         >
           {{ item }}
