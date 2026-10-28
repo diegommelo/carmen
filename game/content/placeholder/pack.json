@@ -1,104 +1,663 @@
 {
-  "name": "Provisório",
-  "description": "Conteúdo de teste do núcleo. Textos próprios, nada do jogo original.",
-  "rules": {
-    "route_base_steps": 4,
-    "boss_after_cases": 29,
-    "sex_trait": "sexo",
-    "graph": { "max_links": 4, "min_hops": 2 },
-    "travel": { "distance_per_hour": 40, "base_hours": 2, "max_hours": 7 },
-    "investigate": { "first_hours": 2, "max_hours": 4 },
-    "clock": {
-      "start_day": 0, "start_hour": 9,
-      "deadline_day": 6, "deadline_hour": 17,
-      "wake_hour": 8, "sleep_hour": 23, "sleep_hours": 9
-    }
+ "name": {
+  "pt_BR": "Provisório",
+  "en": "Placeholder"
+ },
+ "description": {
+  "pt_BR": "Conteúdo de teste do núcleo. Textos próprios, nada do jogo original.",
+  "en": "Test content for the core. Original texts, nothing from the original game."
+ },
+ "rules": {
+  "route_base_steps": 4,
+  "boss_after_cases": 29,
+  "sex_trait": "sexo",
+  "graph": {
+   "max_links": 4,
+   "min_hops": 2
   },
-  "ranks": [
-    { "name": "Recruta", "cases": 0 },
-    { "name": "Agente", "cases": 1 },
-    { "name": "Investigador", "cases": 5 },
-    { "name": "Inspetor", "cases": 12 },
-    { "name": "Delegado", "cases": 20 }
-  ],
-  "location_types": [
-    { "id": "banco", "name": "Banco", "group": 0,
-      "witnesses": ["Gerente", "Caixa", "Segurança"],
-      "not_seen": ["Ninguém com essa descrição passou pelo caixa hoje.", "Sinto muito, não vi essa pessoa."],
-      "clue_chance": { "hobby": 0, "cabelo": 32, "marca": 40, "veiculo": 48, "comida": 0 } },
-    { "id": "hotel", "name": "Hotel", "group": 0,
-      "witnesses": ["Recepcionista", "Mensageiro", "Camareira"],
-      "not_seen": ["Ninguém assim se hospedou aqui.", "Não vi ninguém suspeito no saguão."],
-      "clue_chance": { "hobby": 0, "cabelo": 32, "marca": 32, "veiculo": 48, "comida": 48 } },
-    { "id": "aeroporto", "name": "Aeroporto", "group": 1,
-      "witnesses": ["Piloto", "Comissária", "Despachante de bagagem"],
-      "not_seen": ["Passa tanta gente por aqui que não reparei em ninguém.", "Não vi ninguém parecido."],
-      "clue_chance": { "hobby": 32, "cabelo": 32, "marca": 0, "veiculo": 48, "comida": 32 } },
-    { "id": "biblioteca", "name": "Biblioteca", "group": 1,
-      "witnesses": ["Bibliotecária", "Arquivista", "Estudante"],
-      "not_seen": ["Ninguém assim pegou livros aqui.", "Está tudo calmo na biblioteca."],
-      "clue_chance": { "hobby": 32, "cabelo": 32, "marca": 32, "veiculo": 0, "comida": 0 } },
-    { "id": "mercado", "name": "Mercado", "group": 2,
-      "witnesses": ["Feirante", "Vendedor ambulante", "Freguês"],
-      "not_seen": ["Com esse movimento todo, não notei ninguém.", "Não vi ninguém assim por aqui."],
-      "clue_chance": { "hobby": 48, "cabelo": 48, "marca": 48, "veiculo": 48, "comida": 16 } },
-    { "id": "embaixada", "name": "Embaixada", "group": 2,
-      "witnesses": ["Embaixador", "Adido", "Secretário"],
-      "not_seen": ["Ninguém com essa descrição pediu visto.", "Não temos registro dessa pessoa."],
-      "clue_chance": { "hobby": 32, "cabelo": 32, "marca": 32, "veiculo": 48, "comida": 0 } }
-  ],
-  "traits": [
-    { "id": "sexo", "name": "Sexo", "warrant": true,
-      "values": { "m": "Masculino", "f": "Feminino" } },
-    { "id": "hobby", "name": "Hobby", "warrant": true,
-      "values": { "tenis": "Tênis", "xadrez": "Xadrez", "alpinismo": "Alpinismo", "surfe": "Surfe" },
-      "clues": {
-        "tenis": ["{Ele} perguntou onde havia uma quadra de tênis", "{Ele} carregava uma raquete"],
-        "alpinismo": ["{Ele} falou de escalar montanhas", "{Ele} levava cordas de escalada"],
-        "surfe": ["{Ele} queria saber a previsão das ondas", "{Ele} tinha uma prancha de surfe"]
-      } },
-    { "id": "cabelo", "name": "Cabelo", "warrant": true,
-      "values": { "castanho": "Castanho", "loiro": "Loiro", "ruivo": "Ruivo", "preto": "Preto" },
-      "clues": {
-        "castanho": ["{Ele} tinha cabelo castanho"],
-        "loiro": ["{Ele} tinha cabelo loiro"],
-        "ruivo": ["{Ele} tinha cabelo ruivo"],
-        "preto": ["{Ele} tinha cabelo preto"]
-      } },
-    { "id": "marca", "name": "Marca", "warrant": true,
-      "values": { "anel": "Anel", "tatuagem": "Tatuagem", "cicatriz": "Cicatriz", "joias": "Joias" },
-      "clues": {
-        "anel": ["{Ele} usava um anel enorme", "reparei no anel {dele}"],
-        "tatuagem": ["{Ele} tentou esconder uma tatuagem", "{Ele} tinha uma tatuagem no braço"],
-        "joias": ["{Ele} usava joias caras"]
-      } },
-    { "id": "veiculo", "name": "Veículo", "warrant": true,
-      "values": { "conversivel": "Conversível", "limusine": "Limusine", "moto": "Moto" },
-      "clues": {
-        "conversivel": ["{Ele} chegou num conversível", "{Ele} me ofereceu carona no conversível {dele}"],
-        "limusine": ["{Ele} andava de limusine com motorista"],
-        "moto": ["{Ele} chegou de moto", "{Ele} carregava um capacete"]
-      } },
-    { "id": "comida", "name": "Comida", "warrant": false,
-      "values": { "frutos_do_mar": "Frutos do mar", "mexicana": "Comida mexicana" },
-      "clues": {
-        "frutos_do_mar": ["{Ele} disse que adora frutos do mar"],
-        "mexicana": ["{Ele} procurava um restaurante mexicano"]
-      } }
-  ],
-  "texts": {
-    "openers": ["Me contaram que", "Ouvi dizer que", "Uma fonte confiável disse que", "A pessoa que você procura esteve aqui e"],
-    "final_warnings": [
-      "Tem alguma coisa estranha acontecendo na cidade.",
-      "Dizem que a quadrilha está escondida por aqui.",
-      "Cuidado, agente. Você está chegando perto demais."
-    ],
-    "nothing_more": "É tudo o que eu sei",
-    "henchman": "Um capanga da quadrilha! Você está no caminho certo.",
-    "danger": ["Uma faca passou raspando!", "Alguém atirou na sua direção!", "Um carro quase te atropelou!"],
-    "pronouns": {
-      "m": { "Ele": "Ele", "ele": "ele", "dele": "dele" },
-      "f": { "Ele": "Ela", "ele": "ela", "dele": "dela" }
-    }
+  "travel": {
+   "distance_per_hour": 40,
+   "base_hours": 2,
+   "max_hours": 7
+  },
+  "investigate": {
+   "first_hours": 2,
+   "max_hours": 4
+  },
+  "clock": {
+   "start_day": 0,
+   "start_hour": 9,
+   "deadline_day": 6,
+   "deadline_hour": 17,
+   "wake_hour": 8,
+   "sleep_hour": 23,
+   "sleep_hours": 9
   }
+ },
+ "ranks": [
+  {
+   "name": {
+    "pt_BR": "Recruta",
+    "en": "Rookie"
+   },
+   "cases": 0
+  },
+  {
+   "name": {
+    "pt_BR": "Agente",
+    "en": "Agent"
+   },
+   "cases": 1
+  },
+  {
+   "name": {
+    "pt_BR": "Investigador",
+    "en": "Investigator"
+   },
+   "cases": 5
+  },
+  {
+   "name": {
+    "pt_BR": "Inspetor",
+    "en": "Inspector"
+   },
+   "cases": 12
+  },
+  {
+   "name": {
+    "pt_BR": "Delegado",
+    "en": "Chief"
+   },
+   "cases": 20
+  }
+ ],
+ "location_types": [
+  {
+   "id": "banco",
+   "name": {
+    "pt_BR": "Banco",
+    "en": "Bank"
+   },
+   "group": 0,
+   "witnesses": [
+    {
+     "pt_BR": "Gerente",
+     "en": "Manager"
+    },
+    {
+     "pt_BR": "Caixa",
+     "en": "Teller"
+    },
+    {
+     "pt_BR": "Segurança",
+     "en": "Guard"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém com essa descrição passou pelo caixa hoje.",
+     "en": "Nobody like that came to the teller today."
+    },
+    {
+     "pt_BR": "Sinto muito, não vi essa pessoa.",
+     "en": "Sorry, I haven't seen that person."
+    }
+   ],
+   "clue_chance": {
+    "hobby": 0,
+    "cabelo": 32,
+    "marca": 40,
+    "veiculo": 48,
+    "comida": 0
+   }
+  },
+  {
+   "id": "hotel",
+   "name": {
+    "pt_BR": "Hotel",
+    "en": "Hotel"
+   },
+   "group": 0,
+   "witnesses": [
+    {
+     "pt_BR": "Recepcionista",
+     "en": "Receptionist"
+    },
+    {
+     "pt_BR": "Mensageiro",
+     "en": "Bellhop"
+    },
+    {
+     "pt_BR": "Camareira",
+     "en": "Housekeeper"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém assim se hospedou aqui.",
+     "en": "Nobody like that checked in here."
+    },
+    {
+     "pt_BR": "Não vi ninguém suspeito no saguão.",
+     "en": "I didn't see anyone suspicious in the lobby."
+    }
+   ],
+   "clue_chance": {
+    "hobby": 0,
+    "cabelo": 32,
+    "marca": 32,
+    "veiculo": 48,
+    "comida": 48
+   }
+  },
+  {
+   "id": "aeroporto",
+   "name": {
+    "pt_BR": "Aeroporto",
+    "en": "Airport"
+   },
+   "group": 1,
+   "witnesses": [
+    {
+     "pt_BR": "Piloto",
+     "en": "Pilot"
+    },
+    {
+     "pt_BR": "Comissária",
+     "en": "Flight attendant"
+    },
+    {
+     "pt_BR": "Despachante de bagagem",
+     "en": "Baggage handler"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Passa tanta gente por aqui que não reparei em ninguém.",
+     "en": "So many people pass through here that I didn't notice anyone."
+    },
+    {
+     "pt_BR": "Não vi ninguém parecido.",
+     "en": "I haven't seen anyone like that."
+    }
+   ],
+   "clue_chance": {
+    "hobby": 32,
+    "cabelo": 32,
+    "marca": 0,
+    "veiculo": 48,
+    "comida": 32
+   }
+  },
+  {
+   "id": "biblioteca",
+   "name": {
+    "pt_BR": "Biblioteca",
+    "en": "Library"
+   },
+   "group": 1,
+   "witnesses": [
+    {
+     "pt_BR": "Bibliotecária",
+     "en": "Librarian"
+    },
+    {
+     "pt_BR": "Arquivista",
+     "en": "Archivist"
+    },
+    {
+     "pt_BR": "Estudante",
+     "en": "Student"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém assim pegou livros aqui.",
+     "en": "Nobody like that borrowed books here."
+    },
+    {
+     "pt_BR": "Está tudo calmo na biblioteca.",
+     "en": "Everything is quiet at the library."
+    }
+   ],
+   "clue_chance": {
+    "hobby": 32,
+    "cabelo": 32,
+    "marca": 32,
+    "veiculo": 0,
+    "comida": 0
+   }
+  },
+  {
+   "id": "mercado",
+   "name": {
+    "pt_BR": "Mercado",
+    "en": "Market"
+   },
+   "group": 2,
+   "witnesses": [
+    {
+     "pt_BR": "Feirante",
+     "en": "Stallholder"
+    },
+    {
+     "pt_BR": "Vendedor ambulante",
+     "en": "Street vendor"
+    },
+    {
+     "pt_BR": "Freguês",
+     "en": "Shopper"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Com esse movimento todo, não notei ninguém.",
+     "en": "With all this bustle, I didn't notice anyone."
+    },
+    {
+     "pt_BR": "Não vi ninguém assim por aqui.",
+     "en": "I haven't seen anyone like that around here."
+    }
+   ],
+   "clue_chance": {
+    "hobby": 48,
+    "cabelo": 48,
+    "marca": 48,
+    "veiculo": 48,
+    "comida": 16
+   }
+  },
+  {
+   "id": "embaixada",
+   "name": {
+    "pt_BR": "Embaixada",
+    "en": "Embassy"
+   },
+   "group": 2,
+   "witnesses": [
+    {
+     "pt_BR": "Embaixador",
+     "en": "Ambassador"
+    },
+    {
+     "pt_BR": "Adido",
+     "en": "Attaché"
+    },
+    {
+     "pt_BR": "Secretário",
+     "en": "Secretary"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém com essa descrição pediu visto.",
+     "en": "Nobody with that description asked for a visa."
+    },
+    {
+     "pt_BR": "Não temos registro dessa pessoa.",
+     "en": "We have no record of that person."
+    }
+   ],
+   "clue_chance": {
+    "hobby": 32,
+    "cabelo": 32,
+    "marca": 32,
+    "veiculo": 48,
+    "comida": 0
+   }
+  }
+ ],
+ "traits": [
+  {
+   "id": "sexo",
+   "name": {
+    "pt_BR": "Sexo",
+    "en": "Sex"
+   },
+   "warrant": true,
+   "values": {
+    "m": {
+     "pt_BR": "Masculino",
+     "en": "Male"
+    },
+    "f": {
+     "pt_BR": "Feminino",
+     "en": "Female"
+    }
+   }
+  },
+  {
+   "id": "hobby",
+   "name": {
+    "pt_BR": "Hobby",
+    "en": "Hobby"
+   },
+   "warrant": true,
+   "values": {
+    "tenis": {
+     "pt_BR": "Tênis",
+     "en": "Tennis"
+    },
+    "xadrez": {
+     "pt_BR": "Xadrez",
+     "en": "Chess"
+    },
+    "alpinismo": {
+     "pt_BR": "Alpinismo",
+     "en": "Mountain climbing"
+    },
+    "surfe": {
+     "pt_BR": "Surfe",
+     "en": "Surfing"
+    }
+   },
+   "clues": {
+    "tenis": [
+     {
+      "pt_BR": "{Ele} perguntou onde havia uma quadra de tênis",
+      "en": "{He} asked where to find a tennis court"
+     },
+     {
+      "pt_BR": "{Ele} carregava uma raquete",
+      "en": "{He} was carrying a racket"
+     }
+    ],
+    "alpinismo": [
+     {
+      "pt_BR": "{Ele} falou de escalar montanhas",
+      "en": "{He} talked about climbing mountains"
+     },
+     {
+      "pt_BR": "{Ele} levava cordas de escalada",
+      "en": "{He} carried climbing ropes"
+     }
+    ],
+    "surfe": [
+     {
+      "pt_BR": "{Ele} queria saber a previsão das ondas",
+      "en": "{He} wanted to know the surf forecast"
+     },
+     {
+      "pt_BR": "{Ele} tinha uma prancha de surfe",
+      "en": "{He} had a surfboard"
+     }
+    ]
+   }
+  },
+  {
+   "id": "cabelo",
+   "name": {
+    "pt_BR": "Cabelo",
+    "en": "Hair"
+   },
+   "warrant": true,
+   "values": {
+    "castanho": {
+     "pt_BR": "Castanho",
+     "en": "Brown"
+    },
+    "loiro": {
+     "pt_BR": "Loiro",
+     "en": "Blond"
+    },
+    "ruivo": {
+     "pt_BR": "Ruivo",
+     "en": "Red"
+    },
+    "preto": {
+     "pt_BR": "Preto",
+     "en": "Black"
+    }
+   },
+   "clues": {
+    "castanho": [
+     {
+      "pt_BR": "{Ele} tinha cabelo castanho",
+      "en": "{He} had brown hair"
+     }
+    ],
+    "loiro": [
+     {
+      "pt_BR": "{Ele} tinha cabelo loiro",
+      "en": "{He} had blond hair"
+     }
+    ],
+    "ruivo": [
+     {
+      "pt_BR": "{Ele} tinha cabelo ruivo",
+      "en": "{He} had red hair"
+     }
+    ],
+    "preto": [
+     {
+      "pt_BR": "{Ele} tinha cabelo preto",
+      "en": "{He} had black hair"
+     }
+    ]
+   }
+  },
+  {
+   "id": "marca",
+   "name": {
+    "pt_BR": "Marca",
+    "en": "Feature"
+   },
+   "warrant": true,
+   "values": {
+    "anel": {
+     "pt_BR": "Anel",
+     "en": "Ring"
+    },
+    "tatuagem": {
+     "pt_BR": "Tatuagem",
+     "en": "Tattoo"
+    },
+    "cicatriz": {
+     "pt_BR": "Cicatriz",
+     "en": "Scar"
+    },
+    "joias": {
+     "pt_BR": "Joias",
+     "en": "Jewelry"
+    }
+   },
+   "clues": {
+    "anel": [
+     {
+      "pt_BR": "{Ele} usava um anel enorme",
+      "en": "{He} wore a huge ring"
+     },
+     {
+      "pt_BR": "reparei no anel {dele}",
+      "en": "I noticed {his} ring"
+     }
+    ],
+    "tatuagem": [
+     {
+      "pt_BR": "{Ele} tentou esconder uma tatuagem",
+      "en": "{He} tried to hide a tattoo"
+     },
+     {
+      "pt_BR": "{Ele} tinha uma tatuagem no braço",
+      "en": "{He} had a tattoo on {his} arm"
+     }
+    ],
+    "joias": [
+     {
+      "pt_BR": "{Ele} usava joias caras",
+      "en": "{He} wore expensive jewelry"
+     }
+    ]
+   }
+  },
+  {
+   "id": "veiculo",
+   "name": {
+    "pt_BR": "Veículo",
+    "en": "Vehicle"
+   },
+   "warrant": true,
+   "values": {
+    "conversivel": {
+     "pt_BR": "Conversível",
+     "en": "Convertible"
+    },
+    "limusine": {
+     "pt_BR": "Limusine",
+     "en": "Limousine"
+    },
+    "moto": {
+     "pt_BR": "Moto",
+     "en": "Motorcycle"
+    }
+   },
+   "clues": {
+    "conversivel": [
+     {
+      "pt_BR": "{Ele} chegou num conversível",
+      "en": "{He} arrived in a convertible"
+     },
+     {
+      "pt_BR": "{Ele} me ofereceu carona no conversível {dele}",
+      "en": "{He} offered me a ride in {his} convertible"
+     }
+    ],
+    "limusine": [
+     {
+      "pt_BR": "{Ele} andava de limusine com motorista",
+      "en": "{He} rode in a chauffeured limousine"
+     }
+    ],
+    "moto": [
+     {
+      "pt_BR": "{Ele} chegou de moto",
+      "en": "{He} arrived on a motorcycle"
+     },
+     {
+      "pt_BR": "{Ele} carregava um capacete",
+      "en": "{He} was carrying a helmet"
+     }
+    ]
+   }
+  },
+  {
+   "id": "comida",
+   "name": {
+    "pt_BR": "Comida",
+    "en": "Food"
+   },
+   "warrant": false,
+   "values": {
+    "frutos_do_mar": {
+     "pt_BR": "Frutos do mar",
+     "en": "Seafood"
+    },
+    "mexicana": {
+     "pt_BR": "Comida mexicana",
+     "en": "Mexican food"
+    }
+   },
+   "clues": {
+    "frutos_do_mar": [
+     {
+      "pt_BR": "{Ele} disse que adora frutos do mar",
+      "en": "{He} said {he} loves seafood"
+     }
+    ],
+    "mexicana": [
+     {
+      "pt_BR": "{Ele} procurava um restaurante mexicano",
+      "en": "{He} was looking for a Mexican restaurant"
+     }
+    ]
+   }
+  }
+ ],
+ "texts": {
+  "openers": [
+   {
+    "pt_BR": "Me contaram que",
+    "en": "I was told that"
+   },
+   {
+    "pt_BR": "Ouvi dizer que",
+    "en": "I heard that"
+   },
+   {
+    "pt_BR": "Uma fonte confiável disse que",
+    "en": "A reliable source said that"
+   },
+   {
+    "pt_BR": "A pessoa que você procura esteve aqui e",
+    "en": "The person you're looking for was here and"
+   }
+  ],
+  "final_warnings": [
+   {
+    "pt_BR": "Tem alguma coisa estranha acontecendo na cidade.",
+    "en": "Something strange is going on in town."
+   },
+   {
+    "pt_BR": "Dizem que a quadrilha está escondida por aqui.",
+    "en": "They say the gang is hiding around here."
+   },
+   {
+    "pt_BR": "Cuidado, agente. Você está chegando perto demais.",
+    "en": "Careful, agent. You're getting too close."
+   }
+  ],
+  "nothing_more": {
+   "pt_BR": "É tudo o que eu sei",
+   "en": "That's all I know"
+  },
+  "henchman": {
+   "pt_BR": "Um capanga da quadrilha! Você está no caminho certo.",
+   "en": "A henchman of the gang! You're on the right track."
+  },
+  "danger": [
+   {
+    "pt_BR": "Uma faca passou raspando!",
+    "en": "A knife just missed you!"
+   },
+   {
+    "pt_BR": "Alguém atirou na sua direção!",
+    "en": "Someone shot at you!"
+   },
+   {
+    "pt_BR": "Um carro quase te atropelou!",
+    "en": "A car almost ran you over!"
+   }
+  ],
+  "pronouns": {
+   "pt_BR": {
+    "m": {
+     "Ele": "Ele",
+     "ele": "ele",
+     "dele": "dele"
+    },
+    "f": {
+     "Ele": "Ela",
+     "ele": "ela",
+     "dele": "dela"
+    }
+   },
+   "en": {
+    "m": {
+     "He": "He",
+     "he": "he",
+     "his": "his"
+    },
+    "f": {
+     "He": "She",
+     "he": "she",
+     "his": "her"
+    }
+   }
+  }
+ },
+ "languages": [
+  "pt_BR",
+  "en"
+ ],
+ "default_language": "pt_BR"
 }

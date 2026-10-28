@@ -1,0 +1,32 @@
+keys,en,pt_BR
+ALERT_THEFT,[b]Alert![/b] %s was stolen in %s.,[b]Alerta![/b] Roubaram %s em %s.
+SUSPECT_SEEN,%s suspect seen at the scene of the crime.,Suspeito do sexo %s visto no local do crime.
+DEADLINE,"Deadline: %s, %s.","Prazo: %s, %s."
+HOUR_FMT,%d:00,%dh
+DAY_0,Monday,segunda
+DAY_1,Tuesday,terça
+DAY_2,Wednesday,quarta
+DAY_3,Thursday,quinta
+DAY_4,Friday,sexta
+DAY_5,Saturday,sábado
+DAY_6,Sunday,domingo
+STATUS,"%s (%s) · %s, %s · Warrant: %s","%s (%s) · %s, %s · Mandado: %s"
+WARRANT_NONE,none,nenhum
+DEFAULT_AGENT,Agent,Agente
+BTN_TRAVEL,Travel,Viajar
+BTN_COMPUTER,Computer,Computador
+BTN_BACK,Back,Voltar
+BTN_ISSUE_WARRANT,Issue warrant,Emitir mandado
+BTN_NEW_CASE,New case,Novo caso
+TRAVEL_OPTION,%s (%d h),%s (%dh)
+TRAIT_UNKNOWN,%s: ?,%s: ?
+FOUND_HIDEOUT,[b]You found the hideout![/b],[b]Você encontrou o esconderijo![/b]
+SLEEPING,[i]Sleeping...[/i],[i]Dormindo...[/i]
+NO_MATCH,No suspect has those traits.,Nenhum suspeito tem esses traços.
+WARRANT_ISSUED,[b]Warrant issued for %s.[/b],[b]Mandado emitido contra %s.[/b]
+SUSPECTS_LIST,Suspects: %s.,Suspeitos: %s.
+OUTCOME_ARRESTED,"[b]%s was arrested, and %s is going back home![/b]",[b]%s foi preso(a) e %s voltou para casa![/b]
+PROMOTED,Promotion! Your new rank: %s.,Promoção! Sua nova patente: %s.
+OUTCOME_NO_WARRANT,"You caught up with %s, but without a warrant you can't make the arrest. Gone!","Você alcançou %s, mas sem mandado não dá para prender. Fugiu!"
+OUTCOME_WRONG_WARRANT,The warrant was for someone else. %s got away.,O mandado era contra outra pessoa. %s escapou.
+OUTCOME_TIME,Time is up. %s got away.,O prazo acabou. %s escapou.
