@@ -1,0 +1,9 @@
+# Arquivos do jogo original e dados extraídos não entram no repositório
+*.EXE
+*.exe
+*.DAT
+*.SAV
+*.BMP
+original/
+extracted/
+__pycache__/
