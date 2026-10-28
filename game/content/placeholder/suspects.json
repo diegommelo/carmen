@@ -1,0 +1,22 @@
+{
+  "suspects": [
+    { "id": "chefona", "name": "A Chefona", "boss": true,
+      "traits": { "sexo": "f", "hobby": "tenis", "cabelo": "ruivo", "marca": "joias", "veiculo": "conversivel", "comida": "mexicana" },
+      "dossier": "Líder da quadrilha. Nunca aparece sem um colar de rubis." },
+    { "id": "dedo_leve", "name": "Dedo Leve", "boss": false,
+      "traits": { "sexo": "m", "hobby": "alpinismo", "cabelo": "preto", "marca": "tatuagem", "veiculo": "moto", "comida": "frutos_do_mar" },
+      "dossier": "Ex-alpinista. Tem uma águia tatuada no braço." },
+    { "id": "madame_x", "name": "Madame X", "boss": false,
+      "traits": { "sexo": "f", "hobby": "alpinismo", "cabelo": "castanho", "marca": "joias", "veiculo": "limusine", "comida": "mexicana" },
+      "dossier": "Colecionadora de joias e de passaportes falsos." },
+    { "id": "doutor_z", "name": "Doutor Z", "boss": false,
+      "traits": { "sexo": "m", "hobby": "tenis", "cabelo": "loiro", "marca": "anel", "veiculo": "conversivel", "comida": "mexicana" },
+      "dossier": "Ex-tenista profissional. Usa um anel do tamanho de uma noz." },
+    { "id": "baronesa", "name": "Baronesa", "boss": false,
+      "traits": { "sexo": "f", "hobby": "surfe", "cabelo": "loiro", "marca": "tatuagem", "veiculo": "moto", "comida": "frutos_do_mar" },
+      "dossier": "Surfista que vive de cidade em cidade." },
+    { "id": "sombra", "name": "Sombra", "boss": false,
+      "traits": { "sexo": "m", "hobby": "surfe", "cabelo": "ruivo", "marca": "anel", "veiculo": "limusine", "comida": "frutos_do_mar" },
+      "dossier": "Mestre dos disfarces. Só anda de limusine." }
+  ]
+}
