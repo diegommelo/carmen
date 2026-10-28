@@ -14,10 +14,16 @@ func _initialize() -> void:
 	_test_clock(pack)
 	_test_graph(pack)
 	_test_warrant(pack)
-	for seed in range(1, 41):
-		_test_full_case(pack, seed)
-	_test_wrong_city(pack)
+	_test_languages(pack)
+	for language in pack.languages:
+		pack.set_language(language)
+		for seed in range(1, 41):
+			_test_full_case(pack, seed)
+		_test_wrong_city(pack)
+	pack.set_language("pt_BR")
+	_test_switch_language_mid_case(pack)
 	_test_boss(pack)
+	_test_scripts_compile()
 	print("%d verificações, %d falhas" % [_checks, _failures])
 	quit(1 if _failures > 0 else 0)
 
@@ -92,8 +98,9 @@ func _test_full_case(pack: ContentPack, seed: int) -> void:
 	s.compute_warrant(marks)
 	while not s.is_final_city() and s.outcome == CaseSession.ONGOING:
 		check(s.next_city in s.destinations(), "a próxima cidade da rota é sempre um destino de voo")
-		for p in s.places:
-			check(not p.text.contains("{"), "pronome sem substituir: " + p.text)
+		for i in s.places.size():
+			var text := s.place_text(i)
+			check(not text.contains("{"), "pronome sem substituir (%s): %s" % [pack.locale, text])
 		s.investigate(0)
 		if s.outcome != CaseSession.ONGOING:
 			break
@@ -123,9 +130,9 @@ func _test_wrong_city(pack: ContentPack) -> void:
 	if wrong == "":
 		return
 	s.travel(wrong)
-	for p in s.places:
-		var type := pack.location_type(p.type)
-		check(p.text in type.not_seen, "fora da rota a testemunha não viu nada: " + p.text)
+	for i in s.places.size():
+		var type := pack.location_type(s.places[i].type)
+		check(s.place_text(i) in type.not_seen, "fora da rota a testemunha não viu nada: " + s.place_text(i))
 
 
 func _test_boss(pack: ContentPack) -> void:
@@ -133,3 +140,37 @@ func _test_boss(pack: ContentPack) -> void:
 	s.start({"name": "Teste", "cases": 29, "rank": 4})
 	check(s.suspect.get("boss", false), "com 29 casos o alvo é a chefe")
 	check(s.steps_left == 4 + 4 - 1, "rota de patente + 4 saltos")
+
+
+func _test_languages(pack: ContentPack) -> void:
+	check(pack.missing_translations().is_empty(), "textos sem tradução: %s" % [pack.missing_translations()])
+	check(pack.best_language("en_US") == "en", "en_US usa inglês")
+	check(pack.best_language("pt") == "pt_BR", "pt usa pt_BR")
+	check(pack.best_language("fr_FR") == pack.default_language, "idioma desconhecido usa o padrão")
+	pack.set_language("en")
+	check(pack.city("toquio").name == "Tokyo", "nome da cidade em inglês")
+	check(typeof(pack.location_types[0].name) == TYPE_STRING, "texto traduzido virou String")
+	pack.set_language("pt_BR")
+	check(pack.city("toquio").name == "Tóquio", "nome da cidade em português")
+
+
+## Trocar de idioma no meio do caso muda o texto, mas não a fala sorteada.
+func _test_switch_language_mid_case(pack: ContentPack) -> void:
+	var s := CaseSession.new(pack, 21)
+	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	s.travel(s.next_city)
+	var pt := s.place_text(0)
+	var treasure_pt := s.treasure()
+	s.set_language("en")
+	var en := s.place_text(0)
+	check(pt != en and not en.contains("{"), "fala traduzida: %s / %s" % [pt, en])
+	check(s.treasure() != treasure_pt, "tesouro traduzido")
+	s.set_language("pt_BR")
+	check(s.place_text(0) == pt, "voltar ao português devolve a mesma fala")
+
+
+## Scripts que os testes não usam direto também precisam compilar.
+func _test_scripts_compile() -> void:
+	for path in ["res://ui/main.gd"]:
+		var script: GDScript = load(path)
+		check(script != null and script.can_instantiate(), "script não compila: " + path)

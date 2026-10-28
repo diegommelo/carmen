@@ -3,6 +3,8 @@ extends RefCounted
 ## Um caso do começo ao fim: rota do ladrão, testemunhas, viagens, relógio e mandado.
 ## Segue as regras do original descritas em docs/spec-original.md (seções 3 e 4).
 ## Não depende de interface: a tela chama os métodos e mostra o que eles devolvem.
+## As falas são guardadas como "receitas" (índices nas listas do pacote) e viram
+## texto só na hora de mostrar, para que a troca de idioma valha no meio do caso.
 
 const ONGOING := ""
 const ESCAPED_TIME := "escaped_time"
@@ -19,16 +21,16 @@ var detective: Dictionary
 
 var suspect: Dictionary
 var crime_city: String
-var treasure: String
+var treasure_index: int
 var current_city: String
 ## Próxima cidade da rota (no original, 399c). Quando é igual à atual, é o esconderijo.
 var next_city: String
 ## Cidade da rota em que o ladrão passou por último (39a0).
 var trail_city: String
 var steps_left: int
-## Os locais da cidade atual: [{type, witness, text}]
+## Os locais da cidade atual: [{type, witness, statement}], com índices nas listas do pacote.
 var places: Array = []
-var arrival_text: String
+var arrival_index: int
 var outcome: String = ONGOING
 var promoted: bool = false
 var warrant_id: String = ""
@@ -55,13 +57,36 @@ func start(agent: Dictionary) -> void:
 	else:
 		suspect = pack.boss()
 	crime_city = rng.pick(pack.city_ids())
-	treasure = rng.pick(pack.city(crime_city).treasures)
+	treasure_index = rng.index(pack.city(crime_city).treasures)
 	steps_left = detective.rank + rules.route_base_steps
 	next_city = crime_city
 	trail_city = ""
 	outcome = ONGOING
 	warrant_id = ""
 	_arrive(crime_city)
+
+
+## Troca o idioma dos textos, inclusive no meio do caso.
+func set_language(language: String) -> void:
+	pack.set_language(language)
+	suspect = pack.suspect(suspect.id)
+
+
+func treasure() -> String:
+	return pack.city(crime_city).treasures[treasure_index]
+
+
+func arrival_text() -> String:
+	return pack.city(current_city).description[arrival_index]
+
+
+func place_witness(slot: int) -> String:
+	var place: Dictionary = places[slot]
+	return pack.location_type(place.type).witnesses[place.witness]
+
+
+func place_text(slot: int) -> String:
+	return _render(places[slot].statement)
 
 
 func destinations() -> Array:
@@ -106,7 +131,7 @@ func investigate(slot: int) -> Dictionary:
 			event = "danger"
 		elif slot == _hideout_slot:
 			_resolve_capture()
-			return {"witness": place.witness, "text": "", "hours": 0, "slept": false, "event": "capture"}
+			return {"witness": place_witness(slot), "text": "", "hours": 0, "slept": false, "event": "capture"}
 		else:
 			event = "danger"
 	elif current_city == trail_city:
@@ -121,7 +146,7 @@ func investigate(slot: int) -> Dictionary:
 	var tick := clock.advance(hours, true)
 	if tick.expired:
 		outcome = ESCAPED_TIME
-	return {"witness": place.witness, "text": place.text, "hours": hours, "slept": tick.slept, "event": event}
+	return {"witness": place_witness(slot), "text": place_text(slot), "hours": hours, "slept": tick.slept, "event": event}
 
 
 ## Computador da Interpol. `marks` = {id_do_traço: valor} só com os traços conhecidos.
@@ -150,7 +175,7 @@ func _arrive(city_id: String) -> void:
 					break
 			trail_city = city_id
 			steps_left -= 1
-	arrival_text = rng.pick(pack.city(city_id).description)
+	arrival_index = rng.index(pack.city(city_id).description)
 	_investigate_cost = int(pack.rules.investigate.first_hours)
 	_hideout_slot = -1
 	_build_places()
@@ -170,17 +195,18 @@ func _build_places() -> void:
 		var present := candidates.filter(func(t): return t.id in here.locations)
 		var valid := present.filter(func(t): return there.clues.has(t.id))
 		var chosen: Dictionary = rng.pick(valid if not valid.is_empty() else (present if not present.is_empty() else candidates))
-		places.append({"type": chosen.id, "witness": rng.pick(chosen.witnesses), "text": _statement(chosen, there)})
+		places.append({"type": chosen.id, "witness": rng.index(chosen.witnesses), "statement": _statement(chosen, there)})
 
 
-func _statement(type: Dictionary, there: Dictionary) -> String:
+## Sorteia a fala da testemunha e devolve a receita dela.
+func _statement(type: Dictionary, there: Dictionary) -> Dictionary:
 	var texts := pack.texts
-	var sex: String = suspect.traits[pack.rules.sex_trait]
 	if is_final_city():
-		return pack.with_pronouns(rng.pick(texts.final_warnings), sex)
+		return {"kind": "final", "i": rng.index(texts.final_warnings)}
 	if current_city != trail_city:
-		return pack.with_pronouns(rng.pick(type.not_seen), sex)
-	var text: String = rng.pick(texts.openers) + " " + rng.pick(there.clues[type.id]) + "."
+		return {"kind": "not_seen", "type": type.id, "i": rng.index(type.not_seen)}
+	var recipe := {"kind": "trail", "type": type.id, "city": there.id,
+		"opener": rng.index(texts.openers), "clue": rng.index(there.clues[type.id]), "trait": ""}
 	var clue_traits := pack.traits.filter(func(t): return t.has("clues"))
 	var start := rng.roll(clue_traits.size() - 1)
 	var c := start
@@ -188,12 +214,34 @@ func _statement(type: Dictionary, there: Dictionary) -> String:
 		var trait_def: Dictionary = clue_traits[c]
 		if rng.roll(255) <= int(type.clue_chance.get(trait_def.id, 0)):
 			var phrases: Array = trait_def.clues.get(suspect.traits[trait_def.id], [])
-			text += " " + (rng.pick(phrases) if not phrases.is_empty() else texts.nothing_more) + "."
+			recipe.trait = trait_def.id
+			recipe.trait_i = rng.index(phrases) if not phrases.is_empty() else -1
 			break
 		c = (c + 1) % clue_traits.size()
 		if c == start:
 			break
-	return pack.with_pronouns(text, sex)
+	return recipe
+
+
+## Monta o texto de uma receita no idioma atual do pacote.
+func _render(recipe: Dictionary) -> String:
+	var texts := pack.texts
+	var text: String
+	match recipe.kind:
+		"final":
+			text = texts.final_warnings[recipe.i]
+		"not_seen":
+			text = pack.location_type(recipe.type).not_seen[recipe.i]
+		_:
+			text = texts.openers[recipe.opener] + " " + pack.city(recipe.city).clues[recipe.type][recipe.clue] + "."
+			if recipe.trait != "":
+				var nothing: String = texts.nothing_more
+				if recipe.trait_i >= 0:
+					for t in pack.traits:
+						if t.id == recipe.trait:
+							nothing = t.clues[suspect.traits[t.id]][recipe.trait_i]
+				text += " " + nothing + "."
+	return pack.with_pronouns(text, suspect.traits[pack.rules.sex_trait])
 
 
 func _resolve_capture() -> void:

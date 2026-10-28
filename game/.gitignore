@@ -1,3 +1,6 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Gerados pelo importador a partir de i18n/ui.csv
+*.translation

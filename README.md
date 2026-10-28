@@ -14,7 +14,7 @@ Estudo e recriação em Godot da mecânica de *Where in the World is Carmen Sand
 
 ## Jogo (Godot 4.7)
 
-O projeto fica em [`game/`](game). A mecânica está em `game/core`, sem nenhuma dependência de tela, e o conteúdo vem de pacotes JSON ([formato](docs/content-format.md)). A tela provisória em `game/ui/main.tscn` é só texto e botões, para jogar o núcleo com o pacote de teste.
+O projeto fica em [`game/`](game). A mecânica está em `game/core`, sem nenhuma dependência de tela, e o conteúdo vem de pacotes JSON ([formato](docs/content-format.md)). A tela provisória em `game/ui/main.tscn` é só texto e botões, para jogar o núcleo com o pacote de teste. O jogo está em português do Brasil e inglês: os textos do conteúdo ficam nos pacotes e os da tela em `game/i18n/ui.csv` (ver [idiomas](docs/content-format.md#idiomas)).
 
 Testes do núcleo:
 

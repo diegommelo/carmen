@@ -2,6 +2,27 @@
 
 O núcleo em Godot (`game/core`) não sabe nada de cidades ou suspeitos: tudo vem de um pacote de conteúdo, uma pasta com três arquivos JSON. O pacote de teste fica em [`game/content/placeholder`](../game/content/placeholder). A paródia será outro pacote, e o leitor dos `.DAT` originais vai gerar um terceiro, no mesmo formato.
 
+## Idiomas
+
+O pacote declara os idiomas em `pack.json`:
+
+```json
+"languages": ["pt_BR", "en"],
+"default_language": "pt_BR"
+```
+
+Qualquer texto pode ser uma string simples (igual em todos os idiomas, como "Paris") ou um objeto com uma entrada por idioma:
+
+```json
+"name": { "pt_BR": "Tóquio", "en": "Tokyo" }
+```
+
+Em listas, cada item é traduzido separadamente, para que as listas tenham o mesmo tamanho em todos os idiomas. Ao carregar o pacote (`ContentPack.load_dir(pasta, idioma)`) ou ao trocar de idioma (`set_language`), cada objeto desses vira a string do idioma escolhido. Um idioma que falta cai no padrão do pacote, e `"pt"` ou `"en_US"` são aceitos como `pt_BR` e `en`. `missing_translations()` lista os textos que não têm todos os idiomas, e os testes falham se a lista não estiver vazia.
+
+As falas das testemunhas são guardadas como índices nas listas e só viram texto na hora de mostrar (`CaseSession.place_text`). Por isso trocar de idioma no meio do caso traduz a fala sem sortear outra.
+
+Os textos da tela (botões, status, mensagens de fim de caso) não ficam no pacote. Eles estão em `game/i18n/ui.csv` e usam o sistema de traduções do Godot (`tr("CHAVE")`). Para um idioma novo, basta uma coluna nova no CSV e o código do idioma em `languages` no pacote.
+
 ## `pack.json`
 
 | Campo | O que é |
@@ -21,7 +42,7 @@ O núcleo em Godot (`game/core`) não sabe nada de cidades ou suspeitos: tudo ve
 
 ### Pronomes
 
-As frases podem usar `{chave}`, e a chave é trocada pela tabela `texts.pronouns[sexo]`. No pacote provisório: `{Ele}`, `{ele}` e `{dele}` viram "Ela", "ela" e "dela" quando o suspeito é mulher.
+As frases podem usar `{chave}`, e a chave é trocada pela tabela `texts.pronouns[sexo]` do idioma atual. A tabela inteira é traduzida, porque cada idioma tem seus próprios marcadores. No pacote provisório, em português `{Ele}`, `{ele}` e `{dele}` viram "Ela", "ela" e "dela" quando o suspeito é mulher, e em inglês `{He}`, `{he}` e `{his}` viram "She", "she" e "her".
 
 ## `suspects.json`
 

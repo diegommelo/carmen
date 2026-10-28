@@ -20,4 +20,9 @@ func roll(n: int) -> int:
 func pick(items: Array) -> Variant:
 	if items.is_empty():
 		return null
-	return items[roll(items.size() - 1)]
+	return items[index(items)]
+
+
+## Índice aleatório de um Array não vazio.
+func index(items: Array) -> int:
+	return roll(items.size() - 1)

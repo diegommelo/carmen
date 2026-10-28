@@ -2,7 +2,12 @@ class_name ContentPack
 extends RefCounted
 ## Pacote de conteúdo em JSON: regras, tipos de local, traços, suspeitos e cidades.
 ## O formato está descrito em docs/content-format.md.
+## Textos traduzidos são objetos {"pt_BR": "...", "en": "..."}. Ao carregar (ou ao
+## trocar de idioma), cada um deles vira a string do idioma escolhido.
 
+var languages: Array
+var default_language: String
+var locale: String
 var rules: Dictionary
 var texts: Dictionary
 var ranks: Array
@@ -14,23 +19,94 @@ var suspects: Array
 var cities: Array
 var _cities_by_id: Dictionary = {}
 var _types_by_id: Dictionary = {}
+var _suspects_by_id: Dictionary = {}
+## O JSON como foi lido, com os textos em todos os idiomas.
+var _raw: Dictionary
 
 
-static func load_dir(path: String) -> ContentPack:
+static func load_dir(path: String, language: String = "") -> ContentPack:
 	var p := ContentPack.new()
-	var pack: Dictionary = _read_json(path.path_join("pack.json"))
-	p.rules = pack.rules
-	p.texts = pack.texts
-	p.ranks = pack.ranks
-	p.location_types = pack.location_types
-	p.traits = pack.traits
-	p.suspects = _read_json(path.path_join("suspects.json")).suspects
-	p.cities = _read_json(path.path_join("cities.json")).cities
-	for c in p.cities:
-		p._cities_by_id[c.id] = c
-	for t in p.location_types:
-		p._types_by_id[t.id] = t
+	p._raw = _read_json(path.path_join("pack.json"))
+	p._raw.suspects = _read_json(path.path_join("suspects.json")).suspects
+	p._raw.cities = _read_json(path.path_join("cities.json")).cities
+	p.languages = p._raw.get("languages", [])
+	p.default_language = p._raw.get("default_language", p.languages[0] if not p.languages.is_empty() else "")
+	p.set_language(language)
 	return p
+
+
+## Escolhe o idioma dos textos. Idioma desconhecido cai no padrão do pacote;
+## "pt" também serve para "pt_BR".
+func set_language(language: String) -> void:
+	locale = best_language(language)
+	var data: Dictionary = _localize(_raw)
+	rules = data.rules
+	texts = data.texts
+	ranks = data.ranks
+	location_types = data.location_types
+	traits = data.traits
+	suspects = data.suspects
+	cities = data.cities
+	_cities_by_id.clear()
+	_types_by_id.clear()
+	_suspects_by_id.clear()
+	for c in cities:
+		_cities_by_id[c.id] = c
+	for t in location_types:
+		_types_by_id[t.id] = t
+	for s in suspects:
+		_suspects_by_id[s.id] = s
+
+
+func best_language(language: String) -> String:
+	if language in languages:
+		return language
+	for l in languages:
+		if language != "" and (l.begins_with(language) or language.begins_with(l.get_slice("_", 0))):
+			return l
+	return default_language
+
+
+## Lista os textos sem tradução em algum idioma (caminho no JSON).
+func missing_translations() -> Array:
+	var out := []
+	_find_missing(_raw, "", out)
+	return out
+
+
+func _is_localized(value) -> bool:
+	if typeof(value) != TYPE_DICTIONARY or value.is_empty():
+		return false
+	for k in value:
+		if not (k in languages):
+			return false
+	return true
+
+
+func _localize(value):
+	if _is_localized(value):
+		return value.get(locale, value.get(default_language, value.values()[0]))
+	if typeof(value) == TYPE_DICTIONARY:
+		var out := {}
+		for k in value:
+			out[k] = _localize(value[k])
+		return out
+	if typeof(value) == TYPE_ARRAY:
+		return value.map(func(v): return _localize(v))
+	return value
+
+
+func _find_missing(value, path: String, out: Array) -> void:
+	if _is_localized(value):
+		for l in languages:
+			if not value.has(l):
+				out.append("%s [%s]" % [path, l])
+	elif typeof(value) == TYPE_DICTIONARY:
+		for k in value:
+			_find_missing(value[k], path + "/" + str(k), out)
+	elif typeof(value) == TYPE_ARRAY:
+		for i in value.size():
+			_find_missing(value[i], path + "/" + str(i), out)
 
 
 static func _read_json(file: String) -> Dictionary:
@@ -51,6 +127,10 @@ func city(id: String) -> Dictionary:
 
 func location_type(id: String) -> Dictionary:
 	return _types_by_id[id]
+
+
+func suspect(id: String) -> Dictionary:
+	return _suspects_by_id[id]
 
 
 func city_ids() -> Array:
