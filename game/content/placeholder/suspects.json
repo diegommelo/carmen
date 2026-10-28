@@ -1,0 +1,124 @@
+{
+ "suspects": [
+  {
+   "id": "chefona",
+   "name": {
+    "pt_BR": "A Chefona",
+    "en": "The Boss"
+   },
+   "boss": true,
+   "traits": {
+    "sexo": "f",
+    "hobby": "tenis",
+    "cabelo": "ruivo",
+    "marca": "joias",
+    "veiculo": "conversivel",
+    "comida": "mexicana"
+   },
+   "dossier": {
+    "pt_BR": "Líder da quadrilha. Nunca aparece sem um colar de rubis.",
+    "en": "Leader of the gang. Never seen without a ruby necklace."
+   }
+  },
+  {
+   "id": "dedo_leve",
+   "name": {
+    "pt_BR": "Dedo Leve",
+    "en": "Light Fingers"
+   },
+   "boss": false,
+   "traits": {
+    "sexo": "m",
+    "hobby": "alpinismo",
+    "cabelo": "preto",
+    "marca": "tatuagem",
+    "veiculo": "moto",
+    "comida": "frutos_do_mar"
+   },
+   "dossier": {
+    "pt_BR": "Ex-alpinista. Tem uma águia tatuada no braço.",
+    "en": "Former mountain climber. Has an eagle tattooed on his arm."
+   }
+  },
+  {
+   "id": "madame_x",
+   "name": {
+    "pt_BR": "Madame X",
+    "en": "Madame X"
+   },
+   "boss": false,
+   "traits": {
+    "sexo": "f",
+    "hobby": "alpinismo",
+    "cabelo": "castanho",
+    "marca": "joias",
+    "veiculo": "limusine",
+    "comida": "mexicana"
+   },
+   "dossier": {
+    "pt_BR": "Colecionadora de joias e de passaportes falsos.",
+    "en": "Collects jewels and fake passports."
+   }
+  },
+  {
+   "id": "doutor_z",
+   "name": {
+    "pt_BR": "Doutor Z",
+    "en": "Doctor Z"
+   },
+   "boss": false,
+   "traits": {
+    "sexo": "m",
+    "hobby": "tenis",
+    "cabelo": "loiro",
+    "marca": "anel",
+    "veiculo": "conversivel",
+    "comida": "mexicana"
+   },
+   "dossier": {
+    "pt_BR": "Ex-tenista profissional. Usa um anel do tamanho de uma noz.",
+    "en": "Former tennis pro. Wears a ring the size of a walnut."
+   }
+  },
+  {
+   "id": "baronesa",
+   "name": {
+    "pt_BR": "Baronesa",
+    "en": "The Baroness"
+   },
+   "boss": false,
+   "traits": {
+    "sexo": "f",
+    "hobby": "surfe",
+    "cabelo": "loiro",
+    "marca": "tatuagem",
+    "veiculo": "moto",
+    "comida": "frutos_do_mar"
+   },
+   "dossier": {
+    "pt_BR": "Surfista que vive de cidade em cidade.",
+    "en": "A surfer who drifts from city to city."
+   }
+  },
+  {
+   "id": "sombra",
+   "name": {
+    "pt_BR": "Sombra",
+    "en": "Shadow"
+   },
+   "boss": false,
+   "traits": {
+    "sexo": "m",
+    "hobby": "surfe",
+    "cabelo": "ruivo",
+    "marca": "anel",
+    "veiculo": "limusine",
+    "comida": "frutos_do_mar"
+   },
+   "dossier": {
+    "pt_BR": "Mestre dos disfarces. Só anda de limusine.",
+    "en": "Master of disguise. Only travels by limousine."
+   }
+  }
+ ]
+}
