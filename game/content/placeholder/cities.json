@@ -1,0 +1,520 @@
+{
+ "cities": [
+  {
+   "id": "brasilia",
+   "name": "Brasília",
+   "map": {
+    "x": 106,
+    "y": 70
+   },
+   "description": [
+    "A capital do Brasil foi planejada em forma de avião e inaugurada em 1960."
+   ],
+   "treasures": [
+    "a maquete original do Plano Piloto",
+    "o relógio do Congresso"
+   ],
+   "locations": [
+    "banco",
+    "hotel",
+    "aeroporto",
+    "biblioteca",
+    "mercado",
+    "embaixada"
+   ],
+   "clues": {
+    "banco": [
+     "{ele} trocou dinheiro por reais"
+    ],
+    "hotel": [
+     "{ele} pediu um mapa do Eixo Monumental"
+    ],
+    "aeroporto": [
+     "{ele} embarcou num avião com bandeira verde e amarela"
+    ],
+    "biblioteca": [
+     "{ele} pesquisava a obra de Oscar Niemeyer"
+    ],
+    "mercado": [
+     "{ele} queria provar pão de queijo"
+    ],
+    "embaixada": [
+     "{ele} queria visitar o Palácio do Planalto"
+    ]
+   }
+  },
+  {
+   "id": "sao_paulo",
+   "name": "São Paulo",
+   "map": {
+    "x": 107,
+    "y": 79
+   },
+   "description": [
+    "A maior cidade da América do Sul, famosa pela Avenida Paulista."
+   ],
+   "treasures": [
+    "o pincel de um grande muralista",
+    "a primeira bola de um clube famoso"
+   ],
+   "locations": [
+    "banco",
+    "hotel",
+    "aeroporto",
+    "biblioteca",
+    "mercado",
+    "embaixada"
+   ],
+   "clues": {
+    "banco": [
+     "{ele} trocou dinheiro por reais"
+    ],
+    "hotel": [
+     "{ele} perguntou como chegar à Avenida Paulista"
+    ],
+    "aeroporto": [
+     "{ele} queria um voo para a maior cidade do Brasil"
+    ],
+    "biblioteca": [
+     "{ele} lia sobre a Semana de Arte Moderna de 1922"
+    ],
+    "mercado": [
+     "{ele} queria comer um sanduíche de mortadela no Mercadão"
+    ],
+    "embaixada": [
+     "{ele} falava em português com sotaque paulistano"
+    ]
+   }
+  },
+  {
+   "id": "buenos_aires",
+   "name": "Buenos Aires",
+   "map": {
+    "x": 99,
+    "y": 86
+   },
+   "description": [
+    "A capital argentina é conhecida pelo tango e pela Casa Rosada."
+   ],
+   "treasures": [
+    "o bandoneón de um mestre do tango",
+    "a pena de um poeta portenho"
+   ],
+   "locations": [
+    "banco",
+    "hotel",
+    "aeroporto",
+    "biblioteca",
+    "mercado",
+    "embaixada"
+   ],
+   "clues": {
+    "banco": [
+     "{ele} trocou dinheiro por pesos argentinos"
+    ],
+    "hotel": [
+     "{ele} queria aulas de tango"
+    ],
+    "aeroporto": [
+     "{ele} embarcou num avião com bandeira azul-celeste e branca"
+    ],
+    "biblioteca": [
+     "{ele} procurava livros de Jorge Luis Borges"
+    ],
+    "mercado": [
+     "{ele} perguntou onde comer um bom bife de chorizo"
+    ],
+    "embaixada": [
+     "{ele} queria conhecer a Casa Rosada"
+    ]
+   }
+  },
+  {
+   "id": "lisboa",
+   "name": "Lisboa",
+   "map": {
+    "x": 142,
+    "y": 30
+   },
+   "description": [
+    "A capital portuguesa se espalha por sete colinas à beira do Tejo."
+   ],
+   "treasures": [
+    "um azulejo do século XVI",
+    "a guitarra de uma fadista"
+   ],
+   "locations": [
+    "banco",
+    "hotel",
+    "aeroporto",
+    "biblioteca",
+    "mercado",
+    "embaixada"
+   ],
+   "clues": {
+    "banco": [
+     "{ele} trocou dinheiro por euros"
+    ],
+    "hotel": [
+     "{ele} quis andar no elétrico 28"
+    ],
+    "aeroporto": [
+     "{ele} embarcou num avião com bandeira verde e vermelha"
+    ],
+    "biblioteca": [
+     "{ele} estudava as viagens de Vasco da Gama"
+    ],
+    "mercado": [
+     "{ele} comprou pastéis de nata"
+    ],
+    "embaixada": [
+     "{ele} queria assistir a uma noite de fado"
+    ]
+   }
+  },
+  {
+   "id": "paris",
+   "name": "Paris",
+   "map": {
+    "x": 152,
+    "y": 24
+   },
+   "description": [
+    "A capital francesa, cortada pelo Sena, abriga a Torre Eiffel."
+   ],
+   "treasures": [
+    "um rascunho de Monet",
+    "a chave de uma catedral gótica"
+   ],
+   "locations": [
+    "banco",
+    "hotel",
+    "aeroporto",
+    "biblioteca",
+    "mercado",
+    "embaixada"
+   ],
+   "clues": {
+    "banco": [
+     "{ele} trocou dinheiro por euros"
+    ],
+    "hotel": [
+     "{ele} pediu um quarto com vista para a Torre Eiffel"
+    ],
+    "aeroporto": [
+     "{ele} embarcou num avião com bandeira azul, branca e vermelha"
+    ],
+    "biblioteca": [
+     "{ele} procurava livros sobre o Louvre"
+    ],
+    "mercado": [
+     "{ele} comprou croissants e queijo brie"
+    ],
+    "embaixada": [
+     "{ele} treinava frases em francês"
+    ]
+   }
+  },
+  {
+   "id": "roma",
+   "name": "Roma",
+   "map": {
+    "x": 159,
+    "y": 33
+   },
+   "description": [
+    "A Cidade Eterna guarda o Coliseu e o Fórum Romano."
+   ],
+   "treasures": [
+    "uma moeda do Império Romano",
+    "um mosaico do Fórum"
+   ],
+   "locations": [
+    "banco",
+    "hotel",
+    "aeroporto",
+    "biblioteca",
+    "mercado",
+    "embaixada"
+   ],
+   "clues": {
+    "banco": [
+     "{ele} trocou dinheiro por euros"
+    ],
+    "hotel": [
+     "{ele} queria jogar uma moeda na Fontana di Trevi"
+    ],
+    "aeroporto": [
+     "{ele} embarcou num avião com bandeira verde, branca e vermelha"
+    ],
+    "biblioteca": [
+     "{ele} lia sobre Júlio César"
+    ],
+    "mercado": [
+     "{ele} pediu uma pizza de verdade"
+    ],
+    "embaixada": [
+     "{ele} perguntou como visitar o Vaticano"
+    ]
+   }
+  },
+  {
+   "id": "cairo",
+   "name": "Cairo",
+   "map": {
+    "x": 175,
+    "y": 41
+   },
+   "description": [
+    "A capital do Egito fica às margens do Nilo, perto das pirâmides de Gizé."
+   ],
+   "treasures": [
+    "um escaravelho de ouro",
+    "um papiro antigo"
+   ],
+   "locations": [
+    "banco",
+    "hotel",
+    "aeroporto",
+    "biblioteca",
+    "mercado",
+    "embaixada"
+   ],
+   "clues": {
+    "banco": [
+     "{ele} trocou dinheiro por libras egípcias"
+    ],
+    "hotel": [
+     "{ele} queria um passeio de camelo até as pirâmides"
+    ],
+    "aeroporto": [
+     "{ele} embarcou num avião com bandeira vermelha, branca e preta"
+    ],
+    "biblioteca": [
+     "{ele} pesquisava hieróglifos"
+    ],
+    "mercado": [
+     "{ele} comprou especiarias no bazar"
+    ],
+    "embaixada": [
+     "{ele} queria navegar pelo Nilo"
+    ]
+   }
+  },
+  {
+   "id": "nova_york",
+   "name": "Nova York",
+   "map": {
+    "x": 84,
+    "y": 32
+   },
+   "description": [
+    "A maior cidade dos Estados Unidos é famosa pela Estátua da Liberdade."
+   ],
+   "treasures": [
+    "a tocha de uma maquete da Estátua da Liberdade",
+    "um disco de jazz raro"
+   ],
+   "locations": [
+    "banco",
+    "hotel",
+    "aeroporto",
+    "biblioteca",
+    "mercado",
+    "embaixada"
+   ],
+   "clues": {
+    "banco": [
+     "{ele} trocou dinheiro por dólares"
+    ],
+    "hotel": [
+     "{ele} pediu ingressos para a Broadway"
+    ],
+    "aeroporto": [
+     "{ele} embarcou num avião com listras e estrelas"
+    ],
+    "biblioteca": [
+     "{ele} lia sobre a construção do Empire State"
+    ],
+    "mercado": [
+     "{ele} comeu um cachorro-quente na rua"
+    ],
+    "embaixada": [
+     "{ele} perguntou onde fica a sede da ONU"
+    ]
+   }
+  },
+  {
+   "id": "cidade_do_mexico",
+   "name": "Cidade do México",
+   "map": {
+    "x": 62,
+    "y": 48
+   },
+   "description": [
+    "A capital mexicana foi construída sobre a antiga Tenochtitlán."
+   ],
+   "treasures": [
+    "uma máscara asteca",
+    "um quadro de Frida Kahlo"
+   ],
+   "locations": [
+    "banco",
+    "hotel",
+    "aeroporto",
+    "biblioteca",
+    "mercado",
+    "embaixada"
+   ],
+   "clues": {
+    "banco": [
+     "{ele} trocou dinheiro por pesos mexicanos"
+    ],
+    "hotel": [
+     "{ele} queria ouvir mariachis"
+    ],
+    "aeroporto": [
+     "{ele} embarcou num avião com uma águia na bandeira"
+    ],
+    "biblioteca": [
+     "{ele} estudava a história dos astecas"
+    ],
+    "mercado": [
+     "{ele} provou tacos de todos os tipos"
+    ],
+    "embaixada": [
+     "{ele} queria ver as pirâmides de Teotihuacán"
+    ]
+   }
+  },
+  {
+   "id": "toquio",
+   "name": "Tóquio",
+   "map": {
+    "x": 266,
+    "y": 36
+   },
+   "description": [
+    "A capital do Japão mistura templos antigos e arranha-céus."
+   ],
+   "treasures": [
+    "uma espada de samurai",
+    "um leque de seda imperial"
+   ],
+   "locations": [
+    "banco",
+    "hotel",
+    "aeroporto",
+    "biblioteca",
+    "mercado",
+    "embaixada"
+   ],
+   "clues": {
+    "banco": [
+     "{ele} trocou dinheiro por ienes"
+    ],
+    "hotel": [
+     "{ele} queria dormir num hotel-cápsula"
+    ],
+    "aeroporto": [
+     "{ele} embarcou num avião com um círculo vermelho na bandeira"
+    ],
+    "biblioteca": [
+     "{ele} lia haicais"
+    ],
+    "mercado": [
+     "{ele} comeu sushi no mercado de peixe"
+    ],
+    "embaixada": [
+     "{ele} queria ver o Monte Fuji"
+    ]
+   }
+  },
+  {
+   "id": "moscou",
+   "name": "Moscou",
+   "map": {
+    "x": 177,
+    "y": 17
+   },
+   "description": [
+    "A capital russa tem a Praça Vermelha e o Kremlin."
+   ],
+   "treasures": [
+    "um ovo Fabergé",
+    "a coroa de um czar"
+   ],
+   "locations": [
+    "banco",
+    "hotel",
+    "aeroporto",
+    "biblioteca",
+    "mercado",
+    "embaixada"
+   ],
+   "clues": {
+    "banco": [
+     "{ele} trocou dinheiro por rublos"
+    ],
+    "hotel": [
+     "{ele} pediu um casaco bem quente"
+    ],
+    "aeroporto": [
+     "{ele} embarcou num avião com bandeira branca, azul e vermelha"
+    ],
+    "biblioteca": [
+     "{ele} lia Tolstói no original"
+    ],
+    "mercado": [
+     "{ele} comprou matrioscas"
+    ],
+    "embaixada": [
+     "{ele} queria visitar o Kremlin"
+    ]
+   }
+  },
+  {
+   "id": "sydney",
+   "name": "Sydney",
+   "map": {
+    "x": 274,
+    "y": 91
+   },
+   "description": [
+    "A maior cidade da Austrália é famosa pela Ópera à beira da baía."
+   ],
+   "treasures": [
+    "um bumerangue cerimonial",
+    "a batuta do primeiro maestro da Ópera"
+   ],
+   "locations": [
+    "banco",
+    "hotel",
+    "aeroporto",
+    "biblioteca",
+    "mercado",
+    "embaixada"
+   ],
+   "clues": {
+    "banco": [
+     "{ele} trocou dinheiro por dólares australianos"
+    ],
+    "hotel": [
+     "{ele} queria ver cangurus"
+    ],
+    "aeroporto": [
+     "{ele} embarcou num avião com o Cruzeiro do Sul na bandeira"
+    ],
+    "biblioteca": [
+     "{ele} pesquisava a arquitetura da Ópera de Sydney"
+    ],
+    "mercado": [
+     "{ele} comprou carne para um churrasco na praia"
+    ],
+    "embaixada": [
+     "{ele} queria surfar em Bondi"
+    ]
+   }
+  }
+ ]
+}
