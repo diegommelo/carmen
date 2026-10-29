@@ -62,7 +62,6 @@ Casos resolvidos: %d"
 RANK_NO_CAREER,No career yet.,Nenhuma carreira ainda.
 HQ_TITLE,Federal Police HQ,Sede da PF
 SCENE_ART,art: %s,arte: %s
-CASE_BAR,Case: %s,Caso: %s
 DEADLINE_SHORT,Deadline: %s,Prazo: %s
 NOTES_WARRANT,Warrant: %s,Mandado: %s
 NOTES_TRAITS,Traits: %s,Traços: %s

@@ -124,7 +124,7 @@ func _on_verb(index: int) -> void:
 
 func _ask_name() -> void:
 	session = null
-	set_case("", "", "", 1.0)
+	set_case("", "", 1.0)
 	set_header(tr("HQ_TITLE"))
 	show_scene(tr("HQ_TITLE"), tr("SCENE_ART") % "hq", Palette.PANEL)
 	set_notes("")
@@ -210,8 +210,7 @@ func _refresh_status() -> void:
 	set_header("%s · %s" % [pack.city(session.current_city).name, _when(c.day, c.hour)])
 	var budget := tr("STATUS_BUDGET") % _money(session.budget) if session.budget >= 0 else ""
 	var deadline: Dictionary = session.difficulty.deadline
-	set_case(tr("CASE_BAR") % session.treasure(), budget,
-		tr("DEADLINE_SHORT") % _when(deadline.day, deadline.hour), _time_left())
+	set_case(budget, tr("DEADLINE_SHORT") % _when(deadline.day, deadline.hour), _time_left())
 	var warrant := tr("WARRANT_NONE")
 	if session.warrant_id != "":
 		warrant = pack.suspect(session.warrant_id).name
@@ -219,8 +218,8 @@ func _refresh_status() -> void:
 	var marked := []
 	for t in pack.warrant_traits():
 		if _marks.has(t.id):
-			marked.append("%s: %s" % [t.name, t.values[_marks[t.id]]])
-	notes += "\n" + (tr("NOTES_TRAITS") % ", ".join(marked) if not marked.is_empty() else tr("NOTES_NONE"))
+			marked.append(t.values[_marks[t.id]])
+	notes += "\n" + (tr("NOTES_TRAITS") % " · ".join(marked) if not marked.is_empty() else tr("NOTES_NONE"))
 	set_notes(notes)
 
 
@@ -254,7 +253,9 @@ func _show_places() -> void:
 	var column := add_choice_column()
 	for i in session.places.size():
 		add_choice(column, pack.location_type(session.places[i].type).name, _on_investigate.bind(i))
-	add_choice(column, tr("BTN_BACK"), _show_city)
+	var bar := add_choice_bar()
+	add_spacer(bar)
+	add_choice(bar, tr("BTN_BACK"), _show_city)
 
 
 ## A testemunha aparece na cena e a fala dela ocupa o painel de texto.
@@ -309,7 +310,10 @@ func _show_destinations() -> void:
 		var b := add_choice(row, label, _fly.bind(map, row, id), session.can_afford(id))
 		b.mouse_entered.connect(map.highlight.bind(id))
 		b.focus_entered.connect(map.highlight.bind(id))
-	add_choice(row, tr("BTN_BACK"), hide_overlay)
+	var bar := HBoxContainer.new()
+	box.add_child(bar)
+	add_spacer(bar)
+	add_choice(bar, tr("BTN_BACK"), hide_overlay)
 	show_overlay(box)
 
 
@@ -404,10 +408,11 @@ func _show_dossier(index: int) -> void:
 	if not d.notes.is_empty():
 		say("%s: %s" % [tr("DOSSIER_NOTES"), " ".join(d.notes)])
 	clear_choices()
-	var row := add_choice_row()
-	add_choice(row, "<", _show_dossier.bind(_dossier_index - 1))
-	add_choice(row, ">", _show_dossier.bind(_dossier_index + 1))
-	add_choice(row, tr("BTN_BACK"), _show_city)
+	var bar := add_choice_bar()
+	add_choice(bar, "<", _show_dossier.bind(_dossier_index - 1))
+	add_choice(bar, ">", _show_dossier.bind(_dossier_index + 1))
+	add_spacer(bar)
+	add_choice(bar, tr("BTN_BACK"), _show_city)
 
 
 ## Desfecho: a cena mostra a prisão ou a fuga e o texto conta o resultado.

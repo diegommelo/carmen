@@ -24,7 +24,6 @@ const VERB_STEP := 102
 const OVERLAY := Rect2i(8, 52, 624, 240)
 
 var _menu: Dictionary = {}
-var _case_label: Label
 var _budget_label: Label
 var _deadline_label: Label
 var _deadline_bar: ProgressBar
@@ -83,11 +82,8 @@ func _build_case_bar() -> void:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 8)
 	_place(_panel(row), CASE_BAR)
-	_case_label = _label()
-	_case_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_case_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	row.add_child(_case_label)
 	_budget_label = _label()
+	_budget_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(_budget_label)
 	_deadline_label = _label()
 	row.add_child(_deadline_label)
@@ -136,6 +132,7 @@ func _build_text_panel() -> void:
 	_text = RichTextLabel.new()
 	_text.bbcode_enabled = true
 	_text.scroll_active = false
+	_text.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_text.gui_input.connect(_on_text_input)
 	box.add_child(_text)
@@ -151,7 +148,7 @@ func _build_notes() -> void:
 	_notes = _label()
 	_notes.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_notes.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_notes.max_lines_visible = 3
+	_notes.max_lines_visible = 4
 	_place(_panel(_notes), NOTES)
 
 
@@ -220,8 +217,7 @@ func set_verbs_enabled(enabled: bool) -> void:
 
 ## O nome do caso é o que encurta quando falta espaço. `remaining` vai de 1 (prazo
 ## inteiro) a 0 (prazo esgotado); sem prazo, a barra some.
-func set_case(case_text: String, budget_text: String, deadline_text: String, remaining: float) -> void:
-	_case_label.text = case_text
+func set_case(budget_text: String, deadline_text: String, remaining: float) -> void:
 	_budget_label.text = budget_text
 	_deadline_label.text = deadline_text
 	_deadline_bar.visible = deadline_text != ""
@@ -414,6 +410,21 @@ func add_choice(row: Container, text: String, action: Callable, enabled: bool = 
 	b.pressed.connect(action)
 	row.add_child(b)
 	return b
+
+
+## Linha de botões que não quebra; com add_spacer, separa ações de lados opostos.
+func add_choice_bar() -> HBoxContainer:
+	var bar := HBoxContainer.new()
+	bar.add_theme_constant_override("separation", 3)
+	_choices.add_child(bar)
+	return bar
+
+
+## Espaço flexível: o que vier depois dele na linha fica encostado à direita.
+static func add_spacer(row: Container) -> void:
+	var gap := Control.new()
+	gap.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(gap)
 
 
 func add_choice_control(control: Control) -> void:

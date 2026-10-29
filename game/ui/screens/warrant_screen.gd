@@ -46,11 +46,16 @@ func setup(title: String, traits: Array, marks: Dictionary, unknown_text: String
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 4)
 	add_child(row)
-	for pair in [[issue_text, issue_pressed], [back_text, back_pressed]]:
-		var b := Button.new()
-		b.text = pair[0]
-		b.pressed.connect(pair[1].emit)
-		row.add_child(b)
+	row.add_child(_button(issue_text, issue_pressed))
+	GameFrame.add_spacer(row)
+	row.add_child(_button(back_text, back_pressed))
+
+
+func _button(text: String, pressed: Signal) -> Button:
+	var b := Button.new()
+	b.text = text
+	b.pressed.connect(pressed.emit)
+	return b
 
 
 func set_count_text(text: String) -> void:
