@@ -215,6 +215,14 @@ func rank_rules(rank: int) -> Dictionary:
 	}
 
 
+## Casos que faltam para a próxima patente; 0 na última.
+func cases_to_next_rank(cases: int) -> int:
+	var rank := rank_for_cases(cases)
+	if rank + 1 >= ranks.size():
+		return 0
+	return int(ranks[rank + 1].cases) - cases
+
+
 func rank_for_cases(cases: int) -> int:
 	var r := 0
 	for i in ranks.size():
