@@ -2,7 +2,7 @@
 
 Estudo e recriação em Godot da mecânica de *Where in the World is Carmen Sandiego?* (DOS, 1990), com dois objetivos:
 
-1. Um jogo paródia, *Where in the World is Bolsonaro Family*, em que o jogador é um agente da PF.
+1. Um jogo paródia, *Where in the World Are the Bolsonaros?*, em que o jogador é um agente da PF.
 2. Estudar a mecânica do original e aprender Godot. Uma recriação fiel do jogo original, que leia os arquivos de dados de quem tem o jogo, fica para um projeto separado.
 
 ## Plano

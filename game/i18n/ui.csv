@@ -51,8 +51,8 @@ KEY_HINT,key %d,tecla %d
 MENU_RANK,Rank,Patente
 MENU_LANGUAGE,Language,Idioma
 MENU_ABOUT,About,Sobre
-ABOUT_TEXT,"Where in the World is Bolsonaro Family: a parody of the detective games of the 90s, made in Godot.
-Font: Press Start 2P (SIL Open Font License).","Where in the World is Bolsonaro Family: uma paródia dos jogos de detetive dos anos 90, feita em Godot.
+ABOUT_TEXT,"Where in the World Are the Bolsonaros? is a parody of the detective games of the 90s, made in Godot.
+Font: Press Start 2P (SIL Open Font License).","Where in the World Are the Bolsonaros? é uma paródia dos jogos de detetive dos anos 90, feita em Godot.
 Fonte: Press Start 2P (SIL Open Font License)."
 RANK_INFO,"Agent %s
 Rank: %s
