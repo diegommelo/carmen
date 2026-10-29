@@ -10,11 +10,9 @@ DAY_3,Thursday,quinta
 DAY_4,Friday,sexta
 DAY_5,Saturday,sábado
 DAY_6,Sunday,domingo
-STATUS,"%s (%s) · %s, %s · Warrant: %s","%s (%s) · %s, %s · Mandado: %s"
 WARRANT_NONE,none,nenhum
 DEFAULT_AGENT,Agent,Agente
 BTN_TRAVEL,Travel,Viajar
-BTN_COMPUTER,Computer,Computador
 BTN_BACK,Back,Voltar
 BTN_DOSSIERS,Dossiers,Dossiês
 BTN_ISSUE_WARRANT,Issue warrant,Emitir mandado
@@ -47,3 +45,25 @@ BTN_START,Start,Começar
 NEXT_RANK,%d more cases until your promotion to %s.,Faltam %d casos para a promoção a %s.
 NEXT_RANK_ONE,One more case until your promotion to %s.,Falta 1 caso para a promoção a %s.
 CONFIRM_NEW_CAREER,Start a new career? The current one will be lost.,Começar uma nova carreira? A atual será perdida.
+BTN_INVESTIGATE,Investigate,Investigar
+BTN_WARRANT,Warrant,Mandado
+KEY_HINT,key %d,tecla %d
+MENU_RANK,Rank,Patente
+MENU_LANGUAGE,Language,Idioma
+MENU_ABOUT,About,Sobre
+ABOUT_TEXT,"Where in the World is Bolsonaro Family: a parody of the detective games of the 90s, made in Godot.
+Fonts: VT323 and Tiny5 (SIL Open Font License).","Where in the World is Bolsonaro Family: uma paródia dos jogos de detetive dos anos 90, feita em Godot.
+Fontes: VT323 e Tiny5 (SIL Open Font License)."
+RANK_INFO,"Agent %s
+Rank: %s
+Cases solved: %d","Agente %s
+Patente: %s
+Casos resolvidos: %d"
+RANK_NO_CAREER,No career yet.,Nenhuma carreira ainda.
+HQ_TITLE,Federal Police HQ,Sede da PF
+SCENE_ART,art: %s,arte: %s
+CASE_BAR,Case: %s · %s,Caso: %s · %s
+DEADLINE_SHORT,Deadline: %s,Prazo: %s
+NOTES_WARRANT,Warrant: %s,Mandado: %s
+NOTES_TRAITS,Traits: %s,Traços: %s
+NOTES_NONE,No traits noted yet.,Nenhum traço anotado ainda.
