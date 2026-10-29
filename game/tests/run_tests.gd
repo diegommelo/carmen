@@ -309,6 +309,9 @@ func _test_pack_consistency(pack: ContentPack, where: String) -> void:
 			here[int(pack.location_type(type_id).group)] = true
 		check(here.size() == groups.size(), "%s: %s sem local de algum grupo" % [where, c.id])
 		check(not c.description.is_empty() and not c.treasures.is_empty(), "%s: %s sem descrição ou tesouro" % [where, c.id])
+		for region in c.get("regions", []):
+			var others := pack.cities.filter(func(o): return o.id != c.id and region in o.get("regions", []))
+			check(not others.is_empty(), "%s: região %s só tem %s" % [where, region, c.id])
 		for list in c.clues:
 			check(list == CaseSession.ANY_CLUES or pack._types_by_id.has(list), "%s: %s tem pistas de tipo desconhecido %s" % [where, c.id, list])
 
@@ -339,6 +342,8 @@ func _test_parody() -> void:
 	var low := pack.rank_rules(0)
 	check(top.trait_clues < low.trait_clues and top.shortcut_chance > low.shortcut_chance, "paródia: patente alta dá menos pistas e mais atalho")
 	_test_money(pack)
+	_test_shortcut_min_flights(pack)
+	_test_lookalike(pack)
 
 
 ## Sem nada na patente, valem as regras do original: rota de patente + 4, prazo do relógio.
@@ -386,6 +391,34 @@ func _test_shortcut(pack: ContentPack) -> void:
 					caught = true
 					break
 			check(caught and s.outcome == CaseSession.ARRESTED, "o atalho leva ao esconderijo de verdade")
+
+
+## Na paródia, o primeiro voo da rota nunca encurta, mesmo com o mandado certo.
+func _test_shortcut_min_flights(pack: ContentPack) -> void:
+	var s := CaseSession.new(pack, 8)
+	s.start({"name": "Teste", "cases": 9, "rank": 4})
+	s.difficulty.shortcut_chance = 1.0
+	var marks := {}
+	for t in pack.warrant_traits():
+		marks[t.id] = s.suspect.traits[t.id]
+	s.compute_warrant(marks)
+	check(not s.travel(s.next_city).shortcut and not s.is_final_city(), "paródia: sem atalho no primeiro voo")
+	check(s.travel(s.next_city).shortcut and s.is_final_city(), "paródia: atalho a partir do segundo voo")
+
+
+## Com `similar_destinations` 1, todo voo certo da rota tem ao lado uma cidade parecida.
+func _test_lookalike(pack: ContentPack) -> void:
+	for seed in range(1, 60):
+		var s := CaseSession.new(pack, seed)
+		s.start({"name": "Teste", "cases": 6, "rank": 3})
+		check(s.difficulty.similar_destinations == 1.0, "paródia: delegado sempre tem destino parecido")
+		while not s.is_final_city() and s.outcome == CaseSession.ONGOING:
+			var regions: Array = pack.city(s.next_city).regions
+			var lookalike := s.destinations().any(func(id): return id != s.next_city and pack.city(id).regions.any(func(r): return r in regions))
+			check(lookalike, "paródia: voo parecido com %s em %s (semente %d)" % [s.next_city, s.current_city, seed])
+			for id in s.destinations():
+				check(s.current_city in s.graph.neighbors(id), "o mapa continua de mão dupla")
+			s.travel(s.next_city)
 
 
 ## O fator de pistas da patente multiplica a chance de a testemunha falar de um traço.

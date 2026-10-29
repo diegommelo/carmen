@@ -4,6 +4,11 @@
   "x": 77,
   "y": 42
  },
+ "regions": [
+  "usa",
+  "beach",
+  "tax_haven"
+ ],
  "description": [
   {
    "pt_BR": "Praias de areia branca, prédios art déco e mais brasileiro por metro quadrado do que em muita capital. Em Miami, todo mundo tem um primo que vende imóvel e um tio que fugiu de alguma coisa.",

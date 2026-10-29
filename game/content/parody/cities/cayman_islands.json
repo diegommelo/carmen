@@ -7,6 +7,10 @@
   "x": 76,
   "y": 46
  },
+ "regions": [
+  "tax_haven",
+  "beach"
+ ],
  "description": [
   {
    "pt_BR": "Água azul-turquesa, arraias mansas e mais empresas registradas do que habitantes. Nas Ilhas Cayman, uma salinha em George Town pode ser a sede de mil offshores.",

@@ -4,6 +4,10 @@
   "x": 99,
   "y": 86
  },
+ "regions": [
+  "latin_america",
+  "right_wing_ally"
+ ],
  "description": [
   {
    "pt_BR": "Avenidas largas, cafés antigos e tango em San Telmo. Na Casa Rosada mora um presidente de motosserra que sempre recebe os amigos brasileiros de braços abertos e costeletas grandes.",

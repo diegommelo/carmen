@@ -198,7 +198,8 @@ func henchmen() -> Array:
 
 
 ## Regras de dificuldade da patente `rank`, com os padrões do original para o que a
-## patente não define: {route_steps, trait_clues, deadline: {day, hour}, shortcut_chance, budget}.
+## patente não define: {route_steps, trait_clues, deadline: {day, hour}, shortcut_chance,
+## similar_destinations, budget}.
 ## `budget` é a verba do caso para passagens; -1 quando o pacote não usa dinheiro.
 func rank_rules(rank: int) -> Dictionary:
 	var r: Dictionary = ranks[clampi(rank, 0, ranks.size() - 1)]
@@ -209,6 +210,7 @@ func rank_rules(rank: int) -> Dictionary:
 		"trait_clues": float(r.get("trait_clues", 1.0)),
 		"deadline": {"day": int(deadline.get("day", clock.deadline_day)), "hour": int(deadline.get("hour", clock.deadline_hour))},
 		"shortcut_chance": float(r.get("shortcut_chance", 0.0)),
+		"similar_destinations": float(r.get("similar_destinations", 0.0)),
 		"budget": int(r.get("budget", -1)) if rules.has("money") else -1,
 	}
 

@@ -4,6 +4,10 @@
   "x": 88,
   "y": 54
  },
+ "regions": [
+  "latin_america",
+  "communist"
+ ],
  "description": [
   {
    "pt_BR": "Espremida num vale entre montanhas verdes, a cidade convive com apagões, inflação e retratos do presidente em toda parede. Por muito tempo, foi o destino que os grupos de WhatsApp garantiam que o Brasil ia ter.",

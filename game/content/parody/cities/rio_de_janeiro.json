@@ -4,6 +4,10 @@
   "x": 112,
   "y": 77
  },
+ "regions": [
+  "brazil",
+  "beach"
+ ],
  "description": [
   {
    "pt_BR": "Entre o Cristo Redentor e a Barra da Tijuca cabe toda a carreira política da família: gabinetes na Câmara Municipal e na Alerj, assessores que nunca apareceram e um condomínio de frente para o mar que entrou para o noticiário policial.",

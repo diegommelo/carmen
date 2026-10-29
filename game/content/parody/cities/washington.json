@@ -4,6 +4,10 @@
   "x": 82,
   "y": 31
  },
+ "regions": [
+  "usa",
+  "right_wing_ally"
+ ],
  "description": [
   {
    "pt_BR": "Avenidas largas, monumentos de mármore e lobistas por todo lado. Em Washington, um deputado brasileiro pode passar a semana pedindo sanções contra o próprio país, e ainda tirar foto na frente do Capitólio.",
