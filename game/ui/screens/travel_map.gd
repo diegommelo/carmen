@@ -61,20 +61,10 @@ func _at(map_pos: Vector2) -> Vector2:
 
 func _draw() -> void:
 	_taken.clear()
-	var k := _scale()
-	var origin := _at(Vector2.ZERO)
-	draw_rect(Rect2(origin, MAP_SIZE * k), Palette.INK)
-	for x in range(0, int(MAP_SIZE.x) + 1, 30):
-		draw_line(_at(Vector2(x, 0)), _at(Vector2(x, MAP_SIZE.y)), Palette.PANEL)
-	for y in range(0, int(MAP_SIZE.y) + 1, 25):
-		draw_line(_at(Vector2(0, y)), _at(Vector2(MAP_SIZE.x, y)), Palette.PANEL)
+	_draw_grid()
 	for id in _points:
 		_dot(id, Palette.PANEL_BORDER, 1)
-	for i in range(1, _route.size()):
-		draw_line(_at(_points[_route[i - 1]]), _at(_points[_route[i]]), Palette.TEXT_DIM)
-	for id in _destinations:
-		var color := Palette.HIGHLIGHT if id == _highlight else Palette.PANEL_BORDER
-		draw_line(_at(_points[_current]), _at(_points[id]), color)
+	_draw_routes()
 	for id in _destinations:
 		_dot(id, Palette.HIGHLIGHT if id == _highlight else Palette.TEXT, 2)
 		_name(id, Palette.HIGHLIGHT if id == _highlight else Palette.TEXT)
@@ -84,24 +74,42 @@ func _draw() -> void:
 		draw_rect(Rect2(_at(_plane) - Vector2(3, 3), Vector2(6, 6)), Palette.HIGHLIGHT)
 
 
+func _draw_grid() -> void:
+	draw_rect(Rect2(_at(Vector2.ZERO), MAP_SIZE * _scale()), Palette.INK)
+	for x in range(0, int(MAP_SIZE.x) + 1, 30):
+		draw_line(_at(Vector2(x, 0)), _at(Vector2(x, MAP_SIZE.y)), Palette.PANEL)
+	for y in range(0, int(MAP_SIZE.y) + 1, 25):
+		draw_line(_at(Vector2(0, y)), _at(Vector2(MAP_SIZE.x, y)), Palette.PANEL)
+
+
+## O caminho já feito em cinza e as rotas de saída, com a destacada em dourado.
+func _draw_routes() -> void:
+	for i in range(1, _route.size()):
+		draw_line(_at(_points[_route[i - 1]]), _at(_points[_route[i]]), Palette.TEXT_DIM)
+	for id in _destinations:
+		var color := Palette.HIGHLIGHT if id == _highlight else Palette.PANEL_BORDER
+		draw_line(_at(_points[_current]), _at(_points[id]), color)
+
+
 func _dot(id: String, color: Color, radius: int) -> void:
 	draw_rect(Rect2(_at(_points[id]) - Vector2(radius, radius), Vector2(radius, radius) * 2), color)
 
 
-## Nome ao lado do ponto: tenta à direita, acima, abaixo e à esquerda, e fica com a
-## primeira posição que não cobre outro nome nem sai do mapa.
 func _name(id: String, color: Color) -> void:
 	var font := get_theme_default_font()
 	var font_size := get_theme_default_font_size()
 	var text: String = _names[id]
-	var text_size := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
-	var dot := _at(_points[id])
+	var box := _free_spot(_at(_points[id]), font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size))
+	_taken.append(box)
+	draw_string(font, box.position + Vector2(0, font.get_ascent(font_size)), text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+
+
+## Lugar para um nome ao lado do ponto: tenta à direita, acima, abaixo e à esquerda, e fica
+## com a primeira posição que não cobre outro nome nem sai do mapa.
+func _free_spot(dot: Vector2, text_size: Vector2) -> Rect2:
 	var tries := [Vector2(6, -4), Vector2(6, -14), Vector2(6, 6), Vector2(-6 - text_size.x, -4)]
-	var box := Rect2(dot + tries[0], text_size)
 	for offset in tries:
 		var candidate := Rect2(dot + offset, text_size)
 		if Rect2(Vector2.ZERO, size).encloses(candidate) and not _taken.any(func(r): return r.intersects(candidate)):
-			box = candidate
-			break
-	_taken.append(box)
-	draw_string(font, box.position + Vector2(0, font.get_ascent(font_size)), text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+			return candidate
+	return Rect2(dot + tries[0], text_size)

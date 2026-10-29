@@ -199,6 +199,14 @@ func _label(color: Color = Palette.TEXT, align := HORIZONTAL_ALIGNMENT_LEFT) -> 
 	return label
 
 
+## Título dourado no topo das telas cheias (viagem, mandado).
+static func heading(text: String) -> Label:
+	var label := Label.new()
+	label.text = text
+	label.add_theme_color_override("font_color", Palette.HIGHLIGHT)
+	return label
+
+
 func set_menu_texts(texts: Dictionary) -> void:
 	for id in texts:
 		_menu[id].text = texts[id]

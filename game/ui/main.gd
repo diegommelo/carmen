@@ -211,16 +211,20 @@ func _refresh_status() -> void:
 	var budget := tr("STATUS_BUDGET") % _money(session.budget) if session.budget >= 0 else ""
 	var deadline: Dictionary = session.difficulty.deadline
 	set_case(budget, tr("DEADLINE_SHORT") % _when(deadline.day, deadline.hour), _time_left())
+	set_notes(_notes_text())
+
+
+## Faixa de notas: o mandado emitido e os valores dos traços marcados.
+func _notes_text() -> String:
 	var warrant := tr("WARRANT_NONE")
 	if session.warrant_id != "":
 		warrant = pack.suspect(session.warrant_id).name
-	var notes: String = tr("NOTES_WARRANT") % warrant
 	var marked := []
 	for t in pack.warrant_traits():
 		if _marks.has(t.id):
 			marked.append(t.values[_marks[t.id]])
-	notes += "\n" + (tr("NOTES_TRAITS") % " · ".join(marked) if not marked.is_empty() else tr("NOTES_NONE"))
-	set_notes(notes)
+	var traits: String = tr("NOTES_TRAITS") % " · ".join(marked) if not marked.is_empty() else tr("NOTES_NONE")
+	return tr("NOTES_WARRANT") % warrant + "\n" + traits
 
 
 ## Fração do prazo que ainda resta: 1 no início do caso, 0 no fim.
@@ -267,13 +271,7 @@ func _on_investigate(slot: int) -> void:
 	var type := pack.location_type(type_id)
 	show_scene(r.witness, tr("SCENE_ART") % ("witnesses/" + type_id), _tint(type_id))
 	clear_text()
-	match r.event:
-		"capture":
-			say(tr("FOUND_HIDEOUT"))
-		"henchman":
-			say("[i]%s[/i]" % pack.texts.henchman)
-		"danger":
-			say("[i]%s[/i]" % session.rng.pick(pack.texts.danger))
+	_say_event(r.event)
 	if r.text != "":
 		say(_highlight("%s (%s):" % [r.witness, type.name]))
 		say(r.text)
@@ -282,32 +280,29 @@ func _on_investigate(slot: int) -> void:
 	_show_main_actions()
 
 
+func _say_event(event: String) -> void:
+	match event:
+		"capture":
+			say(tr("FOUND_HIDEOUT"))
+		"henchman":
+			say("[i]%s[/i]" % pack.texts.henchman)
+		"danger":
+			say("[i]%s[/i]" % session.rng.pick(pack.texts.danger))
+
+
 ## Viajar: mapa em tela cheia, com um botão por destino; passar o mouse destaca a rota.
 func _show_destinations() -> void:
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 4)
-	var title := Label.new()
-	title.text = tr("TRAVEL_TITLE") % pack.city(session.current_city).name
-	title.add_theme_color_override("font_color", Palette.HIGHLIGHT)
-	box.add_child(title)
-	var map := TravelMap.new()
-	map.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	box.add_child(heading(tr("TRAVEL_TITLE") % pack.city(session.current_city).name))
+	var map := _travel_map()
 	box.add_child(map)
-	var points := {}
-	var names := {}
-	for id in pack.city_ids():
-		points[id] = Vector2(pack.city(id).map.x, pack.city(id).map.y)
-		names[id] = pack.city(id).name
-	map.setup(points, names, session.current_city, session.destinations(), _route)
 	var row := HFlowContainer.new()
 	row.add_theme_constant_override("h_separation", 4)
 	row.add_theme_constant_override("v_separation", 4)
 	box.add_child(row)
 	for id in session.destinations():
-		var label: String = tr("TRAVEL_OPTION") % [pack.city(id).name, session.travel_hours(id)]
-		if session.budget >= 0:
-			label += " · " + _money(session.ticket_price(id))
-		var b := add_choice(row, label, _fly.bind(map, row, id), session.can_afford(id))
+		var b := add_choice(row, _ticket_text(id), _fly.bind(map, row, id), session.can_afford(id))
 		b.mouse_entered.connect(map.highlight.bind(id))
 		b.focus_entered.connect(map.highlight.bind(id))
 	var bar := HBoxContainer.new()
@@ -315,6 +310,25 @@ func _show_destinations() -> void:
 	add_spacer(bar)
 	add_choice(bar, tr("BTN_BACK"), hide_overlay)
 	show_overlay(box)
+
+
+func _travel_map() -> TravelMap:
+	var map := TravelMap.new()
+	map.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var points := {}
+	var names := {}
+	for id in pack.city_ids():
+		points[id] = Vector2(pack.city(id).map.x, pack.city(id).map.y)
+		names[id] = pack.city(id).name
+	map.setup(points, names, session.current_city, session.destinations(), _route)
+	return map
+
+
+func _ticket_text(city_id: String) -> String:
+	var text: String = tr("TRAVEL_OPTION") % [pack.city(city_id).name, session.travel_hours(city_id)]
+	if session.budget >= 0:
+		text += " · " + _money(session.ticket_price(city_id))
+	return text
 
 
 func _fly(map: TravelMap, row: Container, city_id: String) -> void:
@@ -399,14 +413,7 @@ func _show_dossier(index: int) -> void:
 	show_scene(d.full_name, tr("SCENE_ART") % ("suspects/" + id), _tint(id),
 		tr("STAMP_RULED_OUT") if ruled_out else "")
 	clear_text()
-	say(_highlight("%s %d/%d" % [tr("DOSSIER_TITLE"), _dossier_index + 1, pack.suspects.size()]))
-	say("%s: %s" % [tr("DOSSIER_NAME"), d.full_name])
-	if d.occupation != "":
-		say("%s: %s" % [tr("DOSSIER_OCCUPATION"), d.occupation])
-	for row in d.traits:
-		say("%s: %s" % [row.name, row.value])
-	if not d.notes.is_empty():
-		say("%s: %s" % [tr("DOSSIER_NOTES"), " ".join(d.notes)])
+	_say_dossier(d)
 	clear_choices()
 	var bar := add_choice_bar()
 	add_choice(bar, "<", _show_dossier.bind(_dossier_index - 1))
@@ -415,27 +422,47 @@ func _show_dossier(index: int) -> void:
 	add_choice(bar, tr("BTN_BACK"), _show_city)
 
 
+func _say_dossier(d: Dictionary) -> void:
+	say(_highlight("%s %d/%d" % [tr("DOSSIER_TITLE"), _dossier_index + 1, pack.suspects.size()]))
+	say("%s: %s" % [tr("DOSSIER_NAME"), d.full_name])
+	if d.occupation != "":
+		say("%s: %s" % [tr("DOSSIER_OCCUPATION"), d.occupation])
+	for row in d.traits:
+		say("%s: %s" % [row.name, row.value])
+	if not d.notes.is_empty():
+		say("%s: %s" % [tr("DOSSIER_NOTES"), " ".join(d.notes)])
+
+
 ## Desfecho: a cena mostra a prisão ou a fuga e o texto conta o resultado.
 func _show_outcome() -> void:
-	var name: String = session.suspect.name
 	var arrested := session.outcome == CaseSession.ARRESTED
 	show_scene(tr("SCENE_ARRESTED") if arrested else tr("SCENE_ESCAPED"),
 		tr("SCENE_ART") % ("outcomes/" + ("arrest" if arrested else "escape")),
 		Palette.OK.darkened(0.6) if arrested else Palette.ALERT.darkened(0.6))
+	say(_outcome_text())
+	if session.promoted:
+		say(tr("PROMOTED") % pack.ranks[detective.rank].name)
+	Career.save(detective)
+	_show_next_step()
+
+
+func _outcome_text() -> String:
+	var name: String = session.suspect.name
 	match session.outcome:
 		CaseSession.ARRESTED:
-			say(tr("OUTCOME_ARRESTED") % [name, session.treasure()])
-			if session.promoted:
-				say(tr("PROMOTED") % pack.ranks[detective.rank].name)
+			return tr("OUTCOME_ARRESTED") % [name, session.treasure()]
 		CaseSession.NO_WARRANT:
-			say(tr("OUTCOME_NO_WARRANT") % name)
+			return tr("OUTCOME_NO_WARRANT") % name
 		CaseSession.WRONG_WARRANT:
-			say(tr("OUTCOME_WRONG_WARRANT") % name)
+			return tr("OUTCOME_WRONG_WARRANT") % name
 		CaseSession.ESCAPED_TIME:
-			say(tr("OUTCOME_TIME") % name)
-		CaseSession.OUT_OF_MONEY:
-			say(tr("OUTCOME_MONEY") % name)
-	Career.save(detective)
+			return tr("OUTCOME_TIME") % name
+		_:
+			return tr("OUTCOME_MONEY") % name
+
+
+## Depois do desfecho: fim da carreira, ou quanto falta para a próxima patente e um caso novo.
+func _show_next_step() -> void:
 	var row := add_choice_row()
 	if session.boss_arrested:
 		say(tr("CAREER_DONE"))
