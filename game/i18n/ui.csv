@@ -29,7 +29,6 @@ PROMOTED,Promotion! Your new rank: %s.,Promoção! Sua nova patente: %s.
 OUTCOME_NO_WARRANT,"You caught up with %s, but without a warrant you can't make the arrest. Gone!","Você alcançou %s, mas sem mandado não dá para prender. Fugiu!"
 OUTCOME_WRONG_WARRANT,The warrant was for someone else. %s got away.,O mandado era contra outra pessoa. %s escapou.
 OUTCOME_TIME,Time is up. %s got away.,O prazo acabou. %s escapou.
-DOSSIER_TITLE,Dossier,Dossiê
 DOSSIER_NAME,Name,Nome
 DOSSIER_OCCUPATION,Occupation,Ocupação
 DOSSIER_NOTES,Other,Outros
@@ -89,3 +88,5 @@ CAREER_STATUS,Rank: %s. Cases solved: %d.,Patente: %s. Casos resolvidos: %d.
 ASK_NEW_CASE,Do you want to start a new investigation?,Deseja começar uma nova investigação?
 BTN_YES,Yes,Sim
 BTN_NO,No,Não
+BTN_CLOSE,Close,Fechar
+STAMP_CAUGHT,ARRESTED,PRESO

@@ -22,6 +22,8 @@ const NOTES := Rect2i(8, 296, 216, 56)
 const FIRST_VERB := Rect2i(228, 296, 132, 56)
 const VERB_STEP := 136
 const OVERLAY := Rect2i(8, 52, 624, 240)
+## Overlay que cobre também as notas e os verbos.
+const OVERLAY_TALL := Rect2i(8, 52, 624, 300)
 
 var _menu: Dictionary = {}
 var _budget_label: Label
@@ -248,8 +250,12 @@ func show_scene(title: String, caption: String, tint: Color, stamp: String = "")
 
 
 ## Abre `content` por cima da cena e do painel de texto, no lugar do que estava aberto.
-func show_overlay(content: Control) -> void:
+## Com `tall`, cobre também as notas e os verbos.
+func show_overlay(content: Control, tall: bool = false) -> void:
 	hide_overlay()
+	var rect := OVERLAY_TALL if tall else OVERLAY
+	_overlay.position = rect.position
+	_overlay.size = rect.size
 	_overlay.add_child(content)
 	_overlay.show()
 

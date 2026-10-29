@@ -13,7 +13,6 @@ var detective: Dictionary
 var _marks: Dictionary = {}
 ## Cidades visitadas no caso, da cena do crime até a atual, para desenhar no mapa.
 var _route: Array = []
-var _dossier_index := 0
 var _confirm: ConfirmationDialog
 var _info: AcceptDialog
 var _languages: PopupMenu
@@ -81,7 +80,7 @@ func _on_menu(id: String) -> void:
 		"rank":
 			_show_info(tr("MENU_RANK"), _rank_text())
 		"dossier":
-			_show_dossier(_dossier_index)
+			_show_dossier()
 		"language":
 			_languages.popup(Rect2i(Vector2i(get_global_mouse_position()), Vector2i.ZERO))
 		"about":
@@ -511,32 +510,44 @@ func _on_compute() -> void:
 	_show_main_actions()
 
 
-## Dossiê: um suspeito por vez, com setas para folhear. Abre pelo menu, a qualquer
-## hora. Quem não bate com os traços marcados aparece carimbado como descartado.
-func _show_dossier(index: int) -> void:
-	_dossier_index = posmod(index, pack.suspects.size())
-	var id: String = pack.suspects[_dossier_index].id
-	var ruled_out := not _compatible(_marks).any(func(s): return s.id == id)
-	var d := pack.dossier(id)
+## Dossiê no formato do PowerPoint, aberto pelo menu a qualquer hora. Quem não bate com
+## os traços marcados aparece riscado; clicar num nome abre a ficha.
+func _show_dossier() -> void:
+	var compatible := _compatible_ids()
+	var entries := pack.suspects.map(func(s): return {
+		"name": s.name, "boss": s.get("boss", false), "ruled_out": not (s.id in compatible)})
 	var screen := DossierScreen.new()
-	screen.setup(tr("BTN_BACK"))
-	screen.turned.connect(func(step): _show_dossier(_dossier_index + step))
+	screen.setup(entries, tr("BTN_BACK"), tr("BTN_CLOSE"))
+	screen.picked.connect(_show_card.bind(screen))
 	screen.back_pressed.connect(hide_overlay)
-	show_overlay(screen)
-	screen.show_entry(d.full_name, tr("SCENE_ART") % ("suspects/" + id), _tint(id),
-		tr("STAMP_RULED_OUT") if ruled_out else "", _dossier_sheet(d))
+	show_overlay(screen, true)
 
 
-func _dossier_sheet(d: Dictionary) -> String:
-	var lines := [_highlight("%s %d/%d" % [tr("DOSSIER_TITLE"), _dossier_index + 1, pack.suspects.size()])]
-	lines.append("%s: %s" % [tr("DOSSIER_NAME"), d.full_name])
+func _compatible_ids() -> Array:
+	return _compatible(_marks).map(func(s): return s.id)
+
+
+## Ficha no estilo do cartão do original. Preso na carreira ganha carimbo verde.
+func _show_card(index: int, screen: DossierScreen) -> void:
+	index = posmod(index, pack.suspects.size())
+	var s: Dictionary = pack.suspects[index]
+	var d := pack.dossier(s.id)
+	var stamp := ""
+	var color := Palette.ALERT
+	if s.id in detective.get("caught", []):
+		stamp = tr("STAMP_CAUGHT")
+		color = Palette.OK
+	elif not (s.id in _compatible_ids()):
+		stamp = tr("STAMP_RULED_OUT")
+	var rows := [[tr("DOSSIER_NAME"), d.full_name]]
 	if d.occupation != "":
-		lines.append("%s: %s" % [tr("DOSSIER_OCCUPATION"), d.occupation])
+		rows.append([tr("DOSSIER_OCCUPATION"), d.occupation])
 	for row in d.traits:
-		lines.append("%s: %s" % [row.name, row.value])
+		rows.append([row.name, row.value])
 	if not d.notes.is_empty():
-		lines.append("%s: %s" % [tr("DOSSIER_NOTES"), " ".join(d.notes)])
-	return "\n".join(lines)
+		rows.append([tr("DOSSIER_NOTES"), " ".join(d.notes)])
+	screen.show_card(index, s.name, tr("SCENE_ART") % ("suspects/" + s.id), _tint(s.id),
+		stamp, color, rows)
 
 
 ## Desfecho: a cena mostra a prisão ou a fuga e o texto conta o resultado.
