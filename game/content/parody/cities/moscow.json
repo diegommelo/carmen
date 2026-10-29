@@ -4,6 +4,10 @@
   "x": 177,
   "y": 17
  },
+ "regions": [
+  "europe",
+  "communist"
+ ],
  "description": [
   {
    "pt_BR": "Cúpulas coloridas, a Praça Vermelha e um inverno de trinta graus negativos. Um certo presidente brasileiro veio aqui prestar solidariedade dias antes de os tanques cruzarem a fronteira.",

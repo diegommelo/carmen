@@ -232,10 +232,33 @@ func _arrive(city_id: String) -> void:
 					break
 			trail_city = city_id
 			steps_left -= 1
+			_add_lookalike()
 	arrival_index = rng.index(pack.city(city_id).description)
 	_investigate_cost = int(pack.rules.investigate.first_hours)
 	_build_places()
 	_hideout_slot = rng.index(places) if is_final_city() else -1
+
+
+## Com chance `similar_destinations`, garante entre os voos da cidade atual uma cidade
+## que divide alguma região (`regions` no pacote) com a próxima da rota, para que a pista
+## de destino não se resolva só por eliminação. Se não houver, liga uma no mapa.
+func _add_lookalike() -> void:
+	if rng.roll(999) >= int(difficulty.similar_destinations * 1000.0):
+		return
+	var regions: Array = pack.city(next_city).get("regions", [])
+	if regions.is_empty():
+		return
+	var shares := func(id: String) -> bool:
+		return id != next_city and pack.city(id).get("regions", []).any(func(r): return r in regions)
+	var options := graph.neighbors(current_city)
+	if options.any(shares):
+		return
+	var candidates := pack.city_ids().filter(func(id): return id != current_city and not (id in options) and shares.call(id))
+	if candidates.is_empty():
+		return
+	var decoy: String = rng.pick(candidates)
+	graph.links[current_city].append(decoy)
+	graph.links[decoy].append(current_city)
 
 
 func _build_places() -> void:

@@ -58,6 +58,7 @@
     "hour": 17
    },
    "shortcut_chance": 0.0,
+   "similar_destinations": 0.25,
    "budget": 5000
   },
   {
@@ -73,6 +74,7 @@
     "hour": 17
    },
    "shortcut_chance": 0.25,
+   "similar_destinations": 0.5,
    "budget": 4500
   },
   {
@@ -88,6 +90,7 @@
     "hour": 17
    },
    "shortcut_chance": 0.25,
+   "similar_destinations": 0.75,
    "budget": 5000
   },
   {
@@ -103,6 +106,7 @@
     "hour": 12
    },
    "shortcut_chance": 0.35,
+   "similar_destinations": 1.0,
    "budget": 4500
   },
   {
@@ -118,6 +122,7 @@
     "hour": 12
    },
    "shortcut_chance": 0.5,
+   "similar_destinations": 1.0,
    "budget": 5000
   }
  ]

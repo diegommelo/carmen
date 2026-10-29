@@ -4,6 +4,10 @@
   "x": 162,
   "y": 22
  },
+ "regions": [
+  "europe",
+  "right_wing_ally"
+ ],
  "description": [
   {
    "pt_BR": "O Danúbio corta a cidade em duas: Buda, com seus castelos, e Peste, com o Parlamento iluminado. O primeiro-ministro é um grande amigo da família e tem fama de ser ótimo anfitrião.",

@@ -4,6 +4,10 @@
   "x": 110,
   "y": 78
  },
+ "regions": [
+  "brazil",
+  "beach"
+ ],
  "description": [
   {
    "pt_BR": "Trezentas e sessenta e cinco ilhas, água verde-esmeralda e uma estação ecológica onde pescar é proibido. Já teve fiscal do Ibama multando pescador ilustre, e depois perdendo o emprego.",

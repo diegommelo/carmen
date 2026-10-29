@@ -4,6 +4,9 @@
   "x": 75,
   "y": 40
  },
+ "regions": [
+  "usa"
+ ],
  "description": [
   {
    "pt_BR": "Parques temáticos, outlets e um calor úmido que lembra o Rio. Foi para cá que um certo ex-presidente veio passar uns meses quando não quis entregar a faixa, e de onde só voltou com saudade do pão com leite condensado.",

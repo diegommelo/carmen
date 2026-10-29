@@ -4,6 +4,10 @@
   "x": 198,
   "y": 44
  },
+ "regions": [
+  "middle_east",
+  "tax_haven"
+ ],
  "description": [
   {
    "pt_BR": "Ilhas artificiais, o prédio mais alto do mundo e garagens de jatinho do tamanho de estádios. Em Dubai, ninguém pergunta muito de onde vem o dinheiro, desde que ele seja muito.",

@@ -4,6 +4,10 @@
   "x": 247,
   "y": 30
  },
+ "regions": [
+  "asia",
+  "communist"
+ ],
  "description": [
   {
    "pt_BR": "A Cidade Proibida, a Praça da Paz Celestial e a Grande Muralha logo ali. A China é a maior compradora da soja brasileira, mas nos grupos da família é a culpada por tudo, do vírus ao 5G.",

@@ -4,6 +4,10 @@
   "x": 104,
   "y": 84
  },
+ "regions": [
+  "brazil",
+  "beach"
+ ],
  "description": [
   {
    "pt_BR": "Arranha-céus tão altos que a praia fica na sombra depois do almoço. A cidade se chama de Dubai brasileira e tem uma roda-gigante, uma vida noturna agitada e um vereador muito conhecido pelo sobrenome.",

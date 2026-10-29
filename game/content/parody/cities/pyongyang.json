@@ -4,6 +4,10 @@
   "x": 255,
   "y": 30
  },
+ "regions": [
+  "asia",
+  "communist"
+ ],
  "description": [
   {
    "pt_BR": "Avenidas enormes e vazias, estátuas gigantes e um único corte de cabelo aprovado. A Coreia do Norte é o destino mais absurdo do mapa, o que a torna perfeita para quem quer sumir.",
