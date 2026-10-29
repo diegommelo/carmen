@@ -7,8 +7,8 @@ extends Control
 signal verb_pressed(index: int)
 signal menu_pressed(id: String)
 
-const MENU_IDS := ["new_career", "rank", "language", "about"]
-const VERB_COUNT := 4
+const MENU_IDS := ["new_career", "rank", "dossier", "language", "about"]
+const VERB_COUNT := 3
 ## Caracteres por segundo da máquina de escrever.
 const TYPE_SPEED := 60.0
 
@@ -19,9 +19,11 @@ const HEADER := Rect2i(8, 52, 296, 24)
 const SCENE := Rect2i(8, 80, 296, 212)
 const TEXT_PANEL := Rect2i(308, 52, 324, 240)
 const NOTES := Rect2i(8, 296, 216, 56)
-const FIRST_VERB := Rect2i(228, 296, 98, 56)
-const VERB_STEP := 102
+const FIRST_VERB := Rect2i(228, 296, 132, 56)
+const VERB_STEP := 136
 const OVERLAY := Rect2i(8, 52, 624, 240)
+## Overlay que cobre também as notas e os verbos.
+const OVERLAY_TALL := Rect2i(8, 52, 624, 300)
 
 var _menu: Dictionary = {}
 var _budget_label: Label
@@ -248,8 +250,12 @@ func show_scene(title: String, caption: String, tint: Color, stamp: String = "")
 
 
 ## Abre `content` por cima da cena e do painel de texto, no lugar do que estava aberto.
-func show_overlay(content: Control) -> void:
+## Com `tall`, cobre também as notas e os verbos.
+func show_overlay(content: Control, tall: bool = false) -> void:
 	hide_overlay()
+	var rect := OVERLAY_TALL if tall else OVERLAY
+	_overlay.position = rect.position
+	_overlay.size = rect.size
 	_overlay.add_child(content)
 	_overlay.show()
 
@@ -439,7 +445,7 @@ func add_choice_control(control: Control) -> void:
 	_choices.add_child(control)
 
 
-## Qualquer tecla vira a página ou termina a máquina de escrever; as teclas 1 a 4
+## Qualquer tecla vira a página ou termina a máquina de escrever; as teclas 1 a 3
 ## acionam os verbos.
 func _unhandled_input(event: InputEvent) -> void:
 	if not (event is InputEventKey and event.pressed and not event.echo):

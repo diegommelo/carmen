@@ -42,6 +42,10 @@ var boss_arrested: bool = false
 var warrant_id: String = ""
 ## Verba que sobra para passagens; -1 quando o pacote não usa dinheiro.
 var budget: int = -1
+## Semente do caso e as ações do jogador desde o início. Com as duas, replay() refaz
+## o caso igualzinho; é isso que vai para o save.
+var case_seed: int
+var actions: Array = []
 
 var _investigate_cost: int
 ## Local do esconderijo na cidade final, sorteado na chegada entre os três.
@@ -56,6 +60,7 @@ var _used_clues: Dictionary = {}
 
 func _init(content: ContentPack, seed: int) -> void:
 	pack = content
+	case_seed = seed
 	rng = MscRng.new(seed)
 
 
@@ -81,8 +86,39 @@ func start(agent: Dictionary) -> void:
 	promoted = false
 	boss_arrested = false
 	warrant_id = ""
+	actions.clear()
 	_used_clues.clear()
 	_arrive(crime_city)
+
+
+## Refaz as ações de um caso salvo, depois de start(). Devolve false se alguma não
+## couber no caso (por exemplo, um save de outra versão do pacote) ou se o caso acabar.
+func replay(saved: Array) -> bool:
+	for a in saved:
+		if outcome != ONGOING or typeof(a) != TYPE_ARRAY or a.size() != 2:
+			return false
+		match a[0]:
+			"investigate":
+				var slot := int(a[1])
+				if slot < 0 or slot >= places.size():
+					return false
+				investigate(slot)
+			"travel":
+				var city_id := str(a[1])
+				if not (city_id in destinations()) or not can_afford(city_id):
+					return false
+				travel(city_id)
+			"warrant":
+				if typeof(a[1]) != TYPE_DICTIONARY:
+					return false
+				compute_warrant(a[1])
+			_:
+				return false
+	return outcome == ONGOING
+
+
+func save_state() -> Dictionary:
+	return {"seed": case_seed, "actions": actions.duplicate(true)}
 
 
 ## O alvo é sorteado entre os comparsas que o detetive ainda não prendeu; o original
@@ -151,6 +187,7 @@ func travel(to_city: String) -> Dictionary:
 	assert(outcome == ONGOING, "o caso já terminou")
 	assert(to_city in destinations())
 	assert(can_afford(to_city), "sem verba para a passagem")
+	actions.append(["travel", to_city])
 	var hours := travel_hours(to_city)
 	var price := ticket_price(to_city)
 	if budget >= 0:
@@ -180,15 +217,17 @@ func _try_shortcut(to_city: String) -> bool:
 	return true
 
 
-## Devolve {witness, text, hours, slept, event}, onde event é "", "danger", "henchman" ou "capture".
+## Devolve {witness, text, hours, slept, event, danger}, onde event é "", "danger",
+## "henchman" ou "capture" e danger é o índice em texts.danger (-1 sem perigo).
 func investigate(slot: int) -> Dictionary:
 	assert(outcome == ONGOING, "o caso já terminou")
+	actions.append(["investigate", slot])
 	var place: Dictionary = places[slot]
 	var event := ""
 	if is_final_city():
 		if slot == _hideout_slot:
 			_resolve_capture()
-			return {"witness": place_witness(slot), "text": "", "hours": 0, "slept": false, "event": "capture"}
+			return {"witness": place_witness(slot), "text": "", "hours": 0, "slept": false, "event": "capture", "danger": -1}
 		else:
 			event = "danger"
 	elif current_city == trail_city:
@@ -203,13 +242,16 @@ func investigate(slot: int) -> Dictionary:
 	var tick := clock.advance(hours, true)
 	if tick.expired:
 		outcome = ESCAPED_TIME
-	return {"witness": place_witness(slot), "text": place_text(slot), "hours": hours, "slept": tick.slept, "event": event}
+	var danger := rng.index(pack.texts.danger) if event == "danger" else -1
+	return {"witness": place_witness(slot), "text": place_text(slot), "hours": hours,
+		"slept": tick.slept, "event": event, "danger": danger}
 
 
 ## Computador da Interpol. `marks` = {id_do_traço: valor} só com os traços conhecidos.
 ## Devolve os suspeitos compatíveis. Com exatamente um, o mandado sai no nome dele;
 ## caso contrário qualquer mandado anterior é cancelado, como no original.
 func compute_warrant(marks: Dictionary) -> Array:
+	actions.append(["warrant", marks.duplicate()])
 	var matches := pack.suspects.filter(func(s):
 		for k in marks:
 			if s.traits[k] != marks[k]:
