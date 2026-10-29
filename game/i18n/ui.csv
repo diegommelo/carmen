@@ -18,7 +18,7 @@ BTN_DOSSIERS,Dossiers,Dossiês
 BTN_ISSUE_WARRANT,Issue warrant,Emitir mandado
 BTN_NEW_CASE,New case,Novo caso
 TRAVEL_OPTION,%s (%d h),%s (%dh)
-TRAIT_UNKNOWN,%s: ?,%s: ?
+TRAIT_UNKNOWN,?,?
 FOUND_HIDEOUT,[b]You found the hideout![/b],[b]Você encontrou o esconderijo![/b]
 SLEEPING,[i]Sleeping...[/i],[i]Dormindo...[/i]
 NO_MATCH,No suspect has those traits.,Nenhum suspeito tem esses traços.
@@ -67,3 +67,13 @@ DEADLINE_SHORT,Deadline: %s,Prazo: %s
 NOTES_WARRANT,Warrant: %s,Mandado: %s
 NOTES_TRAITS,Traits: %s,Traços: %s
 NOTES_NONE,No traits noted yet.,Nenhum traço anotado ainda.
+MORE,[more],[mais]
+WHERE_TO,Where do you want to investigate?,Onde você quer investigar?
+TRAVEL_TITLE,Flights from %s,Voos saindo de %s
+WARRANT_TITLE,FEDERAL POLICE · WARRANT SYSTEM,POLÍCIA FEDERAL · SISTEMA DE MANDADOS
+WARRANT_COUNT,"Matching suspects: %d
+%s","Suspeitos compatíveis: %d
+%s"
+STAMP_RULED_OUT,RULED OUT,DESCARTADO
+SCENE_ARRESTED,Arrested!,Preso!
+SCENE_ESCAPED,Got away!,Fugiu!

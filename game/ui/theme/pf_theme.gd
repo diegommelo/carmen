@@ -20,6 +20,14 @@ static func box(bg: Color, border: Color, margin: int = 4) -> StyleBoxFlat:
 	return s
 
 
+## Botões têm mais respiro dos lados que em cima e embaixo, para serem fáceis de acertar.
+static func _button_box(bg: Color, border: Color) -> StyleBoxFlat:
+	var s := box(bg, border, 4)
+	s.content_margin_left = 6
+	s.content_margin_right = 6
+	return s
+
+
 static func build() -> Theme:
 	var t := Theme.new()
 	t.default_font = load(FONT_PATH)
@@ -55,11 +63,11 @@ static func _panels(t: Theme) -> void:
 ## Botão: moldura azul, que fica dourada sob o mouse ou com foco.
 static func _buttons(t: Theme) -> void:
 	for type in ["Button", "OptionButton"]:
-		t.set_stylebox("normal", type, box(Palette.PANEL, Palette.PANEL_BORDER, 2))
-		t.set_stylebox("hover", type, box(Palette.PANEL, Palette.HIGHLIGHT, 2))
-		t.set_stylebox("pressed", type, box(Palette.PANEL_BORDER, Palette.HIGHLIGHT, 2))
-		t.set_stylebox("focus", type, box(Color.TRANSPARENT, Palette.HIGHLIGHT, 2))
-		t.set_stylebox("disabled", type, box(Palette.INK, Palette.PANEL_BORDER, 2))
+		t.set_stylebox("normal", type, _button_box(Palette.PANEL, Palette.PANEL_BORDER))
+		t.set_stylebox("hover", type, _button_box(Palette.PANEL, Palette.HIGHLIGHT))
+		t.set_stylebox("pressed", type, _button_box(Palette.PANEL_BORDER, Palette.HIGHLIGHT))
+		t.set_stylebox("focus", type, _button_box(Color.TRANSPARENT, Palette.HIGHLIGHT))
+		t.set_stylebox("disabled", type, _button_box(Palette.INK, Palette.PANEL_BORDER))
 		t.set_color("font_color", type, Palette.TEXT)
 		t.set_color("font_hover_color", type, Palette.HIGHLIGHT)
 		t.set_color("font_pressed_color", type, Palette.HIGHLIGHT)
