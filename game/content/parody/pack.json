@@ -16,6 +16,7 @@
  "rules": {
   "route_base_steps": 4,
   "boss_after_cases": 10,
+  "shortcut_min_flights": 1,
   "sex_trait": "sex",
   "graph": {
    "max_links": 4,

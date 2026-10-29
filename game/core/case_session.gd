@@ -167,9 +167,12 @@ func travel(to_city: String) -> Dictionary:
 
 
 ## Com o mandado certo emitido, cada voo certo da rota tem `shortcut_chance` de levar
-## direto ao esconderijo. Não existe no original.
+## direto ao esconderijo. Não existe no original. Os primeiros `rules.shortcut_min_flights`
+## voos da rota nunca encurtam, para quem acerta o suspeito logo na cidade do crime.
 func _try_shortcut(to_city: String) -> bool:
 	if to_city != next_city or steps_left <= 0 or warrant_id != suspect.id:
+		return false
+	if difficulty.route_steps - 1 - steps_left < int(pack.rules.get("shortcut_min_flights", 0)):
 		return false
 	if rng.roll(999) >= int(difficulty.shortcut_chance * 1000.0):
 		return false

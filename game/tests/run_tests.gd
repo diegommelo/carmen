@@ -339,6 +339,7 @@ func _test_parody() -> void:
 	var low := pack.rank_rules(0)
 	check(top.trait_clues < low.trait_clues and top.shortcut_chance > low.shortcut_chance, "paródia: patente alta dá menos pistas e mais atalho")
 	_test_money(pack)
+	_test_shortcut_min_flights(pack)
 
 
 ## Sem nada na patente, valem as regras do original: rota de patente + 4, prazo do relógio.
@@ -386,6 +387,19 @@ func _test_shortcut(pack: ContentPack) -> void:
 					caught = true
 					break
 			check(caught and s.outcome == CaseSession.ARRESTED, "o atalho leva ao esconderijo de verdade")
+
+
+## Na paródia, o primeiro voo da rota nunca encurta, mesmo com o mandado certo.
+func _test_shortcut_min_flights(pack: ContentPack) -> void:
+	var s := CaseSession.new(pack, 8)
+	s.start({"name": "Teste", "cases": 9, "rank": 4})
+	s.difficulty.shortcut_chance = 1.0
+	var marks := {}
+	for t in pack.warrant_traits():
+		marks[t.id] = s.suspect.traits[t.id]
+	s.compute_warrant(marks)
+	check(not s.travel(s.next_city).shortcut and not s.is_final_city(), "paródia: sem atalho no primeiro voo")
+	check(s.travel(s.next_city).shortcut and s.is_final_city(), "paródia: atalho a partir do segundo voo")
 
 
 ## O fator de pistas da patente multiplica a chance de a testemunha falar de um traço.
