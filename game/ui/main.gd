@@ -3,12 +3,11 @@ extends Control
 ## Os textos da tela vêm de i18n/ui.csv (tr) e os do jogo vêm do pacote de conteúdo.
 
 const PACK_DIR := "res://content/parody"
-## Idiomas oferecidos no seletor, na ordem em que aparecem.
 const LANGUAGES := {"pt_BR": "Português (Brasil)", "en": "English"}
 
 var pack: ContentPack
 var session: CaseSession
-var detective := {"name": "", "cases": 0, "rank": 0}
+var detective: Dictionary
 
 var _status: Label
 var _language: OptionButton
@@ -21,6 +20,12 @@ func _ready() -> void:
 	pack = ContentPack.load_dir(PACK_DIR, OS.get_locale())
 	TranslationServer.set_locale(pack.locale)
 	_build_layout()
+	detective = Career.load_saved()
+	if detective.is_empty():
+		_ask_name()
+		return
+	if detective.cases > 0:
+		_say(tr("CAREER_RESUMED") % [detective.name, detective.cases])
 	_new_case()
 
 
@@ -59,6 +64,9 @@ func _build_layout() -> void:
 func _on_language_selected(index: int) -> void:
 	var code: String = _language.get_item_metadata(index)
 	TranslationServer.set_locale(code)
+	if session == null:
+		_show_name_prompt()
+		return
 	session.set_language(code)
 	# O que já está no registro fica como estava; a cidade é mostrada de novo no idioma novo.
 	if session.outcome == CaseSession.ONGOING:
@@ -67,18 +75,51 @@ func _on_language_selected(index: int) -> void:
 		_show_main_actions()
 
 
+func _ask_name() -> void:
+	session = null
+	_status.text = ""
+	_say(tr("ASK_NAME"))
+	_show_name_prompt()
+
+
+func _show_name_prompt() -> void:
+	_clear_actions()
+	var field := LineEdit.new()
+	field.placeholder_text = tr("DEFAULT_AGENT")
+	field.custom_minimum_size.x = 240
+	field.text_submitted.connect(func(_text): _on_name_entered(field))
+	_actions.add_child(field)
+	_button(tr("BTN_START"), _on_name_entered.bind(field))
+	field.grab_focus.call_deferred()
+
+
+func _on_name_entered(field: LineEdit) -> void:
+	var agent_name := field.text.strip_edges()
+	detective = Career.fresh(agent_name if agent_name != "" else tr("DEFAULT_AGENT"))
+	Career.save(detective)
+	_on_new_case()
+
+
 func _new_case() -> void:
-	if detective.name == "":
-		detective.name = tr("DEFAULT_AGENT")
 	session = CaseSession.new(pack, randi())
 	session.start(detective)
 	_marks.clear()
-	_log.clear()
-	var clock: Dictionary = pack.rules.clock
+	var deadline: Dictionary = session.difficulty.deadline
 	_say(tr("ALERT_THEFT") % [session.treasure(), pack.city(session.crime_city).name])
 	_say(tr("SUSPECT_SEEN") % _sex_name().to_lower())
-	_say(tr("DEADLINE") % [_day_name(clock.deadline_day), tr("HOUR_FMT") % clock.deadline_hour])
+	_say(tr("DEADLINE") % [_day_name(deadline.day), tr("HOUR_FMT") % deadline.hour])
 	_show_city()
+
+
+func _on_new_case() -> void:
+	_log.clear()
+	_new_case()
+
+
+func _on_new_career() -> void:
+	Career.erase()
+	_log.clear()
+	_ask_name()
 
 
 func _sex_name() -> String:
@@ -109,6 +150,12 @@ func _refresh_status() -> void:
 		warrant = pack.suspect(session.warrant_id).name
 	_status.text = tr("STATUS") % [detective.name, pack.ranks[detective.rank].name,
 		_day_name(c.day), tr("HOUR_FMT") % c.hour, warrant]
+	if session.budget >= 0:
+		_status.text += tr("STATUS_BUDGET") % _money(session.budget)
+
+
+func _money(amount: int) -> String:
+	return tr("MONEY_FMT") % amount
 
 
 func _clear_actions() -> void:
@@ -116,9 +163,10 @@ func _clear_actions() -> void:
 		child.queue_free()
 
 
-func _button(text: String, action: Callable) -> void:
+func _button(text: String, action: Callable, enabled: bool = true) -> void:
 	var b := Button.new()
 	b.text = text
+	b.disabled = not enabled
 	b.pressed.connect(action)
 	_actions.add_child(b)
 
@@ -159,7 +207,10 @@ func _on_investigate(slot: int) -> void:
 func _show_destinations() -> void:
 	_clear_actions()
 	for id in session.destinations():
-		_button(tr("TRAVEL_OPTION") % [pack.city(id).name, session.travel_hours(id)], _on_travel.bind(id))
+		var label: String = tr("TRAVEL_OPTION") % [pack.city(id).name, session.travel_hours(id)]
+		if session.budget >= 0:
+			label += " · " + _money(session.ticket_price(id))
+		_button(label, _on_travel.bind(id), session.can_afford(id))
 	_button(tr("BTN_BACK"), _show_main_actions)
 
 
@@ -171,6 +222,8 @@ func _on_travel(city_id: String) -> void:
 		_say(tr("SLEEPING"))
 	if session.outcome == CaseSession.ONGOING:
 		_show_city()
+		if r.shortcut:
+			_say(tr("SHORTCUT"))
 	else:
 		_show_main_actions()
 
@@ -240,4 +293,11 @@ func _show_outcome() -> void:
 			_say(tr("OUTCOME_WRONG_WARRANT") % name)
 		CaseSession.ESCAPED_TIME:
 			_say(tr("OUTCOME_TIME") % name)
-	_button(tr("BTN_NEW_CASE"), _new_case)
+		CaseSession.OUT_OF_MONEY:
+			_say(tr("OUTCOME_MONEY") % name)
+	Career.save(detective)
+	if session.boss_arrested:
+		_say(tr("CAREER_DONE"))
+	else:
+		_button(tr("BTN_NEW_CASE"), _on_new_case)
+	_button(tr("BTN_NEW_CAREER"), _on_new_career)

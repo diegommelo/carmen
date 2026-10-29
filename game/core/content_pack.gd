@@ -197,6 +197,22 @@ func henchmen() -> Array:
 	return suspects.filter(func(s): return not s.get("boss", false))
 
 
+## Regras de dificuldade da patente `rank`, com os padrões do original para o que a
+## patente não define: {route_steps, trait_clues, deadline: {day, hour}, shortcut_chance, budget}.
+## `budget` é a verba do caso para passagens; -1 quando o pacote não usa dinheiro.
+func rank_rules(rank: int) -> Dictionary:
+	var r: Dictionary = ranks[clampi(rank, 0, ranks.size() - 1)]
+	var clock: Dictionary = rules.clock
+	var deadline: Dictionary = r.get("deadline", {})
+	return {
+		"route_steps": int(r.get("route_steps", rank + int(rules.route_base_steps))),
+		"trait_clues": float(r.get("trait_clues", 1.0)),
+		"deadline": {"day": int(deadline.get("day", clock.deadline_day)), "hour": int(deadline.get("hour", clock.deadline_hour))},
+		"shortcut_chance": float(r.get("shortcut_chance", 0.0)),
+		"budget": int(r.get("budget", -1)) if rules.has("money") else -1,
+	}
+
+
 func rank_for_cases(cases: int) -> int:
 	var r := 0
 	for i in ranks.size():

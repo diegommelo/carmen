@@ -15,7 +15,7 @@
  "default_language": "pt_BR",
  "rules": {
   "route_base_steps": 4,
-  "boss_after_cases": 12,
+  "boss_after_cases": 10,
   "sex_trait": "sex",
   "graph": {
    "max_links": 4,
@@ -38,6 +38,9 @@
    "wake_hour": 8,
    "sleep_hour": 23,
    "sleep_hours": 9
+  },
+  "money": {
+   "ticket_per_hour": 150
   }
  },
  "ranks": [
@@ -46,35 +49,75 @@
     "pt_BR": "Estagiário",
     "en": "Intern"
    },
-   "cases": 0
+   "cases": 0,
+   "route_steps": 3,
+   "trait_clues": 1.0,
+   "deadline": {
+    "day": 6,
+    "hour": 17
+   },
+   "shortcut_chance": 0.0,
+   "budget": 5000
   },
   {
    "name": {
     "pt_BR": "Agente",
     "en": "Agent"
    },
-   "cases": 1
+   "cases": 2,
+   "route_steps": 3,
+   "trait_clues": 1.0,
+   "deadline": {
+    "day": 5,
+    "hour": 17
+   },
+   "shortcut_chance": 0.25,
+   "budget": 4500
   },
   {
    "name": {
     "pt_BR": "Escrivão",
     "en": "Clerk"
    },
-   "cases": 4
+   "cases": 4,
+   "route_steps": 4,
+   "trait_clues": 0.9,
+   "deadline": {
+    "day": 5,
+    "hour": 17
+   },
+   "shortcut_chance": 0.25,
+   "budget": 5000
   },
   {
    "name": {
     "pt_BR": "Delegado",
     "en": "Chief Inspector"
    },
-   "cases": 8
+   "cases": 6,
+   "route_steps": 4,
+   "trait_clues": 0.8,
+   "deadline": {
+    "day": 5,
+    "hour": 12
+   },
+   "shortcut_chance": 0.35,
+   "budget": 4500
   },
   {
    "name": {
     "pt_BR": "Superintendente",
     "en": "Superintendent"
    },
-   "cases": 12
+   "cases": 9,
+   "route_steps": 5,
+   "trait_clues": 0.7,
+   "deadline": {
+    "day": 5,
+    "hour": 12
+   },
+   "shortcut_chance": 0.5,
+   "budget": 5000
   }
  ]
 }
