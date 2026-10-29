@@ -11,6 +11,8 @@ const ESCAPED_TIME := "escaped_time"
 const NO_WARRANT := "no_warrant"
 const WRONG_WARRANT := "wrong_warrant"
 const ARRESTED := "arrested"
+## Lista de pistas da cidade que qualquer tipo de local pode dar.
+const ANY_CLUES := "any"
 
 var pack: ContentPack
 var rng: MscRng
@@ -39,6 +41,8 @@ var _investigate_cost: int
 var _hideout_slot: int = -1
 var _last_trail_visited: String = ""
 var _henchman_seen: bool = false
+## Pistas de destino já usadas no caso, como "cidade/lista/índice", para não repetir.
+var _used_clues: Dictionary = {}
 
 
 func _init(content: ContentPack, seed: int) -> void:
@@ -63,6 +67,7 @@ func start(agent: Dictionary) -> void:
 	trail_city = ""
 	outcome = ONGOING
 	warrant_id = ""
+	_used_clues.clear()
 	_arrive(crime_city)
 
 
@@ -193,7 +198,7 @@ func _build_places() -> void:
 	for g in keys:
 		var candidates: Array = groups[g]
 		var present := candidates.filter(func(t): return t.id in here.locations)
-		var valid := present.filter(func(t): return there.clues.has(t.id))
+		var valid := present.filter(func(t): return not _clue_pool(there, t.id).is_empty())
 		var chosen: Dictionary = rng.pick(valid if not valid.is_empty() else (present if not present.is_empty() else candidates))
 		places.append({"type": chosen.id, "witness": rng.index(chosen.witnesses), "statement": _statement(chosen, there)})
 
@@ -205,8 +210,9 @@ func _statement(type: Dictionary, there: Dictionary) -> Dictionary:
 		return {"kind": "final", "i": rng.index(texts.final_warnings)}
 	if current_city != trail_city:
 		return {"kind": "not_seen", "type": type.id, "i": rng.index(type.not_seen)}
+	var clue := _pick_clue(there, type.id)
 	var recipe := {"kind": "trail", "type": type.id, "city": there.id,
-		"opener": rng.index(texts.openers), "clue": rng.index(there.clues[type.id]), "trait": ""}
+		"opener": rng.index(texts.openers), "list": clue[0], "clue": clue[1], "trait": ""}
 	var clue_traits := pack.traits.filter(func(t): return t.has("clues"))
 	var start := rng.roll(clue_traits.size() - 1)
 	var c := start
@@ -223,6 +229,30 @@ func _statement(type: Dictionary, there: Dictionary) -> Dictionary:
 	return recipe
 
 
+## Pistas sobre `there` que um local do tipo `type_id` pode dar: as do tipo e as
+## gerais (`clues.any`), como pares [lista, índice].
+func _clue_pool(there: Dictionary, type_id: String) -> Array:
+	var pool := []
+	for list in [type_id, ANY_CLUES]:
+		for i in there.clues.get(list, []).size():
+			pool.append([list, i])
+	return pool
+
+
+## Sorteia uma pista de destino que ainda não apareceu no caso. Quando todas já
+## apareceram, volta a sortear entre todas.
+func _pick_clue(there: Dictionary, type_id: String) -> Array:
+	var pool := _clue_pool(there, type_id)
+	var fresh := pool.filter(func(c): return not _used_clues.has(_clue_key(there.id, c)))
+	var chosen: Array = rng.pick(fresh if not fresh.is_empty() else pool)
+	_used_clues[_clue_key(there.id, chosen)] = true
+	return chosen
+
+
+static func _clue_key(city_id: String, clue: Array) -> String:
+	return "%s/%s/%d" % [city_id, clue[0], clue[1]]
+
+
 ## Monta o texto de uma receita no idioma atual do pacote.
 func _render(recipe: Dictionary) -> String:
 	var texts := pack.texts
@@ -233,7 +263,7 @@ func _render(recipe: Dictionary) -> String:
 		"not_seen":
 			text = pack.location_type(recipe.type).not_seen[recipe.i]
 		_:
-			text = texts.openers[recipe.opener] + " " + pack.city(recipe.city).clues[recipe.type][recipe.clue] + "."
+			text = texts.openers[recipe.opener] + " " + pack.city(recipe.city).clues[recipe.list][recipe.clue] + "."
 			if recipe.trait != "":
 				var nothing: String = texts.nothing_more
 				if recipe.trait_i >= 0:

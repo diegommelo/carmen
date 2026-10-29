@@ -3,14 +3,13 @@
 Estudo e recriação em Godot da mecânica de *Where in the World is Carmen Sandiego?* (DOS, 1990), com dois objetivos:
 
 1. Um jogo paródia, *Where in the World is Bolsonaro Family*, em que o jogador é um agente da PF.
-2. No futuro, um motor open source que roda o jogo original a partir dos arquivos de dados de quem tem o jogo.
+2. Estudar a mecânica do original e aprender Godot. Uma recriação fiel do jogo original, que leia os arquivos de dados de quem tem o jogo, fica para um projeto separado.
 
 ## Plano
 
 1. **Estudar o original**: formatos de arquivo e regras do jogo. Ver [docs/spec-original.md](docs/spec-original.md).
 2. **Núcleo em Godot**: a mecânica lendo um formato de dados próprio (JSON). Ver [docs/content-format.md](docs/content-format.md).
 3. **Conteúdo da paródia**: cidades, pistas, alvos, arte e textos próprios.
-4. **Motor do original**: leitor dos `.DAT` originais alimentando o mesmo núcleo.
 
 ## Jogo (Godot 4.7)
 

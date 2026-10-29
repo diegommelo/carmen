@@ -1,0 +1,37 @@
+{
+ "name": {
+  "pt_BR": "Madame X",
+  "en": "Madame X"
+ },
+ "boss": false,
+ "traits": {
+  "sex": "f",
+  "hobby": "mountain_climbing",
+  "hair": "brown",
+  "feature": "jewelry",
+  "vehicle": "limousine",
+  "food": "mexican"
+ },
+ "dossier": {
+  "full_name": {
+   "pt_BR": "Madame X",
+   "en": "Madame X"
+  },
+  "occupation": {
+   "pt_BR": "Colecionadora de joias e de passaportes falsos",
+   "en": "Collector of jewels and fake passports"
+  },
+  "traits": {
+   "vehicle": {
+    "pt_BR": "Limusine preta com vidros escuros",
+    "en": "Black limousine with tinted windows"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Nunca recusa um taco apimentado.",
+    "en": "Never turns down a spicy taco."
+   }
+  ]
+ }
+}

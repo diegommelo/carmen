@@ -5,6 +5,10 @@ extends RefCounted
 ## Textos traduzidos são objetos {"pt_BR": "...", "en": "..."}. Ao carregar (ou ao
 ## trocar de idioma), cada um deles vira a string do idioma escolhido.
 
+## Versão do formato descrito em docs/content-format.md. Muda quando um pacote antigo
+## deixa de ser lido do mesmo jeito.
+const FORMAT_VERSION := 1
+
 var languages: Array
 var default_language: String
 var locale: String
@@ -27,8 +31,14 @@ var _raw: Dictionary
 static func load_dir(path: String, language: String = "") -> ContentPack:
 	var p := ContentPack.new()
 	p._raw = _read_json(path.path_join("pack.json"))
-	p._raw.suspects = _read_json(path.path_join("suspects.json")).suspects
-	p._raw.cities = _read_json(path.path_join("cities.json")).cities
+	var version: int = p._raw.get("format_version", 0)
+	if version != FORMAT_VERSION:
+		push_error("%s usa format_version %d; este jogo lê a versão %d" % [path, version, FORMAT_VERSION])
+	p._raw.traits = _read_json(path.path_join("traits.json")).traits
+	p._raw.location_types = _read_json(path.path_join("locations.json")).location_types
+	p._raw.texts = _read_json(path.path_join("texts.json")).texts
+	p._raw.suspects = _read_entries(path.path_join("suspects"))
+	p._raw.cities = _read_entries(path.path_join("cities"))
 	p.languages = p._raw.get("languages", [])
 	p.default_language = p._raw.get("default_language", p.languages[0] if not p.languages.is_empty() else "")
 	p.set_language(language)
@@ -107,6 +117,23 @@ func _find_missing(value, path: String, out: Array) -> void:
 	elif typeof(value) == TYPE_ARRAY:
 		for i in value.size():
 			_find_missing(value[i], path + "/" + str(i), out)
+
+
+## Lê uma pasta com um JSON por item; o id de cada item é o nome do arquivo.
+## A ordem é a alfabética, para que o sorteio do mapa não dependa do sistema de arquivos.
+static func _read_entries(dir: String) -> Array:
+	var out := []
+	var files := Array(DirAccess.get_files_at(dir))
+	files.sort()
+	for f in files:
+		if f.get_extension() != "json":
+			continue
+		var entry := _read_json(dir.path_join(f))
+		entry.id = f.get_basename()
+		out.append(entry)
+	if out.is_empty():
+		push_error("Nenhum JSON em %s" % dir)
+	return out
 
 
 static func _read_json(file: String) -> Dictionary:

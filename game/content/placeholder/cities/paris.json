@@ -1,0 +1,79 @@
+{
+ "name": "Paris",
+ "map": {
+  "x": 152,
+  "y": 24
+ },
+ "description": [
+  {
+   "pt_BR": "A capital francesa, cortada pelo Sena, abriga a Torre Eiffel.",
+   "en": "The French capital, crossed by the Seine, is home to the Eiffel Tower."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "um rascunho de Monet",
+   "en": "a sketch by Monet"
+  },
+  {
+   "pt_BR": "a chave de uma catedral gótica",
+   "en": "the key to a gothic cathedral"
+  }
+ ],
+ "locations": [
+  "bank",
+  "hotel",
+  "airport",
+  "library",
+  "market",
+  "embassy"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por euros",
+    "en": "{he} changed money into euros"
+   }
+  ],
+  "hotel": [
+   {
+    "pt_BR": "{ele} pediu um quarto com vista para a Torre Eiffel",
+    "en": "{he} asked for a room with a view of the Eiffel Tower"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou num avião com bandeira azul, branca e vermelha",
+    "en": "{he} boarded a plane with a blue, white and red flag"
+   }
+  ],
+  "library": [
+   {
+    "pt_BR": "{ele} procurava livros sobre o Louvre",
+    "en": "{he} was looking for books about the Louvre"
+   }
+  ],
+  "market": [
+   {
+    "pt_BR": "{ele} comprou croissants e queijo brie",
+    "en": "{he} bought croissants and brie"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} treinava frases em francês",
+    "en": "{he} was practicing French phrases"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria subir na Torre Eiffel",
+    "en": "{he} wanted to climb the Eiffel Tower"
+   },
+   {
+    "pt_BR": "{ele} falou em ver a Mona Lisa",
+    "en": "{he} talked about seeing the Mona Lisa"
+   }
+  ]
+ }
+}

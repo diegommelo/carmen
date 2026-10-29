@@ -1,0 +1,82 @@
+{
+ "name": {
+  "pt_BR": "Lisboa",
+  "en": "Lisbon"
+ },
+ "map": {
+  "x": 142,
+  "y": 30
+ },
+ "description": [
+  {
+   "pt_BR": "A capital portuguesa se espalha por sete colinas à beira do Tejo.",
+   "en": "Portugal's capital spreads over seven hills along the Tagus."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "um azulejo do século XVI",
+   "en": "a 16th century tile"
+  },
+  {
+   "pt_BR": "a guitarra de uma fadista",
+   "en": "a fado singer's guitar"
+  }
+ ],
+ "locations": [
+  "bank",
+  "hotel",
+  "airport",
+  "library",
+  "market",
+  "embassy"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por euros",
+    "en": "{he} changed money into euros"
+   }
+  ],
+  "hotel": [
+   {
+    "pt_BR": "{ele} quis andar no elétrico 28",
+    "en": "{he} wanted to ride tram 28"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou num avião com bandeira verde e vermelha",
+    "en": "{he} boarded a plane with a green and red flag"
+   }
+  ],
+  "library": [
+   {
+    "pt_BR": "{ele} estudava as viagens de Vasco da Gama",
+    "en": "{he} was studying the voyages of Vasco da Gama"
+   }
+  ],
+  "market": [
+   {
+    "pt_BR": "{ele} comprou pastéis de nata",
+    "en": "{he} bought pastéis de nata"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria assistir a uma noite de fado",
+    "en": "{he} wanted to see a fado night"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria andar no elétrico 28",
+    "en": "{he} wanted to ride tram 28"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde comer pastel de nata",
+    "en": "{he} asked where to eat a custard tart"
+   }
+  ]
+ }
+}

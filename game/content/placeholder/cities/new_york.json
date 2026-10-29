@@ -1,0 +1,82 @@
+{
+ "name": {
+  "pt_BR": "Nova York",
+  "en": "New York"
+ },
+ "map": {
+  "x": 84,
+  "y": 32
+ },
+ "description": [
+  {
+   "pt_BR": "A maior cidade dos Estados Unidos é famosa pela Estátua da Liberdade.",
+   "en": "The largest city in the United States is famous for the Statue of Liberty."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a tocha de uma maquete da Estátua da Liberdade",
+   "en": "the torch of a Statue of Liberty model"
+  },
+  {
+   "pt_BR": "um disco de jazz raro",
+   "en": "a rare jazz record"
+  }
+ ],
+ "locations": [
+  "bank",
+  "hotel",
+  "airport",
+  "library",
+  "market",
+  "embassy"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por dólares",
+    "en": "{he} changed money into dollars"
+   }
+  ],
+  "hotel": [
+   {
+    "pt_BR": "{ele} pediu ingressos para a Broadway",
+    "en": "{he} asked for Broadway tickets"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou num avião com listras e estrelas",
+    "en": "{he} boarded a plane with stars and stripes"
+   }
+  ],
+  "library": [
+   {
+    "pt_BR": "{ele} lia sobre a construção do Empire State",
+    "en": "{he} was reading about the building of the Empire State"
+   }
+  ],
+  "market": [
+   {
+    "pt_BR": "{ele} comeu um cachorro-quente na rua",
+    "en": "{he} ate a hot dog on the street"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou onde fica a sede da ONU",
+    "en": "{he} asked where the UN headquarters is"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria subir no Empire State",
+    "en": "{he} wanted to go up the Empire State Building"
+   },
+   {
+    "pt_BR": "{ele} perguntou como chegar à Estátua da Liberdade",
+    "en": "{he} asked how to get to the Statue of Liberty"
+   }
+  ]
+ }
+}

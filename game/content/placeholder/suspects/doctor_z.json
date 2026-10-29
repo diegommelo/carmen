@@ -1,0 +1,37 @@
+{
+ "name": {
+  "pt_BR": "Doutor Z",
+  "en": "Doctor Z"
+ },
+ "boss": false,
+ "traits": {
+  "sex": "m",
+  "hobby": "tennis",
+  "hair": "blond",
+  "feature": "ring",
+  "vehicle": "convertible",
+  "food": "mexican"
+ },
+ "dossier": {
+  "full_name": {
+   "pt_BR": "Doutor Zeferino Zanetti",
+   "en": "Doctor Zeferino Zanetti"
+  },
+  "occupation": {
+   "pt_BR": "Ex-tenista profissional",
+   "en": "Former tennis pro"
+  },
+  "traits": {
+   "feature": {
+    "pt_BR": "Anel do tamanho de uma noz",
+    "en": "Ring the size of a walnut"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Diz que o melhor burrito do mundo fica num posto de estrada.",
+    "en": "Claims the best burrito in the world is at a roadside gas station."
+   }
+  ]
+ }
+}

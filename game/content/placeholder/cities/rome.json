@@ -1,0 +1,82 @@
+{
+ "name": {
+  "pt_BR": "Roma",
+  "en": "Rome"
+ },
+ "map": {
+  "x": 159,
+  "y": 33
+ },
+ "description": [
+  {
+   "pt_BR": "A Cidade Eterna guarda o Coliseu e o Fórum Romano.",
+   "en": "The Eternal City holds the Colosseum and the Roman Forum."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "uma moeda do Império Romano",
+   "en": "a coin from the Roman Empire"
+  },
+  {
+   "pt_BR": "um mosaico do Fórum",
+   "en": "a mosaic from the Forum"
+  }
+ ],
+ "locations": [
+  "bank",
+  "hotel",
+  "airport",
+  "library",
+  "market",
+  "embassy"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por euros",
+    "en": "{he} changed money into euros"
+   }
+  ],
+  "hotel": [
+   {
+    "pt_BR": "{ele} queria jogar uma moeda na Fontana di Trevi",
+    "en": "{he} wanted to throw a coin into the Trevi Fountain"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou num avião com bandeira verde, branca e vermelha",
+    "en": "{he} boarded a plane with a green, white and red flag"
+   }
+  ],
+  "library": [
+   {
+    "pt_BR": "{ele} lia sobre Júlio César",
+    "en": "{he} was reading about Julius Caesar"
+   }
+  ],
+  "market": [
+   {
+    "pt_BR": "{ele} pediu uma pizza de verdade",
+    "en": "{he} ordered a real pizza"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou como visitar o Vaticano",
+    "en": "{he} asked how to visit the Vatican"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria conhecer o Coliseu",
+    "en": "{he} wanted to see the Colosseum"
+   },
+   {
+    "pt_BR": "{ele} perguntou o horário da missa do Papa",
+    "en": "{he} asked when the Pope says Mass"
+   }
+  ]
+ }
+}

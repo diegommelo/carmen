@@ -14,8 +14,10 @@ func _initialize() -> void:
 	_test_clock(pack)
 	_test_graph(pack)
 	_test_warrant(pack)
+	_test_layout(pack)
 	_test_languages(pack)
 	_test_dossier(pack)
+	_test_clue_rotation(pack)
 	for language in pack.languages:
 		pack.set_language(language)
 		for seed in range(1, 41):
@@ -141,6 +143,33 @@ func _test_boss(pack: ContentPack) -> void:
 	s.start({"name": "Teste", "cases": 29, "rank": 4})
 	check(s.suspect.get("boss", false), "com 29 casos o alvo é a chefe")
 	check(s.steps_left == 4 + 4 - 1, "rota de patente + 4 saltos")
+
+
+func _test_layout(pack: ContentPack) -> void:
+	check(pack._raw.format_version == ContentPack.FORMAT_VERSION, "format_version do pacote")
+	check(pack.cities.size() == 12 and pack.suspects.size() == 6, "um arquivo por cidade e por suspeito")
+	check(pack.city("mexico_city").id == "mexico_city", "o id vem do nome do arquivo")
+	var ids := pack.city_ids()
+	var sorted := ids.duplicate()
+	sorted.sort()
+	check(ids == sorted, "cidades em ordem alfabética")
+
+
+## As pistas sobre uma cidade não se repetem no caso enquanto houver outras, e as
+## gerais (clues.any) entram no sorteio de qualquer tipo de local.
+func _test_clue_rotation(pack: ContentPack) -> void:
+	var s := CaseSession.new(pack, 5)
+	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	var rome := pack.city("rome")
+	var pool := s._clue_pool(rome, "bank")
+	check(pool.size() == rome.clues.bank.size() + rome.clues.any.size(), "banco usa as pistas do tipo e as gerais")
+	var seen := {}
+	for i in pool.size():
+		seen[str(s._pick_clue(rome, "bank"))] = true
+	check(seen.size() == pool.size(), "nenhuma pista repetida antes de usar todas: %d de %d" % [seen.size(), pool.size()])
+	check(s._pick_clue(rome, "bank") != null, "depois de usar todas, volta a sortear")
+	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	check(s._used_clues.size() <= 3, "caso novo esquece as pistas usadas")
 
 
 func _test_languages(pack: ContentPack) -> void:

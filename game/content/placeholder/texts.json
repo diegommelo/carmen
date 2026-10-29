@@ -1,0 +1,84 @@
+{
+ "texts": {
+  "openers": [
+   {
+    "pt_BR": "Me contaram que",
+    "en": "I was told that"
+   },
+   {
+    "pt_BR": "Ouvi dizer que",
+    "en": "I heard that"
+   },
+   {
+    "pt_BR": "Uma fonte confiável disse que",
+    "en": "A reliable source said that"
+   },
+   {
+    "pt_BR": "A pessoa que você procura esteve aqui e",
+    "en": "The person you're looking for was here and"
+   }
+  ],
+  "final_warnings": [
+   {
+    "pt_BR": "Tem alguma coisa estranha acontecendo na cidade.",
+    "en": "Something strange is going on in town."
+   },
+   {
+    "pt_BR": "Dizem que a quadrilha está escondida por aqui.",
+    "en": "They say the gang is hiding around here."
+   },
+   {
+    "pt_BR": "Cuidado, agente. Você está chegando perto demais.",
+    "en": "Careful, agent. You're getting too close."
+   }
+  ],
+  "nothing_more": {
+   "pt_BR": "É tudo o que eu sei",
+   "en": "That's all I know"
+  },
+  "henchman": {
+   "pt_BR": "Um capanga da quadrilha! Você está no caminho certo.",
+   "en": "A henchman of the gang! You're on the right track."
+  },
+  "danger": [
+   {
+    "pt_BR": "Uma faca passou raspando!",
+    "en": "A knife just missed you!"
+   },
+   {
+    "pt_BR": "Alguém atirou na sua direção!",
+    "en": "Someone shot at you!"
+   },
+   {
+    "pt_BR": "Um carro quase te atropelou!",
+    "en": "A car almost ran you over!"
+   }
+  ],
+  "pronouns": {
+   "pt_BR": {
+    "m": {
+     "Ele": "Ele",
+     "ele": "ele",
+     "dele": "dele"
+    },
+    "f": {
+     "Ele": "Ela",
+     "ele": "ela",
+     "dele": "dela"
+    }
+   },
+   "en": {
+    "m": {
+     "He": "He",
+     "he": "he",
+     "his": "his"
+    },
+    "f": {
+     "He": "She",
+     "he": "she",
+     "his": "her"
+    }
+   }
+  }
+ }
+}

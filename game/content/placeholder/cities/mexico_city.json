@@ -1,0 +1,82 @@
+{
+ "name": {
+  "pt_BR": "Cidade do México",
+  "en": "Mexico City"
+ },
+ "map": {
+  "x": 62,
+  "y": 48
+ },
+ "description": [
+  {
+   "pt_BR": "A capital mexicana foi construída sobre a antiga Tenochtitlán.",
+   "en": "Mexico's capital was built on top of ancient Tenochtitlan."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "uma máscara asteca",
+   "en": "an Aztec mask"
+  },
+  {
+   "pt_BR": "um quadro de Frida Kahlo",
+   "en": "a painting by Frida Kahlo"
+  }
+ ],
+ "locations": [
+  "bank",
+  "hotel",
+  "airport",
+  "library",
+  "market",
+  "embassy"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por pesos mexicanos",
+    "en": "{he} changed money into Mexican pesos"
+   }
+  ],
+  "hotel": [
+   {
+    "pt_BR": "{ele} queria ouvir mariachis",
+    "en": "{he} wanted to hear mariachis"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou num avião com uma águia na bandeira",
+    "en": "{he} boarded a plane with an eagle on its flag"
+   }
+  ],
+  "library": [
+   {
+    "pt_BR": "{ele} estudava a história dos astecas",
+    "en": "{he} was studying Aztec history"
+   }
+  ],
+  "market": [
+   {
+    "pt_BR": "{ele} provou tacos de todos os tipos",
+    "en": "{he} tried every kind of taco"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria ver as pirâmides de Teotihuacán",
+    "en": "{he} wanted to see the pyramids of Teotihuacan"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria visitar as pirâmides de Teotihuacán",
+    "en": "{he} wanted to visit the pyramids of Teotihuacan"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde ouvir mariachis",
+    "en": "{he} asked where to hear mariachis"
+   }
+  ]
+ }
+}

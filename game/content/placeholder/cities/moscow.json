@@ -1,0 +1,82 @@
+{
+ "name": {
+  "pt_BR": "Moscou",
+  "en": "Moscow"
+ },
+ "map": {
+  "x": 177,
+  "y": 17
+ },
+ "description": [
+  {
+   "pt_BR": "A capital russa tem a Praça Vermelha e o Kremlin.",
+   "en": "Russia's capital has Red Square and the Kremlin."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "um ovo Fabergé",
+   "en": "a Fabergé egg"
+  },
+  {
+   "pt_BR": "a coroa de um czar",
+   "en": "a tsar's crown"
+  }
+ ],
+ "locations": [
+  "bank",
+  "hotel",
+  "airport",
+  "library",
+  "market",
+  "embassy"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por rublos",
+    "en": "{he} changed money into rubles"
+   }
+  ],
+  "hotel": [
+   {
+    "pt_BR": "{ele} pediu um casaco bem quente",
+    "en": "{he} asked for a very warm coat"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou num avião com bandeira branca, azul e vermelha",
+    "en": "{he} boarded a plane with a white, blue and red flag"
+   }
+  ],
+  "library": [
+   {
+    "pt_BR": "{ele} lia Tolstói no original",
+    "en": "{he} was reading Tolstoy in the original"
+   }
+  ],
+  "market": [
+   {
+    "pt_BR": "{ele} comprou matrioscas",
+    "en": "{he} bought matryoshka dolls"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria visitar o Kremlin",
+    "en": "{he} wanted to visit the Kremlin"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria ver a Praça Vermelha",
+    "en": "{he} wanted to see Red Square"
+   },
+   {
+    "pt_BR": "{ele} comprou um casaco de pele para o inverno",
+    "en": "{he} bought a fur coat for the winter"
+   }
+  ]
+ }
+}

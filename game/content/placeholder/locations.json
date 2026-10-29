@@ -1,0 +1,238 @@
+{
+ "location_types": [
+  {
+   "id": "bank",
+   "name": {
+    "pt_BR": "Banco",
+    "en": "Bank"
+   },
+   "group": 0,
+   "witnesses": [
+    {
+     "pt_BR": "Gerente",
+     "en": "Manager"
+    },
+    {
+     "pt_BR": "Caixa",
+     "en": "Teller"
+    },
+    {
+     "pt_BR": "Segurança",
+     "en": "Guard"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém com essa descrição passou pelo caixa hoje.",
+     "en": "Nobody like that came to the teller today."
+    },
+    {
+     "pt_BR": "Sinto muito, não vi essa pessoa.",
+     "en": "Sorry, I haven't seen that person."
+    }
+   ],
+   "clue_chance": {
+    "hobby": 0,
+    "hair": 32,
+    "feature": 40,
+    "vehicle": 48,
+    "food": 0
+   }
+  },
+  {
+   "id": "hotel",
+   "name": {
+    "pt_BR": "Hotel",
+    "en": "Hotel"
+   },
+   "group": 0,
+   "witnesses": [
+    {
+     "pt_BR": "Recepcionista",
+     "en": "Receptionist"
+    },
+    {
+     "pt_BR": "Mensageiro",
+     "en": "Bellhop"
+    },
+    {
+     "pt_BR": "Camareira",
+     "en": "Housekeeper"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém assim se hospedou aqui.",
+     "en": "Nobody like that checked in here."
+    },
+    {
+     "pt_BR": "Não vi ninguém suspeito no saguão.",
+     "en": "I didn't see anyone suspicious in the lobby."
+    }
+   ],
+   "clue_chance": {
+    "hobby": 0,
+    "hair": 32,
+    "feature": 32,
+    "vehicle": 48,
+    "food": 48
+   }
+  },
+  {
+   "id": "airport",
+   "name": {
+    "pt_BR": "Aeroporto",
+    "en": "Airport"
+   },
+   "group": 1,
+   "witnesses": [
+    {
+     "pt_BR": "Piloto",
+     "en": "Pilot"
+    },
+    {
+     "pt_BR": "Comissária",
+     "en": "Flight attendant"
+    },
+    {
+     "pt_BR": "Despachante de bagagem",
+     "en": "Baggage handler"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Passa tanta gente por aqui que não reparei em ninguém.",
+     "en": "So many people pass through here that I didn't notice anyone."
+    },
+    {
+     "pt_BR": "Não vi ninguém parecido.",
+     "en": "I haven't seen anyone like that."
+    }
+   ],
+   "clue_chance": {
+    "hobby": 32,
+    "hair": 32,
+    "feature": 0,
+    "vehicle": 48,
+    "food": 32
+   }
+  },
+  {
+   "id": "library",
+   "name": {
+    "pt_BR": "Biblioteca",
+    "en": "Library"
+   },
+   "group": 1,
+   "witnesses": [
+    {
+     "pt_BR": "Bibliotecária",
+     "en": "Librarian"
+    },
+    {
+     "pt_BR": "Arquivista",
+     "en": "Archivist"
+    },
+    {
+     "pt_BR": "Estudante",
+     "en": "Student"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém assim pegou livros aqui.",
+     "en": "Nobody like that borrowed books here."
+    },
+    {
+     "pt_BR": "Está tudo calmo na biblioteca.",
+     "en": "Everything is quiet at the library."
+    }
+   ],
+   "clue_chance": {
+    "hobby": 32,
+    "hair": 32,
+    "feature": 32,
+    "vehicle": 0,
+    "food": 0
+   }
+  },
+  {
+   "id": "market",
+   "name": {
+    "pt_BR": "Mercado",
+    "en": "Market"
+   },
+   "group": 2,
+   "witnesses": [
+    {
+     "pt_BR": "Feirante",
+     "en": "Stallholder"
+    },
+    {
+     "pt_BR": "Vendedor ambulante",
+     "en": "Street vendor"
+    },
+    {
+     "pt_BR": "Freguês",
+     "en": "Shopper"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Com esse movimento todo, não notei ninguém.",
+     "en": "With all this bustle, I didn't notice anyone."
+    },
+    {
+     "pt_BR": "Não vi ninguém assim por aqui.",
+     "en": "I haven't seen anyone like that around here."
+    }
+   ],
+   "clue_chance": {
+    "hobby": 48,
+    "hair": 48,
+    "feature": 48,
+    "vehicle": 48,
+    "food": 16
+   }
+  },
+  {
+   "id": "embassy",
+   "name": {
+    "pt_BR": "Embaixada",
+    "en": "Embassy"
+   },
+   "group": 2,
+   "witnesses": [
+    {
+     "pt_BR": "Embaixador",
+     "en": "Ambassador"
+    },
+    {
+     "pt_BR": "Adido",
+     "en": "Attaché"
+    },
+    {
+     "pt_BR": "Secretário",
+     "en": "Secretary"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém com essa descrição pediu visto.",
+     "en": "Nobody with that description asked for a visa."
+    },
+    {
+     "pt_BR": "Não temos registro dessa pessoa.",
+     "en": "We have no record of that person."
+    }
+   ],
+   "clue_chance": {
+    "hobby": 32,
+    "hair": 32,
+    "feature": 32,
+    "vehicle": 48,
+    "food": 0
+   }
+  }
+ ]
+}

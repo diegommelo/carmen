@@ -1,0 +1,37 @@
+{
+ "name": {
+  "pt_BR": "Baronesa",
+  "en": "The Baroness"
+ },
+ "boss": false,
+ "traits": {
+  "sex": "f",
+  "hobby": "surfing",
+  "hair": "blond",
+  "feature": "tattoo",
+  "vehicle": "motorcycle",
+  "food": "seafood"
+ },
+ "dossier": {
+  "full_name": {
+   "pt_BR": "Baronesa Valquíria von Onda",
+   "en": "Baroness Valkyrie von Wave"
+  },
+  "occupation": {
+   "pt_BR": "Surfista que vive de cidade em cidade",
+   "en": "Surfer who drifts from city to city"
+  },
+  "traits": {
+   "feature": {
+    "pt_BR": "Tatuagem de onda no tornozelo",
+    "en": "Wave tattoo on her ankle"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Come camarão no café da manhã.",
+    "en": "Eats shrimp for breakfast."
+   }
+  ]
+ }
+}

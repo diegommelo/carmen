@@ -1,0 +1,79 @@
+{
+ "name": "Brasília",
+ "map": {
+  "x": 106,
+  "y": 70
+ },
+ "description": [
+  {
+   "pt_BR": "A capital do Brasil foi planejada em forma de avião e inaugurada em 1960.",
+   "en": "Brazil's capital was planned in the shape of an airplane and opened in 1960."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a maquete original do Plano Piloto",
+   "en": "the original model of the Pilot Plan"
+  },
+  {
+   "pt_BR": "o relógio do Congresso",
+   "en": "the Congress clock"
+  }
+ ],
+ "locations": [
+  "bank",
+  "hotel",
+  "airport",
+  "library",
+  "market",
+  "embassy"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por reais",
+    "en": "{he} changed money into reais"
+   }
+  ],
+  "hotel": [
+   {
+    "pt_BR": "{ele} pediu um mapa do Eixo Monumental",
+    "en": "{he} asked for a map of the Monumental Axis"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou num avião com bandeira verde e amarela",
+    "en": "{he} boarded a plane with a green and yellow flag"
+   }
+  ],
+  "library": [
+   {
+    "pt_BR": "{ele} pesquisava a obra de Oscar Niemeyer",
+    "en": "{he} was researching the work of Oscar Niemeyer"
+   }
+  ],
+  "market": [
+   {
+    "pt_BR": "{ele} queria provar pão de queijo",
+    "en": "{he} wanted to try pão de queijo"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria visitar o Palácio do Planalto",
+    "en": "{he} wanted to visit the Planalto Palace"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria ver os prédios de Niemeyer",
+    "en": "{he} wanted to see Niemeyer's buildings"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde fica o Congresso Nacional",
+    "en": "{he} asked where the National Congress is"
+   }
+  ]
+ }
+}
