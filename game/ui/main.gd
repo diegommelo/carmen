@@ -18,6 +18,9 @@ var _info: AcceptDialog
 var _languages: PopupMenu
 ## Tela fora do caso (identificação, sede, briefing) a redesenhar quando o idioma muda.
 var _redraw := Callable()
+## Muda a cada tela nova. Uma sequência com pausas (animação, texto, pausa) para quando
+## o número mudou no meio dela.
+var _flow := 0
 
 
 func _ready() -> void:
@@ -108,6 +111,7 @@ func _on_language_selected(index: int) -> void:
 	var code: String = _languages.get_item_metadata(index)
 	TranslationServer.set_locale(code)
 	_refresh_labels()
+	_flow += 1
 	if session == null:
 		pack.set_language(code)
 	else:
@@ -139,6 +143,7 @@ func _on_verb(index: int) -> void:
 
 ## Sede da PF sem caso aberto: limpa a moldura para as telas de abertura.
 func _show_hq() -> void:
+	_flow += 1
 	session = null
 	hide_overlay()
 	set_case("", "", 1.0)
@@ -239,25 +244,35 @@ func _resume_case(saved: Dictionary) -> bool:
 	return true
 
 
-## Briefing do caso, como o "*** FLASH ***" do original: o roubo, o suspeito, a missão
-## e o prazo. O caso só começa quando o jogador aceita.
+## Briefing do caso, como o "*** FLASH ***" do original: o roubo e o suspeito, uma pausa,
+## e depois a missão, a verba e o prazo. O caso só começa quando o jogador aceita.
 func _show_briefing() -> void:
 	_redraw = _show_briefing
+	_flow += 1
+	var flow := _flow
 	hide_overlay()
 	_refresh_status()
 	set_header(tr("HQ_TITLE"))
 	show_scene(tr("BRIEFING_TITLE"), tr("SCENE_ART") % "hq", Palette.PANEL)
 	set_verbs_enabled(false)
 	clear_text()
+	clear_choices()
 	var crime_city: String = pack.city(session.crime_city).name
-	var deadline: Dictionary = session.difficulty.deadline
 	say(_highlight(tr("BRIEFING_FLASH")))
 	say(tr("ALERT_THEFT") % [session.treasure(), crime_city])
 	say(tr("SUSPECT_SEEN") % _sex_name().to_lower())
+	await wait_for_continue(tr("BTN_CONTINUE"))
+	if flow != _flow:
+		return
+	clear_text()
+	var deadline: Dictionary = session.difficulty.deadline
+	var when := _when(deadline.day, deadline.hour)
 	say(tr("MISSION") % crime_city)
-	say(tr("DEADLINE") % [_day_name(deadline.day), tr("HOUR_FMT") % deadline.hour])
+	if session.budget >= 0:
+		say(tr("BUDGET_AND_DEADLINE") % [_money(session.budget), when])
+	else:
+		say(tr("CAPTURE_DEADLINE") % when)
 	say(tr("GOOD_LUCK") % [pack.ranks[detective.rank].name, detective.name])
-	clear_choices()
 	var bar := add_choice_bar()
 	add_spacer(bar)
 	add_choice(bar, tr("BTN_ACCEPT"), _accept_case)
@@ -292,11 +307,12 @@ func _when(day: int, hour: int) -> String:
 
 ## Mostra a cidade atual. Com `fresh`, o painel de texto é limpo antes.
 func _show_city(fresh: bool = true) -> void:
+	_flow += 1
 	var city := pack.city(session.current_city)
 	if fresh:
 		clear_text()
 	show_scene(city.name, tr("SCENE_ART") % ("cities/" + session.current_city), _tint(session.current_city))
-	say("\n" + _highlight(city.name))
+	say(("" if fresh else "\n") + _highlight(city.name))
 	say(session.arrival_text())
 	_show_main_actions()
 
@@ -355,32 +371,42 @@ func _show_main_actions() -> void:
 		_render_outcome()
 
 
-## Investigar: os lugares da cidade viram uma lista no painel de texto.
+## Investigar: os lugares da cidade viram uma lista no painel de texto. Para sair, basta
+## outro verbo.
 func _show_places() -> void:
+	_flow += 1
 	clear_text()
 	say(tr("WHERE_TO"))
 	clear_choices()
 	var column := add_choice_column()
 	for i in session.places.size():
 		add_choice(column, pack.location_type(session.places[i].type).name, _on_investigate.bind(i))
-	var bar := add_choice_bar()
-	add_spacer(bar)
-	add_choice(bar, tr("BTN_BACK"), _show_city)
 
 
-## A testemunha aparece na cena e a fala dela ocupa o painel de texto.
+## Como no original: se algo acontece, primeiro a animação na cena e o texto do evento;
+## depois a cena mostra o lugar e a testemunha fala no pé do painel.
 func _on_investigate(slot: int) -> void:
 	if session.outcome != CaseSession.ONGOING:
 		return
+	_flow += 1
+	var flow := _flow
 	var r := session.investigate(slot)
 	var type_id: String = session.places[slot].type
 	var type := pack.location_type(type_id)
-	show_scene(r.witness, tr("SCENE_ART") % ("witnesses/" + type_id), _tint(type_id))
+	set_verbs_enabled(false)
+	clear_choices()
 	clear_text()
-	_say_event(r.event, r.danger)
+	if r.event != "":
+		await play_animation("", tr("ANIMATION_ART") % ("events/" + r.event), _tint(r.event))
+		if flow != _flow:
+			return
+		_say_event(r.event, r.danger)
+		await wait_typing()
+		if flow != _flow:
+			return
+	show_scene(type.name, tr("SCENE_ART") % ("places/" + type_id), _tint(type_id))
 	if r.text != "":
-		say(_highlight("%s (%s):" % [r.witness, type.name]))
-		say(r.text)
+		show_speaker(r.witness, tr("SCENE_ART") % ("witnesses/" + type_id), _tint(r.witness), r.text)
 	if r.slept:
 		say(tr("SLEEPING"))
 	_show_main_actions()
@@ -411,10 +437,6 @@ func _show_destinations() -> void:
 		var b := add_choice(row, _ticket_text(id), _fly.bind(map, row, id), session.can_afford(id))
 		b.mouse_entered.connect(map.highlight.bind(id))
 		b.focus_entered.connect(map.highlight.bind(id))
-	var bar := HBoxContainer.new()
-	box.add_child(bar)
-	add_spacer(bar)
-	add_choice(bar, tr("BTN_BACK"), hide_overlay)
 	show_overlay(box)
 
 
@@ -468,10 +490,9 @@ func _on_travel(city_id: String) -> void:
 func _show_computer() -> void:
 	var screen := WarrantScreen.new()
 	screen.setup(tr("WARRANT_TITLE"), pack.warrant_traits(), _marks, tr("TRAIT_UNKNOWN"),
-		tr("BTN_ISSUE_WARRANT"), tr("BTN_BACK"))
+		tr("BTN_ISSUE_WARRANT"))
 	screen.marks_changed.connect(_on_marks_changed.bind(screen))
 	screen.issue_pressed.connect(_on_compute)
-	screen.back_pressed.connect(hide_overlay)
 	screen.set_count_text(_count_text())
 	show_overlay(screen)
 

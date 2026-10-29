@@ -5,7 +5,6 @@ extends VBoxContainer
 
 signal marks_changed(marks: Dictionary)
 signal issue_pressed
-signal back_pressed
 
 var _marks: Dictionary
 var _count: Label
@@ -13,7 +12,7 @@ var _count: Label
 
 ## `traits` são os traços do mandado, como em ContentPack.warrant_traits().
 func setup(title: String, traits: Array, marks: Dictionary, unknown_text: String,
-		issue_text: String, back_text: String) -> void:
+		issue_text: String) -> void:
 	_marks = marks.duplicate()
 	add_theme_constant_override("separation", 6)
 	add_child(GameFrame.heading(title))
@@ -28,7 +27,9 @@ func setup(title: String, traits: Array, marks: Dictionary, unknown_text: String
 	_count.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_count.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	add_child(_count)
-	_add_buttons(issue_text, back_text)
+	var row := HBoxContainer.new()
+	add_child(row)
+	row.add_child(_button(issue_text, issue_pressed))
 
 
 func _add_trait_row(grid: GridContainer, t: Dictionary, unknown_text: String) -> void:
@@ -45,15 +46,6 @@ func _add_trait_row(grid: GridContainer, t: Dictionary, unknown_text: String) ->
 	opt.selected = values.find(_marks[t.id]) + 1 if _marks.has(t.id) else 0
 	opt.item_selected.connect(_on_selected.bind(t.id, values))
 	grid.add_child(opt)
-
-
-## Emitir à esquerda e Voltar à direita, para não apertar um querendo o outro.
-func _add_buttons(issue_text: String, back_text: String) -> void:
-	var row := HBoxContainer.new()
-	add_child(row)
-	row.add_child(_button(issue_text, issue_pressed))
-	GameFrame.add_spacer(row)
-	row.add_child(_button(back_text, back_pressed))
 
 
 func _button(text: String, pressed: Signal) -> Button:

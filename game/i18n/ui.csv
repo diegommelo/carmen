@@ -1,7 +1,6 @@
 keys,en,pt_BR
 ALERT_THEFT,%s was stolen in %s.,Roubaram %s em %s.
 SUSPECT_SEEN,%s suspect seen at the scene of the crime.,Suspeito do sexo %s visto no local do crime.
-DEADLINE,"Deadline: %s, %s.","Prazo: %s, %s."
 HOUR_FMT,%d:00,%dh
 DAY_0,Monday,segunda
 DAY_1,Tuesday,terça
@@ -90,3 +89,7 @@ BTN_YES,Yes,Sim
 BTN_NO,No,Não
 BTN_CLOSE,Close,Fechar
 STAMP_CAUGHT,ARRESTED,PRESO
+BTN_CONTINUE,Continue,Continuar
+BUDGET_AND_DEADLINE,You have a budget of %s to pay for your tickets. The arrest must happen by %s.,Você possui uma verba de %s para custear suas passagens. A captura deve ocorrer até %s.
+CAPTURE_DEADLINE,The arrest must happen by %s.,A captura deve ocorrer até %s.
+ANIMATION_ART,animation: %s,animação: %s
