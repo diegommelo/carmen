@@ -6,10 +6,16 @@ Guia para o Claude Code neste repositório. O dono é o diego, que escreve em po
 
 *Where in the World Are the Bolsonaros?* (pt-BR: *Onde estão os Bolsonaros?*), paródia do *Where in the World is Carmen Sandiego?* (DOS) feita em Godot 4.7. O jogador é um agente da PF que caça um membro da família (ou aliado) por caso. O repositório cuida só da paródia. Uma recriação fiel do original, lendo os `.DAT`, é outro projeto: não desenhe o formato de pacote pensando num carregador de `.DAT`.
 
-- `game/core`: regras, sem dependência de tela (`CaseSession`, `ContentPack`, `Career`, `WorldGraph`, `GameClock`, `MscRng`).
-- `game/ui`: telas. `main.gd` liga o `CaseSession` à moldura `game_frame.gd`; telas cheias em `ui/screens/`.
+- `game/core`: regras, sem dependência de tela (`CaseSession`, `ContentPack`, `Career` = fichário de agentes, `WorldGraph`, `GameClock`, `MscRng`).
+- `game/ui`: telas. `main.gd` liga o `CaseSession` à moldura `game_frame.gd`; telas cheias em `ui/screens/` (mapa de viagem, dossiê, fichário PF).
 - `game/content/parody`: pacote de conteúdo da paródia. `game/content/placeholder`: pacote mínimo usado pelos testes.
 - `docs/spec-original.md`: regras e formatos do original (engenharia reversa). `docs/content-format.md`: formato dos pacotes.
+
+## Como o diego trabalha
+
+- Fluxo **plano → spec → implementação**: para mudança que não seja trivial, proponha o plano e espere o ok antes de escrever código.
+- Ambiente: Windows, Godot 4.7 local. O executável costuma se chamar `Godot_v4.7*-stable_win64.exe` (ou `_console.exe` para ver a saída); troque `godot` nos comandos abaixo pelo caminho dele.
+- Ele revisa jogando no Godot local; não precisa mandar captura de tela.
 
 ## Comandos
 
@@ -20,6 +26,8 @@ godot --headless --path game --import                                     # depo
 ```
 
 Sem o `--import`, as chaves novas de `ui.csv` aparecem cruas na tela. O repositório não tem CI: rode os testes antes de abrir PR.
+
+Testes só onde ajudam a validar o código (regras do núcleo, save/replay, balanceamento); não escreva teste por obrigação, nem para tela.
 
 ## Regras de código
 
@@ -60,5 +68,4 @@ Sem o `--import`, as chaves novas de `ui.csv` aparecem cruas na tela. O reposit�
 - A cena mostra o lugar (a cidade ao chegar, o local ao investigar). Quem fala aparece no pé do painel de texto, como no original: retrato com nome e a fala num balão.
 - Sequência ao investigar, também usada em captura e desfecho: animação na cena (se houver evento), texto do evento, depois a testemunha com a fala (`play_animation`, `wait_typing`, `show_speaker` em `game_frame.gd`).
 - Briefing: roubo e suspeito, pausa (qualquer tecla ou Continuar), missão, verba e prazo, boa sorte, e o botão Aceitar missão.
-- Toda a arte é original. Por enquanto as cenas são placeholders coloridos.
-- O diego revisa no Godot local; não precisa mandar captura de tela.
+- Toda a arte é original. Por enquanto as cenas são placeholders coloridos com o nome do arquivo esperado (`arte: ...`, `animação: ...`).
