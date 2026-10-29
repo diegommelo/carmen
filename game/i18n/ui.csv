@@ -18,7 +18,7 @@ BTN_DOSSIERS,Dossiers,Dossiês
 BTN_ISSUE_WARRANT,Issue warrant,Emitir mandado
 BTN_NEW_CASE,New case,Novo caso
 TRAVEL_OPTION,%s (%d h),%s (%dh)
-TRAIT_UNKNOWN,%s: ?,%s: ?
+TRAIT_UNKNOWN,?,?
 FOUND_HIDEOUT,[b]You found the hideout![/b],[b]Você encontrou o esconderijo![/b]
 SLEEPING,[i]Sleeping...[/i],[i]Dormindo...[/i]
 NO_MATCH,No suspect has those traits.,Nenhum suspeito tem esses traços.
@@ -51,8 +51,8 @@ KEY_HINT,key %d,tecla %d
 MENU_RANK,Rank,Patente
 MENU_LANGUAGE,Language,Idioma
 MENU_ABOUT,About,Sobre
-ABOUT_TEXT,"Where in the World is Bolsonaro Family: a parody of the detective games of the 90s, made in Godot.
-Font: Press Start 2P (SIL Open Font License).","Where in the World is Bolsonaro Family: uma paródia dos jogos de detetive dos anos 90, feita em Godot.
+ABOUT_TEXT,"Where in the World Are the Bolsonaros? is a parody of the detective games of the 90s, made in Godot.
+Font: Press Start 2P (SIL Open Font License).","Where in the World Are the Bolsonaros? é uma paródia dos jogos de detetive dos anos 90, feita em Godot.
 Fonte: Press Start 2P (SIL Open Font License)."
 RANK_INFO,"Agent %s
 Rank: %s
@@ -62,8 +62,17 @@ Casos resolvidos: %d"
 RANK_NO_CAREER,No career yet.,Nenhuma carreira ainda.
 HQ_TITLE,Federal Police HQ,Sede da PF
 SCENE_ART,art: %s,arte: %s
-CASE_BAR,Case: %s,Caso: %s
 DEADLINE_SHORT,Deadline: %s,Prazo: %s
 NOTES_WARRANT,Warrant: %s,Mandado: %s
 NOTES_TRAITS,Traits: %s,Traços: %s
 NOTES_NONE,No traits noted yet.,Nenhum traço anotado ainda.
+MORE,[more],[mais]
+WHERE_TO,Where do you want to investigate?,Onde você quer investigar?
+TRAVEL_TITLE,Flights from %s,Voos saindo de %s
+WARRANT_TITLE,FEDERAL POLICE · WARRANT SYSTEM,POLÍCIA FEDERAL · SISTEMA DE MANDADOS
+WARRANT_COUNT,"Matching suspects: %d
+%s","Suspeitos compatíveis: %d
+%s"
+STAMP_RULED_OUT,RULED OUT,DESCARTADO
+SCENE_ARRESTED,Arrested!,Preso!
+SCENE_ESCAPED,Got away!,Fugiu!

@@ -1,7 +1,8 @@
 class_name GameFrame
 extends Control
 ## Moldura comum das telas do jogo, numa tela de 640 × 360 (ver o guia de estilo).
-## Só desenha e repassa cliques; quem conhece as regras é main.gd.
+## Só desenha e repassa cliques; quem conhece as regras é main.gd. Telas que precisam
+## de mais espaço (viagem, mandado) abrem por cima da cena e do texto com show_overlay.
 
 signal verb_pressed(index: int)
 signal menu_pressed(id: String)
@@ -20,9 +21,9 @@ const TEXT_PANEL := Rect2i(308, 52, 324, 240)
 const NOTES := Rect2i(8, 296, 216, 56)
 const FIRST_VERB := Rect2i(228, 296, 98, 56)
 const VERB_STEP := 102
+const OVERLAY := Rect2i(8, 52, 624, 240)
 
 var _menu: Dictionary = {}
-var _case_label: Label
 var _budget_label: Label
 var _deadline_label: Label
 var _deadline_bar: ProgressBar
@@ -30,13 +31,22 @@ var _header: Label
 var _scene_bg: ColorRect
 var _scene_title: Label
 var _scene_caption: Label
+var _stamp: Label
 var _text: RichTextLabel
+var _more: Label
 var _choices: VBoxContainer
 var _notes: Label
 var _verbs: Array[Button] = []
 var _verb_names: Array[Label] = []
 var _verb_keys: Array[Label] = []
+var _overlay: PanelContainer
 var _typed := 0.0
+## Primeira linha da página que está no painel de texto.
+var _page_line := 0
+## A página encheu e o texto espera um clique ou uma tecla para continuar.
+var _waiting_page := false
+## Linhas vazias no fim do texto para a última página poder rolar até o topo.
+var _padding := 0
 
 
 func _ready() -> void:
@@ -48,6 +58,7 @@ func _ready() -> void:
 	_build_text_panel()
 	_build_notes()
 	_build_verbs()
+	_build_overlay()
 
 
 func _build_menu_bar() -> void:
@@ -71,11 +82,8 @@ func _build_case_bar() -> void:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 8)
 	_place(_panel(row), CASE_BAR)
-	_case_label = _label()
-	_case_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_case_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	row.add_child(_case_label)
 	_budget_label = _label()
+	_budget_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(_budget_label)
 	_deadline_label = _label()
 	row.add_child(_deadline_label)
@@ -109,6 +117,12 @@ func _build_scene() -> void:
 	labels.add_child(_scene_title)
 	_scene_caption = _label(Palette.TEXT_DIM, HORIZONTAL_ALIGNMENT_CENTER)
 	labels.add_child(_scene_caption)
+	_stamp = _label(Palette.ALERT, HORIZONTAL_ALIGNMENT_CENTER)
+	_stamp.add_theme_stylebox_override("normal", PfTheme.box(Palette.INK, Palette.ALERT, 4))
+	_stamp.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_stamp.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	_stamp.hide()
+	panel.add_child(_stamp)
 
 
 func _build_text_panel() -> void:
@@ -117,10 +131,14 @@ func _build_text_panel() -> void:
 	_place(_panel(box), TEXT_PANEL)
 	_text = RichTextLabel.new()
 	_text.bbcode_enabled = true
-	_text.scroll_following = true
+	_text.scroll_active = false
+	_text.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_text.gui_input.connect(_on_text_input)
 	box.add_child(_text)
+	_more = _label(Palette.HIGHLIGHT, HORIZONTAL_ALIGNMENT_RIGHT)
+	_more.hide()
+	box.add_child(_more)
 	_choices = VBoxContainer.new()
 	_choices.add_theme_constant_override("separation", 3)
 	box.add_child(_choices)
@@ -130,7 +148,7 @@ func _build_notes() -> void:
 	_notes = _label()
 	_notes.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_notes.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_notes.max_lines_visible = 3
+	_notes.max_lines_visible = 4
 	_place(_panel(_notes), NOTES)
 
 
@@ -155,6 +173,12 @@ func _build_verbs() -> void:
 		_verbs.append(b)
 
 
+func _build_overlay() -> void:
+	_overlay = PanelContainer.new()
+	_overlay.hide()
+	_place(_overlay, OVERLAY)
+
+
 func _place(node: Control, rect: Rect2i) -> void:
 	node.position = rect.position
 	node.size = rect.size
@@ -172,6 +196,14 @@ func _label(color: Color = Palette.TEXT, align := HORIZONTAL_ALIGNMENT_LEFT) -> 
 	label.add_theme_color_override("font_color", color)
 	label.horizontal_alignment = align
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	return label
+
+
+## Título dourado no topo das telas cheias (viagem, mandado).
+static func heading(text: String) -> Label:
+	var label := Label.new()
+	label.text = text
+	label.add_theme_color_override("font_color", Palette.HIGHLIGHT)
 	return label
 
 
@@ -193,8 +225,7 @@ func set_verbs_enabled(enabled: bool) -> void:
 
 ## O nome do caso é o que encurta quando falta espaço. `remaining` vai de 1 (prazo
 ## inteiro) a 0 (prazo esgotado); sem prazo, a barra some.
-func set_case(case_text: String, budget_text: String, deadline_text: String, remaining: float) -> void:
-	_case_label.text = case_text
+func set_case(budget_text: String, deadline_text: String, remaining: float) -> void:
 	_budget_label.text = budget_text
 	_deadline_label.text = deadline_text
 	_deadline_bar.visible = deadline_text != ""
@@ -207,10 +238,31 @@ func set_header(text: String) -> void:
 	_header.text = text
 
 
-func show_scene(title: String, caption: String, tint: Color) -> void:
+## `stamp`, quando não vazio, aparece carimbado em vermelho no alto da cena.
+func show_scene(title: String, caption: String, tint: Color, stamp: String = "") -> void:
 	_scene_bg.color = tint
 	_scene_title.text = title
 	_scene_caption.text = caption
+	_stamp.text = stamp
+	_stamp.visible = stamp != ""
+
+
+## Abre `content` por cima da cena e do painel de texto, no lugar do que estava aberto.
+func show_overlay(content: Control) -> void:
+	hide_overlay()
+	_overlay.add_child(content)
+	_overlay.show()
+
+
+func hide_overlay() -> void:
+	for child in _overlay.get_children():
+		_overlay.remove_child(child)
+		child.queue_free()
+	_overlay.hide()
+
+
+func is_overlay_open() -> bool:
+	return _overlay.visible
 
 
 func set_notes(text: String) -> void:
@@ -221,37 +273,119 @@ func clear_text() -> void:
 	_text.clear()
 	_text.visible_characters = 0
 	_typed = 0.0
+	_page_line = 0
+	_waiting_page = false
+	_padding = 0
+	_more.hide()
+	_text.scroll_to_line(0)
 
 
-## Acrescenta texto ao painel, que aparece em máquina de escrever.
+## Acrescenta texto ao painel, que aparece em máquina de escrever, uma página por vez.
 func say(text: String) -> void:
+	for i in _padding:
+		_text.remove_paragraph(_text.get_paragraph_count() - 1)
+	_padding = 0
 	if not is_typing():
 		_typed = _text.get_total_character_count()
 		_text.visible_characters = int(_typed)
 	_text.append_text(text + "\n")
 
 
+## Verdadeiro enquanto o texto ainda está sendo escrito ou espera virar a página.
 func is_typing() -> bool:
 	return _text.visible_characters >= 0
 
 
+## Mostra de uma vez o resto da página atual.
 func finish_typing() -> void:
-	_text.visible_characters = -1
+	if is_typing() and not _waiting_page:
+		_typed = _page_end()
+		_reach(int(_typed))
 
 
+## A quebra de página é recalculada a cada quadro porque o texto só sabe onde quebra
+## as linhas depois de ser diagramado na largura do painel.
 func _process(delta: float) -> void:
+	if _page_line > 0:
+		_keep_page_on_top()
 	if not is_typing():
 		return
-	_typed += TYPE_SPEED * delta
-	if _typed >= _text.get_total_character_count():
-		finish_typing()
+	var end := _page_end()
+	if _waiting_page:
+		_text.visible_characters = end
+		return
+	_typed = minf(_typed + TYPE_SPEED * delta, end)
+	_reach(int(_typed))
+
+
+## Mostra o texto até o caractere `shown`; no fim da página, espera; no fim do texto, para.
+func _reach(shown: int) -> void:
+	_text.visible_characters = shown
+	if shown < _page_end():
+		return
+	if shown >= _text.get_total_character_count():
+		_text.visible_characters = -1
 	else:
-		_text.visible_characters = int(_typed)
+		_waiting_page = true
+		_more.text = tr("MORE")
+		_more.show()
 
 
+func _next_page() -> void:
+	_waiting_page = false
+	_more.hide()
+	_page_line += _lines_per_page()
+	_keep_page_on_top()
+
+
+## Rola o texto para a página atual ficar no topo. Na última página pode faltar texto
+## para rolar até lá, então o fim recebe linhas vazias. A página tem uma sobra menor que
+## uma linha, por isso a linha a mais.
+func _keep_page_on_top() -> void:
+	var missing := _page_line + _lines_per_page() + 1 - _text.get_line_count()
+	for i in missing:
+		_text.newline()
+		_padding += 1
+	_text.get_v_scroll_bar().value = _text.get_line_offset(_page_line)
+
+
+func _lines_per_page() -> int:
+	var gap := _text.get_theme_constant("line_separation")
+	var line := _text.get_theme_font("normal_font").get_height(_text.get_theme_font_size("normal_font_size")) + gap
+	return maxi(1, int((_text.size.y + gap) / line))
+
+
+## Índice do primeiro caractere que não cabe na página atual (ou o total, se tudo cabe).
+func _page_end() -> int:
+	var total := _text.get_total_character_count()
+	var first_out := _page_line + _lines_per_page()
+	if first_out >= _text.get_line_count():
+		return total
+	var lo := 0
+	var hi := total
+	while lo < hi:
+		var mid := (lo + hi) / 2
+		if _text.get_character_line(mid) < first_out:
+			lo = mid + 1
+		else:
+			hi = mid
+	return lo
+
+
+## Clique no texto: vira a página ou termina a máquina de escrever.
 func _on_text_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed and is_typing():
+	if event is InputEventMouseButton and event.pressed:
+		_advance_text()
+
+
+func _advance_text() -> bool:
+	if _waiting_page:
+		_next_page()
+		return true
+	if is_typing():
 		finish_typing()
+		return true
+	return false
 
 
 func clear_choices() -> void:
@@ -269,6 +403,14 @@ func add_choice_row() -> HFlowContainer:
 	return row
 
 
+## Escolhas uma embaixo da outra, na largura toda do painel.
+func add_choice_column() -> VBoxContainer:
+	var column := VBoxContainer.new()
+	column.add_theme_constant_override("separation", 3)
+	_choices.add_child(column)
+	return column
+
+
 func add_choice(row: Container, text: String, action: Callable, enabled: bool = true) -> Button:
 	var b := Button.new()
 	b.text = text
@@ -278,16 +420,31 @@ func add_choice(row: Container, text: String, action: Callable, enabled: bool = 
 	return b
 
 
+## Linha de botões que não quebra; com add_spacer, separa ações de lados opostos.
+func add_choice_bar() -> HBoxContainer:
+	var bar := HBoxContainer.new()
+	bar.add_theme_constant_override("separation", 3)
+	_choices.add_child(bar)
+	return bar
+
+
+## Espaço flexível: o que vier depois dele na linha fica encostado à direita.
+static func add_spacer(row: Container) -> void:
+	var gap := Control.new()
+	gap.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(gap)
+
+
 func add_choice_control(control: Control) -> void:
 	_choices.add_child(control)
 
 
-## Qualquer tecla termina a máquina de escrever; as teclas 1 a 4 acionam os verbos.
+## Qualquer tecla vira a página ou termina a máquina de escrever; as teclas 1 a 4
+## acionam os verbos.
 func _unhandled_input(event: InputEvent) -> void:
 	if not (event is InputEventKey and event.pressed and not event.echo):
 		return
-	if is_typing():
-		finish_typing()
+	if _advance_text():
 		get_viewport().set_input_as_handled()
 		return
 	var index: int = event.keycode - KEY_1

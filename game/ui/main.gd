@@ -11,6 +11,9 @@ var session: CaseSession
 var detective: Dictionary
 
 var _marks: Dictionary = {}
+## Cidades visitadas no caso, da cena do crime até a atual, para desenhar no mapa.
+var _route: Array = []
+var _dossier_index := 0
 var _confirm: ConfirmationDialog
 var _info: AcceptDialog
 var _languages: PopupMenu
@@ -107,7 +110,7 @@ func _on_language_selected(index: int) -> void:
 func _on_verb(index: int) -> void:
 	if session == null or session.outcome != CaseSession.ONGOING:
 		return
-	finish_typing()
+	hide_overlay()
 	match index:
 		Verb.INVESTIGATE:
 			_show_places()
@@ -116,12 +119,12 @@ func _on_verb(index: int) -> void:
 		Verb.WARRANT:
 			_show_computer()
 		Verb.DOSSIER:
-			_show_dossiers()
+			_show_dossier(_dossier_index)
 
 
 func _ask_name() -> void:
 	session = null
-	set_case("", "", "", 1.0)
+	set_case("", "", 1.0)
 	set_header(tr("HQ_TITLE"))
 	show_scene(tr("HQ_TITLE"), tr("SCENE_ART") % "hq", Palette.PANEL)
 	set_notes("")
@@ -150,6 +153,8 @@ func _new_case() -> void:
 	session = CaseSession.new(pack, randi())
 	session.start(detective)
 	_marks.clear()
+	_route = [session.crime_city]
+	hide_overlay()
 	clear_text()
 	var deadline: Dictionary = session.difficulty.deadline
 	say(tr("ALERT_THEFT") % [session.treasure(), pack.city(session.crime_city).name])
@@ -205,18 +210,21 @@ func _refresh_status() -> void:
 	set_header("%s · %s" % [pack.city(session.current_city).name, _when(c.day, c.hour)])
 	var budget := tr("STATUS_BUDGET") % _money(session.budget) if session.budget >= 0 else ""
 	var deadline: Dictionary = session.difficulty.deadline
-	set_case(tr("CASE_BAR") % session.treasure(), budget,
-		tr("DEADLINE_SHORT") % _when(deadline.day, deadline.hour), _time_left())
+	set_case(budget, tr("DEADLINE_SHORT") % _when(deadline.day, deadline.hour), _time_left())
+	set_notes(_notes_text())
+
+
+## Faixa de notas: o mandado emitido e os valores dos traços marcados.
+func _notes_text() -> String:
 	var warrant := tr("WARRANT_NONE")
 	if session.warrant_id != "":
 		warrant = pack.suspect(session.warrant_id).name
-	var notes: String = tr("NOTES_WARRANT") % warrant
 	var marked := []
 	for t in pack.warrant_traits():
 		if _marks.has(t.id):
-			marked.append("%s: %s" % [t.name, t.values[_marks[t.id]]])
-	notes += "\n" + (tr("NOTES_TRAITS") % ", ".join(marked) if not marked.is_empty() else tr("NOTES_NONE"))
-	set_notes(notes)
+			marked.append(t.values[_marks[t.id]])
+	var traits: String = tr("NOTES_TRAITS") % " · ".join(marked) if not marked.is_empty() else tr("NOTES_NONE")
+	return tr("NOTES_WARRANT") % warrant + "\n" + traits
 
 
 ## Fração do prazo que ainda resta: 1 no início do caso, 0 no fim.
@@ -241,50 +249,102 @@ func _show_main_actions() -> void:
 		_show_outcome()
 
 
+## Investigar: os lugares da cidade viram uma lista no painel de texto.
 func _show_places() -> void:
+	clear_text()
+	say(tr("WHERE_TO"))
 	clear_choices()
-	var row := add_choice_row()
+	var column := add_choice_column()
 	for i in session.places.size():
-		var type := pack.location_type(session.places[i].type)
-		add_choice(row, type.name, _on_investigate.bind(i))
-	add_choice(row, tr("BTN_BACK"), _show_main_actions)
+		add_choice(column, pack.location_type(session.places[i].type).name, _on_investigate.bind(i))
+	var bar := add_choice_bar()
+	add_spacer(bar)
+	add_choice(bar, tr("BTN_BACK"), _show_city)
 
 
+## A testemunha aparece na cena e a fala dela ocupa o painel de texto.
 func _on_investigate(slot: int) -> void:
 	if session.outcome != CaseSession.ONGOING:
 		return
 	var r := session.investigate(slot)
-	var type := pack.location_type(session.places[slot].type)
-	show_scene(r.witness if r.witness != "" else type.name, tr("SCENE_ART") % ("witnesses/" + session.places[slot].type), _tint(session.places[slot].type))
-	match r.event:
-		"capture":
-			say("\n" + tr("FOUND_HIDEOUT"))
-		"henchman":
-			say("[i]%s[/i]" % pack.texts.henchman)
-		"danger":
-			say("[i]%s[/i]" % session.rng.pick(pack.texts.danger))
+	var type_id: String = session.places[slot].type
+	var type := pack.location_type(type_id)
+	show_scene(r.witness, tr("SCENE_ART") % ("witnesses/" + type_id), _tint(type_id))
+	clear_text()
+	_say_event(r.event)
 	if r.text != "":
-		say("\n%s (%s): %s" % [r.witness, type.name, r.text])
+		say(_highlight("%s (%s):" % [r.witness, type.name]))
+		say(r.text)
 	if r.slept:
 		say(tr("SLEEPING"))
 	_show_main_actions()
 
 
+func _say_event(event: String) -> void:
+	match event:
+		"capture":
+			say(tr("FOUND_HIDEOUT"))
+		"henchman":
+			say("[i]%s[/i]" % pack.texts.henchman)
+		"danger":
+			say("[i]%s[/i]" % session.rng.pick(pack.texts.danger))
+
+
+## Viajar: mapa em tela cheia, com um botão por destino; passar o mouse destaca a rota.
 func _show_destinations() -> void:
-	clear_choices()
-	var row := add_choice_row()
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 4)
+	box.add_child(heading(tr("TRAVEL_TITLE") % pack.city(session.current_city).name))
+	var map := _travel_map()
+	box.add_child(map)
+	var row := HFlowContainer.new()
+	row.add_theme_constant_override("h_separation", 4)
+	row.add_theme_constant_override("v_separation", 4)
+	box.add_child(row)
 	for id in session.destinations():
-		var label: String = tr("TRAVEL_OPTION") % [pack.city(id).name, session.travel_hours(id)]
-		if session.budget >= 0:
-			label += " · " + _money(session.ticket_price(id))
-		add_choice(row, label, _on_travel.bind(id), session.can_afford(id))
-	add_choice(row, tr("BTN_BACK"), _show_main_actions)
+		var b := add_choice(row, _ticket_text(id), _fly.bind(map, row, id), session.can_afford(id))
+		b.mouse_entered.connect(map.highlight.bind(id))
+		b.focus_entered.connect(map.highlight.bind(id))
+	var bar := HBoxContainer.new()
+	box.add_child(bar)
+	add_spacer(bar)
+	add_choice(bar, tr("BTN_BACK"), hide_overlay)
+	show_overlay(box)
+
+
+func _travel_map() -> TravelMap:
+	var map := TravelMap.new()
+	map.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var points := {}
+	var names := {}
+	for id in pack.city_ids():
+		points[id] = Vector2(pack.city(id).map.x, pack.city(id).map.y)
+		names[id] = pack.city(id).name
+	map.setup(points, names, session.current_city, session.destinations(), _route)
+	return map
+
+
+func _ticket_text(city_id: String) -> String:
+	var text: String = tr("TRAVEL_OPTION") % [pack.city(city_id).name, session.travel_hours(city_id)]
+	if session.budget >= 0:
+		text += " · " + _money(session.ticket_price(city_id))
+	return text
+
+
+func _fly(map: TravelMap, row: Container, city_id: String) -> void:
+	for b in row.get_children():
+		b.disabled = true
+	map.fly(city_id)
+	await map.flight_finished
+	hide_overlay()
+	_on_travel(city_id)
 
 
 func _on_travel(city_id: String) -> void:
 	if session.outcome != CaseSession.ONGOING:
 		return
 	var r := session.travel(city_id)
+	_route.append(city_id)
 	if session.outcome == CaseSession.ONGOING:
 		_show_city()
 		if r.slept:
@@ -298,39 +358,42 @@ func _on_travel(city_id: String) -> void:
 		_show_main_actions()
 
 
+## Mandado: terminal em tela cheia, com a contagem de compatíveis mudando a cada traço.
 func _show_computer() -> void:
-	clear_choices()
-	var grid := GridContainer.new()
-	grid.columns = 2
-	grid.add_theme_constant_override("h_separation", 3)
-	grid.add_theme_constant_override("v_separation", 3)
-	for t in pack.warrant_traits():
-		var opt := OptionButton.new()
-		opt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		opt.clip_text = true
-		opt.add_item(tr("TRAIT_UNKNOWN") % t.name)
-		var values: Array = t.values.keys()
-		for v in values:
-			opt.add_item(t.values[v])
-		opt.selected = values.find(_marks[t.id]) + 1 if _marks.has(t.id) else 0
-		opt.item_selected.connect(_on_mark.bind(t.id, values))
-		grid.add_child(opt)
-	add_choice_control(grid)
-	var row := add_choice_row()
-	add_choice(row, tr("BTN_ISSUE_WARRANT"), _on_compute)
-	add_choice(row, tr("BTN_BACK"), _show_main_actions)
+	var screen := WarrantScreen.new()
+	screen.setup(tr("WARRANT_TITLE"), pack.warrant_traits(), _marks, tr("TRAIT_UNKNOWN"),
+		tr("BTN_ISSUE_WARRANT"), tr("BTN_BACK"))
+	screen.marks_changed.connect(_on_marks_changed.bind(screen))
+	screen.issue_pressed.connect(_on_compute)
+	screen.back_pressed.connect(hide_overlay)
+	screen.set_count_text(_count_text())
+	show_overlay(screen)
 
 
-func _on_mark(index: int, trait_id: String, values: Array) -> void:
-	if index == 0:
-		_marks.erase(trait_id)
-	else:
-		_marks[trait_id] = values[index - 1]
+func _on_marks_changed(marks: Dictionary, screen: WarrantScreen) -> void:
+	_marks = marks
+	screen.set_count_text(_count_text())
 	_refresh_status()
 
 
+## Mesmo filtro de CaseSession.compute_warrant, sem emitir nem cancelar mandado.
+func _compatible(marks: Dictionary) -> Array:
+	return pack.suspects.filter(func(s):
+		for k in marks:
+			if s.traits[k] != marks[k]:
+				return false
+		return true)
+
+
+func _count_text() -> String:
+	var matches := _compatible(_marks)
+	return tr("WARRANT_COUNT") % [matches.size(), ", ".join(matches.map(func(s): return s.name))]
+
+
 func _on_compute() -> void:
+	hide_overlay()
 	var matches := session.compute_warrant(_marks)
+	clear_text()
 	if matches.is_empty():
 		say(tr("NO_MATCH"))
 	elif matches.size() == 1:
@@ -340,19 +403,27 @@ func _on_compute() -> void:
 	_show_main_actions()
 
 
-func _show_dossiers() -> void:
-	clear_choices()
-	var row := add_choice_row()
-	for s in pack.suspects:
-		add_choice(row, s.name, _on_dossier.bind(s.id))
-	add_choice(row, tr("BTN_BACK"), _show_main_actions)
-
-
-func _on_dossier(id: String) -> void:
+## Dossiê: um suspeito por vez, com setas para folhear. Quem não bate com os traços
+## marcados aparece carimbado como descartado.
+func _show_dossier(index: int) -> void:
+	_dossier_index = posmod(index, pack.suspects.size())
+	var id: String = pack.suspects[_dossier_index].id
 	var d := pack.dossier(id)
-	show_scene(d.full_name, tr("SCENE_ART") % ("suspects/" + id), _tint(id))
+	var ruled_out := not _compatible(_marks).any(func(s): return s.id == id)
+	show_scene(d.full_name, tr("SCENE_ART") % ("suspects/" + id), _tint(id),
+		tr("STAMP_RULED_OUT") if ruled_out else "")
 	clear_text()
-	say(_highlight(tr("DOSSIER_TITLE")))
+	_say_dossier(d)
+	clear_choices()
+	var bar := add_choice_bar()
+	add_choice(bar, "<", _show_dossier.bind(_dossier_index - 1))
+	add_choice(bar, ">", _show_dossier.bind(_dossier_index + 1))
+	add_spacer(bar)
+	add_choice(bar, tr("BTN_BACK"), _show_city)
+
+
+func _say_dossier(d: Dictionary) -> void:
+	say(_highlight("%s %d/%d" % [tr("DOSSIER_TITLE"), _dossier_index + 1, pack.suspects.size()]))
 	say("%s: %s" % [tr("DOSSIER_NAME"), d.full_name])
 	if d.occupation != "":
 		say("%s: %s" % [tr("DOSSIER_OCCUPATION"), d.occupation])
@@ -362,22 +433,36 @@ func _on_dossier(id: String) -> void:
 		say("%s: %s" % [tr("DOSSIER_NOTES"), " ".join(d.notes)])
 
 
+## Desfecho: a cena mostra a prisão ou a fuga e o texto conta o resultado.
 func _show_outcome() -> void:
+	var arrested := session.outcome == CaseSession.ARRESTED
+	show_scene(tr("SCENE_ARRESTED") if arrested else tr("SCENE_ESCAPED"),
+		tr("SCENE_ART") % ("outcomes/" + ("arrest" if arrested else "escape")),
+		Palette.OK.darkened(0.6) if arrested else Palette.ALERT.darkened(0.6))
+	say(_outcome_text())
+	if session.promoted:
+		say(tr("PROMOTED") % pack.ranks[detective.rank].name)
+	Career.save(detective)
+	_show_next_step()
+
+
+func _outcome_text() -> String:
 	var name: String = session.suspect.name
 	match session.outcome:
 		CaseSession.ARRESTED:
-			say(tr("OUTCOME_ARRESTED") % [name, session.treasure()])
-			if session.promoted:
-				say(tr("PROMOTED") % pack.ranks[detective.rank].name)
+			return tr("OUTCOME_ARRESTED") % [name, session.treasure()]
 		CaseSession.NO_WARRANT:
-			say(tr("OUTCOME_NO_WARRANT") % name)
+			return tr("OUTCOME_NO_WARRANT") % name
 		CaseSession.WRONG_WARRANT:
-			say(tr("OUTCOME_WRONG_WARRANT") % name)
+			return tr("OUTCOME_WRONG_WARRANT") % name
 		CaseSession.ESCAPED_TIME:
-			say(tr("OUTCOME_TIME") % name)
-		CaseSession.OUT_OF_MONEY:
-			say(tr("OUTCOME_MONEY") % name)
-	Career.save(detective)
+			return tr("OUTCOME_TIME") % name
+		_:
+			return tr("OUTCOME_MONEY") % name
+
+
+## Depois do desfecho: fim da carreira, ou quanto falta para a próxima patente e um caso novo.
+func _show_next_step() -> void:
 	var row := add_choice_row()
 	if session.boss_arrested:
 		say(tr("CAREER_DONE"))
