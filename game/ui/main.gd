@@ -5,9 +5,12 @@ extends GameFrame
 const PACK_DIR := "res://content/parody"
 const LANGUAGES := {"pt_BR": "Português (Brasil)", "en": "English"}
 enum Verb { INVESTIGATE, TRAVEL, WARRANT }
+enum GameItem { NEW_CASE, NEW_AGENT, LANGUAGE, ABOUT }
 
 var pack: ContentPack
 var session: CaseSession
+var roster: Dictionary
+## O agente que entrou pelo nome (o mesmo dicionário que está em roster.agents).
 var detective: Dictionary
 
 var _marks: Dictionary = {}
@@ -17,7 +20,9 @@ var _matches: Array = []
 ## Cidades visitadas no caso, da cena do crime até a atual, para desenhar no mapa.
 var _route: Array = []
 var _confirm: ConfirmationDialog
+var _confirm_action := Callable()
 var _info: AcceptDialog
+var _game_menu: PopupMenu
 var _languages: PopupMenu
 ## Tela fora do caso (identificação, sede, briefing) a redesenhar quando o idioma muda.
 var _redraw := Callable()
@@ -35,26 +40,24 @@ func _ready() -> void:
 	verb_pressed.connect(_on_verb)
 	menu_pressed.connect(_on_menu)
 	_refresh_labels()
-	detective = Career.load_saved()
-	if detective.is_empty():
-		_show_welcome()
-	else:
-		_show_home()
+	roster = Career.load_roster()
+	_show_welcome()
 
 
-## Salva a carreira e, com um caso em andamento, o caso (semente e ações). Roda depois
-## de cada ação, para nada se perder ao fechar o jogo, inclusive no navegador.
+## Salva o fichário e, com um caso em andamento, o caso (semente e ações) no agente.
+## Roda depois de cada ação, para nada se perder ao fechar o jogo, inclusive no navegador.
 func _autosave() -> void:
-	var state := {}
 	if session != null and session.outcome == CaseSession.ONGOING:
-		state = session.save_state()
-		state.marks = _marks
-	Career.save(detective, Career.PATH, state)
+		detective.case = session.save_state()
+		detective.case.marks = _marks
+	else:
+		detective.erase("case")
+	Career.save_roster(roster)
 
 
 func _build_dialogs() -> void:
 	_confirm = ConfirmationDialog.new()
-	_confirm.confirmed.connect(_on_new_career)
+	_confirm.confirmed.connect(func(): _confirm_action.call())
 	add_child(_confirm)
 	_info = AcceptDialog.new()
 	add_child(_info)
@@ -63,34 +66,60 @@ func _build_dialogs() -> void:
 		_languages.add_item(LANGUAGES[code])
 		_languages.set_item_metadata(_languages.item_count - 1, code)
 	_languages.index_pressed.connect(_on_language_selected)
-	add_child(_languages)
+	_game_menu = PopupMenu.new()
+	for i in GameItem.size():
+		if i == GameItem.LANGUAGE:
+			_game_menu.add_submenu_node_item("", _languages, i)
+		else:
+			_game_menu.add_item("", i)
+	_game_menu.id_pressed.connect(_on_game_item)
+	add_child(_game_menu)
 
 
 func _refresh_labels() -> void:
 	set_menu_texts({
-		"new_career": tr("BTN_NEW_CAREER"),
-		"rank": tr("MENU_RANK"),
+		"game": tr("MENU_GAME"),
+		"pf": tr("MENU_PF"),
 		"dossier": tr("MENU_DOSSIERS"),
-		"language": tr("MENU_LANGUAGE"),
-		"about": tr("MENU_ABOUT"),
 	})
+	var items := [tr("BTN_NEW_CASE"), tr("BTN_NEW_AGENT"), tr("MENU_LANGUAGE"), tr("MENU_ABOUT")]
+	for i in items.size():
+		_game_menu.set_item_text(_game_menu.get_item_index(i), items[i])
 	set_verbs([tr("BTN_INVESTIGATE"), tr("BTN_TRAVEL"), tr("BTN_WARRANT")],
 		tr("KEY_HINT"))
 
 
 func _on_menu(id: String) -> void:
 	match id:
-		"new_career":
-			_confirm.dialog_text = tr("CONFIRM_NEW_CAREER")
-			_confirm.popup_centered()
-		"rank":
-			_show_info(tr("MENU_RANK"), _rank_text())
+		"game":
+			_game_menu.set_item_disabled(_game_menu.get_item_index(GameItem.NEW_CASE), detective.is_empty())
+			_game_menu.popup(Rect2i(menu_anchor(id), Vector2i.ZERO))
+		"pf":
+			_show_agents()
 		"dossier":
 			_show_dossier()
-		"language":
-			_languages.popup(Rect2i(Vector2i(get_global_mouse_position()), Vector2i.ZERO))
-		"about":
+
+
+func _on_game_item(id: int) -> void:
+	match id:
+		GameItem.NEW_CASE:
+			_on_new_case_menu()
+		GameItem.NEW_AGENT:
+			_show_welcome()
+		GameItem.ABOUT:
 			_show_info(tr("MENU_ABOUT"), tr("ABOUT_TEXT"))
+
+
+## Um caso aberto (o salvo ou o que está na tela) é perdido; pede confirmação antes.
+func _on_new_case_menu() -> void:
+	if pack.boss().id in detective.caught:
+		_show_home()
+	elif detective.has("case") or (session != null and session.outcome == CaseSession.ONGOING):
+		_confirm.dialog_text = tr("CONFIRM_NEW_CASE")
+		_confirm_action = _new_case
+		_confirm.popup_centered()
+	else:
+		_new_case()
 
 
 func _show_info(title: String, text: String) -> void:
@@ -99,14 +128,15 @@ func _show_info(title: String, text: String) -> void:
 	_info.popup_centered()
 
 
-func _rank_text() -> String:
-	if detective.is_empty():
-		return tr("RANK_NO_CAREER")
-	var text: String = tr("RANK_INFO") % [detective.name, pack.ranks[detective.rank].name, detective.cases]
-	var left := pack.cases_to_next_rank(detective.cases)
+## Ficha do agente na tela PF: nome, patente, casos, quanto falta para a promoção.
+func _agent_sheet(agent: Dictionary) -> String:
+	var text: String = tr("RANK_INFO") % [agent.name, pack.ranks[agent.rank].name, agent.cases]
+	var left := pack.cases_to_next_rank(agent.cases)
 	if left > 0:
-		var next_rank: String = pack.ranks[detective.rank + 1].name
-		text += "\n" + (tr("NEXT_RANK_ONE") % next_rank if left == 1 else tr("NEXT_RANK") % [left, next_rank])
+		var next_rank: String = pack.ranks[agent.rank + 1].name
+		text += "\n\n" + (tr("NEXT_RANK_ONE") % next_rank if left == 1 else tr("NEXT_RANK") % [left, next_rank])
+	if agent.has("case"):
+		text += "\n\n" + tr("AGENT_ONGOING_CASE")
 	return text
 
 
@@ -158,15 +188,18 @@ func _show_hq() -> void:
 	clear_choices()
 
 
-## Sem carreira salva: boas-vindas da PF e cadastro do agente.
+## Abertura, como no original: o agente se identifica pelo nome. Um nome que não está
+## no fichário cadastra um agente novo, com carreira do zero.
 func _show_welcome() -> void:
 	_redraw = _show_welcome
 	_show_hq()
+	detective = {}
 	say(tr("WELCOME"))
 	say(tr("IDENTIFY"))
 	var row := add_choice_row()
 	var field := LineEdit.new()
 	field.placeholder_text = tr("DEFAULT_AGENT")
+	field.max_length = Career.MAX_NAME
 	field.custom_minimum_size.x = 220
 	field.text_submitted.connect(func(_text): _on_identified(field))
 	row.add_child(field)
@@ -176,13 +209,52 @@ func _show_welcome() -> void:
 
 func _on_identified(field: LineEdit) -> void:
 	var agent_name := field.text.strip_edges()
-	detective = Career.fresh(agent_name if agent_name != "" else tr("DEFAULT_AGENT"))
-	Career.save(detective)
+	if agent_name == "":
+		agent_name = tr("DEFAULT_AGENT")
+	var agent := Career.find(roster, agent_name)
+	if agent.is_empty():
+		agent = Career.fresh(agent_name)
+		if not Career.add(roster, agent):
+			_show_info(tr("MENU_PF"), tr("AGENTS_FULL"))
+			return
+		Career.save_roster(roster)
+	detective = agent
 	_show_home()
 
 
-## Com carreira salva, o agente já entra identificado. Se havia caso em andamento,
-## pergunta se retoma; senão, mostra a carreira e oferece uma nova investigação.
+## Tela PF, por cima do que estiver aberto. Quem tem caso em andamento leva *.
+func _show_agents() -> void:
+	var rows: Array = roster.agents.map(func(a): return "%s · %s%s" % [
+		a.name, pack.ranks[a.rank].name, " *" if a.has("case") else ""])
+	var ongoing: bool = roster.agents.any(func(a): return a.has("case"))
+	var screen := AgentsScreen.new()
+	screen.setup(tr("AGENTS_TITLE"), rows, tr("AGENTS_HINT") if not rows.is_empty() else tr("AGENTS_EMPTY"),
+		tr("AGENTS_ONGOING") if ongoing else "", tr("BTN_DELETE"), tr("BTN_BACK"))
+	screen.picked.connect(func(i): screen.show_sheet(_agent_sheet(roster.agents[i])))
+	screen.delete_pressed.connect(_confirm_delete)
+	screen.back_pressed.connect(hide_overlay)
+	show_overlay(screen)
+
+
+func _confirm_delete(index: int) -> void:
+	_confirm.dialog_text = tr("CONFIRM_DELETE_AGENT") % roster.agents[index].name
+	_confirm_action = _delete_agent.bind(index)
+	_confirm.popup_centered()
+
+
+## Apagar o agente que está jogando volta para a identificação.
+func _delete_agent(index: int) -> void:
+	var agent: Dictionary = roster.agents[index]
+	roster.agents.remove_at(index)
+	Career.save_roster(roster)
+	if is_same(agent, detective):
+		_show_welcome()
+	else:
+		_show_agents()
+
+
+## Depois da identificação: se havia caso em andamento, pergunta se retoma; senão,
+## mostra a carreira e oferece uma nova investigação.
 func _show_home() -> void:
 	_redraw = _show_home
 	_show_hq()
@@ -290,10 +362,12 @@ func _accept_case() -> void:
 	_show_city()
 
 
+## Depois de prender o chefe: o mesmo agente recomeça do zero.
 func _on_new_career() -> void:
-	Career.erase()
-	detective = {}
-	_show_welcome()
+	detective.merge(Career.fresh(detective.name), true)
+	detective.erase("case")
+	Career.save_roster(roster)
+	_show_home()
 
 
 func _sex_name() -> String:

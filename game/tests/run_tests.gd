@@ -475,14 +475,30 @@ func _test_money(pack: ContentPack) -> void:
 
 
 func _test_career_save() -> void:
-	var path := "user://test_career.json"
+	var path := "user://test_agents.json"
+	var legacy := "user://test_career.json"
 	Career.erase(path)
-	check(Career.load_saved(path).is_empty(), "sem arquivo, sem carreira")
-	var agent := {"name": "Moro", "cases": 3, "rank": 2, "caught": ["a", "b", "c"]}
-	check(Career.save(agent, path), "salvou a carreira")
-	check(Career.load_saved(path) == agent, "carreira lida igual à salva: %s" % [Career.load_saved(path)])
+	Career.erase(legacy)
+	var roster := Career.load_roster(path, legacy)
+	check(roster.agents.is_empty(), "sem arquivo, fichário vazio")
+	var moro := {"name": "Moro", "cases": 3, "rank": 2, "caught": ["a", "b", "c"]}
+	check(Career.add(roster, moro) and Career.add(roster, Career.fresh("Dallagnol")), "cadastrou dois agentes")
+	Career.find(roster, "moro").cases = 4
+	check(Career.save_roster(roster, path), "salvou o fichário")
+	var loaded := Career.load_roster(path, legacy)
+	check(loaded.agents.size() == 2 and Career.find(loaded, "MORO").cases == 4, "agente achado pelo nome: %s" % [loaded])
+	check(Career.find(loaded, "Deltan").is_empty(), "nome fora do fichário não acha ninguém")
+	for i in Career.MAX_AGENTS:
+		Career.add(loaded, Career.fresh("A%d" % i))
+	check(loaded.agents.size() == Career.MAX_AGENTS, "o fichário tem limite")
 	Career.erase(path)
-	check(Career.load_saved(path).is_empty(), "apagou a carreira")
+	var f := FileAccess.open(legacy, FileAccess.WRITE)
+	f.store_string(JSON.stringify(moro))
+	f.close()
+	var migrated := Career.load_roster(path, legacy)
+	check(migrated.agents.size() == 1 and migrated.agents[0] == moro, "save antigo vira o primeiro agente")
+	check(FileAccess.file_exists(path) and not FileAccess.file_exists(legacy), "save antigo trocado pelo fichário")
+	Career.erase(path)
 
 
 ## Um caso salvo no meio e refeito a partir da semente e das ações fica igual ao original.
@@ -499,12 +515,14 @@ func _test_saved_case(pack: ContentPack) -> void:
 		s.travel(s.destinations()[0])
 	s.issue_warrant({pack.rules.sex_trait: s.suspect.traits[pack.rules.sex_trait]})
 	check(s.outcome == CaseSession.ONGOING, "caso de teste ainda em andamento")
-	var state := s.save_state()
-	state.marks = {"sex": "f"}
-	check(Career.save(agent, path, state), "salvou carreira com caso")
-	var loaded := Career.load_saved(path)
+	var roster := Career.empty_roster()
+	Career.add(roster, agent.duplicate(true))
+	roster.agents[0].case = s.save_state()
+	roster.agents[0].case.marks = {"sex": "f"}
+	check(Career.save_roster(roster, path), "salvou o fichário com caso")
+	var loaded: Dictionary = Career.load_roster(path, "").agents[0]
 	Career.erase(path)
-	check(loaded.has("case") and loaded.case.marks == {"sex": "f"}, "o caso volta junto com a carreira")
+	check(loaded.has("case") and loaded.case.marks == {"sex": "f"}, "o caso volta junto com o agente")
 	var saved: Dictionary = loaded.case
 	loaded.erase("case")
 	var t := CaseSession.new(pack, int(saved.seed))
@@ -519,9 +537,6 @@ func _test_saved_case(pack: ContentPack) -> void:
 	var u := CaseSession.new(pack, int(saved.seed))
 	u.start(loaded)
 	check(not u.replay([["travel", "nowhere"]]), "ação que não cabe no caso invalida o save")
-	check(Career.save(agent, path), "salvou de novo sem caso")
-	check(not Career.load_saved(path).has("case"), "salvar sem caso descarta o caso anterior")
-	Career.erase(path)
 
 
 ## Na paródia, busca e mandado custam horas; pedido ambíguo conta como busca.
@@ -549,6 +564,6 @@ func _test_warrant_hours() -> void:
 
 ## Scripts que os testes não usam direto também precisam compilar.
 func _test_scripts_compile() -> void:
-	for path in ["res://ui/main.gd", "res://ui/screens/dossier_screen.gd"]:
+	for path in ["res://ui/main.gd", "res://ui/screens/dossier_screen.gd", "res://ui/screens/agents_screen.gd"]:
 		var script: GDScript = load(path)
 		check(script != null and script.can_instantiate(), "script não compila: " + path)
