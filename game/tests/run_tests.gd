@@ -14,6 +14,7 @@ func _initialize() -> void:
 	_test_clock(pack)
 	_test_graph(pack)
 	_test_warrant(pack)
+	_test_layout(pack)
 	_test_languages(pack)
 	_test_dossier(pack)
 	for language in pack.languages:
@@ -141,6 +142,16 @@ func _test_boss(pack: ContentPack) -> void:
 	s.start({"name": "Teste", "cases": 29, "rank": 4})
 	check(s.suspect.get("boss", false), "com 29 casos o alvo é a chefe")
 	check(s.steps_left == 4 + 4 - 1, "rota de patente + 4 saltos")
+
+
+func _test_layout(pack: ContentPack) -> void:
+	check(pack._raw.format_version == ContentPack.FORMAT_VERSION, "format_version do pacote")
+	check(pack.cities.size() == 12 and pack.suspects.size() == 6, "um arquivo por cidade e por suspeito")
+	check(pack.city("mexico_city").id == "mexico_city", "o id vem do nome do arquivo")
+	var ids := pack.city_ids()
+	var sorted := ids.duplicate()
+	sorted.sort()
+	check(ids == sorted, "cidades em ordem alfabética")
 
 
 func _test_languages(pack: ContentPack) -> void:

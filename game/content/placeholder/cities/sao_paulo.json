@@ -1,0 +1,69 @@
+{
+ "name": "São Paulo",
+ "map": {
+  "x": 107,
+  "y": 79
+ },
+ "description": [
+  {
+   "pt_BR": "A maior cidade da América do Sul, famosa pela Avenida Paulista.",
+   "en": "The largest city in South America, famous for Paulista Avenue."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o pincel de um grande muralista",
+   "en": "the brush of a great muralist"
+  },
+  {
+   "pt_BR": "a primeira bola de um clube famoso",
+   "en": "the first ball of a famous club"
+  }
+ ],
+ "locations": [
+  "bank",
+  "hotel",
+  "airport",
+  "library",
+  "market",
+  "embassy"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por reais",
+    "en": "{he} changed money into reais"
+   }
+  ],
+  "hotel": [
+   {
+    "pt_BR": "{ele} perguntou como chegar à Avenida Paulista",
+    "en": "{he} asked how to get to Paulista Avenue"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} queria um voo para a maior cidade do Brasil",
+    "en": "{he} wanted a flight to Brazil's largest city"
+   }
+  ],
+  "library": [
+   {
+    "pt_BR": "{ele} lia sobre a Semana de Arte Moderna de 1922",
+    "en": "{he} was reading about the 1922 Modern Art Week"
+   }
+  ],
+  "market": [
+   {
+    "pt_BR": "{ele} queria comer um sanduíche de mortadela no Mercadão",
+    "en": "{he} wanted a mortadella sandwich at the Municipal Market"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} falava em português com sotaque paulistano",
+    "en": "{he} spoke Portuguese with a São Paulo accent"
+   }
+  ]
+ }
+}

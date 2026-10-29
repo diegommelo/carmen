@@ -1,0 +1,69 @@
+{
+ "name": "Buenos Aires",
+ "map": {
+  "x": 99,
+  "y": 86
+ },
+ "description": [
+  {
+   "pt_BR": "A capital argentina é conhecida pelo tango e pela Casa Rosada.",
+   "en": "Argentina's capital is known for tango and the Casa Rosada."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o bandoneón de um mestre do tango",
+   "en": "the bandoneon of a tango master"
+  },
+  {
+   "pt_BR": "a pena de um poeta portenho",
+   "en": "the pen of a porteño poet"
+  }
+ ],
+ "locations": [
+  "bank",
+  "hotel",
+  "airport",
+  "library",
+  "market",
+  "embassy"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por pesos argentinos",
+    "en": "{he} changed money into Argentine pesos"
+   }
+  ],
+  "hotel": [
+   {
+    "pt_BR": "{ele} queria aulas de tango",
+    "en": "{he} wanted tango lessons"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou num avião com bandeira azul-celeste e branca",
+    "en": "{he} boarded a plane with a sky blue and white flag"
+   }
+  ],
+  "library": [
+   {
+    "pt_BR": "{ele} procurava livros de Jorge Luis Borges",
+    "en": "{he} was looking for books by Jorge Luis Borges"
+   }
+  ],
+  "market": [
+   {
+    "pt_BR": "{ele} perguntou onde comer um bom bife de chorizo",
+    "en": "{he} asked where to eat a good bife de chorizo"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria conhecer a Casa Rosada",
+    "en": "{he} wanted to see the Casa Rosada"
+   }
+  ]
+ }
+}

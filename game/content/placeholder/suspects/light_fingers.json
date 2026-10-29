@@ -1,0 +1,41 @@
+{
+ "name": {
+  "pt_BR": "Dedo Leve",
+  "en": "Light Fingers"
+ },
+ "boss": false,
+ "traits": {
+  "sex": "m",
+  "hobby": "mountain_climbing",
+  "hair": "black",
+  "feature": "tattoo",
+  "vehicle": "motorcycle",
+  "food": "seafood"
+ },
+ "dossier": {
+  "full_name": {
+   "pt_BR": "Arnaldo \"Dedo Leve\" Pires",
+   "en": "Arnaldo \"Light Fingers\" Pires"
+  },
+  "occupation": {
+   "pt_BR": "Ex-alpinista e batedor de carteiras",
+   "en": "Former climber and pickpocket"
+  },
+  "traits": {
+   "feature": {
+    "pt_BR": "Águia tatuada no braço direito",
+    "en": "Eagle tattooed on his right arm"
+   },
+   "vehicle": {
+    "pt_BR": "Moto de trilha enlameada",
+    "en": "Muddy dirt bike"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Pede moqueca em qualquer cidade.",
+    "en": "Orders fish stew in every city."
+   }
+  ]
+ }
+}

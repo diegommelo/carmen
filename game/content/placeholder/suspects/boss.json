@@ -1,0 +1,45 @@
+{
+ "name": {
+  "pt_BR": "A Chefona",
+  "en": "The Boss"
+ },
+ "boss": true,
+ "traits": {
+  "sex": "f",
+  "hobby": "tennis",
+  "hair": "red",
+  "feature": "jewelry",
+  "vehicle": "convertible",
+  "food": "mexican"
+ },
+ "dossier": {
+  "full_name": {
+   "pt_BR": "A Chefona",
+   "en": "The Boss"
+  },
+  "occupation": {
+   "pt_BR": "Ex-professora de geografia que decorou todos os mapas",
+   "en": "Former geography teacher who memorized every map"
+  },
+  "traits": {
+   "hair": {
+    "pt_BR": "Ruivo acobreado",
+    "en": "Copper red"
+   },
+   "vehicle": {
+    "pt_BR": "Conversível vermelho de 1957",
+    "en": "Red 1957 convertible"
+   },
+   "feature": {
+    "pt_BR": "Nunca aparece sem um colar de rubis",
+    "en": "Never seen without a ruby necklace"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Líder da quadrilha. Viaja com uma mala de pimentas secas.",
+    "en": "Leader of the gang. Travels with a suitcase of dried chili peppers."
+   }
+  ]
+ }
+}

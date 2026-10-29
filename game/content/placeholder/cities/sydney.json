@@ -1,0 +1,69 @@
+{
+ "name": "Sydney",
+ "map": {
+  "x": 274,
+  "y": 91
+ },
+ "description": [
+  {
+   "pt_BR": "A maior cidade da Austrália é famosa pela Ópera à beira da baía.",
+   "en": "Australia's largest city is famous for its Opera House on the harbour."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "um bumerangue cerimonial",
+   "en": "a ceremonial boomerang"
+  },
+  {
+   "pt_BR": "a batuta do primeiro maestro da Ópera",
+   "en": "the baton of the Opera House's first conductor"
+  }
+ ],
+ "locations": [
+  "bank",
+  "hotel",
+  "airport",
+  "library",
+  "market",
+  "embassy"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por dólares australianos",
+    "en": "{he} changed money into Australian dollars"
+   }
+  ],
+  "hotel": [
+   {
+    "pt_BR": "{ele} queria ver cangurus",
+    "en": "{he} wanted to see kangaroos"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou num avião com o Cruzeiro do Sul na bandeira",
+    "en": "{he} boarded a plane with the Southern Cross on its flag"
+   }
+  ],
+  "library": [
+   {
+    "pt_BR": "{ele} pesquisava a arquitetura da Ópera de Sydney",
+    "en": "{he} was researching the architecture of the Sydney Opera House"
+   }
+  ],
+  "market": [
+   {
+    "pt_BR": "{ele} comprou carne para um churrasco na praia",
+    "en": "{he} bought meat for a beach barbecue"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria surfar em Bondi",
+    "en": "{he} wanted to surf at Bondi"
+   }
+  ]
+ }
+}

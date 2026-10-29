@@ -1,10 +1,25 @@
 # Formato dos pacotes de conteúdo
 
-O núcleo em Godot (`game/core`) não sabe nada de cidades ou suspeitos: tudo vem de um pacote de conteúdo, uma pasta com três arquivos JSON. O pacote de teste fica em [`game/content/placeholder`](../game/content/placeholder). A paródia será outro pacote, e o leitor dos `.DAT` originais vai gerar um terceiro, no mesmo formato.
+O núcleo em Godot (`game/core`) não sabe nada de cidades ou suspeitos: tudo vem de um pacote de conteúdo, uma pasta de arquivos JSON. O pacote de teste fica em [`game/content/placeholder`](../game/content/placeholder), e a paródia será outro pacote no mesmo formato.
+
+```
+pack.json          versão do formato, nome, idiomas, regras e patentes
+traits.json        traços do suspeito, seus valores e as pistas de cada valor
+locations.json     tipos de local e as falas das testemunhas
+texts.json         frases gerais (aberturas, avisos, perigo, pronomes)
+cities/<id>.json   uma cidade por arquivo
+suspects/<id>.json um suspeito por arquivo
+```
+
+O id de cada cidade e de cada suspeito é o nome do arquivo, sem `.json`, e não se repete dentro dele. Os arquivos são lidos em ordem alfabética, para que o sorteio do mapa seja o mesmo em qualquer sistema. Ao exportar o jogo, o preset precisa incluir `*.json` em "Filters to export non-resource files", senão os pacotes ficam de fora.
+
+## Versão do formato
+
+`pack.json` traz `"format_version": 1`. O jogo avisa com um erro quando a versão do pacote é diferente da que ele lê (`ContentPack.FORMAT_VERSION`). A versão sobe só quando uma mudança faz um pacote antigo deixar de ser lido do mesmo jeito; campos opcionais novos não mudam a versão.
 
 ## Ids e chaves
 
-Todas as chaves e todos os ids do JSON ficam em inglês, em `snake_case` (`hair`, `blond`, `mexico_city`, `light_fingers`). Os textos mostrados ao jogador ficam nos objetos de idioma. A exceção são os marcadores de pronome dentro das frases (`{ele}`, `{his}`), que são parte do texto traduzido e por isso mudam com o idioma.
+Todas as chaves e todos os ids do JSON ficam em inglês, em `snake_case` (`hair`, `blond`, `mexico_city`, `light_fingers`), e os nomes dos arquivos também. Cada traço, valor e tipo de local é definido uma única vez, em `traits.json` e `locations.json`, e o resto do pacote se refere a ele pelo id. Os textos mostrados ao jogador ficam nos objetos de idioma. A exceção são os marcadores de pronome dentro das frases (`{ele}`, `{his}`), que são parte do texto traduzido e por isso mudam com o idioma.
 
 ## Idiomas
 
@@ -27,7 +42,7 @@ As falas das testemunhas são guardadas como índices nas listas e só viram tex
 
 Os textos da tela (botões, status, mensagens de fim de caso) não ficam no pacote. Eles estão em `game/i18n/ui.csv` e usam o sistema de traduções do Godot (`tr("CHAVE")`). Para um idioma novo, basta uma coluna nova no CSV e o código do idioma em `languages` no pacote.
 
-## `pack.json`
+## `pack.json`, `traits.json`, `locations.json` e `texts.json`
 
 | Campo | O que é |
 |---|---|
@@ -40,18 +55,20 @@ Os textos da tela (botões, status, mensagens de fim de caso) não ficam no paco
 | `rules.investigate` | A primeira investigação na cidade custa `first_hours`, e cada uma seguinte custa 1 h a mais, até `max_hours` (original: 2 e 4). |
 | `rules.clock` | Dia e hora de início, prazo, e janela de sono: terminar uma ação fora de `[wake_hour, sleep_hour)` faz o agente dormir `sleep_hours`. |
 | `ranks` | Lista de patentes `{name, cases}` em ordem; `cases` é o mínimo de casos para ter a patente. |
-| `location_types` | Tipos de local `{id, name, group, witnesses, not_seen, clue_chance}`. Cada cidade mostra um local de cada `group`. `not_seen` são as falas fora da rota. `clue_chance` é a chance (0 a 255) de a testemunha dar uma pista daquele traço do suspeito. |
-| `traits` | Traços `{id, name, warrant, values, clues}`. `warrant: true` entra no computador do mandado. `clues` tem as frases por valor; valor sem frase vira `texts.nothing_more`. |
-| `texts` | `openers` (começo das falas com pista), `final_warnings` (cidade do esconderijo), `henchman`, `danger`, `nothing_more` e `pronouns`. |
+| `location_types` (`locations.json`) | Tipos de local `{id, name, group, witnesses, not_seen, clue_chance}`. Cada cidade mostra um local de cada `group`. `not_seen` são as falas fora da rota. `clue_chance` é a chance (0 a 255) de a testemunha dar uma pista daquele traço do suspeito. |
+| `traits` (`traits.json`) | Traços `{id, name, warrant, values, clues}`. `warrant: true` entra no computador do mandado. `clues` tem as frases por valor; valor sem frase vira `texts.nothing_more`. |
+| `texts` (`texts.json`) | `openers` (começo das falas com pista), `final_warnings` (cidade do esconderijo), `henchman`, `danger`, `nothing_more` e `pronouns`. |
 
 ### Pronomes
 
 As frases podem usar `{chave}`, e a chave é trocada pela tabela `texts.pronouns[sex]` do idioma atual. A tabela inteira é traduzida, porque cada idioma tem seus próprios marcadores. No pacote provisório, em português `{Ele}`, `{ele}` e `{dele}` viram "Ela", "ela" e "dela" quando o suspeito é mulher, e em inglês `{He}`, `{he}` e `{his}` viram "She", "she" e "her".
 
-## `suspects.json`
+## `suspects/<id>.json`
+
+`suspects/baroness.json`:
 
 ```json
-{ "id": "baroness", "name": "Baronesa", "boss": false,
+{ "name": "Baronesa", "boss": false,
   "traits": { "sex": "f", "hobby": "surfing", "hair": "blond", "feature": "tattoo", "vehicle": "motorcycle", "food": "seafood" },
   "dossier": {
     "full_name": "Baronesa Valquíria von Onda",
@@ -62,7 +79,7 @@ As frases podem usar `{chave}`, e a chave é trocada pela tabela `texts.pronouns
 
 Um único suspeito deve ter `boss: true`.
 
-O `dossier` segue a ficha do original, que tem os campos Nome, Sexo, Ocupação, Hobby, Cabelo, Veículo, Marca e Outros. A tela mostra o nome completo, a ocupação, uma linha por traço com `warrant: true` (na ordem de `traits` do `pack.json`) e as `notes` em "Outros". Todos os campos são opcionais:
+O `dossier` segue a ficha do original, que tem os campos Nome, Sexo, Ocupação, Hobby, Cabelo, Veículo, Marca e Outros. A tela mostra o nome completo, a ocupação, uma linha por traço com `warrant: true` (na ordem de `traits.json`) e as `notes` em "Outros". Todos os campos são opcionais:
 
 - `full_name`: sem ele, aparece o `name`.
 - `traits[id]`: texto livre para o traço, como "Conversível vermelho de 1957". Sem ele, aparece o nome do valor ("Conversível"). O texto deve combinar com o valor, porque o jogador usa o dossiê para preencher o mandado.
@@ -70,10 +87,12 @@ O `dossier` segue a ficha do original, que tem os campos Nome, Sexo, Ocupação,
 
 `ContentPack.dossier(id)` devolve a ficha pronta, já no idioma atual. Para o mandado funcionar, a combinação dos traços com `warrant: true` precisa ser diferente para cada suspeito.
 
-## `cities.json`
+## `cities/<id>.json`
+
+`cities/rome.json`:
 
 ```json
-{ "id": "rome", "name": "Roma", "map": { "x": 159, "y": 33 },
+{ "name": "Roma", "map": { "x": 159, "y": 33 },
   "description": ["..."], "treasures": ["..."],
   "locations": ["bank", "hotel", "airport", "library", "market", "embassy"],
   "clues": { "bank": ["{ele} trocou dinheiro por euros"], "...": [] } }
@@ -82,6 +101,10 @@ O `dossier` segue a ficha do original, que tem os campos Nome, Sexo, Ocupação,
 - `map` usa a escala do original: `x` de oeste para leste (0 a ~300) e `y` de norte para sul (0 a ~100).
 - `clues[tipo]` são as pistas **sobre esta cidade**. Quem as diz é uma testemunha da cidade anterior da rota, num local daquele tipo.
 - Cada grupo de `location_types` precisa ter pelo menos um tipo presente em `locations`.
+
+## Imagens e sons
+
+Arquivos de imagem e som ficam dentro da pasta do pacote, em `assets/`, e o JSON aponta para eles com um caminho relativo à pasta do pacote, como `"portrait": "assets/suspects/baroness.png"`. Os campos de cada tela entram neste documento junto com a tela que os usa.
 
 ## Como as regras usam isso
 

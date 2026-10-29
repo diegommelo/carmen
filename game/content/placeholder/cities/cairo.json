@@ -1,0 +1,69 @@
+{
+ "name": "Cairo",
+ "map": {
+  "x": 175,
+  "y": 41
+ },
+ "description": [
+  {
+   "pt_BR": "A capital do Egito fica às margens do Nilo, perto das pirâmides de Gizé.",
+   "en": "Egypt's capital sits on the Nile, near the pyramids of Giza."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "um escaravelho de ouro",
+   "en": "a golden scarab"
+  },
+  {
+   "pt_BR": "um papiro antigo",
+   "en": "an ancient papyrus"
+  }
+ ],
+ "locations": [
+  "bank",
+  "hotel",
+  "airport",
+  "library",
+  "market",
+  "embassy"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por libras egípcias",
+    "en": "{he} changed money into Egyptian pounds"
+   }
+  ],
+  "hotel": [
+   {
+    "pt_BR": "{ele} queria um passeio de camelo até as pirâmides",
+    "en": "{he} wanted a camel ride to the pyramids"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou num avião com bandeira vermelha, branca e preta",
+    "en": "{he} boarded a plane with a red, white and black flag"
+   }
+  ],
+  "library": [
+   {
+    "pt_BR": "{ele} pesquisava hieróglifos",
+    "en": "{he} was researching hieroglyphs"
+   }
+  ],
+  "market": [
+   {
+    "pt_BR": "{ele} comprou especiarias no bazar",
+    "en": "{he} bought spices at the bazaar"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria navegar pelo Nilo",
+    "en": "{he} wanted to sail on the Nile"
+   }
+  ]
+ }
+}

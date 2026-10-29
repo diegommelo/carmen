@@ -1,0 +1,37 @@
+{
+ "name": {
+  "pt_BR": "Sombra",
+  "en": "Shadow"
+ },
+ "boss": false,
+ "traits": {
+  "sex": "m",
+  "hobby": "surfing",
+  "hair": "red",
+  "feature": "ring",
+  "vehicle": "limousine",
+  "food": "seafood"
+ },
+ "dossier": {
+  "full_name": {
+   "pt_BR": "Sombra",
+   "en": "Shadow"
+  },
+  "occupation": {
+   "pt_BR": "Mestre dos disfarces",
+   "en": "Master of disguise"
+  },
+  "traits": {
+   "vehicle": {
+    "pt_BR": "Só anda de limusine",
+    "en": "Only travels by limousine"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Ninguém sabe o nome verdadeiro. Adora ostras.",
+    "en": "Nobody knows his real name. Loves oysters."
+   }
+  ]
+ }
+}

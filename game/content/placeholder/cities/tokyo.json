@@ -1,0 +1,72 @@
+{
+ "name": {
+  "pt_BR": "Tóquio",
+  "en": "Tokyo"
+ },
+ "map": {
+  "x": 266,
+  "y": 36
+ },
+ "description": [
+  {
+   "pt_BR": "A capital do Japão mistura templos antigos e arranha-céus.",
+   "en": "Japan's capital mixes ancient temples and skyscrapers."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "uma espada de samurai",
+   "en": "a samurai sword"
+  },
+  {
+   "pt_BR": "um leque de seda imperial",
+   "en": "an imperial silk fan"
+  }
+ ],
+ "locations": [
+  "bank",
+  "hotel",
+  "airport",
+  "library",
+  "market",
+  "embassy"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por ienes",
+    "en": "{he} changed money into yen"
+   }
+  ],
+  "hotel": [
+   {
+    "pt_BR": "{ele} queria dormir num hotel-cápsula",
+    "en": "{he} wanted to sleep in a capsule hotel"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou num avião com um círculo vermelho na bandeira",
+    "en": "{he} boarded a plane with a red circle on its flag"
+   }
+  ],
+  "library": [
+   {
+    "pt_BR": "{ele} lia haicais",
+    "en": "{he} was reading haiku"
+   }
+  ],
+  "market": [
+   {
+    "pt_BR": "{ele} comeu sushi no mercado de peixe",
+    "en": "{he} ate sushi at the fish market"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria ver o Monte Fuji",
+    "en": "{he} wanted to see Mount Fuji"
+   }
+  ]
+ }
+}

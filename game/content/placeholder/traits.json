@@ -1,0 +1,268 @@
+{
+ "traits": [
+  {
+   "id": "sex",
+   "name": {
+    "pt_BR": "Sexo",
+    "en": "Sex"
+   },
+   "warrant": true,
+   "values": {
+    "m": {
+     "pt_BR": "Masculino",
+     "en": "Male"
+    },
+    "f": {
+     "pt_BR": "Feminino",
+     "en": "Female"
+    }
+   }
+  },
+  {
+   "id": "hobby",
+   "name": {
+    "pt_BR": "Hobby",
+    "en": "Hobby"
+   },
+   "warrant": true,
+   "values": {
+    "tennis": {
+     "pt_BR": "Tênis",
+     "en": "Tennis"
+    },
+    "chess": {
+     "pt_BR": "Xadrez",
+     "en": "Chess"
+    },
+    "mountain_climbing": {
+     "pt_BR": "Alpinismo",
+     "en": "Mountain climbing"
+    },
+    "surfing": {
+     "pt_BR": "Surfe",
+     "en": "Surfing"
+    }
+   },
+   "clues": {
+    "tennis": [
+     {
+      "pt_BR": "{Ele} perguntou onde havia uma quadra de tênis",
+      "en": "{He} asked where to find a tennis court"
+     },
+     {
+      "pt_BR": "{Ele} carregava uma raquete",
+      "en": "{He} was carrying a racket"
+     }
+    ],
+    "mountain_climbing": [
+     {
+      "pt_BR": "{Ele} falou de escalar montanhas",
+      "en": "{He} talked about climbing mountains"
+     },
+     {
+      "pt_BR": "{Ele} levava cordas de escalada",
+      "en": "{He} carried climbing ropes"
+     }
+    ],
+    "surfing": [
+     {
+      "pt_BR": "{Ele} queria saber a previsão das ondas",
+      "en": "{He} wanted to know the surf forecast"
+     },
+     {
+      "pt_BR": "{Ele} tinha uma prancha de surfe",
+      "en": "{He} had a surfboard"
+     }
+    ]
+   }
+  },
+  {
+   "id": "hair",
+   "name": {
+    "pt_BR": "Cabelo",
+    "en": "Hair"
+   },
+   "warrant": true,
+   "values": {
+    "brown": {
+     "pt_BR": "Castanho",
+     "en": "Brown"
+    },
+    "blond": {
+     "pt_BR": "Loiro",
+     "en": "Blond"
+    },
+    "red": {
+     "pt_BR": "Ruivo",
+     "en": "Red"
+    },
+    "black": {
+     "pt_BR": "Preto",
+     "en": "Black"
+    }
+   },
+   "clues": {
+    "brown": [
+     {
+      "pt_BR": "{Ele} tinha cabelo castanho",
+      "en": "{He} had brown hair"
+     }
+    ],
+    "blond": [
+     {
+      "pt_BR": "{Ele} tinha cabelo loiro",
+      "en": "{He} had blond hair"
+     }
+    ],
+    "red": [
+     {
+      "pt_BR": "{Ele} tinha cabelo ruivo",
+      "en": "{He} had red hair"
+     }
+    ],
+    "black": [
+     {
+      "pt_BR": "{Ele} tinha cabelo preto",
+      "en": "{He} had black hair"
+     }
+    ]
+   }
+  },
+  {
+   "id": "feature",
+   "name": {
+    "pt_BR": "Marca",
+    "en": "Feature"
+   },
+   "warrant": true,
+   "values": {
+    "ring": {
+     "pt_BR": "Anel",
+     "en": "Ring"
+    },
+    "tattoo": {
+     "pt_BR": "Tatuagem",
+     "en": "Tattoo"
+    },
+    "scar": {
+     "pt_BR": "Cicatriz",
+     "en": "Scar"
+    },
+    "jewelry": {
+     "pt_BR": "Joias",
+     "en": "Jewelry"
+    }
+   },
+   "clues": {
+    "ring": [
+     {
+      "pt_BR": "{Ele} usava um anel enorme",
+      "en": "{He} wore a huge ring"
+     },
+     {
+      "pt_BR": "reparei no anel {dele}",
+      "en": "I noticed {his} ring"
+     }
+    ],
+    "tattoo": [
+     {
+      "pt_BR": "{Ele} tentou esconder uma tatuagem",
+      "en": "{He} tried to hide a tattoo"
+     },
+     {
+      "pt_BR": "{Ele} tinha uma tatuagem no braço",
+      "en": "{He} had a tattoo on {his} arm"
+     }
+    ],
+    "jewelry": [
+     {
+      "pt_BR": "{Ele} usava joias caras",
+      "en": "{He} wore expensive jewelry"
+     }
+    ]
+   }
+  },
+  {
+   "id": "vehicle",
+   "name": {
+    "pt_BR": "Veículo",
+    "en": "Vehicle"
+   },
+   "warrant": true,
+   "values": {
+    "convertible": {
+     "pt_BR": "Conversível",
+     "en": "Convertible"
+    },
+    "limousine": {
+     "pt_BR": "Limusine",
+     "en": "Limousine"
+    },
+    "motorcycle": {
+     "pt_BR": "Moto",
+     "en": "Motorcycle"
+    }
+   },
+   "clues": {
+    "convertible": [
+     {
+      "pt_BR": "{Ele} chegou num conversível",
+      "en": "{He} arrived in a convertible"
+     },
+     {
+      "pt_BR": "{Ele} me ofereceu carona no conversível {dele}",
+      "en": "{He} offered me a ride in {his} convertible"
+     }
+    ],
+    "limousine": [
+     {
+      "pt_BR": "{Ele} andava de limusine com motorista",
+      "en": "{He} rode in a chauffeured limousine"
+     }
+    ],
+    "motorcycle": [
+     {
+      "pt_BR": "{Ele} chegou de moto",
+      "en": "{He} arrived on a motorcycle"
+     },
+     {
+      "pt_BR": "{Ele} carregava um capacete",
+      "en": "{He} was carrying a helmet"
+     }
+    ]
+   }
+  },
+  {
+   "id": "food",
+   "name": {
+    "pt_BR": "Comida",
+    "en": "Food"
+   },
+   "warrant": false,
+   "values": {
+    "seafood": {
+     "pt_BR": "Frutos do mar",
+     "en": "Seafood"
+    },
+    "mexican": {
+     "pt_BR": "Comida mexicana",
+     "en": "Mexican food"
+    }
+   },
+   "clues": {
+    "seafood": [
+     {
+      "pt_BR": "{Ele} disse que adora frutos do mar",
+      "en": "{He} said {he} loves seafood"
+     }
+    ],
+    "mexican": [
+     {
+      "pt_BR": "{Ele} procurava um restaurante mexicano",
+      "en": "{He} was looking for a Mexican restaurant"
+     }
+    ]
+   }
+  }
+ ]
+}
