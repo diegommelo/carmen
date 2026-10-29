@@ -2,6 +2,10 @@
 
 O núcleo em Godot (`game/core`) não sabe nada de cidades ou suspeitos: tudo vem de um pacote de conteúdo, uma pasta com três arquivos JSON. O pacote de teste fica em [`game/content/placeholder`](../game/content/placeholder). A paródia será outro pacote, e o leitor dos `.DAT` originais vai gerar um terceiro, no mesmo formato.
 
+## Ids e chaves
+
+Todas as chaves e todos os ids do JSON ficam em inglês, em `snake_case` (`hair`, `blond`, `mexico_city`, `light_fingers`). Os textos mostrados ao jogador ficam nos objetos de idioma. A exceção são os marcadores de pronome dentro das frases (`{ele}`, `{his}`), que são parte do texto traduzido e por isso mudam com o idioma.
+
 ## Idiomas
 
 O pacote declara os idiomas em `pack.json`:
@@ -42,17 +46,17 @@ Os textos da tela (botões, status, mensagens de fim de caso) não ficam no paco
 
 ### Pronomes
 
-As frases podem usar `{chave}`, e a chave é trocada pela tabela `texts.pronouns[sexo]` do idioma atual. A tabela inteira é traduzida, porque cada idioma tem seus próprios marcadores. No pacote provisório, em português `{Ele}`, `{ele}` e `{dele}` viram "Ela", "ela" e "dela" quando o suspeito é mulher, e em inglês `{He}`, `{he}` e `{his}` viram "She", "she" e "her".
+As frases podem usar `{chave}`, e a chave é trocada pela tabela `texts.pronouns[sex]` do idioma atual. A tabela inteira é traduzida, porque cada idioma tem seus próprios marcadores. No pacote provisório, em português `{Ele}`, `{ele}` e `{dele}` viram "Ela", "ela" e "dela" quando o suspeito é mulher, e em inglês `{He}`, `{he}` e `{his}` viram "She", "she" e "her".
 
 ## `suspects.json`
 
 ```json
-{ "id": "baronesa", "name": "Baronesa", "boss": false,
-  "traits": { "sexo": "f", "hobby": "surfe", "cabelo": "loiro", "marca": "tatuagem", "veiculo": "moto", "comida": "frutos_do_mar" },
+{ "id": "baroness", "name": "Baronesa", "boss": false,
+  "traits": { "sex": "f", "hobby": "surfing", "hair": "blond", "feature": "tattoo", "vehicle": "motorcycle", "food": "seafood" },
   "dossier": {
     "full_name": "Baronesa Valquíria von Onda",
     "occupation": "Surfista que vive de cidade em cidade",
-    "traits": { "marca": "Tatuagem de onda no tornozelo" },
+    "traits": { "feature": "Tatuagem de onda no tornozelo" },
     "notes": ["Come camarão no café da manhã."] } }
 ```
 
@@ -69,10 +73,10 @@ O `dossier` segue a ficha do original, que tem os campos Nome, Sexo, Ocupação,
 ## `cities.json`
 
 ```json
-{ "id": "roma", "name": "Roma", "map": { "x": 159, "y": 33 },
+{ "id": "rome", "name": "Roma", "map": { "x": 159, "y": 33 },
   "description": ["..."], "treasures": ["..."],
-  "locations": ["banco", "hotel", "aeroporto", "biblioteca", "mercado", "embaixada"],
-  "clues": { "banco": ["{ele} trocou dinheiro por euros"], "...": [] } }
+  "locations": ["bank", "hotel", "airport", "library", "market", "embassy"],
+  "clues": { "bank": ["{ele} trocou dinheiro por euros"], "...": [] } }
 ```
 
 - `map` usa a escala do original: `x` de oeste para leste (0 a ~300) e `y` de norte para sul (0 a ~100).

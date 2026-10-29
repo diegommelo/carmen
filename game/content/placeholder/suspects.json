@@ -1,19 +1,19 @@
 {
  "suspects": [
   {
-   "id": "chefona",
+   "id": "boss",
    "name": {
     "pt_BR": "A Chefona",
     "en": "The Boss"
    },
    "boss": true,
    "traits": {
-    "sexo": "f",
-    "hobby": "tenis",
-    "cabelo": "ruivo",
-    "marca": "joias",
-    "veiculo": "conversivel",
-    "comida": "mexicana"
+    "sex": "f",
+    "hobby": "tennis",
+    "hair": "red",
+    "feature": "jewelry",
+    "vehicle": "convertible",
+    "food": "mexican"
    },
    "dossier": {
     "full_name": {
@@ -25,15 +25,15 @@
      "en": "Former geography teacher who memorized every map"
     },
     "traits": {
-     "cabelo": {
+     "hair": {
       "pt_BR": "Ruivo acobreado",
       "en": "Copper red"
      },
-     "veiculo": {
+     "vehicle": {
       "pt_BR": "Conversível vermelho de 1957",
       "en": "Red 1957 convertible"
      },
-     "marca": {
+     "feature": {
       "pt_BR": "Nunca aparece sem um colar de rubis",
       "en": "Never seen without a ruby necklace"
      }
@@ -47,19 +47,19 @@
    }
   },
   {
-   "id": "dedo_leve",
+   "id": "light_fingers",
    "name": {
     "pt_BR": "Dedo Leve",
     "en": "Light Fingers"
    },
    "boss": false,
    "traits": {
-    "sexo": "m",
-    "hobby": "alpinismo",
-    "cabelo": "preto",
-    "marca": "tatuagem",
-    "veiculo": "moto",
-    "comida": "frutos_do_mar"
+    "sex": "m",
+    "hobby": "mountain_climbing",
+    "hair": "black",
+    "feature": "tattoo",
+    "vehicle": "motorcycle",
+    "food": "seafood"
    },
    "dossier": {
     "full_name": {
@@ -71,11 +71,11 @@
      "en": "Former climber and pickpocket"
     },
     "traits": {
-     "marca": {
+     "feature": {
       "pt_BR": "Águia tatuada no braço direito",
       "en": "Eagle tattooed on his right arm"
      },
-     "veiculo": {
+     "vehicle": {
       "pt_BR": "Moto de trilha enlameada",
       "en": "Muddy dirt bike"
      }
@@ -96,12 +96,12 @@
    },
    "boss": false,
    "traits": {
-    "sexo": "f",
-    "hobby": "alpinismo",
-    "cabelo": "castanho",
-    "marca": "joias",
-    "veiculo": "limusine",
-    "comida": "mexicana"
+    "sex": "f",
+    "hobby": "mountain_climbing",
+    "hair": "brown",
+    "feature": "jewelry",
+    "vehicle": "limousine",
+    "food": "mexican"
    },
    "dossier": {
     "full_name": {
@@ -113,7 +113,7 @@
      "en": "Collector of jewels and fake passports"
     },
     "traits": {
-     "veiculo": {
+     "vehicle": {
       "pt_BR": "Limusine preta com vidros escuros",
       "en": "Black limousine with tinted windows"
      }
@@ -127,19 +127,19 @@
    }
   },
   {
-   "id": "doutor_z",
+   "id": "doctor_z",
    "name": {
     "pt_BR": "Doutor Z",
     "en": "Doctor Z"
    },
    "boss": false,
    "traits": {
-    "sexo": "m",
-    "hobby": "tenis",
-    "cabelo": "loiro",
-    "marca": "anel",
-    "veiculo": "conversivel",
-    "comida": "mexicana"
+    "sex": "m",
+    "hobby": "tennis",
+    "hair": "blond",
+    "feature": "ring",
+    "vehicle": "convertible",
+    "food": "mexican"
    },
    "dossier": {
     "full_name": {
@@ -151,7 +151,7 @@
      "en": "Former tennis pro"
     },
     "traits": {
-     "marca": {
+     "feature": {
       "pt_BR": "Anel do tamanho de uma noz",
       "en": "Ring the size of a walnut"
      }
@@ -165,19 +165,19 @@
    }
   },
   {
-   "id": "baronesa",
+   "id": "baroness",
    "name": {
     "pt_BR": "Baronesa",
     "en": "The Baroness"
    },
    "boss": false,
    "traits": {
-    "sexo": "f",
-    "hobby": "surfe",
-    "cabelo": "loiro",
-    "marca": "tatuagem",
-    "veiculo": "moto",
-    "comida": "frutos_do_mar"
+    "sex": "f",
+    "hobby": "surfing",
+    "hair": "blond",
+    "feature": "tattoo",
+    "vehicle": "motorcycle",
+    "food": "seafood"
    },
    "dossier": {
     "full_name": {
@@ -189,7 +189,7 @@
      "en": "Surfer who drifts from city to city"
     },
     "traits": {
-     "marca": {
+     "feature": {
       "pt_BR": "Tatuagem de onda no tornozelo",
       "en": "Wave tattoo on her ankle"
      }
@@ -203,19 +203,19 @@
    }
   },
   {
-   "id": "sombra",
+   "id": "shadow",
    "name": {
     "pt_BR": "Sombra",
     "en": "Shadow"
    },
    "boss": false,
    "traits": {
-    "sexo": "m",
-    "hobby": "surfe",
-    "cabelo": "ruivo",
-    "marca": "anel",
-    "veiculo": "limusine",
-    "comida": "frutos_do_mar"
+    "sex": "m",
+    "hobby": "surfing",
+    "hair": "red",
+    "feature": "ring",
+    "vehicle": "limousine",
+    "food": "seafood"
    },
    "dossier": {
     "full_name": {
@@ -227,7 +227,7 @@
      "en": "Master of disguise"
     },
     "traits": {
-     "veiculo": {
+     "vehicle": {
       "pt_BR": "Só anda de limusine",
       "en": "Only travels by limousine"
      }

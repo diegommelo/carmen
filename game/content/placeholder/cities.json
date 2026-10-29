@@ -24,15 +24,15 @@
     }
    ],
    "locations": [
-    "banco",
+    "bank",
     "hotel",
-    "aeroporto",
-    "biblioteca",
-    "mercado",
-    "embaixada"
+    "airport",
+    "library",
+    "market",
+    "embassy"
    ],
    "clues": {
-    "banco": [
+    "bank": [
      {
       "pt_BR": "{ele} trocou dinheiro por reais",
       "en": "{he} changed money into reais"
@@ -44,25 +44,25 @@
       "en": "{he} asked for a map of the Monumental Axis"
      }
     ],
-    "aeroporto": [
+    "airport": [
      {
       "pt_BR": "{ele} embarcou num avião com bandeira verde e amarela",
       "en": "{he} boarded a plane with a green and yellow flag"
      }
     ],
-    "biblioteca": [
+    "library": [
      {
       "pt_BR": "{ele} pesquisava a obra de Oscar Niemeyer",
       "en": "{he} was researching the work of Oscar Niemeyer"
      }
     ],
-    "mercado": [
+    "market": [
      {
       "pt_BR": "{ele} queria provar pão de queijo",
       "en": "{he} wanted to try pão de queijo"
      }
     ],
-    "embaixada": [
+    "embassy": [
      {
       "pt_BR": "{ele} queria visitar o Palácio do Planalto",
       "en": "{he} wanted to visit the Planalto Palace"
@@ -94,15 +94,15 @@
     }
    ],
    "locations": [
-    "banco",
+    "bank",
     "hotel",
-    "aeroporto",
-    "biblioteca",
-    "mercado",
-    "embaixada"
+    "airport",
+    "library",
+    "market",
+    "embassy"
    ],
    "clues": {
-    "banco": [
+    "bank": [
      {
       "pt_BR": "{ele} trocou dinheiro por reais",
       "en": "{he} changed money into reais"
@@ -114,25 +114,25 @@
       "en": "{he} asked how to get to Paulista Avenue"
      }
     ],
-    "aeroporto": [
+    "airport": [
      {
       "pt_BR": "{ele} queria um voo para a maior cidade do Brasil",
       "en": "{he} wanted a flight to Brazil's largest city"
      }
     ],
-    "biblioteca": [
+    "library": [
      {
       "pt_BR": "{ele} lia sobre a Semana de Arte Moderna de 1922",
       "en": "{he} was reading about the 1922 Modern Art Week"
      }
     ],
-    "mercado": [
+    "market": [
      {
       "pt_BR": "{ele} queria comer um sanduíche de mortadela no Mercadão",
       "en": "{he} wanted a mortadella sandwich at the Municipal Market"
      }
     ],
-    "embaixada": [
+    "embassy": [
      {
       "pt_BR": "{ele} falava em português com sotaque paulistano",
       "en": "{he} spoke Portuguese with a São Paulo accent"
@@ -164,15 +164,15 @@
     }
    ],
    "locations": [
-    "banco",
+    "bank",
     "hotel",
-    "aeroporto",
-    "biblioteca",
-    "mercado",
-    "embaixada"
+    "airport",
+    "library",
+    "market",
+    "embassy"
    ],
    "clues": {
-    "banco": [
+    "bank": [
      {
       "pt_BR": "{ele} trocou dinheiro por pesos argentinos",
       "en": "{he} changed money into Argentine pesos"
@@ -184,25 +184,25 @@
       "en": "{he} wanted tango lessons"
      }
     ],
-    "aeroporto": [
+    "airport": [
      {
       "pt_BR": "{ele} embarcou num avião com bandeira azul-celeste e branca",
       "en": "{he} boarded a plane with a sky blue and white flag"
      }
     ],
-    "biblioteca": [
+    "library": [
      {
       "pt_BR": "{ele} procurava livros de Jorge Luis Borges",
       "en": "{he} was looking for books by Jorge Luis Borges"
      }
     ],
-    "mercado": [
+    "market": [
      {
       "pt_BR": "{ele} perguntou onde comer um bom bife de chorizo",
       "en": "{he} asked where to eat a good bife de chorizo"
      }
     ],
-    "embaixada": [
+    "embassy": [
      {
       "pt_BR": "{ele} queria conhecer a Casa Rosada",
       "en": "{he} wanted to see the Casa Rosada"
@@ -211,7 +211,7 @@
    }
   },
   {
-   "id": "lisboa",
+   "id": "lisbon",
    "name": {
     "pt_BR": "Lisboa",
     "en": "Lisbon"
@@ -237,15 +237,15 @@
     }
    ],
    "locations": [
-    "banco",
+    "bank",
     "hotel",
-    "aeroporto",
-    "biblioteca",
-    "mercado",
-    "embaixada"
+    "airport",
+    "library",
+    "market",
+    "embassy"
    ],
    "clues": {
-    "banco": [
+    "bank": [
      {
       "pt_BR": "{ele} trocou dinheiro por euros",
       "en": "{he} changed money into euros"
@@ -257,25 +257,25 @@
       "en": "{he} wanted to ride tram 28"
      }
     ],
-    "aeroporto": [
+    "airport": [
      {
       "pt_BR": "{ele} embarcou num avião com bandeira verde e vermelha",
       "en": "{he} boarded a plane with a green and red flag"
      }
     ],
-    "biblioteca": [
+    "library": [
      {
       "pt_BR": "{ele} estudava as viagens de Vasco da Gama",
       "en": "{he} was studying the voyages of Vasco da Gama"
      }
     ],
-    "mercado": [
+    "market": [
      {
       "pt_BR": "{ele} comprou pastéis de nata",
       "en": "{he} bought pastéis de nata"
      }
     ],
-    "embaixada": [
+    "embassy": [
      {
       "pt_BR": "{ele} queria assistir a uma noite de fado",
       "en": "{he} wanted to see a fado night"
@@ -307,15 +307,15 @@
     }
    ],
    "locations": [
-    "banco",
+    "bank",
     "hotel",
-    "aeroporto",
-    "biblioteca",
-    "mercado",
-    "embaixada"
+    "airport",
+    "library",
+    "market",
+    "embassy"
    ],
    "clues": {
-    "banco": [
+    "bank": [
      {
       "pt_BR": "{ele} trocou dinheiro por euros",
       "en": "{he} changed money into euros"
@@ -327,25 +327,25 @@
       "en": "{he} asked for a room with a view of the Eiffel Tower"
      }
     ],
-    "aeroporto": [
+    "airport": [
      {
       "pt_BR": "{ele} embarcou num avião com bandeira azul, branca e vermelha",
       "en": "{he} boarded a plane with a blue, white and red flag"
      }
     ],
-    "biblioteca": [
+    "library": [
      {
       "pt_BR": "{ele} procurava livros sobre o Louvre",
       "en": "{he} was looking for books about the Louvre"
      }
     ],
-    "mercado": [
+    "market": [
      {
       "pt_BR": "{ele} comprou croissants e queijo brie",
       "en": "{he} bought croissants and brie"
      }
     ],
-    "embaixada": [
+    "embassy": [
      {
       "pt_BR": "{ele} treinava frases em francês",
       "en": "{he} was practicing French phrases"
@@ -354,7 +354,7 @@
    }
   },
   {
-   "id": "roma",
+   "id": "rome",
    "name": {
     "pt_BR": "Roma",
     "en": "Rome"
@@ -380,15 +380,15 @@
     }
    ],
    "locations": [
-    "banco",
+    "bank",
     "hotel",
-    "aeroporto",
-    "biblioteca",
-    "mercado",
-    "embaixada"
+    "airport",
+    "library",
+    "market",
+    "embassy"
    ],
    "clues": {
-    "banco": [
+    "bank": [
      {
       "pt_BR": "{ele} trocou dinheiro por euros",
       "en": "{he} changed money into euros"
@@ -400,25 +400,25 @@
       "en": "{he} wanted to throw a coin into the Trevi Fountain"
      }
     ],
-    "aeroporto": [
+    "airport": [
      {
       "pt_BR": "{ele} embarcou num avião com bandeira verde, branca e vermelha",
       "en": "{he} boarded a plane with a green, white and red flag"
      }
     ],
-    "biblioteca": [
+    "library": [
      {
       "pt_BR": "{ele} lia sobre Júlio César",
       "en": "{he} was reading about Julius Caesar"
      }
     ],
-    "mercado": [
+    "market": [
      {
       "pt_BR": "{ele} pediu uma pizza de verdade",
       "en": "{he} ordered a real pizza"
      }
     ],
-    "embaixada": [
+    "embassy": [
      {
       "pt_BR": "{ele} perguntou como visitar o Vaticano",
       "en": "{he} asked how to visit the Vatican"
@@ -450,15 +450,15 @@
     }
    ],
    "locations": [
-    "banco",
+    "bank",
     "hotel",
-    "aeroporto",
-    "biblioteca",
-    "mercado",
-    "embaixada"
+    "airport",
+    "library",
+    "market",
+    "embassy"
    ],
    "clues": {
-    "banco": [
+    "bank": [
      {
       "pt_BR": "{ele} trocou dinheiro por libras egípcias",
       "en": "{he} changed money into Egyptian pounds"
@@ -470,25 +470,25 @@
       "en": "{he} wanted a camel ride to the pyramids"
      }
     ],
-    "aeroporto": [
+    "airport": [
      {
       "pt_BR": "{ele} embarcou num avião com bandeira vermelha, branca e preta",
       "en": "{he} boarded a plane with a red, white and black flag"
      }
     ],
-    "biblioteca": [
+    "library": [
      {
       "pt_BR": "{ele} pesquisava hieróglifos",
       "en": "{he} was researching hieroglyphs"
      }
     ],
-    "mercado": [
+    "market": [
      {
       "pt_BR": "{ele} comprou especiarias no bazar",
       "en": "{he} bought spices at the bazaar"
      }
     ],
-    "embaixada": [
+    "embassy": [
      {
       "pt_BR": "{ele} queria navegar pelo Nilo",
       "en": "{he} wanted to sail on the Nile"
@@ -497,7 +497,7 @@
    }
   },
   {
-   "id": "nova_york",
+   "id": "new_york",
    "name": {
     "pt_BR": "Nova York",
     "en": "New York"
@@ -523,15 +523,15 @@
     }
    ],
    "locations": [
-    "banco",
+    "bank",
     "hotel",
-    "aeroporto",
-    "biblioteca",
-    "mercado",
-    "embaixada"
+    "airport",
+    "library",
+    "market",
+    "embassy"
    ],
    "clues": {
-    "banco": [
+    "bank": [
      {
       "pt_BR": "{ele} trocou dinheiro por dólares",
       "en": "{he} changed money into dollars"
@@ -543,25 +543,25 @@
       "en": "{he} asked for Broadway tickets"
      }
     ],
-    "aeroporto": [
+    "airport": [
      {
       "pt_BR": "{ele} embarcou num avião com listras e estrelas",
       "en": "{he} boarded a plane with stars and stripes"
      }
     ],
-    "biblioteca": [
+    "library": [
      {
       "pt_BR": "{ele} lia sobre a construção do Empire State",
       "en": "{he} was reading about the building of the Empire State"
      }
     ],
-    "mercado": [
+    "market": [
      {
       "pt_BR": "{ele} comeu um cachorro-quente na rua",
       "en": "{he} ate a hot dog on the street"
      }
     ],
-    "embaixada": [
+    "embassy": [
      {
       "pt_BR": "{ele} perguntou onde fica a sede da ONU",
       "en": "{he} asked where the UN headquarters is"
@@ -570,7 +570,7 @@
    }
   },
   {
-   "id": "cidade_do_mexico",
+   "id": "mexico_city",
    "name": {
     "pt_BR": "Cidade do México",
     "en": "Mexico City"
@@ -596,15 +596,15 @@
     }
    ],
    "locations": [
-    "banco",
+    "bank",
     "hotel",
-    "aeroporto",
-    "biblioteca",
-    "mercado",
-    "embaixada"
+    "airport",
+    "library",
+    "market",
+    "embassy"
    ],
    "clues": {
-    "banco": [
+    "bank": [
      {
       "pt_BR": "{ele} trocou dinheiro por pesos mexicanos",
       "en": "{he} changed money into Mexican pesos"
@@ -616,25 +616,25 @@
       "en": "{he} wanted to hear mariachis"
      }
     ],
-    "aeroporto": [
+    "airport": [
      {
       "pt_BR": "{ele} embarcou num avião com uma águia na bandeira",
       "en": "{he} boarded a plane with an eagle on its flag"
      }
     ],
-    "biblioteca": [
+    "library": [
      {
       "pt_BR": "{ele} estudava a história dos astecas",
       "en": "{he} was studying Aztec history"
      }
     ],
-    "mercado": [
+    "market": [
      {
       "pt_BR": "{ele} provou tacos de todos os tipos",
       "en": "{he} tried every kind of taco"
      }
     ],
-    "embaixada": [
+    "embassy": [
      {
       "pt_BR": "{ele} queria ver as pirâmides de Teotihuacán",
       "en": "{he} wanted to see the pyramids of Teotihuacan"
@@ -643,7 +643,7 @@
    }
   },
   {
-   "id": "toquio",
+   "id": "tokyo",
    "name": {
     "pt_BR": "Tóquio",
     "en": "Tokyo"
@@ -669,15 +669,15 @@
     }
    ],
    "locations": [
-    "banco",
+    "bank",
     "hotel",
-    "aeroporto",
-    "biblioteca",
-    "mercado",
-    "embaixada"
+    "airport",
+    "library",
+    "market",
+    "embassy"
    ],
    "clues": {
-    "banco": [
+    "bank": [
      {
       "pt_BR": "{ele} trocou dinheiro por ienes",
       "en": "{he} changed money into yen"
@@ -689,25 +689,25 @@
       "en": "{he} wanted to sleep in a capsule hotel"
      }
     ],
-    "aeroporto": [
+    "airport": [
      {
       "pt_BR": "{ele} embarcou num avião com um círculo vermelho na bandeira",
       "en": "{he} boarded a plane with a red circle on its flag"
      }
     ],
-    "biblioteca": [
+    "library": [
      {
       "pt_BR": "{ele} lia haicais",
       "en": "{he} was reading haiku"
      }
     ],
-    "mercado": [
+    "market": [
      {
       "pt_BR": "{ele} comeu sushi no mercado de peixe",
       "en": "{he} ate sushi at the fish market"
      }
     ],
-    "embaixada": [
+    "embassy": [
      {
       "pt_BR": "{ele} queria ver o Monte Fuji",
       "en": "{he} wanted to see Mount Fuji"
@@ -716,7 +716,7 @@
    }
   },
   {
-   "id": "moscou",
+   "id": "moscow",
    "name": {
     "pt_BR": "Moscou",
     "en": "Moscow"
@@ -742,15 +742,15 @@
     }
    ],
    "locations": [
-    "banco",
+    "bank",
     "hotel",
-    "aeroporto",
-    "biblioteca",
-    "mercado",
-    "embaixada"
+    "airport",
+    "library",
+    "market",
+    "embassy"
    ],
    "clues": {
-    "banco": [
+    "bank": [
      {
       "pt_BR": "{ele} trocou dinheiro por rublos",
       "en": "{he} changed money into rubles"
@@ -762,25 +762,25 @@
       "en": "{he} asked for a very warm coat"
      }
     ],
-    "aeroporto": [
+    "airport": [
      {
       "pt_BR": "{ele} embarcou num avião com bandeira branca, azul e vermelha",
       "en": "{he} boarded a plane with a white, blue and red flag"
      }
     ],
-    "biblioteca": [
+    "library": [
      {
       "pt_BR": "{ele} lia Tolstói no original",
       "en": "{he} was reading Tolstoy in the original"
      }
     ],
-    "mercado": [
+    "market": [
      {
       "pt_BR": "{ele} comprou matrioscas",
       "en": "{he} bought matryoshka dolls"
      }
     ],
-    "embaixada": [
+    "embassy": [
      {
       "pt_BR": "{ele} queria visitar o Kremlin",
       "en": "{he} wanted to visit the Kremlin"
@@ -812,15 +812,15 @@
     }
    ],
    "locations": [
-    "banco",
+    "bank",
     "hotel",
-    "aeroporto",
-    "biblioteca",
-    "mercado",
-    "embaixada"
+    "airport",
+    "library",
+    "market",
+    "embassy"
    ],
    "clues": {
-    "banco": [
+    "bank": [
      {
       "pt_BR": "{ele} trocou dinheiro por dólares australianos",
       "en": "{he} changed money into Australian dollars"
@@ -832,25 +832,25 @@
       "en": "{he} wanted to see kangaroos"
      }
     ],
-    "aeroporto": [
+    "airport": [
      {
       "pt_BR": "{ele} embarcou num avião com o Cruzeiro do Sul na bandeira",
       "en": "{he} boarded a plane with the Southern Cross on its flag"
      }
     ],
-    "biblioteca": [
+    "library": [
      {
       "pt_BR": "{ele} pesquisava a arquitetura da Ópera de Sydney",
       "en": "{he} was researching the architecture of the Sydney Opera House"
      }
     ],
-    "mercado": [
+    "market": [
      {
       "pt_BR": "{ele} comprou carne para um churrasco na praia",
       "en": "{he} bought meat for a beach barbecue"
      }
     ],
-    "embaixada": [
+    "embassy": [
      {
       "pt_BR": "{ele} queria surfar em Bondi",
       "en": "{he} wanted to surf at Bondi"

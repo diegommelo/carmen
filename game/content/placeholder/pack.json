@@ -10,7 +10,7 @@
  "rules": {
   "route_base_steps": 4,
   "boss_after_cases": 29,
-  "sex_trait": "sexo",
+  "sex_trait": "sex",
   "graph": {
    "max_links": 4,
    "min_hops": 2
@@ -73,7 +73,7 @@
  ],
  "location_types": [
   {
-   "id": "banco",
+   "id": "bank",
    "name": {
     "pt_BR": "Banco",
     "en": "Bank"
@@ -105,10 +105,10 @@
    ],
    "clue_chance": {
     "hobby": 0,
-    "cabelo": 32,
-    "marca": 40,
-    "veiculo": 48,
-    "comida": 0
+    "hair": 32,
+    "feature": 40,
+    "vehicle": 48,
+    "food": 0
    }
   },
   {
@@ -144,14 +144,14 @@
    ],
    "clue_chance": {
     "hobby": 0,
-    "cabelo": 32,
-    "marca": 32,
-    "veiculo": 48,
-    "comida": 48
+    "hair": 32,
+    "feature": 32,
+    "vehicle": 48,
+    "food": 48
    }
   },
   {
-   "id": "aeroporto",
+   "id": "airport",
    "name": {
     "pt_BR": "Aeroporto",
     "en": "Airport"
@@ -183,14 +183,14 @@
    ],
    "clue_chance": {
     "hobby": 32,
-    "cabelo": 32,
-    "marca": 0,
-    "veiculo": 48,
-    "comida": 32
+    "hair": 32,
+    "feature": 0,
+    "vehicle": 48,
+    "food": 32
    }
   },
   {
-   "id": "biblioteca",
+   "id": "library",
    "name": {
     "pt_BR": "Biblioteca",
     "en": "Library"
@@ -222,14 +222,14 @@
    ],
    "clue_chance": {
     "hobby": 32,
-    "cabelo": 32,
-    "marca": 32,
-    "veiculo": 0,
-    "comida": 0
+    "hair": 32,
+    "feature": 32,
+    "vehicle": 0,
+    "food": 0
    }
   },
   {
-   "id": "mercado",
+   "id": "market",
    "name": {
     "pt_BR": "Mercado",
     "en": "Market"
@@ -261,14 +261,14 @@
    ],
    "clue_chance": {
     "hobby": 48,
-    "cabelo": 48,
-    "marca": 48,
-    "veiculo": 48,
-    "comida": 16
+    "hair": 48,
+    "feature": 48,
+    "vehicle": 48,
+    "food": 16
    }
   },
   {
-   "id": "embaixada",
+   "id": "embassy",
    "name": {
     "pt_BR": "Embaixada",
     "en": "Embassy"
@@ -300,16 +300,16 @@
    ],
    "clue_chance": {
     "hobby": 32,
-    "cabelo": 32,
-    "marca": 32,
-    "veiculo": 48,
-    "comida": 0
+    "hair": 32,
+    "feature": 32,
+    "vehicle": 48,
+    "food": 0
    }
   }
  ],
  "traits": [
   {
-   "id": "sexo",
+   "id": "sex",
    "name": {
     "pt_BR": "Sexo",
     "en": "Sex"
@@ -334,25 +334,25 @@
    },
    "warrant": true,
    "values": {
-    "tenis": {
+    "tennis": {
      "pt_BR": "Tênis",
      "en": "Tennis"
     },
-    "xadrez": {
+    "chess": {
      "pt_BR": "Xadrez",
      "en": "Chess"
     },
-    "alpinismo": {
+    "mountain_climbing": {
      "pt_BR": "Alpinismo",
      "en": "Mountain climbing"
     },
-    "surfe": {
+    "surfing": {
      "pt_BR": "Surfe",
      "en": "Surfing"
     }
    },
    "clues": {
-    "tenis": [
+    "tennis": [
      {
       "pt_BR": "{Ele} perguntou onde havia uma quadra de tênis",
       "en": "{He} asked where to find a tennis court"
@@ -362,7 +362,7 @@
       "en": "{He} was carrying a racket"
      }
     ],
-    "alpinismo": [
+    "mountain_climbing": [
      {
       "pt_BR": "{Ele} falou de escalar montanhas",
       "en": "{He} talked about climbing mountains"
@@ -372,7 +372,7 @@
       "en": "{He} carried climbing ropes"
      }
     ],
-    "surfe": [
+    "surfing": [
      {
       "pt_BR": "{Ele} queria saber a previsão das ondas",
       "en": "{He} wanted to know the surf forecast"
@@ -385,50 +385,50 @@
    }
   },
   {
-   "id": "cabelo",
+   "id": "hair",
    "name": {
     "pt_BR": "Cabelo",
     "en": "Hair"
    },
    "warrant": true,
    "values": {
-    "castanho": {
+    "brown": {
      "pt_BR": "Castanho",
      "en": "Brown"
     },
-    "loiro": {
+    "blond": {
      "pt_BR": "Loiro",
      "en": "Blond"
     },
-    "ruivo": {
+    "red": {
      "pt_BR": "Ruivo",
      "en": "Red"
     },
-    "preto": {
+    "black": {
      "pt_BR": "Preto",
      "en": "Black"
     }
    },
    "clues": {
-    "castanho": [
+    "brown": [
      {
       "pt_BR": "{Ele} tinha cabelo castanho",
       "en": "{He} had brown hair"
      }
     ],
-    "loiro": [
+    "blond": [
      {
       "pt_BR": "{Ele} tinha cabelo loiro",
       "en": "{He} had blond hair"
      }
     ],
-    "ruivo": [
+    "red": [
      {
       "pt_BR": "{Ele} tinha cabelo ruivo",
       "en": "{He} had red hair"
      }
     ],
-    "preto": [
+    "black": [
      {
       "pt_BR": "{Ele} tinha cabelo preto",
       "en": "{He} had black hair"
@@ -437,32 +437,32 @@
    }
   },
   {
-   "id": "marca",
+   "id": "feature",
    "name": {
     "pt_BR": "Marca",
     "en": "Feature"
    },
    "warrant": true,
    "values": {
-    "anel": {
+    "ring": {
      "pt_BR": "Anel",
      "en": "Ring"
     },
-    "tatuagem": {
+    "tattoo": {
      "pt_BR": "Tatuagem",
      "en": "Tattoo"
     },
-    "cicatriz": {
+    "scar": {
      "pt_BR": "Cicatriz",
      "en": "Scar"
     },
-    "joias": {
+    "jewelry": {
      "pt_BR": "Joias",
      "en": "Jewelry"
     }
    },
    "clues": {
-    "anel": [
+    "ring": [
      {
       "pt_BR": "{Ele} usava um anel enorme",
       "en": "{He} wore a huge ring"
@@ -472,7 +472,7 @@
       "en": "I noticed {his} ring"
      }
     ],
-    "tatuagem": [
+    "tattoo": [
      {
       "pt_BR": "{Ele} tentou esconder uma tatuagem",
       "en": "{He} tried to hide a tattoo"
@@ -482,7 +482,7 @@
       "en": "{He} had a tattoo on {his} arm"
      }
     ],
-    "joias": [
+    "jewelry": [
      {
       "pt_BR": "{Ele} usava joias caras",
       "en": "{He} wore expensive jewelry"
@@ -491,28 +491,28 @@
    }
   },
   {
-   "id": "veiculo",
+   "id": "vehicle",
    "name": {
     "pt_BR": "Veículo",
     "en": "Vehicle"
    },
    "warrant": true,
    "values": {
-    "conversivel": {
+    "convertible": {
      "pt_BR": "Conversível",
      "en": "Convertible"
     },
-    "limusine": {
+    "limousine": {
      "pt_BR": "Limusine",
      "en": "Limousine"
     },
-    "moto": {
+    "motorcycle": {
      "pt_BR": "Moto",
      "en": "Motorcycle"
     }
    },
    "clues": {
-    "conversivel": [
+    "convertible": [
      {
       "pt_BR": "{Ele} chegou num conversível",
       "en": "{He} arrived in a convertible"
@@ -522,13 +522,13 @@
       "en": "{He} offered me a ride in {his} convertible"
      }
     ],
-    "limusine": [
+    "limousine": [
      {
       "pt_BR": "{Ele} andava de limusine com motorista",
       "en": "{He} rode in a chauffeured limousine"
      }
     ],
-    "moto": [
+    "motorcycle": [
      {
       "pt_BR": "{Ele} chegou de moto",
       "en": "{He} arrived on a motorcycle"
@@ -541,30 +541,30 @@
    }
   },
   {
-   "id": "comida",
+   "id": "food",
    "name": {
     "pt_BR": "Comida",
     "en": "Food"
    },
    "warrant": false,
    "values": {
-    "frutos_do_mar": {
+    "seafood": {
      "pt_BR": "Frutos do mar",
      "en": "Seafood"
     },
-    "mexicana": {
+    "mexican": {
      "pt_BR": "Comida mexicana",
      "en": "Mexican food"
     }
    },
    "clues": {
-    "frutos_do_mar": [
+    "seafood": [
      {
       "pt_BR": "{Ele} disse que adora frutos do mar",
       "en": "{He} said {he} loves seafood"
      }
     ],
-    "mexicana": [
+    "mexican": [
      {
       "pt_BR": "{Ele} procurava um restaurante mexicano",
       "en": "{He} was looking for a Mexican restaurant"
