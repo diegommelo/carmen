@@ -18,6 +18,7 @@ func _initialize() -> void:
 	_test_languages(pack)
 	_test_dossier(pack)
 	_test_clue_rotation(pack)
+	_test_hideout_any_slot(pack)
 	for language in pack.languages:
 		pack.set_language(language)
 		for seed in range(1, 41):
@@ -120,6 +121,23 @@ func _test_full_case(pack: ContentPack, seed: int) -> void:
 	check(r.event == "capture", "achou o esconderijo (semente %d)" % seed)
 	check(s.outcome == CaseSession.ARRESTED, "prendeu com mandado certo (semente %d): %s" % [seed, s.outcome])
 	check(s.detective.cases == 1 and s.promoted and s.detective.rank == 1, "ganhou um caso e foi promovido")
+
+
+## Na cidade final, qualquer um dos três locais pode ser o esconderijo, inclusive o primeiro visitado.
+func _test_hideout_any_slot(pack: ContentPack) -> void:
+	var seen := {}
+	for seed in range(1, 200):
+		var s := CaseSession.new(pack, seed)
+		s.start({"name": "Teste", "cases": 0, "rank": 0})
+		while not s.is_final_city() and s.outcome == CaseSession.ONGOING:
+			s.travel(s.next_city)
+		if s.outcome != CaseSession.ONGOING:
+			continue
+		for slot in 3:
+			if s.investigate(slot).event == "capture":
+				seen[slot] = true
+				break
+	check(seen.size() == 3, "o esconderijo cai em qualquer um dos três locais: %s" % [seen.keys()])
 
 
 func _test_wrong_city(pack: ContentPack) -> void:

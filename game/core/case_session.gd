@@ -38,6 +38,9 @@ var promoted: bool = false
 var warrant_id: String = ""
 
 var _investigate_cost: int
+## Local do esconderijo na cidade final, sorteado na chegada entre os três.
+## O original sorteava só depois da primeira visita e nunca no local visitado;
+## aqui o jogador pode acertar de primeira.
 var _hideout_slot: int = -1
 var _last_trail_visited: String = ""
 var _henchman_seen: bool = false
@@ -130,11 +133,7 @@ func investigate(slot: int) -> Dictionary:
 	var place: Dictionary = places[slot]
 	var event := ""
 	if is_final_city():
-		if _hideout_slot < 0:
-			var others := range(places.size()).filter(func(i): return i != slot)
-			_hideout_slot = rng.pick(others)
-			event = "danger"
-		elif slot == _hideout_slot:
+		if slot == _hideout_slot:
 			_resolve_capture()
 			return {"witness": place_witness(slot), "text": "", "hours": 0, "slept": false, "event": "capture"}
 		else:
@@ -182,8 +181,8 @@ func _arrive(city_id: String) -> void:
 			steps_left -= 1
 	arrival_index = rng.index(pack.city(city_id).description)
 	_investigate_cost = int(pack.rules.investigate.first_hours)
-	_hideout_slot = -1
 	_build_places()
+	_hideout_slot = rng.index(places) if is_final_city() else -1
 
 
 func _build_places() -> void:

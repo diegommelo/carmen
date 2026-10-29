@@ -115,3 +115,4 @@ Ver [spec-original.md](spec-original.md), seções 3 e 4. Diferenças conhecidas
 - O original testa se os nomes das cidades cabem no mapa antes de ligar duas cidades (`1ea0:091e`). O núcleo pula esse teste, porque depende da tela.
 - O sorteio dos locais da cidade usa uma lista de tipos válidos em vez de sortear e repetir, o que dá a mesma distribuição, mas não a mesma sequência de números aleatórios.
 - As animações de perigo viram o evento `danger`, e cada tela decide como mostrar.
+- Na cidade final, o esconderijo é sorteado entre os três locais na chegada, então o jogador pode acertar de primeira. No original, o primeiro local visitado nunca é o esconderijo.
