@@ -222,50 +222,18 @@ func _on_identified(field: LineEdit) -> void:
 	_show_home()
 
 
-## Tela PF, por cima do que estiver aberto: os agentes do fichário, a ficha de cada um e
-## o botão de apagar. Quem tem caso em andamento leva *.
+## Tela PF, por cima do que estiver aberto. Quem tem caso em andamento leva *.
 func _show_agents() -> void:
-	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", 8)
-	box.add_child(heading(tr("AGENTS_TITLE")))
-	var body := HBoxContainer.new()
-	body.add_theme_constant_override("separation", 8)
-	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	box.add_child(body)
-	var list := VBoxContainer.new()
-	list.add_theme_constant_override("separation", 3)
-	list.custom_minimum_size.x = 300
-	body.add_child(list)
-	var sheet := RichTextLabel.new()
-	sheet.bbcode_enabled = true
-	sheet.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	sheet.text = tr("AGENTS_HINT") if not roster.agents.is_empty() else tr("AGENTS_EMPTY")
-	body.add_child(sheet)
-	var ongoing := false
-	for i in roster.agents.size():
-		var agent: Dictionary = roster.agents[i]
-		var row := HBoxContainer.new()
-		row.add_theme_constant_override("separation", 3)
-		list.add_child(row)
-		var label := "%s · %s" % [agent.name, pack.ranks[agent.rank].name]
-		if agent.has("case"):
-			label += " *"
-			ongoing = true
-		var pick := add_choice(row, label, func(): sheet.text = _agent_sheet(agent))
-		pick.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		pick.clip_text = true
-		pick.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		var remove := add_choice(row, "X", _confirm_delete.bind(i))
-		remove.tooltip_text = tr("BTN_DELETE")
-	if ongoing:
-		var legend := Label.new()
-		legend.text = tr("AGENTS_ONGOING")
-		list.add_child(legend)
-	var bar := HBoxContainer.new()
-	box.add_child(bar)
-	add_spacer(bar)
-	add_choice(bar, tr("BTN_BACK"), hide_overlay)
-	show_overlay(box)
+	var rows: Array = roster.agents.map(func(a): return "%s · %s%s" % [
+		a.name, pack.ranks[a.rank].name, " *" if a.has("case") else ""])
+	var ongoing: bool = roster.agents.any(func(a): return a.has("case"))
+	var screen := AgentsScreen.new()
+	screen.setup(tr("AGENTS_TITLE"), rows, tr("AGENTS_HINT") if not rows.is_empty() else tr("AGENTS_EMPTY"),
+		tr("AGENTS_ONGOING") if ongoing else "", tr("BTN_DELETE"), tr("BTN_BACK"))
+	screen.picked.connect(func(i): screen.show_sheet(_agent_sheet(roster.agents[i])))
+	screen.delete_pressed.connect(_confirm_delete)
+	screen.back_pressed.connect(hide_overlay)
+	show_overlay(screen)
 
 
 func _confirm_delete(index: int) -> void:

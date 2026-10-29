@@ -564,6 +564,6 @@ func _test_warrant_hours() -> void:
 
 ## Scripts que os testes não usam direto também precisam compilar.
 func _test_scripts_compile() -> void:
-	for path in ["res://ui/main.gd", "res://ui/screens/dossier_screen.gd"]:
+	for path in ["res://ui/main.gd", "res://ui/screens/dossier_screen.gd", "res://ui/screens/agents_screen.gd"]:
 		var script: GDScript = load(path)
 		check(script != null and script.can_instantiate(), "script não compila: " + path)
