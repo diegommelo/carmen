@@ -1,7 +1,7 @@
 class_name Palette
 extends RefCounted
-## As oito cores que a interface usa (guia de estilo). A arte tem a paleta própria
-## de 32 cores, que inclui estas.
+## As oito cores da interface, do guia de estilo. A paleta de 32 cores da arte,
+## quando existir, vai incluir estas.
 
 const INK := Color("0b0d14")
 const PANEL := Color("14213d")

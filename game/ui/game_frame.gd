@@ -1,8 +1,7 @@
 class_name GameFrame
 extends Control
-## Moldura comum de todas as telas do jogo (ver o guia de estilo), na tela de 640 × 360:
-## barra de menu, barra do caso, cabeçalho da cidade, área de cena, painel de texto com
-## escolhas, ficha e os quatro verbos. Não conhece as regras: main.gd preenche e reage.
+## Moldura comum das telas do jogo, numa tela de 640 × 360 (ver o guia de estilo).
+## Só desenha e repassa cliques; quem conhece as regras é main.gd.
 
 signal verb_pressed(index: int)
 signal menu_pressed(id: String)
@@ -12,8 +11,19 @@ const VERB_COUNT := 4
 ## Caracteres por segundo da máquina de escrever.
 const TYPE_SPEED := 60.0
 
+## Posição e tamanho de cada parte da moldura, em pixels da tela de 640 × 360.
+const MENU_BAR := Rect2i(0, 0, 640, 20)
+const CASE_BAR := Rect2i(8, 24, 624, 24)
+const HEADER := Rect2i(8, 52, 296, 24)
+const SCENE := Rect2i(8, 80, 296, 212)
+const TEXT_PANEL := Rect2i(308, 52, 324, 240)
+const NOTES := Rect2i(8, 296, 216, 56)
+const FIRST_VERB := Rect2i(228, 296, 98, 56)
+const VERB_STEP := 102
+
 var _menu: Dictionary = {}
 var _case_label: Label
+var _budget_label: Label
 var _deadline_label: Label
 var _deadline_bar: ProgressBar
 var _header: Label
@@ -24,130 +34,145 @@ var _text: RichTextLabel
 var _choices: VBoxContainer
 var _notes: Label
 var _verbs: Array[Button] = []
-var _verb_labels: Array[Label] = []
-var _key_labels: Array[Label] = []
+var _verb_names: Array[Label] = []
+var _verb_keys: Array[Label] = []
 var _typed := 0.0
 
 
 func _ready() -> void:
 	theme = PfTheme.build()
-	_build()
+	_build_menu_bar()
+	_build_case_bar()
+	_build_header()
+	_build_scene()
+	_build_text_panel()
+	_build_notes()
+	_build_verbs()
 
 
-func _build() -> void:
-	var menu_bar := ColorRect.new()
-	menu_bar.color = Palette.TEXT
-	_place(menu_bar, 0, 0, 640, 16)
-	var menu_row := HBoxContainer.new()
-	menu_row.add_theme_constant_override("separation", 0)
-	_place(menu_row, 4, 0, 400, 16)
+func _build_menu_bar() -> void:
+	var bar := ColorRect.new()
+	bar.color = Palette.TEXT
+	_place(bar, MENU_BAR)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 0)
+	row.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bar.add_child(row)
 	for id in MENU_IDS:
 		var b := Button.new()
 		b.theme_type_variation = "MenuItem"
 		b.focus_mode = Control.FOCUS_NONE
 		b.pressed.connect(func(): menu_pressed.emit(id))
-		menu_row.add_child(b)
+		row.add_child(b)
 		_menu[id] = b
 
-	var case_bar := PanelContainer.new()
-	_place(case_bar, 8, 20, 624, 20)
-	var case_row := HBoxContainer.new()
-	case_row.add_theme_constant_override("separation", 8)
-	case_bar.add_child(case_row)
-	_case_label = Label.new()
+
+func _build_case_bar() -> void:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 8)
+	_place(_panel(row), CASE_BAR)
+	_case_label = _label()
 	_case_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_case_label.clip_text = true
-	case_row.add_child(_case_label)
-	_deadline_label = Label.new()
-	case_row.add_child(_deadline_label)
+	_case_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	row.add_child(_case_label)
+	_budget_label = _label()
+	row.add_child(_budget_label)
+	_deadline_label = _label()
+	row.add_child(_deadline_label)
 	_deadline_bar = ProgressBar.new()
-	_deadline_bar.custom_minimum_size = Vector2(120, 6)
+	_deadline_bar.custom_minimum_size = Vector2(64, 8)
 	_deadline_bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	_deadline_bar.show_percentage = false
 	_deadline_bar.max_value = 1.0
 	_deadline_bar.step = 0.0
-	case_row.add_child(_deadline_bar)
+	row.add_child(_deadline_bar)
 
-	var header := PanelContainer.new()
-	_place(header, 8, 44, 296, 24)
-	_header = Label.new()
-	_header.add_theme_font_override("font", PfTheme.text_font())
-	_header.add_theme_font_size_override("font_size", PfTheme.TEXT_SIZE)
-	_header.add_theme_color_override("font_color", Palette.HIGHLIGHT)
-	_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_header.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_header.clip_text = true
-	header.add_child(_header)
 
-	# Área de cena: até a arte existir, um placeholder do tamanho certo (296 × 216 por dentro).
-	var scene := PanelContainer.new()
-	_place(scene, 8, 72, 296, 220)
-	scene.add_theme_stylebox_override("panel", PfTheme.box(Palette.INK, Palette.PANEL_BORDER, 1))
+func _build_header() -> void:
+	_header = _label(Palette.HIGHLIGHT, HORIZONTAL_ALIGNMENT_CENTER)
+	_header.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	_place(_panel(_header), HEADER)
+
+
+## Até a arte existir, a cena é um placeholder colorido com o nome do arquivo esperado.
+func _build_scene() -> void:
+	var panel := PanelContainer.new()
+	panel.add_theme_stylebox_override("panel", PfTheme.box(Palette.INK, Palette.PANEL_BORDER, 1))
+	_place(panel, SCENE)
 	_scene_bg = ColorRect.new()
-	scene.add_child(_scene_bg)
-	var scene_labels := VBoxContainer.new()
-	scene_labels.alignment = BoxContainer.ALIGNMENT_CENTER
-	scene.add_child(scene_labels)
-	_scene_title = Label.new()
-	_scene_title.add_theme_font_override("font", PfTheme.text_font())
-	_scene_title.add_theme_font_size_override("font_size", PfTheme.TEXT_SIZE)
-	_scene_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	panel.add_child(_scene_bg)
+	var labels := VBoxContainer.new()
+	labels.alignment = BoxContainer.ALIGNMENT_CENTER
+	panel.add_child(labels)
+	_scene_title = _label(Palette.TEXT, HORIZONTAL_ALIGNMENT_CENTER)
 	_scene_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	scene_labels.add_child(_scene_title)
-	_scene_caption = Label.new()
-	_scene_caption.add_theme_color_override("font_color", Palette.TEXT_DIM)
-	_scene_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	scene_labels.add_child(_scene_caption)
+	labels.add_child(_scene_title)
+	_scene_caption = _label(Palette.TEXT_DIM, HORIZONTAL_ALIGNMENT_CENTER)
+	labels.add_child(_scene_caption)
 
-	var text_panel := PanelContainer.new()
-	_place(text_panel, 308, 44, 324, 248)
-	var text_box := VBoxContainer.new()
-	text_box.add_theme_constant_override("separation", 4)
-	text_panel.add_child(text_box)
+
+func _build_text_panel() -> void:
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 4)
+	_place(_panel(box), TEXT_PANEL)
 	_text = RichTextLabel.new()
 	_text.bbcode_enabled = true
 	_text.scroll_following = true
 	_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_text.gui_input.connect(_on_text_input)
-	text_box.add_child(_text)
+	box.add_child(_text)
 	_choices = VBoxContainer.new()
 	_choices.add_theme_constant_override("separation", 3)
-	text_box.add_child(_choices)
+	box.add_child(_choices)
 
-	var notes := PanelContainer.new()
-	_place(notes, 8, 296, 296, 56)
-	_notes = Label.new()
+
+func _build_notes() -> void:
+	_notes = _label()
 	_notes.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_notes.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_notes.max_lines_visible = 3
-	notes.add_child(_notes)
+	_place(_panel(_notes), NOTES)
 
+
+## Cada verbo é um botão com o nome em cima e a tecla de atalho embaixo.
+func _build_verbs() -> void:
 	for i in VERB_COUNT:
 		var b := Button.new()
-		_place(b, 308 + 82 * i, 296, 78, 56)
 		b.pressed.connect(func(): verb_pressed.emit(i))
+		var rect := FIRST_VERB
+		rect.position.x += VERB_STEP * i
+		_place(b, rect)
 		var labels := VBoxContainer.new()
 		labels.set_anchors_preset(Control.PRESET_FULL_RECT)
 		labels.alignment = BoxContainer.ALIGNMENT_CENTER
+		labels.add_theme_constant_override("separation", -2)
 		labels.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.add_child(labels)
-		var name := Label.new()
-		name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		labels.add_child(name)
-		var key := Label.new()
-		key.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		key.add_theme_color_override("font_color", Palette.TEXT_DIM)
-		key.text = str(i + 1)
-		labels.add_child(key)
+		_verb_names.append(_label(Palette.TEXT, HORIZONTAL_ALIGNMENT_CENTER))
+		_verb_keys.append(_label(Palette.TEXT_DIM, HORIZONTAL_ALIGNMENT_CENTER))
+		labels.add_child(_verb_names[i])
+		labels.add_child(_verb_keys[i])
 		_verbs.append(b)
-		_verb_labels.append(name)
-		_key_labels.append(key)
 
 
-func _place(node: Control, x: int, y: int, w: int, h: int) -> void:
-	node.position = Vector2(x, y)
-	node.size = Vector2(w, h)
+func _place(node: Control, rect: Rect2i) -> void:
+	node.position = rect.position
+	node.size = rect.size
 	add_child(node)
+
+
+func _panel(content: Control) -> PanelContainer:
+	var panel := PanelContainer.new()
+	panel.add_child(content)
+	return panel
+
+
+func _label(color: Color = Palette.TEXT, align := HORIZONTAL_ALIGNMENT_LEFT) -> Label:
+	var label := Label.new()
+	label.add_theme_color_override("font_color", color)
+	label.horizontal_alignment = align
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	return label
 
 
 func set_menu_texts(texts: Dictionary) -> void:
@@ -157,8 +182,8 @@ func set_menu_texts(texts: Dictionary) -> void:
 
 func set_verbs(names: Array, key_format: String) -> void:
 	for i in VERB_COUNT:
-		_verb_labels[i].text = names[i]
-		_key_labels[i].text = key_format % (i + 1)
+		_verb_names[i].text = names[i]
+		_verb_keys[i].text = key_format % (i + 1)
 
 
 func set_verbs_enabled(enabled: bool) -> void:
@@ -166,15 +191,16 @@ func set_verbs_enabled(enabled: bool) -> void:
 		b.disabled = not enabled
 
 
-## `remaining` vai de 1 (prazo inteiro) a 0 (prazo acabou).
-func set_case(case_text: String, deadline_text: String, remaining: float) -> void:
+## O nome do caso é o que encurta quando falta espaço. `remaining` vai de 1 (prazo
+## inteiro) a 0 (prazo esgotado); sem prazo, a barra some.
+func set_case(case_text: String, budget_text: String, deadline_text: String, remaining: float) -> void:
 	_case_label.text = case_text
+	_budget_label.text = budget_text
 	_deadline_label.text = deadline_text
-	_deadline_bar.value = clampf(remaining, 0.0, 1.0)
 	_deadline_bar.visible = deadline_text != ""
-	var fill := PfTheme.box(Palette.ALERT if remaining < 0.25 else Palette.HIGHLIGHT,
-		Palette.ALERT if remaining < 0.25 else Palette.HIGHLIGHT, 0)
-	_deadline_bar.add_theme_stylebox_override("fill", fill)
+	_deadline_bar.value = clampf(remaining, 0.0, 1.0)
+	var color := Palette.ALERT if remaining < 0.25 else Palette.HIGHLIGHT
+	_deadline_bar.add_theme_stylebox_override("fill", PfTheme.box(color, color, 0))
 
 
 func set_header(text: String) -> void:
@@ -197,9 +223,9 @@ func clear_text() -> void:
 	_typed = 0.0
 
 
-## Acrescenta texto ao painel; ele aparece em máquina de escrever.
+## Acrescenta texto ao painel, que aparece em máquina de escrever.
 func say(text: String) -> void:
-	if _text.visible_characters < 0:
+	if not is_typing():
 		_typed = _text.get_total_character_count()
 		_text.visible_characters = int(_typed)
 	_text.append_text(text + "\n")
@@ -234,7 +260,7 @@ func clear_choices() -> void:
 		child.queue_free()
 
 
-## Linha de botões (ou outros controles) no pé do painel de texto.
+## Escolhas ficam no pé do painel de texto, em linhas que quebram sozinhas.
 func add_choice_row() -> HFlowContainer:
 	var row := HFlowContainer.new()
 	row.add_theme_constant_override("h_separation", 3)
@@ -256,6 +282,7 @@ func add_choice_control(control: Control) -> void:
 	_choices.add_child(control)
 
 
+## Qualquer tecla termina a máquina de escrever; as teclas 1 a 4 acionam os verbos.
 func _unhandled_input(event: InputEvent) -> void:
 	if not (event is InputEventKey and event.pressed and not event.echo):
 		return

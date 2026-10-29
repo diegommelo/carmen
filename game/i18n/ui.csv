@@ -37,7 +37,7 @@ SHORTCUT,"[b]With the warrant in hand, headquarters traced the suspect's phone: 
 CAREER_DONE,[b]The boss is behind bars. Career complete![/b],[b]O chefe está atrás das grades. Carreira concluída![/b]
 CAREER_RESUMED,"Welcome back, %s: %d cases solved.","Bem-vindo de volta, %s: %d casos resolvidos."
 BTN_NEW_CAREER,New career,Nova carreira
-STATUS_BUDGET," · Budget: %s"," · Verba: %s"
+STATUS_BUDGET,Budget: %s,Verba: %s
 MONEY_FMT,R$ %d,R$ %d
 OUTCOME_MONEY,The operation ran out of money for tickets. %s got away.,A verba da operação acabou e não dá para comprar passagem. %s escapou.
 ASK_NAME,"[b]Welcome to the Federal Police.[/b] What is your name, agent?","[b]Bem-vindo à Polícia Federal.[/b] Qual é o seu nome, agente?"
@@ -52,8 +52,8 @@ MENU_RANK,Rank,Patente
 MENU_LANGUAGE,Language,Idioma
 MENU_ABOUT,About,Sobre
 ABOUT_TEXT,"Where in the World is Bolsonaro Family: a parody of the detective games of the 90s, made in Godot.
-Fonts: VT323 and Tiny5 (SIL Open Font License).","Where in the World is Bolsonaro Family: uma paródia dos jogos de detetive dos anos 90, feita em Godot.
-Fontes: VT323 e Tiny5 (SIL Open Font License)."
+Font: VT323 (SIL Open Font License).","Where in the World is Bolsonaro Family: uma paródia dos jogos de detetive dos anos 90, feita em Godot.
+Fonte: VT323 (SIL Open Font License)."
 RANK_INFO,"Agent %s
 Rank: %s
 Cases solved: %d","Agente %s
@@ -62,7 +62,7 @@ Casos resolvidos: %d"
 RANK_NO_CAREER,No career yet.,Nenhuma carreira ainda.
 HQ_TITLE,Federal Police HQ,Sede da PF
 SCENE_ART,art: %s,arte: %s
-CASE_BAR,Case: %s · %s,Caso: %s · %s
+CASE_BAR,Case: %s,Caso: %s
 DEADLINE_SHORT,Deadline: %s,Prazo: %s
 NOTES_WARRANT,Warrant: %s,Mandado: %s
 NOTES_TRAITS,Traits: %s,Traços: %s

@@ -1,6 +1,6 @@
 extends GameFrame
-## Tela do jogo sobre a moldura comum (GameFrame). Os textos da tela vêm de i18n/ui.csv (tr)
-## e os do jogo vêm do pacote de conteúdo. A arte ainda é placeholder.
+## O jogo em si: liga o CaseSession à moldura comum (GameFrame).
+## Textos da tela vêm de i18n/ui.csv (tr); os do jogo, do pacote de conteúdo.
 
 const PACK_DIR := "res://content/parody"
 const LANGUAGES := {"pt_BR": "Português (Brasil)", "en": "English"}
@@ -121,7 +121,7 @@ func _on_verb(index: int) -> void:
 
 func _ask_name() -> void:
 	session = null
-	set_case("", "", 1.0)
+	set_case("", "", "", 1.0)
 	set_header(tr("HQ_TITLE"))
 	show_scene(tr("HQ_TITLE"), tr("SCENE_ART") % "hq", Palette.PANEL)
 	set_notes("")
@@ -180,17 +180,22 @@ func _when(day: int, hour: int) -> String:
 	return "%s, %s" % [_day_name(day), tr("HOUR_FMT") % hour]
 
 
-## Ao chegar numa cidade nova o painel começa limpo; `fresh` falso só acrescenta.
+## Mostra a cidade atual. Com `fresh`, o painel de texto é limpo antes.
 func _show_city(fresh: bool = true) -> void:
 	var city := pack.city(session.current_city)
 	if fresh:
 		clear_text()
 	show_scene(city.name, tr("SCENE_ART") % ("cities/" + session.current_city), _tint(session.current_city))
-	say("\n[color=#%s]%s[/color]" % [Palette.HIGHLIGHT.to_html(false), city.name])
+	say("\n" + _highlight(city.name))
 	say(session.arrival_text())
 	_show_main_actions()
 
 
+func _highlight(text: String) -> String:
+	return "[color=#%s]%s[/color]" % [Palette.HIGHLIGHT.to_html(false), text]
+
+
+## Cor provisória da cena enquanto não há arte: escura e sempre a mesma para cada id.
 func _tint(id: String) -> Color:
 	return Color.from_hsv(float(hash(id) % 360) / 360.0, 0.35, 0.3)
 
@@ -198,11 +203,10 @@ func _tint(id: String) -> Color:
 func _refresh_status() -> void:
 	var c := session.clock
 	set_header("%s · %s" % [pack.city(session.current_city).name, _when(c.day, c.hour)])
-	var case_text: String = tr("CASE_BAR") % [session.treasure(), pack.ranks[detective.rank].name]
-	if session.budget >= 0:
-		case_text += tr("STATUS_BUDGET") % _money(session.budget)
+	var budget := tr("STATUS_BUDGET") % _money(session.budget) if session.budget >= 0 else ""
 	var deadline: Dictionary = session.difficulty.deadline
-	set_case(case_text, tr("DEADLINE_SHORT") % _when(deadline.day, deadline.hour), _time_left())
+	set_case(tr("CASE_BAR") % session.treasure(), budget,
+		tr("DEADLINE_SHORT") % _when(deadline.day, deadline.hour), _time_left())
 	var warrant := tr("WARRANT_NONE")
 	if session.warrant_id != "":
 		warrant = pack.suspect(session.warrant_id).name
@@ -215,7 +219,7 @@ func _refresh_status() -> void:
 	set_notes(notes)
 
 
-## Fração do prazo que ainda resta, de 1 a 0.
+## Fração do prazo que ainda resta: 1 no início do caso, 0 no fim.
 func _time_left() -> float:
 	var rules: Dictionary = pack.rules.clock
 	var deadline: Dictionary = session.difficulty.deadline
@@ -348,7 +352,7 @@ func _on_dossier(id: String) -> void:
 	var d := pack.dossier(id)
 	show_scene(d.full_name, tr("SCENE_ART") % ("suspects/" + id), _tint(id))
 	clear_text()
-	say("[color=#%s]%s[/color]" % [Palette.HIGHLIGHT.to_html(false), tr("DOSSIER_TITLE")])
+	say(_highlight(tr("DOSSIER_TITLE")))
 	say("%s: %s" % [tr("DOSSIER_NAME"), d.full_name])
 	if d.occupation != "":
 		say("%s: %s" % [tr("DOSSIER_OCCUPATION"), d.occupation])
