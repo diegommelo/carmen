@@ -313,7 +313,6 @@ func _test_pack_consistency(pack: ContentPack, where: String) -> void:
 			check(list == CaseSession.ANY_CLUES or pack._types_by_id.has(list), "%s: %s tem pistas de tipo desconhecido %s" % [where, c.id, list])
 
 
-## O pacote da paródia, que é o que o jogo carrega.
 func _test_parody() -> void:
 	var pack := ContentPack.load_dir(PARODY_DIR)
 	check(pack.missing_translations().is_empty(), "paródia: textos sem tradução: %s" % [pack.missing_translations()])
@@ -407,7 +406,6 @@ func _test_trait_clues_factor(pack: ContentPack) -> void:
 	check(counts[1.0] > 20 and counts[0.0] * 10 < counts[1.0], "fator 0 quase zera as pistas de traço: %s" % [counts])
 
 
-## Pacote sem `rules.money`: passagem de graça e sem verba.
 func _test_no_money(pack: ContentPack) -> void:
 	var s := CaseSession.new(pack, 4)
 	s.start({"name": "Teste", "cases": 0, "rank": 0})
@@ -415,8 +413,6 @@ func _test_no_money(pack: ContentPack) -> void:
 	check(s.travel(s.next_city).price == 0 and s.budget == -1, "voo sem custo")
 
 
-## A passagem custa `ticket_per_hour` por hora e sai da verba; sem verba para nenhum voo
-## o caso acaba.
 func _test_money(pack: ContentPack) -> void:
 	var s := CaseSession.new(pack, 4)
 	s.start({"name": "Teste", "cases": 0, "rank": 0})

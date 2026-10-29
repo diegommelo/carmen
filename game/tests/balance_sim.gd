@@ -1,9 +1,10 @@
 extends SceneTree
 ## Simulação de balanceamento da paródia. Rodar com:
 ##   godot --headless --path game -s res://tests/balance_sim.gd -- 0,0.4 4,0.4
-## Cada argumento é "patente,taxa_de_voo_errado[,verba]"; sem verba vale a do pacote. O agente simulado investiga os três
-## locais de cada cidade da rota, emite o mandado assim que os traços ouvidos bastam
-## e, com a taxa dada, voa antes para uma cidade errada e volta.
+## Cada argumento é "patente,taxa_de_voo_errado[,verba]"; sem verba vale a do pacote.
+## O agente simulado investiga os três locais de cada cidade da rota, emite o mandado
+## assim que os traços ouvidos bastam e, com a taxa dada, voa antes para uma cidade
+## errada e volta.
 
 const PACK_DIR := "res://content/parody"
 const CASES := 1000

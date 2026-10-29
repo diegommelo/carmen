@@ -42,3 +42,5 @@ BTN_NEW_CAREER,New career,Nova carreira
 STATUS_BUDGET," · Budget: %s"," · Verba: %s"
 MONEY_FMT,R$ %d,R$ %d
 OUTCOME_MONEY,The operation ran out of money for tickets. %s got away.,A verba da operação acabou e não dá para comprar passagem. %s escapou.
+ASK_NAME,"[b]Welcome to the Federal Police.[/b] What is your name, agent?","[b]Bem-vindo à Polícia Federal.[/b] Qual é o seu nome, agente?"
+BTN_START,Start,Começar

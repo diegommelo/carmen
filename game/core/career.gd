@@ -10,7 +10,7 @@ static func fresh(agent_name: String) -> Dictionary:
 	return {"name": agent_name, "cases": 0, "rank": 0, "caught": []}
 
 
-## Lê a carreira salva. Sem arquivo (ou com arquivo estragado), devolve {}.
+## Sem arquivo (ou com arquivo estragado), devolve {}.
 static func load_saved(path: String = PATH) -> Dictionary:
 	if not FileAccess.file_exists(path):
 		return {}

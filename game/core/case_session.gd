@@ -11,7 +11,6 @@ const ESCAPED_TIME := "escaped_time"
 const NO_WARRANT := "no_warrant"
 const WRONG_WARRANT := "wrong_warrant"
 const ARRESTED := "arrested"
-## A verba acabou e não dá para comprar nenhuma passagem.
 const OUT_OF_MONEY := "out_of_money"
 ## Lista de pistas da cidade que qualquer tipo de local pode dar.
 const ANY_CLUES := "any"
@@ -39,7 +38,6 @@ var places: Array = []
 var arrival_index: int
 var outcome: String = ONGOING
 var promoted: bool = false
-## O caso terminou com a prisão do chefe.
 var boss_arrested: bool = false
 var warrant_id: String = ""
 ## Verba que sobra para passagens; -1 quando o pacote não usa dinheiro.
@@ -61,7 +59,6 @@ func _init(content: ContentPack, seed: int) -> void:
 	rng = MscRng.new(seed)
 
 
-## Começa um caso novo para o detetive {name, cases, rank, caught}.
 func start(agent: Dictionary) -> void:
 	detective = agent
 	if not detective.has("caught"):
@@ -88,7 +85,6 @@ func start(agent: Dictionary) -> void:
 	_arrive(crime_city)
 
 
-## Troca o idioma dos textos, inclusive no meio do caso.
 ## O alvo é sorteado entre os comparsas que o detetive ainda não prendeu; o original
 ## repetia. Com todos presos (ou com `boss_after_cases` casos), o alvo é o chefe.
 func _pick_suspect() -> Dictionary:
@@ -136,7 +132,6 @@ func travel_hours(to_city: String) -> int:
 	return mini(d / int(t.distance_per_hour) + int(t.base_hours), int(t.max_hours))
 
 
-## Preço da passagem para `to_city`: `rules.money.ticket_per_hour` por hora de voo.
 ## 0 quando o pacote não usa dinheiro.
 func ticket_price(to_city: String) -> int:
 	if budget < 0:
@@ -182,7 +177,6 @@ func _try_shortcut(to_city: String) -> bool:
 	return true
 
 
-## Interroga a testemunha do local `slot` (0..2).
 ## Devolve {witness, text, hours, slept, event}, onde event é "", "danger", "henchman" ou "capture".
 func investigate(slot: int) -> Dictionary:
 	assert(outcome == ONGOING, "o caso já terminou")
@@ -258,7 +252,6 @@ func _build_places() -> void:
 		places.append({"type": chosen.id, "witness": rng.index(chosen.witnesses), "statement": _statement(chosen, there)})
 
 
-## Sorteia a fala da testemunha e devolve a receita dela.
 func _statement(type: Dictionary, there: Dictionary) -> Dictionary:
 	var texts := pack.texts
 	if is_final_city():
@@ -310,7 +303,6 @@ static func _clue_key(city_id: String, clue: Array) -> String:
 	return "%s/%s/%d" % [city_id, clue[0], clue[1]]
 
 
-## Monta o texto de uma receita no idioma atual do pacote.
 func _render(recipe: Dictionary) -> String:
 	var texts := pack.texts
 	var text: String

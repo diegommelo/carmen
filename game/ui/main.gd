@@ -3,7 +3,6 @@ extends Control
 ## Os textos da tela vêm de i18n/ui.csv (tr) e os do jogo vêm do pacote de conteúdo.
 
 const PACK_DIR := "res://content/parody"
-## Idiomas oferecidos no seletor, na ordem em que aparecem.
 const LANGUAGES := {"pt_BR": "Português (Brasil)", "en": "English"}
 
 var pack: ContentPack
@@ -23,8 +22,9 @@ func _ready() -> void:
 	_build_layout()
 	detective = Career.load_saved()
 	if detective.is_empty():
-		detective = Career.fresh(tr("DEFAULT_AGENT"))
-	elif detective.cases > 0:
+		_ask_name()
+		return
+	if detective.cases > 0:
 		_say(tr("CAREER_RESUMED") % [detective.name, detective.cases])
 	_new_case()
 
@@ -64,6 +64,9 @@ func _build_layout() -> void:
 func _on_language_selected(index: int) -> void:
 	var code: String = _language.get_item_metadata(index)
 	TranslationServer.set_locale(code)
+	if session == null:
+		_show_name_prompt()
+		return
 	session.set_language(code)
 	# O que já está no registro fica como estava; a cidade é mostrada de novo no idioma novo.
 	if session.outcome == CaseSession.ONGOING:
@@ -72,9 +75,32 @@ func _on_language_selected(index: int) -> void:
 		_show_main_actions()
 
 
+func _ask_name() -> void:
+	session = null
+	_status.text = ""
+	_say(tr("ASK_NAME"))
+	_show_name_prompt()
+
+
+func _show_name_prompt() -> void:
+	_clear_actions()
+	var field := LineEdit.new()
+	field.placeholder_text = tr("DEFAULT_AGENT")
+	field.custom_minimum_size.x = 240
+	field.text_submitted.connect(func(_text): _on_name_entered(field))
+	_actions.add_child(field)
+	_button(tr("BTN_START"), _on_name_entered.bind(field))
+	field.grab_focus.call_deferred()
+
+
+func _on_name_entered(field: LineEdit) -> void:
+	var agent_name := field.text.strip_edges()
+	detective = Career.fresh(agent_name if agent_name != "" else tr("DEFAULT_AGENT"))
+	Career.save(detective)
+	_on_new_case()
+
+
 func _new_case() -> void:
-	if detective.name == "":
-		detective.name = tr("DEFAULT_AGENT")
 	session = CaseSession.new(pack, randi())
 	session.start(detective)
 	_marks.clear()
@@ -92,8 +118,8 @@ func _on_new_case() -> void:
 
 func _on_new_career() -> void:
 	Career.erase()
-	detective = Career.fresh(tr("DEFAULT_AGENT"))
-	_on_new_case()
+	_log.clear()
+	_ask_name()
 
 
 func _sex_name() -> String:
