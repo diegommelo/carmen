@@ -56,10 +56,10 @@
     }
    },
    "clue_weight": {
-    "ex_president": 0.3,
-    "banker": 0.3,
-    "coach": 0.3,
-    "lawyer": 0.3
+    "ex_president": 0.6,
+    "banker": 0.6,
+    "coach": 0.6,
+    "lawyer": 0.6
    },
    "clues": {
     "ex_president": [
