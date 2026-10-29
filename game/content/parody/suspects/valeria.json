@@ -1,0 +1,31 @@
+{
+ "name": "Valéria Bolsonaro",
+ "boss": false,
+ "traits": {
+  "sex": "f",
+  "profession": "congressman",
+  "hobby": "worship",
+  "vehicle": "armored_suv",
+  "feature": "cbf_jersey",
+  "food": "acai"
+ },
+ "dossier": {
+  "full_name": "Valéria Bolsonaro",
+  "occupation": {
+   "pt_BR": "Deputada estadual em São Paulo",
+   "en": "State representative in São Paulo"
+  },
+  "traits": {
+   "profession": {
+    "pt_BR": "Deputada, só que estadual",
+    "en": "Representative, just at the state level"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Jura que o sobrenome não ajudou em nada na eleição.",
+    "en": "Swears the last name didn't help at all in the election."
+   }
+  ]
+ }
+}

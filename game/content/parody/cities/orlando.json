@@ -1,0 +1,83 @@
+{
+ "name": "Orlando",
+ "map": {
+  "x": 75,
+  "y": 40
+ },
+ "description": [
+  {
+   "pt_BR": "A cidade da Disney, refúgio preferido de ex-presidente que não quer passar a faixa.",
+   "en": "Home of Disney, the favorite refuge of former presidents who don't want to hand over the sash."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o cartão de vacina",
+   "en": "the vaccine card"
+  },
+  {
+   "pt_BR": "o ingresso anual da Disney",
+   "en": "the annual Disney pass"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou reais por dólares para gastar na Flórida",
+    "en": "{he} changed reais into dollars to spend in Florida"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria ir a uma igreja brasileira na Flórida",
+    "en": "{he} wanted to visit a Brazilian church in Florida"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} perguntou se o avião da FAB ainda faz voo para a Flórida",
+    "en": "{he} asked if the Air Force plane still flies to Florida"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria comprar munição num Walmart",
+    "en": "{he} wanted to buy ammo at a Walmart"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou se o visto de turista dá para três meses",
+    "en": "{he} asked if a tourist visa lasts three months"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer frango frito no KFC",
+    "en": "{he} wanted fried chicken at KFC"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria tirar foto com o Mickey",
+    "en": "{he} wanted a photo with Mickey"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o cartão de vacina é exigido na Disney",
+    "en": "{he} asked if Disney requires a vaccine card"
+   },
+   {
+    "pt_BR": "{ele} queria visitar os parques temáticos",
+    "en": "{he} wanted to visit the theme parks"
+   }
+  ]
+ }
+}

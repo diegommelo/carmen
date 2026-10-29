@@ -3,6 +3,7 @@ extends SceneTree
 ##   godot --headless --path game -s res://tests/run_tests.gd
 
 const PACK_DIR := "res://content/placeholder"
+const PARODY_DIR := "res://content/parody"
 
 var _failures := 0
 var _checks := 0
@@ -27,6 +28,9 @@ func _initialize() -> void:
 	pack.set_language("pt_BR")
 	_test_switch_language_mid_case(pack)
 	_test_boss(pack)
+	_test_clue_weight(pack)
+	_test_pack_consistency(pack, "provisório")
+	_test_parody()
 	_test_scripts_compile()
 	print("%d verificações, %d falhas" % [_checks, _failures])
 	quit(1 if _failures > 0 else 0)
@@ -233,6 +237,84 @@ func _test_switch_language_mid_case(pack: ContentPack) -> void:
 	check(s.treasure() != treasure_pt, "tesouro traduzido")
 	s.set_language("pt_BR")
 	check(s.place_text(0) == pt, "voltar ao português devolve a mesma fala")
+
+
+## O peso de um valor (clue_weight) multiplica a chance de a testemunha falar daquele traço.
+func _test_clue_weight(pack: ContentPack) -> void:
+	var counts := {}
+	for weight in [1.0, 0.0]:
+		for t in pack.traits:
+			if t.id == "vehicle":
+				t.clue_weight = {"motorcycle": weight}
+		var hits := 0
+		for seed in range(1, 300):
+			var s := CaseSession.new(pack, seed)
+			s.start({"name": "Teste", "cases": 0, "rank": 0})
+			s.suspect = pack.suspect("baroness")
+			s.travel(s.next_city)
+			for slot in s.places.size():
+				if s.places[slot].statement.get("trait", "") == "vehicle":
+					hits += 1
+			s.places.clear()
+			s._build_places()
+			for slot in s.places.size():
+				if s.places[slot].statement.get("trait", "") == "vehicle":
+					hits += 1
+		counts[weight] = hits
+	for t in pack.traits:
+		t.erase("clue_weight")
+	check(counts[1.0] > 0 and counts[0.0] < counts[1.0] / 4, "peso 0 quase zera a pista do traço: %s" % [counts])
+
+
+## Regras que todo pacote precisa seguir para o núcleo funcionar.
+func _test_pack_consistency(pack: ContentPack, where: String) -> void:
+	var trait_ids := pack.traits.map(func(t): return t.id)
+	var groups := {}
+	for t in pack.location_types:
+		groups[int(t.group)] = true
+		for id in t.clue_chance:
+			check(id in trait_ids, "%s: %s usa traço desconhecido %s" % [where, t.id, id])
+	for t in pack.traits:
+		for value in t.get("clues", {}):
+			check(value in t.values, "%s: pista de valor desconhecido %s.%s" % [where, t.id, value])
+		for value in t.get("clue_weight", {}):
+			check(value in t.values, "%s: peso de valor desconhecido %s.%s" % [where, t.id, value])
+	var combos := {}
+	var bosses := 0
+	for s in pack.suspects:
+		bosses += 1 if s.get("boss", false) else 0
+		var combo := []
+		for t in pack.traits:
+			check(s.traits.get(t.id, "") in t.values, "%s: %s sem valor válido para %s" % [where, s.id, t.id])
+			if t.warrant:
+				combo.append(s.traits.get(t.id, ""))
+		check(not combos.has(str(combo)), "%s: %s e %s têm os mesmos traços do mandado" % [where, s.id, combos.get(str(combo), "")])
+		combos[str(combo)] = s.id
+	check(bosses == 1, "%s: um único chefe" % where)
+	for c in pack.cities:
+		var here := {}
+		for type_id in c.locations:
+			check(pack._types_by_id.has(type_id), "%s: %s tem local desconhecido %s" % [where, c.id, type_id])
+			if not pack._types_by_id.has(type_id):
+				continue
+			here[int(pack.location_type(type_id).group)] = true
+		check(here.size() == groups.size(), "%s: %s sem local de algum grupo" % [where, c.id])
+		check(not c.description.is_empty() and not c.treasures.is_empty(), "%s: %s sem descrição ou tesouro" % [where, c.id])
+		for list in c.clues:
+			check(list == CaseSession.ANY_CLUES or pack._types_by_id.has(list), "%s: %s tem pistas de tipo desconhecido %s" % [where, c.id, list])
+
+
+## O pacote da paródia, que é o que o jogo carrega.
+func _test_parody() -> void:
+	var pack := ContentPack.load_dir(PARODY_DIR)
+	check(pack.missing_translations().is_empty(), "paródia: textos sem tradução: %s" % [pack.missing_translations()])
+	check(pack.boss().id == "jair", "paródia: o chefe é o Jair")
+	for language in pack.languages:
+		pack.set_language(language)
+		_test_pack_consistency(pack, "paródia " + language)
+		for seed in range(1, 41):
+			_test_full_case(pack, seed)
+	_test_hideout_any_slot(pack)
 
 
 ## Scripts que os testes não usam direto também precisam compilar.

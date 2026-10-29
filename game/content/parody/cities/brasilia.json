@@ -1,0 +1,87 @@
+{
+ "name": "Brasília",
+ "map": {
+  "x": 106,
+  "y": 70
+ },
+ "description": [
+  {
+   "pt_BR": "A capital, onde a Praça dos Três Poderes ainda está colando os cacos do 8 de janeiro.",
+   "en": "The capital, where Three Powers Square is still gluing back the pieces from January 8."
+  },
+  {
+   "pt_BR": "A cidade do Planalto, do Congresso e de uma superintendência da PF com cela VIP.",
+   "en": "Home to the presidential palace, Congress and a Federal Police HQ with a VIP cell."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a faixa presidencial",
+   "en": "the presidential sash"
+  },
+  {
+   "pt_BR": "o relógio de Dom João VI do Palácio do Planalto",
+   "en": "King João VI's clock from the presidential palace"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria sacar dinheiro vivo perto da Esplanada",
+    "en": "{he} wanted to withdraw cash near the Esplanade"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria ir ao culto da Esplanada com a bancada evangélica",
+    "en": "{he} wanted to attend a service on the Esplanade with the evangelical caucus"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} pegou um voo para o Planalto Central",
+    "en": "{he} caught a flight to the Central Plateau"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se o quartel-general do Exército aceita acampamento",
+    "en": "{he} asked if the Army headquarters allows camping"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria visitar a Praça dos Três Poderes, mas sem quebrar nada desta vez",
+    "en": "{he} wanted to visit Three Powers Square, without breaking anything this time"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer no restaurante favorito dos deputados",
+    "en": "{he} wanted to eat at the congressmen's favorite restaurant"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} perguntou como chegar no Eixo Monumental",
+    "en": "{he} asked how to get to the Monumental Axis"
+   },
+   {
+    "pt_BR": "{ele} disse que ia resolver umas pendências no STF",
+    "en": "{he} said {he} had some business to settle at the Supreme Court"
+   },
+   {
+    "pt_BR": "{ele} queria ver o Palácio da Alvorada de longe, com saudade",
+    "en": "{he} wanted to look at the Alvorada Palace from afar, wistfully"
+   }
+  ]
+ }
+}

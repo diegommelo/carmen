@@ -1,0 +1,35 @@
+{
+ "name": "Michelle",
+ "boss": false,
+ "traits": {
+  "sex": "f",
+  "profession": "senator",
+  "hobby": "worship",
+  "vehicle": "armored_suv",
+  "feature": "jewelry",
+  "food": "acai"
+ },
+ "dossier": {
+  "full_name": "Michelle de Paula Firmo Reinaldo Bolsonaro",
+  "occupation": {
+   "pt_BR": "Ex-primeira-dama e senadora",
+   "en": "Former first lady and senator"
+  },
+  "traits": {
+   "feature": {
+    "pt_BR": "Colar e brincos de diamante, presente das Arábias",
+    "en": "Diamond necklace and earrings, a gift from Arabia"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Fala em Libras nos discursos.",
+    "en": "Uses sign language in her speeches."
+   },
+   {
+    "pt_BR": "Recebeu uns cheques do Queiroz que ninguém sabe explicar.",
+    "en": "Got some checks from Queiroz that nobody can explain."
+   }
+  ]
+ }
+}

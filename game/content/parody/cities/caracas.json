@@ -1,0 +1,79 @@
+{
+ "name": "Caracas",
+ "map": {
+  "x": 88,
+  "y": 54
+ },
+ "description": [
+  {
+   "pt_BR": "Capital da Venezuela, o país que a família jurava que o Brasil ia virar.",
+   "en": "Capital of Venezuela, the country the family swore Brazil would turn into."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o mapa do petróleo do Orinoco",
+   "en": "the Orinoco oil map"
+  },
+  {
+   "pt_BR": "o bigode de bronze do Maduro",
+   "en": "Maduro's bronze mustache"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria trocar reais por bolívares, e precisou de uma mala",
+    "en": "{he} wanted to swap reais for bolívares and needed a suitcase"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria rezar para o Brasil não virar a Venezuela",
+    "en": "{he} wanted to pray that Brazil wouldn't become Venezuela"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} disse que ia ver de perto o país que o Brasil ia virar",
+    "en": "{he} said {he} was going to see the country Brazil was supposed to become"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se o Maduro tem clube de tiro",
+    "en": "{he} asked if Maduro has a gun club"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou se o Palácio de Miraflores aceita visita",
+    "en": "{he} asked if Miraflores Palace takes visitors"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer arepa",
+    "en": "{he} wanted to eat an arepa"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria ver o Salto Ángel",
+    "en": "{he} wanted to see Angel Falls"
+   },
+   {
+    "pt_BR": "{ele} disse que, se ganharem eles, o Brasil vira isso aí",
+    "en": "{he} said that if the other side wins, Brazil turns into this"
+   }
+  ]
+ }
+}

@@ -1,0 +1,83 @@
+{
+ "name": "São Paulo",
+ "map": {
+  "x": 107,
+  "y": 79
+ },
+ "description": [
+  {
+   "pt_BR": "A maior cidade do país, onde a Faria Lima vende CDB e os coaches vendem mentoria.",
+   "en": "The country's largest city, where Faria Lima sells bonds and coaches sell mentoring."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o cofre do Banco Master",
+   "en": "the Banco Master vault"
+  },
+  {
+   "pt_BR": "a cadeira do debate da TV Cultura",
+   "en": "the chair from the TV Cultura debate"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria visitar os bancos da Faria Lima",
+    "en": "{he} wanted to visit the banks on Faria Lima"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria ir ao Templo de Salomão",
+    "en": "{he} wanted to visit the Temple of Solomon"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia pousar em Guarulhos",
+    "en": "{he} was flying into Guarulhos"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se tem estande de tiro na Marginal",
+    "en": "{he} asked if there's a shooting range on the riverside expressway"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria passar no Palácio dos Bandeirantes",
+    "en": "{he} wanted to drop by the Bandeirantes Palace"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer um pastel na feira",
+    "en": "{he} wanted to eat a pastel at the street market"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria fazer motociata na Avenida Paulista",
+    "en": "{he} wanted to hold a motorcycle rally on Paulista Avenue"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde fica o Masp",
+    "en": "{he} asked where the MASP museum is"
+   },
+   {
+    "pt_BR": "{ele} reclamou que debate na TV tem muita cadeira solta",
+    "en": "{he} complained that TV debates have too many loose chairs"
+   }
+  ]
+ }
+}

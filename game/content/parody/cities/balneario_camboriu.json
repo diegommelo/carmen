@@ -1,0 +1,83 @@
+{
+ "name": "Balneário Camboriú",
+ "map": {
+  "x": 104,
+  "y": 84
+ },
+ "description": [
+  {
+   "pt_BR": "A Dubai brasileira, com prédios gigantes, sombra na praia às duas da tarde e um vereador famoso.",
+   "en": "Brazil's Dubai, with giant towers, shade on the beach by 2 p.m. and a famous city councilor."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a roda-gigante do FG Big Wheel",
+   "en": "the FG Big Wheel"
+  },
+  {
+   "pt_BR": "a cadeira do vereador na Câmara Municipal",
+   "en": "the councilor's seat at city hall"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria comprar um apartamento num arranha-céu à beira-mar",
+    "en": "{he} wanted to buy an apartment in a beachfront skyscraper"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria ir a um culto na praia catarinense",
+    "en": "{he} wanted to attend a beach service in Santa Catarina"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia descer no aeroporto de Navegantes",
+    "en": "{he} was landing at Navegantes airport"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se tinha clube de tiro em Santa Catarina",
+    "en": "{he} asked if there are gun clubs in Santa Catarina"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria passar na Câmara de Vereadores de BC",
+    "en": "{he} wanted to stop by the BC city council"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer em frente à roda-gigante",
+    "en": "{he} wanted to eat facing the Ferris wheel"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria ver a praia com sombra de prédio",
+    "en": "{he} wanted to see the beach shaded by towers"
+   },
+   {
+    "pt_BR": "{ele} queria andar na roda-gigante",
+    "en": "{he} wanted to ride the Ferris wheel"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde fica a Dubai brasileira",
+    "en": "{he} asked where Brazil's Dubai is"
+   }
+  ]
+ }
+}

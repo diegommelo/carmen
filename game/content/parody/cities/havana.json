@@ -1,0 +1,83 @@
+{
+ "name": "Havana",
+ "map": {
+  "x": 73,
+  "y": 44
+ },
+ "description": [
+  {
+   "pt_BR": "Capital de Cuba, destino que a família sempre mandou os outros irem.",
+   "en": "Capital of Cuba, the place the family always told other people to go."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o charuto do Fidel",
+   "en": "Fidel's cigar"
+  },
+  {
+   "pt_BR": "o Chevrolet 1957 do Malecón",
+   "en": "the 1957 Chevrolet from the Malecón"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por pesos cubanos e reclamou de comunismo",
+    "en": "{he} changed money into Cuban pesos and complained about communism"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria rezar para não ser reconhecido em Cuba",
+    "en": "{he} wanted to pray not to be recognized in Cuba"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} comprou uma passagem para o lugar onde mandava os outros irem",
+    "en": "{he} bought a ticket to the place {he} used to tell people to go"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se em Cuba pode ter CAC",
+    "en": "{he} asked if Cuba allows gun collectors"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou onde fica a embaixada brasileira em Cuba",
+    "en": "{he} asked where the Brazilian embassy in Cuba is"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria provar um mojito escondido",
+    "en": "{he} wanted to sneak a mojito"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria passear de carro antigo no Malecón",
+    "en": "{he} wanted a vintage car ride along the Malecón"
+   },
+   {
+    "pt_BR": "{ele} disse que vai para Cuba, mas só para conhecer o inimigo",
+    "en": "{he} said {he}'s going to Cuba, but only to know the enemy"
+   },
+   {
+    "pt_BR": "{ele} perguntou se os médicos cubanos ainda estavam por lá",
+    "en": "{he} asked if the Cuban doctors were still there"
+   }
+  ]
+ }
+}

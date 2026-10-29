@@ -1,0 +1,35 @@
+{
+ "name": "Pablo Marçal",
+ "boss": false,
+ "traits": {
+  "sex": "m",
+  "profession": "coach",
+  "hobby": "social_media",
+  "vehicle": "private_jet",
+  "feature": "phone",
+  "food": "protein_shake"
+ },
+ "dossier": {
+  "full_name": "Pablo Henrique Costa Marçal",
+  "occupation": {
+   "pt_BR": "Coach, influenciador e ex-candidato",
+   "en": "Coach, influencer and former candidate"
+  },
+  "traits": {
+   "hobby": {
+    "pt_BR": "Redes sociais, de preferência ao vivo",
+    "en": "Social media, preferably live"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Levou um grupo para o Pico dos Marins e precisou de resgate.",
+    "en": "Led a group up a mountain and needed to be rescued."
+   },
+   {
+    "pt_BR": "Tem medo de cadeira.",
+    "en": "Afraid of chairs."
+   }
+  ]
+ }
+}

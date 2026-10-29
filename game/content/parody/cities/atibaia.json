@@ -1,0 +1,83 @@
+{
+ "name": "Atibaia",
+ "map": {
+  "x": 108,
+  "y": 78
+ },
+ "description": [
+  {
+   "pt_BR": "Cidade das flores e dos morangos, onde um advogado guarda hóspedes discretos.",
+   "en": "City of flowers and strawberries, where a lawyer keeps discreet house guests."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a chave da casa do advogado",
+   "en": "the key to the lawyer's house"
+  },
+  {
+   "pt_BR": "a caixa de morangos premiada da Festa das Flores",
+   "en": "the prize-winning strawberry box from the Flower Festival"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria pagar as contas de uma casa no interior paulista",
+    "en": "{he} wanted to pay the bills for a house in the São Paulo countryside"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} perguntou onde fica a igreja mais perto da Festa das Flores",
+    "en": "{he} asked for the church nearest to the Flower Festival"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} disse que ia de carro, porque o lugar nem tem aeroporto",
+    "en": "{he} said {he} was driving, since the place doesn't even have an airport"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se tinha tiro ao alvo na Pedra Grande",
+    "en": "{he} asked if there was target shooting at Pedra Grande"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria saber se casa de advogado conta como território neutro",
+    "en": "{he} wanted to know if a lawyer's house counts as neutral territory"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer morango com chocolate",
+    "en": "{he} wanted strawberries with chocolate"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria visitar uma casa de advogado onde dá para ficar escondido um ano",
+    "en": "{he} wanted to visit a lawyer's house where you can hide for a year"
+   },
+   {
+    "pt_BR": "{ele} perguntou quando é a Festa das Flores e Morangos",
+    "en": "{he} asked when the Flower and Strawberry Festival is"
+   },
+   {
+    "pt_BR": "{ele} queria subir a Pedra Grande",
+    "en": "{he} wanted to climb Pedra Grande"
+   }
+  ]
+ }
+}

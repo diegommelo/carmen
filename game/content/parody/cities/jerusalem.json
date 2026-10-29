@@ -1,0 +1,79 @@
+{
+ "name": "Jerusalém",
+ "map": {
+  "x": 182,
+  "y": 38
+ },
+ "description": [
+  {
+   "pt_BR": "Cidade sagrada para três religiões e ponto turístico de quem promete mudar embaixada e não muda.",
+   "en": "Holy city to three religions and a tourist spot for people who promise to move embassies and don't."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a garrafa de água do rio Jordão",
+   "en": "the bottle of Jordan River water"
+  },
+  {
+   "pt_BR": "a placa da embaixada que nunca mudou",
+   "en": "the sign for the embassy that never moved"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por shekels",
+    "en": "{he} changed money into shekels"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria ser batizado de novo no rio Jordão",
+    "en": "{he} wanted to be baptized again in the Jordan River"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia pousar em Tel Aviv",
+    "en": "{he} was landing in Tel Aviv"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria conhecer um fuzil israelense",
+    "en": "{he} wanted to see an Israeli rifle"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou onde fica a embaixada brasileira, a que ia mudar de cidade",
+    "en": "{he} asked where the Brazilian embassy is, the one that was supposed to move"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer falafel",
+    "en": "{he} wanted to eat falafel"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria rezar no Muro das Lamentações",
+    "en": "{he} wanted to pray at the Western Wall"
+   },
+   {
+    "pt_BR": "{ele} queria conhecer a Terra Santa",
+    "en": "{he} wanted to see the Holy Land"
+   }
+  ]
+ }
+}

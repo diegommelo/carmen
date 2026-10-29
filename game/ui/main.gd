@@ -2,7 +2,7 @@ extends Control
 ## Tela provisória, só texto e botões, para jogar o núcleo com o pacote de conteúdo.
 ## Os textos da tela vêm de i18n/ui.csv (tr) e os do jogo vêm do pacote de conteúdo.
 
-const PACK_DIR := "res://content/placeholder"
+const PACK_DIR := "res://content/parody"
 ## Idiomas oferecidos no seletor, na ordem em que aparecem.
 const LANGUAGES := {"pt_BR": "Português (Brasil)", "en": "English"}
 

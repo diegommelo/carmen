@@ -1,0 +1,83 @@
+{
+ "name": "Washington",
+ "map": {
+  "x": 82,
+  "y": 31
+ },
+ "description": [
+  {
+   "pt_BR": "A capital americana, onde se pede sanção contra o próprio país e se faz fila na porta da Casa Branca.",
+   "en": "The American capital, where people lobby for sanctions against their own country and queue outside the White House."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a lista de sanções da Lei Magnitsky",
+   "en": "the Magnitsky Act sanctions list"
+  },
+  {
+   "pt_BR": "o boné autografado do Trump",
+   "en": "Trump's signed cap"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} perguntou se o Tesouro americano aceita pedido de sanção",
+    "en": "{he} asked if the US Treasury takes sanction requests"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria rezar num café da manhã de oração em Washington",
+    "en": "{he} wanted to pray at a Washington prayer breakfast"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia pousar no aeroporto Dulles",
+    "en": "{he} was landing at Dulles airport"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria visitar a sede da NRA",
+    "en": "{he} wanted to visit NRA headquarters"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria marcar uma reunião na Casa Branca",
+    "en": "{he} wanted to book a meeting at the White House"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} disse que ia fritar hambúrguer perto do Capitólio",
+    "en": "{he} said {he}'d be flipping burgers near the Capitol"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria pedir uma tarifa de 50% contra o Brasil",
+    "en": "{he} wanted to ask for a 50% tariff on Brazil"
+   },
+   {
+    "pt_BR": "{ele} queria tirar foto na frente do Capitólio",
+    "en": "{he} wanted a photo in front of the Capitol"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde o Trump costuma almoçar",
+    "en": "{he} asked where Trump usually has lunch"
+   }
+  ]
+ }
+}

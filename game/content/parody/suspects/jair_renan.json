@@ -1,0 +1,35 @@
+{
+ "name": "Jair Renan",
+ "boss": false,
+ "traits": {
+  "sex": "m",
+  "profession": "councilor",
+  "hobby": "gym",
+  "vehicle": "electric_car",
+  "feature": "sunglasses",
+  "food": "protein_shake"
+ },
+ "dossier": {
+  "full_name": "Jair Renan Valle Bolsonaro",
+  "occupation": {
+   "pt_BR": "Vereador em Balneário Camboriú e influenciador",
+   "en": "City councilor in Balneário Camboriú and influencer"
+  },
+  "traits": {
+   "vehicle": {
+    "pt_BR": "Carro elétrico que ganhou de presente",
+    "en": "Electric car he got as a gift"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "O filho 04.",
+    "en": "Son number 04."
+   },
+   {
+    "pt_BR": "Ama uma foto no espelho da academia.",
+    "en": "Loves a gym mirror selfie."
+   }
+  ]
+ }
+}

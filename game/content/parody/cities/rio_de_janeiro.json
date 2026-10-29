@@ -1,0 +1,83 @@
+{
+ "name": "Rio de Janeiro",
+ "map": {
+  "x": 112,
+  "y": 77
+ },
+ "description": [
+  {
+   "pt_BR": "Cidade maravilhosa, berço político da família e endereço do condomínio mais famoso da Barra.",
+   "en": "The marvelous city, the family's political cradle and home of the most famous gated community in Barra."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o laptop do gabinete do ódio",
+   "en": "the hate office laptop"
+  },
+  {
+   "pt_BR": "a planilha de salários da Alerj",
+   "en": "the state assembly payroll spreadsheet"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria depositar uns cheques na agência da Alerj",
+    "en": "{he} wanted to deposit some checks at the state assembly's bank branch"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria ir a um culto na Barra da Tijuca",
+    "en": "{he} wanted to go to a service in Barra da Tijuca"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou para o Galeão",
+    "en": "{he} boarded a flight to Galeão"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria praticar tiro perto da Vila Militar",
+    "en": "{he} wanted to practice shooting near the Military Village"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria visitar o Palácio Guanabara",
+    "en": "{he} wanted to visit the Guanabara Palace"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer um biscoito Globo na praia",
+    "en": "{he} wanted to eat Globo cookies on the beach"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} perguntou como chegar no condomínio Vivendas da Barra",
+    "en": "{he} asked how to get to the Vivendas da Barra condo"
+   },
+   {
+    "pt_BR": "{ele} queria visitar a Câmara Municipal, que fica na Cinelândia",
+    "en": "{he} wanted to visit the city council at Cinelândia"
+   },
+   {
+    "pt_BR": "{ele} queria ver o Cristo Redentor",
+    "en": "{he} wanted to see Christ the Redeemer"
+   }
+  ]
+ }
+}

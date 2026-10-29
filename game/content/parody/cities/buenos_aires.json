@@ -1,0 +1,79 @@
+{
+ "name": "Buenos Aires",
+ "map": {
+  "x": 99,
+  "y": 86
+ },
+ "description": [
+  {
+   "pt_BR": "Capital da Argentina, onde um presidente de motosserra recebe amigos brasileiros.",
+   "en": "Capital of Argentina, where a chainsaw-wielding president welcomes Brazilian friends."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a motosserra do Milei",
+   "en": "Milei's chainsaw"
+  },
+  {
+   "pt_BR": "a camisa do Maradona",
+   "en": "Maradona's jersey"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou reais por pesos no câmbio blue",
+    "en": "{he} changed reais into pesos at the blue-market rate"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria visitar a catedral do Papa Francisco",
+    "en": "{he} wanted to visit Pope Francis's old cathedral"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia pousar em Ezeiza",
+    "en": "{he} was landing at Ezeiza"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou onde compra uma motosserra",
+    "en": "{he} asked where to buy a chainsaw"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria visitar a Casa Rosada",
+    "en": "{he} wanted to visit the Casa Rosada"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer um bife de chorizo",
+    "en": "{he} wanted a bife de chorizo steak"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria visitar o amigo Milei",
+    "en": "{he} wanted to visit {his} friend Milei"
+   },
+   {
+    "pt_BR": "{ele} queria aprender a dançar tango",
+    "en": "{he} wanted to learn tango"
+   }
+  ]
+ }
+}

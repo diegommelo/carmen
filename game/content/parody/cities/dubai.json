@@ -1,0 +1,79 @@
+{
+ "name": "Dubai",
+ "map": {
+  "x": 198,
+  "y": 44
+ },
+ "description": [
+  {
+   "pt_BR": "Cidade dos Emirados com prédios altíssimos, jatinhos estacionados e nenhum tratado de extradição com pressa.",
+   "en": "Emirati city of towering skyscrapers, parked private jets and no extradition treaty in a hurry."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o elevador do Burj Khalifa",
+   "en": "the Burj Khalifa elevator"
+  },
+  {
+   "pt_BR": "a carteira de CDBs do FGC",
+   "en": "the deposit insurance fund's bond portfolio"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} perguntou se banco em Dubai pergunta de onde vem o dinheiro",
+    "en": "{he} asked if banks in Dubai ask where the money comes from"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} perguntou se tem culto em português nos Emirados",
+    "en": "{he} asked if there are Portuguese-language services in the Emirates"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia voar para os Emirados de jatinho",
+    "en": "{he} was flying to the Emirates by private jet"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria atirar no deserto dos Emirados",
+    "en": "{he} wanted to go shooting in the Emirati desert"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou se os Emirados extraditam banqueiro",
+    "en": "{he} asked if the Emirates extradite bankers"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer um bife folheado a ouro",
+    "en": "{he} wanted a gold-leaf steak"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria subir no Burj Khalifa",
+    "en": "{he} wanted to go up the Burj Khalifa"
+   },
+   {
+    "pt_BR": "{ele} queria comprar um apartamento numa ilha artificial",
+    "en": "{he} wanted to buy an apartment on an artificial island"
+   }
+  ]
+ }
+}

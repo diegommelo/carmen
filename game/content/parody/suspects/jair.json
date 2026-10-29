@@ -1,0 +1,43 @@
+{
+ "name": "Jair",
+ "boss": true,
+ "traits": {
+  "sex": "m",
+  "profession": "ex_president",
+  "hobby": "fishing",
+  "vehicle": "motorcycle",
+  "feature": "ankle_monitor",
+  "food": "condensed_milk_bread"
+ },
+ "dossier": {
+  "full_name": "Jair Messias Bolsonaro",
+  "occupation": {
+   "pt_BR": "Ex-presidente, capitão reformado, inelegível e condenado",
+   "en": "Former president, retired army captain, banned from office and convicted"
+  },
+  "traits": {
+   "vehicle": {
+    "pt_BR": "Moto de motociata, sem capacete",
+    "en": "Rally motorcycle, no helmet"
+   },
+   "feature": {
+    "pt_BR": "Tornozeleira eletrônica com marca de ferro de solda",
+    "en": "Ankle monitor with soldering iron marks"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Chefe da família. Só aparece depois que você já prendeu muita gente.",
+    "en": "Head of the family. Only shows up after you've arrested plenty of others."
+   },
+   {
+    "pt_BR": "Já dormiu duas noites numa embaixada para fugir da imprensa.",
+    "en": "Once spent two nights at an embassy to dodge the press."
+   },
+   {
+    "pt_BR": "Foi multado por pescar em área protegida em Angra.",
+    "en": "Was fined for fishing in a protected area in Angra."
+   }
+  ]
+ }
+}

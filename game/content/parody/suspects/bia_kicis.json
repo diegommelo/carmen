@@ -1,0 +1,35 @@
+{
+ "name": "Bia Kicis",
+ "boss": false,
+ "traits": {
+  "sex": "f",
+  "profession": "congressman",
+  "hobby": "social_media",
+  "vehicle": "pickup",
+  "feature": "phone",
+  "food": "pizza"
+ },
+ "dossier": {
+  "full_name": "Beatriz Kicis Torrents de Sordi",
+  "occupation": {
+   "pt_BR": "Deputada federal pelo Distrito Federal",
+   "en": "Congresswoman for the Federal District"
+  },
+  "traits": {
+   "feature": {
+    "pt_BR": "Celular sempre pronto para mais um post",
+    "en": "Phone always ready for another post"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Procuradora aposentada.",
+    "en": "Retired prosecutor."
+   },
+   {
+    "pt_BR": "Já compartilhou mais corrente de WhatsApp do que leu projeto de lei.",
+    "en": "Has forwarded more WhatsApp chain messages than bills she has read."
+   }
+  ]
+ }
+}

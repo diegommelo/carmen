@@ -1,0 +1,80 @@
+{
+ "format_version": 1,
+ "name": {
+  "pt_BR": "Onde está a Família Bolsonaro?",
+  "en": "Where in the World is the Bolsonaro Family?"
+ },
+ "description": {
+  "pt_BR": "Paródia. Você é agente da Polícia Federal e cada caso é um membro da família (ou um amigo dela) que fugiu.",
+  "en": "Parody. You are a Federal Police agent, and each case is a family member (or a friend of the family) on the run."
+ },
+ "languages": [
+  "pt_BR",
+  "en"
+ ],
+ "default_language": "pt_BR",
+ "rules": {
+  "route_base_steps": 4,
+  "boss_after_cases": 12,
+  "sex_trait": "sex",
+  "graph": {
+   "max_links": 4,
+   "min_hops": 2
+  },
+  "travel": {
+   "distance_per_hour": 40,
+   "base_hours": 2,
+   "max_hours": 7
+  },
+  "investigate": {
+   "first_hours": 2,
+   "max_hours": 4
+  },
+  "clock": {
+   "start_day": 0,
+   "start_hour": 9,
+   "deadline_day": 6,
+   "deadline_hour": 17,
+   "wake_hour": 8,
+   "sleep_hour": 23,
+   "sleep_hours": 9
+  }
+ },
+ "ranks": [
+  {
+   "name": {
+    "pt_BR": "Estagiário",
+    "en": "Intern"
+   },
+   "cases": 0
+  },
+  {
+   "name": {
+    "pt_BR": "Agente",
+    "en": "Agent"
+   },
+   "cases": 1
+  },
+  {
+   "name": {
+    "pt_BR": "Escrivão",
+    "en": "Clerk"
+   },
+   "cases": 4
+  },
+  {
+   "name": {
+    "pt_BR": "Delegado",
+    "en": "Chief Inspector"
+   },
+   "cases": 8
+  },
+  {
+   "name": {
+    "pt_BR": "Superintendente",
+    "en": "Superintendent"
+   },
+   "cases": 12
+  }
+ ]
+}

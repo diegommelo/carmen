@@ -1,0 +1,39 @@
+{
+ "name": "Flávio",
+ "boss": false,
+ "traits": {
+  "sex": "m",
+  "profession": "senator",
+  "hobby": "real_estate",
+  "vehicle": "armored_suv",
+  "feature": "cbf_jersey",
+  "food": "chocolate"
+ },
+ "dossier": {
+  "full_name": "Flávio Nantes Bolsonaro",
+  "occupation": {
+   "pt_BR": "Senador e empresário do ramo do chocolate",
+   "en": "Senator and chocolate entrepreneur"
+  },
+  "traits": {
+   "hobby": {
+    "pt_BR": "Comprar imóveis, de preferência em dinheiro vivo",
+    "en": "Buying real estate, preferably in cash"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "O filho 01.",
+    "en": "Son number 01."
+   },
+   {
+    "pt_BR": "Comprou uma mansão de seis milhões em Brasília.",
+    "en": "Bought a six-million mansion in Brasília."
+   },
+   {
+    "pt_BR": "Especialista em rachadinha.",
+    "en": "Expert in salary kickback schemes."
+   }
+  ]
+ }
+}

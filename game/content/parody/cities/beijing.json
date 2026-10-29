@@ -1,0 +1,83 @@
+{
+ "name": "Pequim",
+ "map": {
+  "x": 247,
+  "y": 30
+ },
+ "description": [
+  {
+   "pt_BR": "Capital da China, maior parceira comercial do Brasil e inimiga favorita dos grupos de WhatsApp.",
+   "en": "Capital of China, Brazil's largest trading partner and the favorite enemy of WhatsApp groups."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o lote de vacina chinesa",
+   "en": "the batch of Chinese vaccines"
+  },
+  {
+   "pt_BR": "o 5G do grupo da família",
+   "en": "the family group chat's 5G"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por yuans e lavou as mãos depois",
+    "en": "{he} changed money into yuan and washed {his} hands afterward"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} perguntou se tem igreja evangélica na China",
+    "en": "{he} asked if there are evangelical churches in China"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} comprou um voo para a China disfarçado de comunista",
+    "en": "{he} booked a flight to China disguised as a communist"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria ver o Exército de Terracota",
+    "en": "{he} wanted to see the Terracotta Army"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria pedir desculpas pelos tuítes contra a China",
+    "en": "{he} wanted to apologize for the tweets against China"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer pato laqueado",
+    "en": "{he} wanted to eat Peking duck"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria ver a Cidade Proibida",
+    "en": "{he} wanted to see the Forbidden City"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o chip da vacina pega 5G lá",
+    "en": "{he} asked if the vaccine chip gets 5G there"
+   },
+   {
+    "pt_BR": "{ele} queria andar na Grande Muralha",
+    "en": "{he} wanted to walk the Great Wall"
+   }
+  ]
+ }
+}
