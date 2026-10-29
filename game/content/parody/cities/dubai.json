@@ -43,6 +43,10 @@
    {
     "pt_BR": "{ele} perguntou se tem culto em português nos Emirados",
     "en": "{he} asked if there are Portuguese-language services in the Emirates"
+   },
+   {
+    "pt_BR": "{ele} perguntou se tem igreja num lugar tão rico",
+    "en": "{he} asked if a place that rich has churches"
    }
   ],
   "airport": [
@@ -67,6 +71,10 @@
    {
     "pt_BR": "{ele} queria comer um bife folheado a ouro",
     "en": "{he} wanted a gold-leaf steak"
+   },
+   {
+    "pt_BR": "{ele} queria um café com ouro em pó por cima",
+    "en": "{he} wanted a coffee topped with gold dust"
    }
   ],
   "any": [
@@ -77,6 +85,14 @@
    {
     "pt_BR": "{ele} queria comprar um apartamento numa ilha artificial",
     "en": "{he} wanted to buy an apartment on an artificial island"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde estacionar um iate",
+    "en": "{he} asked where to park a yacht"
+   },
+   {
+    "pt_BR": "{ele} queria esquiar dentro de um shopping no deserto",
+    "en": "{he} wanted to ski inside a mall in the desert"
    }
   ]
  }

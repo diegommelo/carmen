@@ -1,0 +1,91 @@
+{
+ "name": "Lisboa",
+ "map": {
+  "x": 142,
+  "y": 30
+ },
+ "description": [
+  {
+   "pt_BR": "Sete colinas, bondinhos amarelos e pastel de nata. Lisboa virou a segunda casa de quem quer passaporte europeu e de quem prefere opinar sobre o Brasil a uma distância segura.",
+   "en": "Seven hills, yellow trams and custard tarts. Lisbon became a second home for people who want a European passport and for those who'd rather comment on Brazil from a safe distance."
+  },
+  {
+   "pt_BR": "Na terra dos descobridores, o fado toca nas tascas de Alfama e os brasileiros já são a maior comunidade estrangeira. Tem até deputado português fã da família.",
+   "en": "In the land of the explorers, fado plays in Alfama's taverns and Brazilians are now the largest foreign community. There's even a Portuguese politician who's a fan of the family."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o pastel de nata original de Belém",
+   "en": "the original custard tart from Belém"
+  },
+  {
+   "pt_BR": "o bonde 28",
+   "en": "tram 28"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} perguntou como conseguir um visto gold comprando imóvel",
+    "en": "{he} asked how to get a golden visa by buying property"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria rezar no Mosteiro dos Jerónimos",
+    "en": "{he} wanted to pray at the Jerónimos Monastery"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia pousar no aeroporto Humberto Delgado",
+    "en": "{he} was landing at Humberto Delgado airport"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} reclamou que em Portugal ninguém anda armado",
+    "en": "{he} complained that nobody carries a gun in Portugal"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou se o bisavô italiano serve para passaporte português",
+    "en": "{he} asked if an Italian great-grandfather counts for a Portuguese passport"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer bacalhau à Brás",
+    "en": "{he} wanted to eat bacalhau à Brás"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria andar de bondinho pelas colinas",
+    "en": "{he} wanted to ride the tram over the hills"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde fica a Torre de Belém",
+    "en": "{he} asked where the Belém Tower is"
+   },
+   {
+    "pt_BR": "{ele} queria ouvir fado em Alfama",
+    "en": "{he} wanted to hear fado in Alfama"
+   },
+   {
+    "pt_BR": "{ele} disse que ia encontrar um político português que adora a família",
+    "en": "{he} said {he} was meeting a Portuguese politician who loves the family"
+   }
+  ]
+ }
+}

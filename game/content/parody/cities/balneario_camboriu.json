@@ -49,12 +49,20 @@
    {
     "pt_BR": "{ele} ia descer no aeroporto de Navegantes",
     "en": "{he} was landing at Navegantes airport"
+   },
+   {
+    "pt_BR": "{ele} queria voar para Santa Catarina e ir direto para a balada",
+    "en": "{he} wanted to fly to Santa Catarina and head straight to the club"
    }
   ],
   "gun_club": [
    {
     "pt_BR": "{ele} perguntou se tinha clube de tiro em Santa Catarina",
     "en": "{he} asked if there are gun clubs in Santa Catarina"
+   },
+   {
+    "pt_BR": "{ele} perguntou se dava para atirar e depois ir à praia",
+    "en": "{he} asked if {he} could go shooting and then hit the beach"
    }
   ],
   "embassy": [
@@ -81,6 +89,14 @@
    {
     "pt_BR": "{ele} perguntou onde fica a Dubai brasileira",
     "en": "{he} asked where Brazil's Dubai is"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde ficam as boates mais caras do litoral sul",
+    "en": "{he} asked where the priciest clubs on the southern coast are"
+   },
+   {
+    "pt_BR": "{ele} queria conhecer o prédio mais alto do Brasil",
+    "en": "{he} wanted to see the tallest building in Brazil"
    }
   ]
  }

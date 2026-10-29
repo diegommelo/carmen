@@ -49,6 +49,10 @@
    {
     "pt_BR": "{ele} disse que ia ver de perto o país que o Brasil ia virar",
     "en": "{he} said {he} was going to see the country Brazil was supposed to become"
+   },
+   {
+    "pt_BR": "{ele} perguntou se tinha voo para a Venezuela sem escala em Cuba",
+    "en": "{he} asked for a flight to Venezuela without a stopover in Cuba"
    }
   ],
   "gun_club": [
@@ -61,6 +65,10 @@
    {
     "pt_BR": "{ele} perguntou se o Palácio de Miraflores aceita visita",
     "en": "{he} asked if Miraflores Palace takes visitors"
+   },
+   {
+    "pt_BR": "{ele} queria visitar a Assembleia Nacional venezuelana",
+    "en": "{he} wanted to visit Venezuela's National Assembly"
    }
   ],
   "steakhouse": [
@@ -77,6 +85,14 @@
    {
     "pt_BR": "{ele} disse que, se ganharem eles, o Brasil vira isso aí",
     "en": "{he} said that if the other side wins, Brazil turns into this"
+   },
+   {
+    "pt_BR": "{ele} perguntou quanto custa a gasolina mais barata do mundo",
+    "en": "{he} asked how much the world's cheapest gasoline costs"
+   },
+   {
+    "pt_BR": "{ele} queria subir o teleférico do monte Ávila",
+    "en": "{he} wanted to take the cable car up Mount Ávila"
    }
   ]
  }

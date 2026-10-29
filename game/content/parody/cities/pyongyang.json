@@ -1,0 +1,91 @@
+{
+ "name": "Pyongyang",
+ "map": {
+  "x": 255,
+  "y": 30
+ },
+ "description": [
+  {
+   "pt_BR": "Avenidas enormes e vazias, estátuas gigantes e um único corte de cabelo aprovado. A Coreia do Norte é o destino mais absurdo do mapa, o que a torna perfeita para quem quer sumir.",
+   "en": "Huge empty avenues, giant statues and a single approved haircut. North Korea is the most absurd destination on the map, which makes it perfect for anyone who wants to disappear."
+  },
+  {
+   "pt_BR": "Ninguém entra sem guia e ninguém sai sem permissão. Em Pyongyang, o noticiário só tem notícia boa, e o líder sempre ganha a eleição.",
+   "en": "Nobody enters without a guide and nobody leaves without permission. In Pyongyang, the news is always good and the leader always wins the election."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o corte de cabelo oficial",
+   "en": "the official haircut"
+  },
+  {
+   "pt_BR": "o míssil de enfeite do desfile",
+   "en": "the parade's decorative missile"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} perguntou se na Coreia do Norte tem banco ou só cofre",
+    "en": "{he} asked if North Korea has banks or just safes"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} perguntou se dava para fazer culto escondido em Pyongyang",
+    "en": "{he} asked if {he} could hold a secret service in Pyongyang"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} comprou o único voo semanal para a Coreia do Norte",
+    "en": "{he} bought a seat on the one weekly flight to North Korea"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria assistir a um desfile militar com tanques",
+    "en": "{he} wanted to watch a military parade with tanks"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou se o líder supremo aceita pedido de asilo",
+    "en": "{he} asked if the supreme leader accepts asylum requests"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria provar o macarrão frio de Pyongyang",
+    "en": "{he} wanted to try Pyongyang cold noodles"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} disse que queria conhecer um lugar onde eleição não tem urna eletrônica",
+    "en": "{he} said {he} wanted to see a place where elections don't use voting machines"
+   },
+   {
+    "pt_BR": "{ele} perguntou se lá a imprensa é sempre favorável",
+    "en": "{he} asked if the press there is always favorable"
+   },
+   {
+    "pt_BR": "{ele} queria ver as estátuas gigantes dos líderes",
+    "en": "{he} wanted to see the giant statues of the leaders"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o corte de cabelo é obrigatório para estrangeiro",
+    "en": "{he} asked if the haircut is mandatory for foreigners"
+   }
+  ]
+ }
+}

@@ -37,6 +37,10 @@
    {
     "pt_BR": "{ele} trocou dinheiro por pesos cubanos e reclamou de comunismo",
     "en": "{he} changed money into Cuban pesos and complained about communism"
+   },
+   {
+    "pt_BR": "{ele} perguntou se cartão de crédito americano funciona em Cuba",
+    "en": "{he} asked if American credit cards work in Cuba"
    }
   ],
   "church": [
@@ -55,6 +59,10 @@
    {
     "pt_BR": "{ele} perguntou se em Cuba pode ter CAC",
     "en": "{he} asked if Cuba allows gun collectors"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde guardar as armas antes de entrar em Cuba",
+    "en": "{he} asked where to leave {his} guns before entering Cuba"
    }
   ],
   "embassy": [
@@ -81,6 +89,14 @@
    {
     "pt_BR": "{ele} perguntou se os médicos cubanos ainda estavam por lá",
     "en": "{he} asked if the Cuban doctors were still there"
+   },
+   {
+    "pt_BR": "{ele} queria ver a Praça da Revolução, só para criticar",
+    "en": "{he} wanted to see Revolution Square, just to criticize it"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o porto de Mariel foi pago com dinheiro do BNDES",
+    "en": "{he} asked if the port of Mariel was built with Brazilian development bank money"
    }
   ]
  }

@@ -37,12 +37,20 @@
    {
     "pt_BR": "{ele} perguntou se o Tesouro americano aceita pedido de sanção",
     "en": "{he} asked if the US Treasury takes sanction requests"
+   },
+   {
+    "pt_BR": "{ele} perguntou como bloquear o cartão de crédito de um ministro do Supremo",
+    "en": "{he} asked how to block a Supreme Court justice's credit card"
    }
   ],
   "church": [
    {
     "pt_BR": "{ele} queria rezar num café da manhã de oração em Washington",
     "en": "{he} wanted to pray at a Washington prayer breakfast"
+   },
+   {
+    "pt_BR": "{ele} queria rezar pelo sucesso do lobby",
+    "en": "{he} wanted to pray for the success of {his} lobbying"
    }
   ],
   "airport": [
@@ -81,6 +89,14 @@
    {
     "pt_BR": "{ele} perguntou onde o Trump costuma almoçar",
     "en": "{he} asked where Trump usually has lunch"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde fica o Departamento de Estado",
+    "en": "{he} asked where the State Department is"
+   },
+   {
+    "pt_BR": "{ele} disse que precisava conversar com uns senadores republicanos",
+    "en": "{he} said {he} needed to talk to some Republican senators"
    }
   ]
  }

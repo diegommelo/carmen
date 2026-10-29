@@ -1,0 +1,91 @@
+{
+ "name": "Angra dos Reis",
+ "map": {
+  "x": 110,
+  "y": 78
+ },
+ "description": [
+  {
+   "pt_BR": "Trezentas e sessenta e cinco ilhas, água verde-esmeralda e uma estação ecológica onde pescar é proibido. Já teve fiscal do Ibama multando pescador ilustre, e depois perdendo o emprego.",
+   "en": "Three hundred and sixty-five islands, emerald water and an ecological reserve where fishing is banned. An environmental inspector once fined a famous fisherman here, and then lost his job."
+  },
+  {
+   "pt_BR": "No litoral sul do Rio, lanchas de bacana disputam as enseadas com as usinas nucleares de Angra. O sonho de alguns é transformar a baía numa Cancún brasileira.",
+   "en": "On Rio's southern coast, fancy speedboats compete for the coves with the Angra nuclear plants. Some people dream of turning the bay into a Brazilian Cancún."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o anzol de ouro da Estação Ecológica de Tamoios",
+   "en": "the golden fishhook of the Tamoios Ecological Station"
+  },
+  {
+   "pt_BR": "a multa do Ibama emoldurada",
+   "en": "the framed environmental fine"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria pagar uma multa ambiental antiga, ou talvez não",
+    "en": "{he} wanted to pay an old environmental fine, or maybe not"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria rezar numa capelinha de ilha",
+    "en": "{he} wanted to pray at a little island chapel"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} perguntou se tinha heliponto perto das ilhas",
+    "en": "{he} asked if there was a helipad near the islands"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se arpão conta como arma",
+    "en": "{he} asked if a speargun counts as a weapon"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou se a ilha particular tem soberania própria",
+    "en": "{he} asked if a private island has its own sovereignty"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer peixe fresco, de preferência pescado em área proibida",
+    "en": "{he} wanted fresh fish, preferably caught in a protected area"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria pescar na baía da Ilha Grande",
+    "en": "{he} wanted to fish in Ilha Grande bay"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde fica a Estação Ecológica de Tamoios",
+    "en": "{he} asked where the Tamoios Ecological Station is"
+   },
+   {
+    "pt_BR": "{ele} disse que ia transformar a baía numa Cancún brasileira",
+    "en": "{he} said {he} was going to turn the bay into a Brazilian Cancún"
+   },
+   {
+    "pt_BR": "{ele} queria alugar uma lancha para visitar as ilhas",
+    "en": "{he} wanted to rent a speedboat to tour the islands"
+   }
+  ]
+ }
+}

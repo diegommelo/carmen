@@ -20,6 +20,10 @@
    {
     "pt_BR": "Essa pessoa passou aqui e, pelo que entendi,",
     "en": "That person came by and, from what I gathered,"
+   },
+   {
+    "pt_BR": "Um tio no Facebook jurou que",
+    "en": "An uncle on Facebook swore that"
    }
   ],
   "final_warnings": [
@@ -34,6 +38,10 @@
    {
     "pt_BR": "Você está chegando perto demais, agente. Perdeu, mané.",
     "en": "You're getting too close, agent. Game over, pal."
+   },
+   {
+    "pt_BR": "Ouvi falar de uma minuta escondida numa gaveta aqui perto.",
+    "en": "I heard about a draft decree hidden in a drawer nearby."
    }
   ],
   "nothing_more": {
@@ -60,6 +68,14 @@
    {
     "pt_BR": "Um coach tentou te vender uma mentoria!",
     "en": "A coach tried to sell you a mentoring session!"
+   },
+   {
+    "pt_BR": "Um carro de som tocou o hino no último volume no seu ouvido!",
+    "en": "A sound truck blasted the national anthem right in your ear!"
+   },
+   {
+    "pt_BR": "Alguém tentou te dar um golpe de Pix!",
+    "en": "Someone tried to scam you with a fake payment!"
    }
   ],
   "pronouns": {
