@@ -78,17 +78,14 @@ WELCOME,"[b]FEDERAL POLICE[/b]
 Agent identification system.","[b]POLÍCIA FEDERAL[/b]
 Sistema de identificação de agentes."
 IDENTIFY,Please identify yourself:,"Identifique-se, por favor:"
-CONFIRM_OTHER_AGENT,The saved career belongs to agent %s. Start a new career as %s? The current one will be lost.,A carreira salva é do agente %s. Começar uma nova carreira como %s? A atual será perdida.
-AGENT_NEW,New agent registered: %s. Rank: %s.,Novo agente cadastrado: %s. Patente: %s.
-AGENT_BACK,"Identity confirmed. Agent %s, rank %s, %d cases solved.","Identidade confirmada. Agente %s, patente %s, %d casos resolvidos."
-CASE_RESUMED,You have a case in progress.,Você tem um caso em andamento.
 BRIEFING_TITLE,Urgent!,Urgente!
 BRIEFING_FLASH,*** URGENT ***,*** URGENTE ***
 MISSION,Your mission: follow the trail from %s to the hideout and make the arrest.,Sua missão: seguir o rastro desde %s até o esconderijo e efetuar a prisão.
 GOOD_LUCK,"Good luck, %s %s.","Boa sorte, %s %s."
 BTN_ACCEPT,Accept mission,Aceitar missão
-BTN_CONTINUE,Continue,Continuar
-CONFIRM_SAVE_CASE,Save the case in progress before quitting?,Salvar o caso em andamento antes de sair?
-BTN_SAVE_QUIT,Save and quit,Salvar e sair
-BTN_QUIT_NO_SAVE,Quit without saving,Sair sem salvar
-BTN_CANCEL,Cancel,Cancelar
+AGENT_WELCOME,"Welcome, agent %s.","Bem-vindo, agente %s."
+ASK_RESUME,You have a case in progress. Do you want to resume it?,Você tem um caso em andamento. Deseja retomá-lo?
+CAREER_STATUS,Rank: %s. Cases solved: %d.,Patente: %s. Casos resolvidos: %d.
+ASK_NEW_CASE,Do you want to start a new investigation?,Deseja começar uma nova investigação?
+BTN_YES,Yes,Sim
+BTN_NO,No,Não
