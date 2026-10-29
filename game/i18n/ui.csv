@@ -66,9 +66,6 @@ MORE,[more],[mais]
 WHERE_TO,Where do you want to investigate?,Onde você quer investigar?
 TRAVEL_TITLE,Flights from %s,Voos saindo de %s
 WARRANT_TITLE,FEDERAL POLICE · WARRANT SYSTEM,POLÍCIA FEDERAL · SISTEMA DE MANDADOS
-WARRANT_COUNT,"Matching suspects: %d
-%s","Suspeitos compatíveis: %d
-%s"
 STAMP_RULED_OUT,RULED OUT,DESCARTADO
 SCENE_ARRESTED,Arrested!,Preso!
 SCENE_ESCAPED,Got away!,Fugiu!
@@ -93,3 +90,7 @@ BTN_CONTINUE,Continue,Continuar
 BUDGET_AND_DEADLINE,You have a budget of %s to pay for your tickets. The arrest must happen by %s.,Você possui uma verba de %s para custear suas passagens. A captura deve ocorrer até %s.
 CAPTURE_DEADLINE,The arrest must happen by %s.,A captura deve ocorrer até %s.
 ANIMATION_ART,animation: %s,animação: %s
+JUDGE_TITLE,Supreme Court,Supremo Tribunal Federal
+BTN_SEARCH,Search,Buscar
+ONE_MATCH,Only %s matches these traits.,Só %s bate com esses traços.
+WARRANT_NOT_ISSUED,No warrant: it must point to a single suspect. The request counted as a search.,Sem mandado: ele precisa apontar um único suspeito. O pedido contou como busca.

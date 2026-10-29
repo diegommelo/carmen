@@ -35,6 +35,7 @@ func _initialize() -> void:
 	_test_trait_clues_factor(pack)
 	_test_career_save()
 	_test_saved_case(pack)
+	_test_warrant_hours()
 	_test_no_money(pack)
 	_test_pack_consistency(pack, "provisório")
 	_test_parody()
@@ -93,13 +94,13 @@ func _test_graph(pack: ContentPack) -> void:
 func _test_warrant(pack: ContentPack) -> void:
 	var s := CaseSession.new(pack, 3)
 	s.start({"name": "Teste", "cases": 0, "rank": 0})
-	check(s.compute_warrant({}).size() == pack.suspects.size(), "sem traços, todos são suspeitos")
+	check(s.issue_warrant({}).matches.size() == pack.suspects.size(), "sem traços, todos são suspeitos")
 	check(s.warrant_id == "", "sem traços não sai mandado")
 	var marks := {}
 	for t in pack.warrant_traits():
 		marks[t.id] = s.suspect.traits[t.id]
-	var m := s.compute_warrant(marks)
-	check(m.size() == 1 and s.warrant_id == s.suspect.id, "todos os traços identificam o suspeito")
+	var m := s.issue_warrant(marks)
+	check(m.issued and m.matches.size() == 1 and s.warrant_id == s.suspect.id, "todos os traços identificam o suspeito")
 
 
 ## Um "agente perfeito" segue a rota, emite o mandado certo e prende o suspeito.
@@ -110,7 +111,7 @@ func _test_full_case(pack: ContentPack, seed: int) -> void:
 	var marks := {}
 	for t in pack.warrant_traits():
 		marks[t.id] = s.suspect.traits[t.id]
-	s.compute_warrant(marks)
+	s.issue_warrant(marks)
 	while not s.is_final_city() and s.outcome == CaseSession.ONGOING:
 		check(s.next_city in s.destinations(), "a próxima cidade da rota é sempre um destino de voo")
 		for i in s.places.size():
@@ -384,7 +385,7 @@ func _test_shortcut(pack: ContentPack) -> void:
 		if with_warrant:
 			for t in pack.warrant_traits():
 				marks[t.id] = s.suspect.traits[t.id]
-		s.compute_warrant(marks)
+		s.issue_warrant(marks)
 		var r := s.travel(s.next_city)
 		check(r.shortcut == with_warrant and s.is_final_city() == with_warrant, "atalho só com o mandado certo (%s)" % with_warrant)
 		if with_warrant:
@@ -404,7 +405,7 @@ func _test_shortcut_min_flights(pack: ContentPack) -> void:
 	var marks := {}
 	for t in pack.warrant_traits():
 		marks[t.id] = s.suspect.traits[t.id]
-	s.compute_warrant(marks)
+	s.issue_warrant(marks)
 	check(not s.travel(s.next_city).shortcut and not s.is_final_city(), "paródia: sem atalho no primeiro voo")
 	check(s.travel(s.next_city).shortcut and s.is_final_city(), "paródia: atalho a partir do segundo voo")
 
@@ -496,7 +497,7 @@ func _test_saved_case(pack: ContentPack) -> void:
 		s.travel(wrong[0])
 		s.investigate(1)
 		s.travel(s.destinations()[0])
-	s.compute_warrant({pack.rules.sex_trait: s.suspect.traits[pack.rules.sex_trait]})
+	s.issue_warrant({pack.rules.sex_trait: s.suspect.traits[pack.rules.sex_trait]})
 	check(s.outcome == CaseSession.ONGOING, "caso de teste ainda em andamento")
 	var state := s.save_state()
 	state.marks = {"sex": "f"}
@@ -521,6 +522,29 @@ func _test_saved_case(pack: ContentPack) -> void:
 	check(Career.save(agent, path), "salvou de novo sem caso")
 	check(not Career.load_saved(path).has("case"), "salvar sem caso descarta o caso anterior")
 	Career.erase(path)
+
+
+## Na paródia, busca e mandado custam horas; pedido ambíguo conta como busca.
+func _test_warrant_hours() -> void:
+	var pack := ContentPack.load_dir(PARODY_DIR, "pt_BR")
+	var rules: Dictionary = pack.rules.warrant
+	var s := CaseSession.new(pack, 7)
+	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	var start := s.clock.day * 24 + s.clock.hour
+	var r := s.search({})
+	check(r.hours == int(rules.search_hours) and r.matches.size() == pack.suspects.size(), "busca sem traços lista todos e custa horas")
+	r = s.issue_warrant({})
+	check(not r.issued and r.hours == int(rules.search_hours) and s.warrant_id == "", "mandado ambíguo conta como busca")
+	var marks := {}
+	for t in pack.warrant_traits():
+		marks[t.id] = s.suspect.traits[t.id]
+	r = s.issue_warrant(marks)
+	check(r.issued and r.hours == int(rules.issue_hours) and s.warrant_id == s.suspect.id, "mandado certo sai e custa mais horas")
+	var spent := s.clock.day * 24 + s.clock.hour - start
+	check(spent == 2 * int(rules.search_hours) + int(rules.issue_hours), "o relógio andou as horas do mandado: %d" % spent)
+	var t := CaseSession.new(pack, 7)
+	t.start({"name": "Teste", "cases": 0, "rank": 0})
+	check(t.replay(s.actions) and t.warrant_id == s.warrant_id and t.clock.hour == s.clock.hour, "busca e mandado refeitos no replay")
 
 
 ## Scripts que os testes não usam direto também precisam compilar.

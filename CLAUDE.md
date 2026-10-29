@@ -42,6 +42,7 @@ Sem o `--import`, as chaves novas de `ui.csv` aparecem cruas na tela. O reposit�
 - **Tom**: pode ser ácido, mas fica em fatos noticiados e memes; não invente crimes.
 - **Carreira**: um suspeito não se repete até todos serem presos; o chefe vem por último. Patentes, saltos, pistas de traço, prazo, verba e atalho por patente ficam em `pack.json` (`ranks`).
 - **Diferenças do original**: o esconderijo é sorteado entre os três locais na chegada; com o mandado certo, um voo certo pode levar direto ao esconderijo (nunca no primeiro voo); passagens custam verba.
+- **Mandado**: marcar traços não filtra nada. O jogador busca pelos traços (`rules.warrant.search_hours`) ou pede o mandado direto (`issue_hours`, um pouco mais caro); pedido com mais de um compatível conta como busca. Tela no layout padrão: caricatura do Alexandre de Moraes na cena e animação dele batendo o martelo quando o mandado sai. O dossiê risca quem ficou fora da última busca.
 - **Horas de investigação**: progressivas como no original (2h, 3h, depois 4h; voltam a 2h ao chegar numa cidade).
 - **Fluxo**: o caso é salvo depois de cada ação (semente + ações, refeitas por `CaseSession.replay()`). Ao abrir, agente salvo entra identificado: com caso em andamento pergunta se retoma; sem caso mostra a carreira e oferece nova investigação, que passa pelo briefing ("*** URGENTE ***") antes da primeira cidade.
 - **Pistas** somem do painel a cada investigação, como no original; não há caderno de pistas.

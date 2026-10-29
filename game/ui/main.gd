@@ -11,6 +11,9 @@ var session: CaseSession
 var detective: Dictionary
 
 var _marks: Dictionary = {}
+## Ids do resultado da última busca ou pedido de mandado; vazio antes da primeira.
+## O dossiê risca quem ficou de fora.
+var _matches: Array = []
 ## Cidades visitadas no caso, da cena do crime até a atual, para desenhar no mapa.
 var _route: Array = []
 var _confirm: ConfirmationDialog
@@ -223,6 +226,7 @@ func _new_case() -> void:
 	session = CaseSession.new(pack, randi())
 	session.start(detective)
 	_marks.clear()
+	_matches.clear()
 	_route = [session.crime_city]
 	_autosave()
 	_show_briefing()
@@ -235,10 +239,13 @@ func _resume_case(saved: Dictionary) -> bool:
 	if not session.replay(actions):
 		return false
 	_marks = saved.get("marks", {})
+	_matches.clear()
 	_route = [session.crime_city]
 	for a in actions:
 		if a[0] == "travel":
 			_route.append(a[1])
+		elif a[0] in ["search", "warrant"]:
+			_matches = _ids(session.matching(a[1]))
 	_redraw = Callable()
 	_show_city()
 	return true
@@ -486,55 +493,111 @@ func _on_travel(city_id: String) -> void:
 		_show_main_actions()
 
 
-## Mandado: terminal em tela cheia, com a contagem de compatíveis mudando a cada traço.
-func _show_computer() -> void:
-	var screen := WarrantScreen.new()
-	screen.setup(tr("WARRANT_TITLE"), pack.warrant_traits(), _marks, tr("TRAIT_UNKNOWN"),
-		tr("BTN_ISSUE_WARRANT"))
-	screen.marks_changed.connect(_on_marks_changed.bind(screen))
-	screen.issue_pressed.connect(_on_compute)
-	screen.set_count_text(_count_text())
-	show_overlay(screen)
+## Mandado: o ministro na cena e, no painel, um seletor por traço. Marcar não filtra
+## nada; a busca e o pedido de mandado custam horas, mostradas nos botões.
+func _show_computer(result: Array = []) -> void:
+	_flow += 1
+	show_scene(tr("JUDGE_TITLE"), tr("SCENE_ART") % "warrant/judge", Palette.PANEL)
+	clear_text()
+	say(_highlight(tr("WARRANT_TITLE")))
+	for line in result:
+		say(line)
+	clear_choices()
+	var grid := GridContainer.new()
+	grid.columns = 2
+	grid.add_theme_constant_override("h_separation", 6)
+	grid.add_theme_constant_override("v_separation", 3)
+	for t in pack.warrant_traits():
+		_add_trait_row(grid, t)
+	add_choice_control(grid)
+	var bar := add_choice_bar()
+	add_choice(bar, _with_hours(tr("BTN_SEARCH"), "search_hours"), _on_search)
+	add_spacer(bar)
+	add_choice(bar, _with_hours(tr("BTN_ISSUE_WARRANT"), "issue_hours"), _on_issue)
 
 
-func _on_marks_changed(marks: Dictionary, screen: WarrantScreen) -> void:
-	_marks = marks
-	screen.set_count_text(_count_text())
+func _add_trait_row(grid: GridContainer, t: Dictionary) -> void:
+	var label := Label.new()
+	label.text = t.name
+	label.custom_minimum_size.x = 96
+	grid.add_child(label)
+	var opt := OptionButton.new()
+	opt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	opt.add_item(tr("TRAIT_UNKNOWN"))
+	var values: Array = t.values.keys()
+	for v in values:
+		opt.add_item(t.values[v])
+	opt.selected = values.find(_marks[t.id]) + 1 if _marks.has(t.id) else 0
+	opt.item_selected.connect(_on_mark.bind(t.id, values))
+	grid.add_child(opt)
+
+
+func _on_mark(index: int, trait_id: String, values: Array) -> void:
+	if index == 0:
+		_marks.erase(trait_id)
+	else:
+		_marks[trait_id] = values[index - 1]
 	_refresh_status()
 	_autosave()
 
 
-## Mesmo filtro de CaseSession.compute_warrant, sem emitir nem cancelar mandado.
-func _compatible(marks: Dictionary) -> Array:
-	return pack.suspects.filter(func(s):
-		for k in marks:
-			if s.traits[k] != marks[k]:
-				return false
-		return true)
+func _with_hours(label: String, rule: String) -> String:
+	var hours := int(pack.rules.get("warrant", {}).get(rule, 0))
+	return tr("TRAVEL_OPTION") % [label, hours] if hours > 0 else label
 
 
-func _count_text() -> String:
-	var matches := _compatible(_marks)
-	return tr("WARRANT_COUNT") % [matches.size(), ", ".join(matches.map(func(s): return s.name))]
+func _on_search() -> void:
+	var r := session.search(_marks)
+	_matches = _ids(r.matches)
+	_after_warrant(r, _search_lines(r.matches))
 
 
-func _on_compute() -> void:
-	hide_overlay()
-	var matches := session.compute_warrant(_marks)
-	clear_text()
+## Mandado com um só compatível: o ministro bate o martelo. Senão, conta como busca.
+func _on_issue() -> void:
+	var r := session.issue_warrant(_marks)
+	_matches = _ids(r.matches)
+	if not r.issued:
+		_after_warrant(r, [tr("WARRANT_NOT_ISSUED")] + _search_lines(r.matches))
+		return
+	_flow += 1
+	var flow := _flow
+	set_verbs_enabled(false)
+	clear_choices()
+	await play_animation(tr("JUDGE_TITLE"), tr("ANIMATION_ART") % "warrant/gavel", Palette.PANEL)
+	if flow != _flow:
+		return
+	_after_warrant(r, [tr("WARRANT_ISSUED") % r.matches[0].name])
+
+
+func _search_lines(matches: Array) -> Array:
 	if matches.is_empty():
-		say(tr("NO_MATCH"))
-	elif matches.size() == 1:
-		say(tr("WARRANT_ISSUED") % matches[0].name)
-	else:
-		say(tr("SUSPECTS_LIST") % ", ".join(matches.map(func(s): return s.name)))
+		return [tr("NO_MATCH")]
+	if matches.size() == 1:
+		return [tr("ONE_MATCH") % matches[0].name]
+	return [tr("SUSPECTS_LIST") % ", ".join(matches.map(func(s): return s.name))]
+
+
+func _after_warrant(r: Dictionary, lines: Array) -> void:
+	if r.slept:
+		lines.append(tr("SLEEPING"))
+	if session.outcome == CaseSession.ONGOING:
+		_show_main_actions()
+		_show_computer(lines)
+		return
+	clear_text()
+	for line in lines:
+		say(line)
 	_show_main_actions()
+
+
+static func _ids(suspects: Array) -> Array:
+	return suspects.map(func(s): return s.id)
 
 
 ## Dossiê no formato do PowerPoint, aberto pelo menu a qualquer hora. Quem não bate com
 ## os traços marcados aparece riscado; clicar num nome abre a ficha.
 func _show_dossier() -> void:
-	var compatible := _compatible_ids()
+	var compatible := _matches if not _matches.is_empty() else _ids(pack.suspects)
 	var entries := pack.suspects.map(func(s): return {
 		"name": s.name, "boss": s.get("boss", false), "ruled_out": not (s.id in compatible)})
 	var screen := DossierScreen.new()
@@ -542,10 +605,6 @@ func _show_dossier() -> void:
 	screen.picked.connect(_show_card.bind(screen))
 	screen.back_pressed.connect(hide_overlay)
 	show_overlay(screen, true)
-
-
-func _compatible_ids() -> Array:
-	return _compatible(_marks).map(func(s): return s.id)
 
 
 ## Ficha no estilo do cartão do original. Preso na carreira ganha carimbo verde.
@@ -558,7 +617,7 @@ func _show_card(index: int, screen: DossierScreen) -> void:
 	if s.id in detective.get("caught", []):
 		stamp = tr("STAMP_CAUGHT")
 		color = Palette.OK
-	elif not (s.id in _compatible_ids()):
+	elif not _matches.is_empty() and not (s.id in _matches):
 		stamp = tr("STAMP_RULED_OUT")
 	var rows := [[tr("DOSSIER_NAME"), d.full_name]]
 	if d.occupation != "":
