@@ -4,7 +4,7 @@ extends GameFrame
 
 const PACK_DIR := "res://content/parody"
 const LANGUAGES := {"pt_BR": "Português (Brasil)", "en": "English"}
-enum Verb { INVESTIGATE, TRAVEL, WARRANT, DOSSIER }
+enum Verb { INVESTIGATE, TRAVEL, WARRANT }
 
 var pack: ContentPack
 var session: CaseSession
@@ -15,8 +15,18 @@ var _marks: Dictionary = {}
 var _route: Array = []
 var _dossier_index := 0
 var _confirm: ConfirmationDialog
+var _quit: ConfirmationDialog
 var _info: AcceptDialog
 var _languages: PopupMenu
+## Nome digitado na identificação que não é o da carreira salva; vira carreira nova
+## se o jogador confirmar.
+var _pending_name := ""
+## Saudação do briefing: "" (nenhuma), "new" ou "back".
+var _greeting := ""
+## O briefing é de um caso salvo que foi retomado.
+var _resumed := false
+## Tela fora do caso (identificação, briefing) a redesenhar quando o idioma muda.
+var _redraw := Callable()
 
 
 func _ready() -> void:
@@ -28,19 +38,47 @@ func _ready() -> void:
 	verb_pressed.connect(_on_verb)
 	menu_pressed.connect(_on_menu)
 	_refresh_labels()
+	get_tree().set_auto_accept_quit(false)
 	detective = Career.load_saved()
-	if detective.is_empty():
-		_ask_name()
+	_show_welcome()
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		_on_close_request()
+
+
+## Com um caso em andamento, pergunta se salva antes de sair. No navegador o pedido de
+## fechar não chega; lá o caso só se perde.
+func _on_close_request() -> void:
+	if session == null or session.outcome != CaseSession.ONGOING:
+		get_tree().quit()
 		return
-	_new_case()
-	if detective.cases > 0:
-		say(tr("CAREER_RESUMED") % [detective.name, detective.cases])
+	_quit.dialog_text = tr("CONFIRM_SAVE_CASE")
+	_quit.ok_button_text = tr("BTN_SAVE_QUIT")
+	_quit.cancel_button_text = tr("BTN_CANCEL")
+	_quit.get_meta("discard").text = tr("BTN_QUIT_NO_SAVE")
+	_quit.popup_centered()
+
+
+func _quit_game(keep_case: bool) -> void:
+	var state := {}
+	if keep_case:
+		state = session.save_state()
+		state.marks = _marks
+	Career.save(detective, Career.PATH, state)
+	get_tree().quit()
 
 
 func _build_dialogs() -> void:
 	_confirm = ConfirmationDialog.new()
 	_confirm.confirmed.connect(_on_new_career)
 	add_child(_confirm)
+	_quit = ConfirmationDialog.new()
+	_quit.set_meta("discard", _quit.add_button("", true, "discard"))
+	_quit.confirmed.connect(_quit_game.bind(true))
+	_quit.custom_action.connect(func(_action): _quit_game(false))
+	add_child(_quit)
 	_info = AcceptDialog.new()
 	add_child(_info)
 	_languages = PopupMenu.new()
@@ -55,20 +93,24 @@ func _refresh_labels() -> void:
 	set_menu_texts({
 		"new_career": tr("BTN_NEW_CAREER"),
 		"rank": tr("MENU_RANK"),
+		"dossier": tr("MENU_DOSSIERS"),
 		"language": tr("MENU_LANGUAGE"),
 		"about": tr("MENU_ABOUT"),
 	})
-	set_verbs([tr("BTN_INVESTIGATE"), tr("BTN_TRAVEL"), tr("BTN_WARRANT"), tr("BTN_DOSSIERS")],
+	set_verbs([tr("BTN_INVESTIGATE"), tr("BTN_TRAVEL"), tr("BTN_WARRANT")],
 		tr("KEY_HINT"))
 
 
 func _on_menu(id: String) -> void:
 	match id:
 		"new_career":
+			_pending_name = ""
 			_confirm.dialog_text = tr("CONFIRM_NEW_CAREER")
 			_confirm.popup_centered()
 		"rank":
 			_show_info(tr("MENU_RANK"), _rank_text())
+		"dossier":
+			_show_dossier(_dossier_index)
 		"language":
 			_languages.popup(Rect2i(Vector2i(get_global_mouse_position()), Vector2i.ZERO))
 		"about":
@@ -97,14 +139,19 @@ func _on_language_selected(index: int) -> void:
 	TranslationServer.set_locale(code)
 	_refresh_labels()
 	if session == null:
-		_ask_name()
-		return
-	session.set_language(code)
-	# O que já está no painel fica como estava; a cidade é mostrada de novo no idioma novo.
-	if session.outcome == CaseSession.ONGOING:
+		pack.set_language(code)
+	else:
+		session.set_language(code)
+	if _redraw.is_valid():
+		_redraw.call()
+	elif session.outcome == CaseSession.ONGOING:
+		# O que já está no painel fica como estava; a cidade é mostrada de novo no idioma novo.
 		_show_city(false)
 	else:
-		_show_main_actions()
+		clear_text()
+		_refresh_status()
+		clear_choices()
+		_render_outcome()
 
 
 func _on_verb(index: int) -> void:
@@ -118,34 +165,57 @@ func _on_verb(index: int) -> void:
 			_show_destinations()
 		Verb.WARRANT:
 			_show_computer()
-		Verb.DOSSIER:
-			_show_dossier(_dossier_index)
 
 
-func _ask_name() -> void:
+## Abertura, como no original: boas-vindas da PF e identificação do agente. Com
+## carreira salva, o nome dela já vem no campo.
+func _show_welcome() -> void:
 	session = null
+	_redraw = _show_welcome
+	hide_overlay()
 	set_case("", "", 1.0)
 	set_header(tr("HQ_TITLE"))
 	show_scene(tr("HQ_TITLE"), tr("SCENE_ART") % "hq", Palette.PANEL)
 	set_notes("")
 	set_verbs_enabled(false)
 	clear_text()
-	say(tr("ASK_NAME"))
+	say(tr("WELCOME"))
+	say(tr("IDENTIFY"))
 	clear_choices()
 	var row := add_choice_row()
 	var field := LineEdit.new()
+	field.text = detective.get("name", "")
 	field.placeholder_text = tr("DEFAULT_AGENT")
 	field.custom_minimum_size.x = 220
-	field.text_submitted.connect(func(_text): _on_name_entered(field))
+	field.text_submitted.connect(func(_text): _on_identified(field))
 	row.add_child(field)
-	add_choice(row, tr("BTN_START"), _on_name_entered.bind(field))
+	add_choice(row, tr("BTN_START"), _on_identified.bind(field))
 	field.grab_focus.call_deferred()
 
 
-func _on_name_entered(field: LineEdit) -> void:
+## Mesmo nome da carreira salva: volta a ela. Outro nome: pede para começar outra.
+func _on_identified(field: LineEdit) -> void:
 	var agent_name := field.text.strip_edges()
-	detective = Career.fresh(agent_name if agent_name != "" else tr("DEFAULT_AGENT"))
+	if agent_name == "":
+		agent_name = tr("DEFAULT_AGENT")
+	if detective.is_empty():
+		_start_career(agent_name)
+	elif agent_name.to_lower() != str(detective.name).to_lower():
+		_pending_name = agent_name
+		_confirm.dialog_text = tr("CONFIRM_OTHER_AGENT") % [detective.name, agent_name]
+		_confirm.popup_centered()
+	else:
+		_greeting = "back"
+		var saved: Dictionary = detective.get("case", {})
+		detective.erase("case")
+		if saved.is_empty() or not _resume_case(saved):
+			_new_case()
+
+
+func _start_career(agent_name: String) -> void:
+	detective = Career.fresh(agent_name)
 	Career.save(detective)
+	_greeting = "new"
 	_new_case()
 
 
@@ -154,19 +224,74 @@ func _new_case() -> void:
 	session.start(detective)
 	_marks.clear()
 	_route = [session.crime_city]
+	_resumed = false
+	_show_briefing()
+
+
+## Refaz um caso salvo ao sair. Devolve false se o save não serve mais.
+func _resume_case(saved: Dictionary) -> bool:
+	session = CaseSession.new(pack, int(saved.get("seed", 0)))
+	session.start(detective)
+	var actions: Array = saved.get("actions", [])
+	if not session.replay(actions):
+		return false
+	_marks = saved.get("marks", {})
+	_route = [session.crime_city]
+	for a in actions:
+		if a[0] == "travel":
+			_route.append(a[1])
+	_resumed = true
+	_show_briefing()
+	return true
+
+
+## Briefing do caso, como o "*** FLASH ***" do original: o roubo, o suspeito, a missão
+## e o prazo. O caso só começa quando o jogador aceita.
+func _show_briefing() -> void:
+	_redraw = _show_briefing
 	hide_overlay()
+	_refresh_status()
+	set_header(tr("HQ_TITLE"))
+	show_scene(tr("BRIEFING_TITLE"), tr("SCENE_ART") % "hq", Palette.PANEL)
+	set_verbs_enabled(false)
 	clear_text()
+	var rank: String = pack.ranks[detective.rank].name
+	match _greeting:
+		"new":
+			say(tr("AGENT_NEW") % [detective.name, rank])
+		"back":
+			say(tr("AGENT_BACK") % [detective.name, rank, detective.cases])
+	if _resumed:
+		say(tr("CASE_RESUMED"))
+	var crime_city: String = pack.city(session.crime_city).name
 	var deadline: Dictionary = session.difficulty.deadline
-	say(tr("ALERT_THEFT") % [session.treasure(), pack.city(session.crime_city).name])
+	say("\n" + _highlight(tr("BRIEFING_FLASH")))
+	say(tr("ALERT_THEFT") % [session.treasure(), crime_city])
 	say(tr("SUSPECT_SEEN") % _sex_name().to_lower())
+	say(tr("MISSION") % crime_city)
 	say(tr("DEADLINE") % [_day_name(deadline.day), tr("HOUR_FMT") % deadline.hour])
-	_show_city(false)
+	say(tr("GOOD_LUCK") % [rank, detective.name])
+	clear_choices()
+	var bar := add_choice_bar()
+	add_spacer(bar)
+	add_choice(bar, tr("BTN_CONTINUE") if _resumed else tr("BTN_ACCEPT"), _accept_case)
+
+
+func _accept_case() -> void:
+	_redraw = Callable()
+	_greeting = ""
+	_resumed = false
+	_show_city()
 
 
 func _on_new_career() -> void:
 	Career.erase()
 	detective = {}
-	_ask_name()
+	if _pending_name != "":
+		_start_career(_pending_name)
+		_pending_name = ""
+	else:
+		_show_welcome()
 
 
 func _sex_name() -> String:
@@ -271,7 +396,7 @@ func _on_investigate(slot: int) -> void:
 	var type := pack.location_type(type_id)
 	show_scene(r.witness, tr("SCENE_ART") % ("witnesses/" + type_id), _tint(type_id))
 	clear_text()
-	_say_event(r.event)
+	_say_event(r.event, r.danger)
 	if r.text != "":
 		say(_highlight("%s (%s):" % [r.witness, type.name]))
 		say(r.text)
@@ -280,14 +405,14 @@ func _on_investigate(slot: int) -> void:
 	_show_main_actions()
 
 
-func _say_event(event: String) -> void:
+func _say_event(event: String, danger: int) -> void:
 	match event:
 		"capture":
 			say(tr("FOUND_HIDEOUT"))
 		"henchman":
 			say("[i]%s[/i]" % pack.texts.henchman)
 		"danger":
-			say("[i]%s[/i]" % session.rng.pick(pack.texts.danger))
+			say("[i]%s[/i]" % pack.texts.danger[danger])
 
 
 ## Viajar: mapa em tela cheia, com um botão por destino; passar o mouse destaca a rota.
@@ -403,38 +528,42 @@ func _on_compute() -> void:
 	_show_main_actions()
 
 
-## Dossiê: um suspeito por vez, com setas para folhear. Quem não bate com os traços
-## marcados aparece carimbado como descartado.
+## Dossiê: um suspeito por vez, com setas para folhear. Abre pelo menu, a qualquer
+## hora. Quem não bate com os traços marcados aparece carimbado como descartado.
 func _show_dossier(index: int) -> void:
 	_dossier_index = posmod(index, pack.suspects.size())
 	var id: String = pack.suspects[_dossier_index].id
-	var d := pack.dossier(id)
 	var ruled_out := not _compatible(_marks).any(func(s): return s.id == id)
-	show_scene(d.full_name, tr("SCENE_ART") % ("suspects/" + id), _tint(id),
-		tr("STAMP_RULED_OUT") if ruled_out else "")
-	clear_text()
-	_say_dossier(d)
-	clear_choices()
-	var bar := add_choice_bar()
-	add_choice(bar, "<", _show_dossier.bind(_dossier_index - 1))
-	add_choice(bar, ">", _show_dossier.bind(_dossier_index + 1))
-	add_spacer(bar)
-	add_choice(bar, tr("BTN_BACK"), _show_city)
+	var d := pack.dossier(id)
+	var screen := DossierScreen.new()
+	screen.setup(tr("BTN_BACK"))
+	screen.turned.connect(func(step): _show_dossier(_dossier_index + step))
+	screen.back_pressed.connect(hide_overlay)
+	show_overlay(screen)
+	screen.show_entry(d.full_name, tr("SCENE_ART") % ("suspects/" + id), _tint(id),
+		tr("STAMP_RULED_OUT") if ruled_out else "", _dossier_sheet(d))
 
 
-func _say_dossier(d: Dictionary) -> void:
-	say(_highlight("%s %d/%d" % [tr("DOSSIER_TITLE"), _dossier_index + 1, pack.suspects.size()]))
-	say("%s: %s" % [tr("DOSSIER_NAME"), d.full_name])
+func _dossier_sheet(d: Dictionary) -> String:
+	var lines := [_highlight("%s %d/%d" % [tr("DOSSIER_TITLE"), _dossier_index + 1, pack.suspects.size()])]
+	lines.append("%s: %s" % [tr("DOSSIER_NAME"), d.full_name])
 	if d.occupation != "":
-		say("%s: %s" % [tr("DOSSIER_OCCUPATION"), d.occupation])
+		lines.append("%s: %s" % [tr("DOSSIER_OCCUPATION"), d.occupation])
 	for row in d.traits:
-		say("%s: %s" % [row.name, row.value])
+		lines.append("%s: %s" % [row.name, row.value])
 	if not d.notes.is_empty():
-		say("%s: %s" % [tr("DOSSIER_NOTES"), " ".join(d.notes)])
+		lines.append("%s: %s" % [tr("DOSSIER_NOTES"), " ".join(d.notes)])
+	return "\n".join(lines)
 
 
-## Desfecho: a cena mostra a prisão ou a fuga e o texto conta o resultado.
+## Desfecho: salva a carreira (sem caso em andamento) e conta o resultado.
 func _show_outcome() -> void:
+	Career.save(detective)
+	_render_outcome()
+
+
+## A cena mostra a prisão ou a fuga e o texto conta o resultado.
+func _render_outcome() -> void:
 	var arrested := session.outcome == CaseSession.ARRESTED
 	show_scene(tr("SCENE_ARRESTED") if arrested else tr("SCENE_ESCAPED"),
 		tr("SCENE_ART") % ("outcomes/" + ("arrest" if arrested else "escape")),
@@ -442,7 +571,6 @@ func _show_outcome() -> void:
 	say(_outcome_text())
 	if session.promoted:
 		say(tr("PROMOTED") % pack.ranks[detective.rank].name)
-	Career.save(detective)
 	_show_next_step()
 
 

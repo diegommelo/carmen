@@ -34,6 +34,7 @@ func _initialize() -> void:
 	_test_shortcut(pack)
 	_test_trait_clues_factor(pack)
 	_test_career_save()
+	_test_saved_case(pack)
 	_test_no_money(pack)
 	_test_pack_consistency(pack, "provisório")
 	_test_parody()
@@ -483,8 +484,47 @@ func _test_career_save() -> void:
 	check(Career.load_saved(path).is_empty(), "apagou a carreira")
 
 
+## Um caso salvo no meio e refeito a partir da semente e das ações fica igual ao original.
+func _test_saved_case(pack: ContentPack) -> void:
+	var path := "user://test_case.json"
+	var agent := {"name": "Moro", "cases": 2, "rank": 1, "caught": []}
+	var s := CaseSession.new(pack, 4242)
+	s.start(agent)
+	s.investigate(0)
+	var wrong: Array = s.destinations().filter(func(c): return c != s.next_city)
+	if not wrong.is_empty():
+		s.travel(wrong[0])
+		s.investigate(1)
+		s.travel(s.destinations()[0])
+	s.compute_warrant({pack.rules.sex_trait: s.suspect.traits[pack.rules.sex_trait]})
+	check(s.outcome == CaseSession.ONGOING, "caso de teste ainda em andamento")
+	var state := s.save_state()
+	state.marks = {"sex": "f"}
+	check(Career.save(agent, path, state), "salvou carreira com caso")
+	var loaded := Career.load_saved(path)
+	Career.erase(path)
+	check(loaded.has("case") and loaded.case.marks == {"sex": "f"}, "o caso volta junto com a carreira")
+	var saved: Dictionary = loaded.case
+	loaded.erase("case")
+	var t := CaseSession.new(pack, int(saved.seed))
+	t.start(loaded)
+	check(t.replay(saved.actions), "refez as ações salvas")
+	check(t.current_city == s.current_city and t.next_city == s.next_city and t.steps_left == s.steps_left,
+		"mesma cidade e mesma rota depois de refazer")
+	check(t.clock.day == s.clock.day and t.clock.hour == s.clock.hour and t.budget == s.budget,
+		"mesmo relógio e mesma verba depois de refazer")
+	check(t.warrant_id == s.warrant_id and t.rng.seed == s.rng.seed, "mesmo mandado e mesmo sorteio depois de refazer")
+	check(range(t.places.size()).all(func(i): return t.place_text(i) == s.place_text(i)), "mesmas testemunhas depois de refazer")
+	var u := CaseSession.new(pack, int(saved.seed))
+	u.start(loaded)
+	check(not u.replay([["travel", "nowhere"]]), "ação que não cabe no caso invalida o save")
+	check(Career.save(agent, path), "salvou de novo sem caso")
+	check(not Career.load_saved(path).has("case"), "salvar sem caso descarta o caso anterior")
+	Career.erase(path)
+
+
 ## Scripts que os testes não usam direto também precisam compilar.
 func _test_scripts_compile() -> void:
-	for path in ["res://ui/main.gd"]:
+	for path in ["res://ui/main.gd", "res://ui/screens/dossier_screen.gd"]:
 		var script: GDScript = load(path)
 		check(script != null and script.can_instantiate(), "script não compila: " + path)

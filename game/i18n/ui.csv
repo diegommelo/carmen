@@ -1,5 +1,5 @@
 keys,en,pt_BR
-ALERT_THEFT,[b]Alert![/b] %s was stolen in %s.,[b]Alerta![/b] Roubaram %s em %s.
+ALERT_THEFT,%s was stolen in %s.,Roubaram %s em %s.
 SUSPECT_SEEN,%s suspect seen at the scene of the crime.,Suspeito do sexo %s visto no local do crime.
 DEADLINE,"Deadline: %s, %s.","Prazo: %s, %s."
 HOUR_FMT,%d:00,%dh
@@ -14,7 +14,7 @@ WARRANT_NONE,none,nenhum
 DEFAULT_AGENT,Agent,Agente
 BTN_TRAVEL,Travel,Viajar
 BTN_BACK,Back,Voltar
-BTN_DOSSIERS,Dossiers,Dossiês
+MENU_DOSSIERS,Dossiers,Dossiês
 BTN_ISSUE_WARRANT,Issue warrant,Emitir mandado
 BTN_NEW_CASE,New case,Novo caso
 TRAVEL_OPTION,%s (%d h),%s (%dh)
@@ -35,12 +35,10 @@ DOSSIER_OCCUPATION,Occupation,Ocupação
 DOSSIER_NOTES,Other,Outros
 SHORTCUT,"[b]With the warrant in hand, headquarters traced the suspect's phone: the hideout is in this city![/b]","[b]Com o mandado em mãos, a central rastreou o celular: o esconderijo é nesta cidade![/b]"
 CAREER_DONE,[b]The boss is behind bars. Career complete![/b],[b]O chefe está atrás das grades. Carreira concluída![/b]
-CAREER_RESUMED,"Welcome back, %s: %d cases solved.","Bem-vindo de volta, %s: %d casos resolvidos."
 BTN_NEW_CAREER,New career,Nova carreira
 STATUS_BUDGET,Budget: %s,Verba: %s
 MONEY_FMT,R$ %d,R$ %d
 OUTCOME_MONEY,The operation ran out of money for tickets. %s got away.,A verba da operação acabou e não dá para comprar passagem. %s escapou.
-ASK_NAME,"[b]Welcome to the Federal Police.[/b] What is your name, agent?","[b]Bem-vindo à Polícia Federal.[/b] Qual é o seu nome, agente?"
 BTN_START,Start,Começar
 NEXT_RANK,%d more cases until your promotion to %s.,Faltam %d casos para a promoção a %s.
 NEXT_RANK_ONE,One more case until your promotion to %s.,Falta 1 caso para a promoção a %s.
@@ -76,3 +74,21 @@ WARRANT_COUNT,"Matching suspects: %d
 STAMP_RULED_OUT,RULED OUT,DESCARTADO
 SCENE_ARRESTED,Arrested!,Preso!
 SCENE_ESCAPED,Got away!,Fugiu!
+WELCOME,"[b]FEDERAL POLICE[/b]
+Agent identification system.","[b]POLÍCIA FEDERAL[/b]
+Sistema de identificação de agentes."
+IDENTIFY,Please identify yourself:,"Identifique-se, por favor:"
+CONFIRM_OTHER_AGENT,The saved career belongs to agent %s. Start a new career as %s? The current one will be lost.,A carreira salva é do agente %s. Começar uma nova carreira como %s? A atual será perdida.
+AGENT_NEW,New agent registered: %s. Rank: %s.,Novo agente cadastrado: %s. Patente: %s.
+AGENT_BACK,"Identity confirmed. Agent %s, rank %s, %d cases solved.","Identidade confirmada. Agente %s, patente %s, %d casos resolvidos."
+CASE_RESUMED,You have a case in progress.,Você tem um caso em andamento.
+BRIEFING_TITLE,Urgent!,Urgente!
+BRIEFING_FLASH,*** URGENT ***,*** URGENTE ***
+MISSION,Your mission: follow the trail from %s to the hideout and make the arrest.,Sua missão: seguir o rastro desde %s até o esconderijo e efetuar a prisão.
+GOOD_LUCK,"Good luck, %s %s.","Boa sorte, %s %s."
+BTN_ACCEPT,Accept mission,Aceitar missão
+BTN_CONTINUE,Continue,Continuar
+CONFIRM_SAVE_CASE,Save the case in progress before quitting?,Salvar o caso em andamento antes de sair?
+BTN_SAVE_QUIT,Save and quit,Salvar e sair
+BTN_QUIT_NO_SAVE,Quit without saving,Sair sem salvar
+BTN_CANCEL,Cancel,Cancelar
