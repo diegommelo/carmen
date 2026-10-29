@@ -16,8 +16,34 @@
     "comida": "mexicana"
    },
    "dossier": {
-    "pt_BR": "Líder da quadrilha. Nunca aparece sem um colar de rubis.",
-    "en": "Leader of the gang. Never seen without a ruby necklace."
+    "full_name": {
+     "pt_BR": "A Chefona",
+     "en": "The Boss"
+    },
+    "occupation": {
+     "pt_BR": "Ex-professora de geografia que decorou todos os mapas",
+     "en": "Former geography teacher who memorized every map"
+    },
+    "traits": {
+     "cabelo": {
+      "pt_BR": "Ruivo acobreado",
+      "en": "Copper red"
+     },
+     "veiculo": {
+      "pt_BR": "Conversível vermelho de 1957",
+      "en": "Red 1957 convertible"
+     },
+     "marca": {
+      "pt_BR": "Nunca aparece sem um colar de rubis",
+      "en": "Never seen without a ruby necklace"
+     }
+    },
+    "notes": [
+     {
+      "pt_BR": "Líder da quadrilha. Viaja com uma mala de pimentas secas.",
+      "en": "Leader of the gang. Travels with a suitcase of dried chili peppers."
+     }
+    ]
    }
   },
   {
@@ -36,8 +62,30 @@
     "comida": "frutos_do_mar"
    },
    "dossier": {
-    "pt_BR": "Ex-alpinista. Tem uma águia tatuada no braço.",
-    "en": "Former mountain climber. Has an eagle tattooed on his arm."
+    "full_name": {
+     "pt_BR": "Arnaldo \"Dedo Leve\" Pires",
+     "en": "Arnaldo \"Light Fingers\" Pires"
+    },
+    "occupation": {
+     "pt_BR": "Ex-alpinista e batedor de carteiras",
+     "en": "Former climber and pickpocket"
+    },
+    "traits": {
+     "marca": {
+      "pt_BR": "Águia tatuada no braço direito",
+      "en": "Eagle tattooed on his right arm"
+     },
+     "veiculo": {
+      "pt_BR": "Moto de trilha enlameada",
+      "en": "Muddy dirt bike"
+     }
+    },
+    "notes": [
+     {
+      "pt_BR": "Pede moqueca em qualquer cidade.",
+      "en": "Orders fish stew in every city."
+     }
+    ]
    }
   },
   {
@@ -56,8 +104,26 @@
     "comida": "mexicana"
    },
    "dossier": {
-    "pt_BR": "Colecionadora de joias e de passaportes falsos.",
-    "en": "Collects jewels and fake passports."
+    "full_name": {
+     "pt_BR": "Madame X",
+     "en": "Madame X"
+    },
+    "occupation": {
+     "pt_BR": "Colecionadora de joias e de passaportes falsos",
+     "en": "Collector of jewels and fake passports"
+    },
+    "traits": {
+     "veiculo": {
+      "pt_BR": "Limusine preta com vidros escuros",
+      "en": "Black limousine with tinted windows"
+     }
+    },
+    "notes": [
+     {
+      "pt_BR": "Nunca recusa um taco apimentado.",
+      "en": "Never turns down a spicy taco."
+     }
+    ]
    }
   },
   {
@@ -76,8 +142,26 @@
     "comida": "mexicana"
    },
    "dossier": {
-    "pt_BR": "Ex-tenista profissional. Usa um anel do tamanho de uma noz.",
-    "en": "Former tennis pro. Wears a ring the size of a walnut."
+    "full_name": {
+     "pt_BR": "Doutor Zeferino Zanetti",
+     "en": "Doctor Zeferino Zanetti"
+    },
+    "occupation": {
+     "pt_BR": "Ex-tenista profissional",
+     "en": "Former tennis pro"
+    },
+    "traits": {
+     "marca": {
+      "pt_BR": "Anel do tamanho de uma noz",
+      "en": "Ring the size of a walnut"
+     }
+    },
+    "notes": [
+     {
+      "pt_BR": "Diz que o melhor burrito do mundo fica num posto de estrada.",
+      "en": "Claims the best burrito in the world is at a roadside gas station."
+     }
+    ]
    }
   },
   {
@@ -96,8 +180,26 @@
     "comida": "frutos_do_mar"
    },
    "dossier": {
-    "pt_BR": "Surfista que vive de cidade em cidade.",
-    "en": "A surfer who drifts from city to city."
+    "full_name": {
+     "pt_BR": "Baronesa Valquíria von Onda",
+     "en": "Baroness Valkyrie von Wave"
+    },
+    "occupation": {
+     "pt_BR": "Surfista que vive de cidade em cidade",
+     "en": "Surfer who drifts from city to city"
+    },
+    "traits": {
+     "marca": {
+      "pt_BR": "Tatuagem de onda no tornozelo",
+      "en": "Wave tattoo on her ankle"
+     }
+    },
+    "notes": [
+     {
+      "pt_BR": "Come camarão no café da manhã.",
+      "en": "Eats shrimp for breakfast."
+     }
+    ]
    }
   },
   {
@@ -116,8 +218,26 @@
     "comida": "frutos_do_mar"
    },
    "dossier": {
-    "pt_BR": "Mestre dos disfarces. Só anda de limusine.",
-    "en": "Master of disguise. Only travels by limousine."
+    "full_name": {
+     "pt_BR": "Sombra",
+     "en": "Shadow"
+    },
+    "occupation": {
+     "pt_BR": "Mestre dos disfarces",
+     "en": "Master of disguise"
+    },
+    "traits": {
+     "veiculo": {
+      "pt_BR": "Só anda de limusine",
+      "en": "Only travels by limousine"
+     }
+    },
+    "notes": [
+     {
+      "pt_BR": "Ninguém sabe o nome verdadeiro. Adora ostras.",
+      "en": "Nobody knows his real name. Loves oysters."
+     }
+    ]
    }
   }
  ]
