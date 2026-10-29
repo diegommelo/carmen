@@ -43,7 +43,6 @@ NEXT_RANK_ONE,One more case until your promotion to %s.,Falta 1 caso para a prom
 BTN_INVESTIGATE,Investigate,Investigar
 BTN_WARRANT,Warrant,Mandado
 KEY_HINT,key %d,tecla %d
-MENU_RANK,Rank,Patente
 MENU_LANGUAGE,Language,Idioma
 MENU_ABOUT,About,Sobre
 ABOUT_TEXT,"Where in the World Are the Bolsonaros? is a parody of the detective games of the 90s, made in Godot.
@@ -54,7 +53,6 @@ Rank: %s
 Cases solved: %d","Agente %s
 Patente: %s
 Casos resolvidos: %d"
-RANK_NO_CAREER,No career yet.,Nenhuma carreira ainda.
 HQ_TITLE,Federal Police HQ,Sede da PF
 SCENE_ART,art: %s,arte: %s
 DEADLINE_SHORT,Deadline: %s,Prazo: %s
@@ -93,9 +91,15 @@ JUDGE_TITLE,Supreme Court,Supremo Tribunal Federal
 BTN_SEARCH,Search,Buscar
 ONE_MATCH,Only %s matches these traits.,Só %s bate com esses traços.
 WARRANT_NOT_ISSUED,No warrant: it must point to a single suspect. The request counted as a search.,Sem mandado: ele precisa apontar um único suspeito. O pedido contou como busca.
-MENU_AGENTS,Agents,Agentes
-AGENTS_TITLE,[b]FEDERAL POLICE AGENT FILES[/b],[b]FICHÁRIO DE AGENTES DA PF[/b]
 AGENTS_ONGOING,* case in progress,* caso em andamento
 BTN_NEW_AGENT,New agent,Novo agente
 BTN_DELETE,Delete,Apagar
 CONFIRM_DELETE_AGENT,Delete agent %s? Their career will be lost.,Apagar o agente %s? A carreira dele será perdida.
+MENU_GAME,Game,Jogo
+MENU_PF,PF,PF
+AGENTS_TITLE,FEDERAL POLICE AGENT FILES,FICHÁRIO DE AGENTES DA PF
+AGENTS_HINT,Pick an agent to see their file.,Escolha um agente para ver a ficha.
+AGENTS_EMPTY,No agents on file.,Nenhum agente no fichário.
+AGENTS_FULL,The agent file is full. Delete an agent in the PF menu to register a new one.,O fichário está cheio. Apague um agente no menu PF para cadastrar outro.
+AGENT_ONGOING_CASE,Case in progress.,Caso em andamento.
+CONFIRM_NEW_CASE,Start a new case? The open case will be lost.,Começar um caso novo? O caso aberto será perdido.

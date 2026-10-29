@@ -1,14 +1,15 @@
 class_name Career
 extends RefCounted
 ## Fichário de agentes salvo entre partidas, como o ACME.DAT do original:
-## {"current": índice, "agents": [{name, cases, rank, caught}]}. O caso em andamento de
-## cada agente fica no próprio agente, em "case" ({seed, actions, marks}).
+## {"agents": [{name, cases, rank, caught}]}. O caso em andamento de cada agente fica no
+## próprio agente, em "case" ({seed, actions, marks}). Como no original, o jogador entra
+## dizendo o nome; um nome novo cadastra um agente.
 ## No navegador, user:// fica guardado pelo próprio navegador.
 
 const PATH := "user://agents.json"
 ## Save de antes do fichário, com um agente só: vira o primeiro agente do fichário.
 const LEGACY_PATH := "user://career.json"
-## O original guardava 12; aqui cabem 8 no painel de texto sem rolar.
+## O original guardava 12; aqui cabem 8 na tela PF sem rolar.
 const MAX_AGENTS := 8
 const MAX_NAME := 16
 
@@ -18,7 +19,7 @@ static func fresh(agent_name: String) -> Dictionary:
 
 
 static func empty_roster() -> Dictionary:
-	return {"current": -1, "agents": []}
+	return {"agents": []}
 
 
 ## Sem arquivo (ou com arquivo estragado), devolve um fichário vazio. Agentes estragados
@@ -29,7 +30,7 @@ static func load_roster(path: String = PATH, legacy_path: String = LEGACY_PATH) 
 		var old := _parse_agent(_read_json(legacy_path))
 		if old.is_empty():
 			return roster
-		roster = {"current": 0, "agents": [old]}
+		roster.agents.append(old)
 		if save_roster(roster, path):
 			erase(legacy_path)
 		return roster
@@ -40,7 +41,6 @@ static func load_roster(path: String = PATH, legacy_path: String = LEGACY_PATH) 
 		var agent := _parse_agent(entry)
 		if not agent.is_empty():
 			roster.agents.append(agent)
-	roster.current = clampi(int(data.get("current", -1)), -1, roster.agents.size() - 1)
 	return roster
 
 
@@ -52,27 +52,20 @@ static func save_roster(roster: Dictionary, path: String = PATH) -> bool:
 	return true
 
 
-## O agente escolhido, o mesmo dicionário que está no fichário; {} se não há.
-static func current(roster: Dictionary) -> Dictionary:
-	var i: int = roster.current
-	return roster.agents[i] if i >= 0 and i < roster.agents.size() else {}
+## O agente com esse nome (sem diferenciar maiúsculas), o mesmo dicionário que está no
+## fichário; {} se não há.
+static func find(roster: Dictionary, agent_name: String) -> Dictionary:
+	for agent in roster.agents:
+		if agent.name.to_lower() == agent_name.to_lower():
+			return agent
+	return {}
 
 
 static func add(roster: Dictionary, agent: Dictionary) -> bool:
 	if roster.agents.size() >= MAX_AGENTS:
 		return false
 	roster.agents.append(agent)
-	roster.current = roster.agents.size() - 1
 	return true
-
-
-## Apagar o agente escolhido deixa o fichário sem ninguém escolhido.
-static func remove(roster: Dictionary, index: int) -> void:
-	roster.agents.remove_at(index)
-	if roster.current == index:
-		roster.current = -1
-	elif roster.current > index:
-		roster.current -= 1
 
 
 static func erase(path: String = PATH) -> void:

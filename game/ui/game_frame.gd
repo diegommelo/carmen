@@ -10,7 +10,7 @@ signal typing_finished
 signal animation_finished
 signal continued
 
-const MENU_IDS := ["agents", "rank", "dossier", "language", "about"]
+const MENU_IDS := ["game", "pf", "dossier"]
 const VERB_COUNT := 3
 ## Caracteres por segundo da máquina de escrever.
 const TYPE_SPEED := 60.0
@@ -263,6 +263,12 @@ static func heading(text: String) -> Label:
 	label.text = text
 	label.add_theme_color_override("font_color", Palette.HIGHLIGHT)
 	return label
+
+
+## Canto de baixo à esquerda do item do menu, onde abre o submenu dele.
+func menu_anchor(id: String) -> Vector2i:
+	var b: Button = _menu[id]
+	return Vector2i(b.global_position + Vector2(0, b.size.y))
 
 
 func set_menu_texts(texts: Dictionary) -> void:

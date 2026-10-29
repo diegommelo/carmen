@@ -480,19 +480,14 @@ func _test_career_save() -> void:
 	Career.erase(path)
 	Career.erase(legacy)
 	var roster := Career.load_roster(path, legacy)
-	check(roster.agents.is_empty() and Career.current(roster).is_empty(), "sem arquivo, fichário vazio")
+	check(roster.agents.is_empty(), "sem arquivo, fichário vazio")
 	var moro := {"name": "Moro", "cases": 3, "rank": 2, "caught": ["a", "b", "c"]}
-	var dallagnol := Career.fresh("Dallagnol")
-	check(Career.add(roster, moro) and Career.add(roster, dallagnol), "cadastrou dois agentes")
-	check(Career.current(roster) == dallagnol, "o último cadastrado fica escolhido")
-	roster.current = 0
-	Career.current(roster).cases = 4
+	check(Career.add(roster, moro) and Career.add(roster, Career.fresh("Dallagnol")), "cadastrou dois agentes")
+	Career.find(roster, "moro").cases = 4
 	check(Career.save_roster(roster, path), "salvou o fichário")
 	var loaded := Career.load_roster(path, legacy)
-	check(loaded.agents.size() == 2 and Career.current(loaded).name == "Moro", "fichário lido com o agente escolhido")
-	check(Career.current(loaded).cases == 4, "mexer no agente escolhido mexe no fichário: %s" % [loaded])
-	Career.remove(loaded, 0)
-	check(loaded.current == -1 and loaded.agents[0].name == "Dallagnol", "apagar o escolhido não deixa ninguém escolhido")
+	check(loaded.agents.size() == 2 and Career.find(loaded, "MORO").cases == 4, "agente achado pelo nome: %s" % [loaded])
+	check(Career.find(loaded, "Deltan").is_empty(), "nome fora do fichário não acha ninguém")
 	for i in Career.MAX_AGENTS:
 		Career.add(loaded, Career.fresh("A%d" % i))
 	check(loaded.agents.size() == Career.MAX_AGENTS, "o fichário tem limite")
@@ -501,7 +496,7 @@ func _test_career_save() -> void:
 	f.store_string(JSON.stringify(moro))
 	f.close()
 	var migrated := Career.load_roster(path, legacy)
-	check(migrated.agents.size() == 1 and Career.current(migrated) == moro, "save antigo vira o primeiro agente")
+	check(migrated.agents.size() == 1 and migrated.agents[0] == moro, "save antigo vira o primeiro agente")
 	check(FileAccess.file_exists(path) and not FileAccess.file_exists(legacy), "save antigo trocado pelo fichário")
 	Career.erase(path)
 
@@ -522,10 +517,10 @@ func _test_saved_case(pack: ContentPack) -> void:
 	check(s.outcome == CaseSession.ONGOING, "caso de teste ainda em andamento")
 	var roster := Career.empty_roster()
 	Career.add(roster, agent.duplicate(true))
-	Career.current(roster).case = s.save_state()
-	Career.current(roster).case.marks = {"sex": "f"}
+	roster.agents[0].case = s.save_state()
+	roster.agents[0].case.marks = {"sex": "f"}
 	check(Career.save_roster(roster, path), "salvou o fichário com caso")
-	var loaded := Career.current(Career.load_roster(path, ""))
+	var loaded: Dictionary = Career.load_roster(path, "").agents[0]
 	Career.erase(path)
 	check(loaded.has("case") and loaded.case.marks == {"sex": "f"}, "o caso volta junto com o agente")
 	var saved: Dictionary = loaded.case
