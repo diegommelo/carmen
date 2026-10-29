@@ -217,8 +217,10 @@ func _statement(type: Dictionary, there: Dictionary) -> Dictionary:
 	var c := start
 	while true:
 		var trait_def: Dictionary = clue_traits[c]
-		if rng.roll(255) <= int(type.clue_chance.get(trait_def.id, 0)):
-			var phrases: Array = trait_def.clues.get(suspect.traits[trait_def.id], [])
+		var value: String = suspect.traits[trait_def.id]
+		var chance := int(type.clue_chance.get(trait_def.id, 0) * float(trait_def.get("clue_weight", {}).get(value, 1.0)))
+		if rng.roll(255) <= chance:
+			var phrases: Array = trait_def.clues.get(value, [])
 			recipe.trait = trait_def.id
 			recipe.trait_i = rng.index(phrases) if not phrases.is_empty() else -1
 			break
