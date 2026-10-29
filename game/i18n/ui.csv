@@ -44,3 +44,6 @@ MONEY_FMT,R$ %d,R$ %d
 OUTCOME_MONEY,The operation ran out of money for tickets. %s got away.,A verba da operação acabou e não dá para comprar passagem. %s escapou.
 ASK_NAME,"[b]Welcome to the Federal Police.[/b] What is your name, agent?","[b]Bem-vindo à Polícia Federal.[/b] Qual é o seu nome, agente?"
 BTN_START,Start,Começar
+NEXT_RANK,%d more cases until your promotion to %s.,Faltam %d casos para a promoção a %s.
+NEXT_RANK_ONE,One more case until your promotion to %s.,Falta 1 caso para a promoção a %s.
+CONFIRM_NEW_CAREER,Start a new career? The current one will be lost.,Começar uma nova carreira? A atual será perdida.

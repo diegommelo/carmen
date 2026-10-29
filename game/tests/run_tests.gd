@@ -342,6 +342,8 @@ func _test_parody() -> void:
 	var low := pack.rank_rules(0)
 	check(top.trait_clues < low.trait_clues and top.shortcut_chance > low.shortcut_chance, "paródia: patente alta dá menos pistas e mais atalho")
 	_test_money(pack)
+	check(pack.cases_to_next_rank(0) == 2 and pack.cases_to_next_rank(3) == 1, "paródia: casos até a próxima patente")
+	check(pack.cases_to_next_rank(9) == 0 and pack.cases_to_next_rank(10) == 0, "paródia: na última patente não falta nada")
 	_test_shortcut_min_flights(pack)
 	_test_lookalike(pack)
 

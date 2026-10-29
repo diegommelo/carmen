@@ -14,6 +14,8 @@ var _language: OptionButton
 var _log: RichTextLabel
 var _actions: HFlowContainer
 var _marks: Dictionary = {}
+var _new_career: Button
+var _confirm: ConfirmationDialog
 
 
 func _ready() -> void:
@@ -52,6 +54,14 @@ func _build_layout() -> void:
 			_language.selected = _language.item_count - 1
 	_language.item_selected.connect(_on_language_selected)
 	top.add_child(_language)
+	_new_career = Button.new()
+	_new_career.text = tr("BTN_NEW_CAREER")
+	_new_career.pressed.connect(_confirm_new_career)
+	top.add_child(_new_career)
+	_confirm = ConfirmationDialog.new()
+	_confirm.dialog_text = tr("CONFIRM_NEW_CAREER")
+	_confirm.confirmed.connect(_on_new_career)
+	add_child(_confirm)
 	_log = RichTextLabel.new()
 	_log.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_log.scroll_following = true
@@ -64,6 +74,7 @@ func _build_layout() -> void:
 func _on_language_selected(index: int) -> void:
 	var code: String = _language.get_item_metadata(index)
 	TranslationServer.set_locale(code)
+	_new_career.text = tr("BTN_NEW_CAREER")
 	if session == null:
 		_show_name_prompt()
 		return
@@ -114,6 +125,11 @@ func _new_case() -> void:
 func _on_new_case() -> void:
 	_log.clear()
 	_new_case()
+
+
+func _confirm_new_career() -> void:
+	_confirm.dialog_text = tr("CONFIRM_NEW_CAREER")
+	_confirm.popup_centered()
 
 
 func _on_new_career() -> void:
@@ -298,6 +314,10 @@ func _show_outcome() -> void:
 	Career.save(detective)
 	if session.boss_arrested:
 		_say(tr("CAREER_DONE"))
-	else:
-		_button(tr("BTN_NEW_CASE"), _on_new_case)
-	_button(tr("BTN_NEW_CAREER"), _on_new_career)
+		_button(tr("BTN_NEW_CAREER"), _on_new_career)
+		return
+	var left := pack.cases_to_next_rank(detective.cases)
+	if left > 0:
+		var next_rank: String = pack.ranks[detective.rank + 1].name
+		_say(tr("NEXT_RANK_ONE") % next_rank if left == 1 else tr("NEXT_RANK") % [left, next_rank])
+	_button(tr("BTN_NEW_CASE"), _on_new_case)
