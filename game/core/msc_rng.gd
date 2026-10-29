@@ -23,6 +23,5 @@ func pick(items: Array) -> Variant:
 	return items[index(items)]
 
 
-## Índice aleatório de um Array não vazio.
 func index(items: Array) -> int:
 	return roll(items.size() - 1)
