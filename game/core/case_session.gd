@@ -108,10 +108,13 @@ func replay(saved: Array) -> bool:
 				if not (city_id in destinations()) or not can_afford(city_id):
 					return false
 				travel(city_id)
-			"warrant":
+			"search", "warrant":
 				if typeof(a[1]) != TYPE_DICTIONARY:
 					return false
-				compute_warrant(a[1])
+				if a[0] == "search":
+					search(a[1])
+				else:
+					issue_warrant(a[1])
 			_:
 				return false
 	return outcome == ONGOING
@@ -247,18 +250,49 @@ func investigate(slot: int) -> Dictionary:
 		"slept": tick.slept, "event": event, "danger": danger}
 
 
-## Computador da Interpol. `marks` = {id_do_traço: valor} só com os traços conhecidos.
-## Devolve os suspeitos compatíveis. Com exatamente um, o mandado sai no nome dele;
-## caso contrário qualquer mandado anterior é cancelado, como no original.
-func compute_warrant(marks: Dictionary) -> Array:
-	actions.append(["warrant", marks.duplicate()])
-	var matches := pack.suspects.filter(func(s):
+## Suspeitos compatíveis com `marks` = {id_do_traço: valor}, só com os traços conhecidos.
+func matching(marks: Dictionary) -> Array:
+	return pack.suspects.filter(func(s):
 		for k in marks:
 			if s.traits[k] != marks[k]:
 				return false
 		return true)
-	warrant_id = matches[0].id if matches.size() == 1 else ""
-	return matches
+
+
+## Busca no sistema de mandados: lista os compatíveis e custa `rules.warrant.search_hours`.
+## Devolve {matches, hours, slept}.
+func search(marks: Dictionary) -> Dictionary:
+	assert(outcome == ONGOING, "o caso já terminou")
+	actions.append(["search", marks.duplicate()])
+	var r := _warrant_tick("search_hours")
+	r.matches = matching(marks)
+	return r
+
+
+## Pedido de mandado. Com exatamente um compatível, o mandado sai no nome dele e custa
+## `rules.warrant.issue_hours`; senão conta como busca e o mandado anterior continua.
+## Devolve {matches, issued, hours, slept}.
+func issue_warrant(marks: Dictionary) -> Dictionary:
+	assert(outcome == ONGOING, "o caso já terminou")
+	actions.append(["warrant", marks.duplicate()])
+	var matches := matching(marks)
+	var issued := matches.size() == 1
+	var r := _warrant_tick("issue_hours" if issued else "search_hours")
+	if issued:
+		warrant_id = matches[0].id
+	r.matches = matches
+	r.issued = issued
+	return r
+
+
+func _warrant_tick(rule: String) -> Dictionary:
+	var hours := int(pack.rules.get("warrant", {}).get(rule, 0))
+	if hours == 0:
+		return {"hours": 0, "slept": false}
+	var tick := clock.advance(hours, true)
+	if tick.expired:
+		outcome = ESCAPED_TIME
+	return {"hours": hours, "slept": tick.slept}
 
 
 func _arrive(city_id: String) -> void:

@@ -49,7 +49,7 @@ func _simulate(pack: ContentPack, rank: int, wrong_rate: float, budget: int) -> 
 				for t in pack.warrant_traits():
 					if marks.has(t.id):
 						warrant_marks[t.id] = marks[t.id]
-				issued = s.compute_warrant(warrant_marks).size() == 1
+				issued = s.issue_warrant(warrant_marks).issued
 			if dice.roll(999) < int(wrong_rate * 1000.0):
 				var others := s.destinations().filter(func(d): return d != s.next_city)
 				if not others.is_empty() and s.can_afford(others[0]):

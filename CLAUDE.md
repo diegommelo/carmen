@@ -42,6 +42,7 @@ Sem o `--import`, as chaves novas de `ui.csv` aparecem cruas na tela. O reposit�
 - **Tom**: pode ser ácido, mas fica em fatos noticiados e memes; não invente crimes.
 - **Carreira**: um suspeito não se repete até todos serem presos; o chefe vem por último. Patentes, saltos, pistas de traço, prazo, verba e atalho por patente ficam em `pack.json` (`ranks`).
 - **Diferenças do original**: o esconderijo é sorteado entre os três locais na chegada; com o mandado certo, um voo certo pode levar direto ao esconderijo (nunca no primeiro voo); passagens custam verba.
+- **Mandado**: marcar traços não filtra nada. O jogador busca pelos traços (`rules.warrant.search_hours`) ou pede o mandado direto (`issue_hours`, um pouco mais caro); pedido com mais de um compatível conta como busca. Tela no layout padrão: caricatura do Alexandre de Moraes na cena e animação dele batendo o martelo quando o mandado sai. O dossiê risca quem ficou fora da última busca.
 - **Horas de investigação**: progressivas como no original (2h, 3h, depois 4h; voltam a 2h ao chegar numa cidade).
 - **Fluxo**: o caso é salvo depois de cada ação (semente + ações, refeitas por `CaseSession.replay()`). Ao abrir, agente salvo entra identificado: com caso em andamento pergunta se retoma; sem caso mostra a carreira e oferece nova investigação, que passa pelo briefing ("*** URGENTE ***") antes da primeira cidade.
 - **Pistas** somem do painel a cada investigação, como no original; não há caderno de pistas.
@@ -52,6 +53,10 @@ Sem o `--import`, as chaves novas de `ui.csv` aparecem cruas na tela. O reposit�
 - Visual DOS puxado para um VGA moderno (referências: Skald, Forbidden Solitaire), mantendo o esqueleto da tela do original.
 - Tela lógica de 640 × 360, escala inteira, filtro nearest, grade de 8 px.
 - Interface com as 8 cores de `ui/theme/palette.gd` (tema de terminal da PF: azul-marinho, dourado, creme). Fonte Press Start 2P em 8 px (ou múltiplos) em tudo.
-- Moldura: barra de menu (Nova carreira, Patente, Dossiês, Idioma, Sobre), barra do caso (verba à esquerda, prazo à direita), cena à esquerda, texto à direita ancorado embaixo, notas e três verbos (Investigar, Viajar, Mandado). Botão Voltar sempre à direita.
+- Moldura: barra de menu (Nova carreira, Patente, Dossiês, Idioma, Sobre), barra do caso (verba à esquerda, prazo à direita), cena à esquerda, texto à direita começando no alto, notas e três verbos (Investigar, Viajar, Mandado).
+- Os verbos estão sempre disponíveis, por isso Investigar, Viajar e Mandado não têm botão Voltar. Onde há Voltar (dossiê), ele fica à direita.
+- A cena mostra o lugar (a cidade ao chegar, o local ao investigar). Quem fala aparece no pé do painel de texto, como no original: retrato com nome e a fala num balão.
+- Sequência ao investigar, também usada em captura e desfecho: animação na cena (se houver evento), texto do evento, depois a testemunha com a fala (`play_animation`, `wait_typing`, `show_speaker` em `game_frame.gd`).
+- Briefing: roubo e suspeito, pausa (qualquer tecla ou Continuar), missão, verba e prazo, boa sorte, e o botão Aceitar missão.
 - Toda a arte é original. Por enquanto as cenas são placeholders coloridos.
 - O diego revisa no Godot local; não precisa mandar captura de tela.

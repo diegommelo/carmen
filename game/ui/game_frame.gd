@@ -6,11 +6,18 @@ extends Control
 
 signal verb_pressed(index: int)
 signal menu_pressed(id: String)
+signal typing_finished
+signal animation_finished
+signal continued
 
 const MENU_IDS := ["new_career", "rank", "dossier", "language", "about"]
 const VERB_COUNT := 3
 ## Caracteres por segundo da máquina de escrever.
 const TYPE_SPEED := 60.0
+## Duração das animações da cena; um clique ou uma tecla pula.
+const ANIMATION_SECONDS := 1.5
+## Tamanho do retrato de quem fala, no pé do painel de texto.
+const AVATAR := Vector2(64, 72)
 
 ## Posição e tamanho de cada parte da moldura, em pixels da tela de 640 × 360.
 const MENU_BAR := Rect2i(0, 0, 640, 20)
@@ -42,6 +49,16 @@ var _verbs: Array[Button] = []
 var _verb_names: Array[Label] = []
 var _verb_keys: Array[Label] = []
 var _overlay: PanelContainer
+var _speaker: HBoxContainer
+var _avatar: ColorRect
+var _avatar_caption: Label
+var _speaker_name: Label
+var _bubble: RichTextLabel
+var _bubble_tween: Tween
+## Cada animação tem um número, para o fim de uma antiga não encerrar a atual.
+var _animation := 0
+var _animating := false
+var _waiting_continue := false
 var _typed := 0.0
 ## Primeira linha da página que está no painel de texto.
 var _page_line := 0
@@ -110,6 +127,7 @@ func _build_scene() -> void:
 	panel.add_theme_stylebox_override("panel", PfTheme.box(Palette.INK, Palette.PANEL_BORDER, 1))
 	_place(panel, SCENE)
 	_scene_bg = ColorRect.new()
+	_scene_bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.add_child(_scene_bg)
 	var labels := VBoxContainer.new()
 	labels.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -125,6 +143,9 @@ func _build_scene() -> void:
 	_stamp.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	_stamp.hide()
 	panel.add_child(_stamp)
+	panel.gui_input.connect(func(e):
+		if e is InputEventMouseButton and e.pressed:
+			_end_animation(_animation))
 
 
 func _build_text_panel() -> void:
@@ -134,16 +155,51 @@ func _build_text_panel() -> void:
 	_text = RichTextLabel.new()
 	_text.bbcode_enabled = true
 	_text.scroll_active = false
-	_text.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_text.gui_input.connect(_on_text_input)
 	box.add_child(_text)
+	box.add_child(_build_speaker())
 	_more = _label(Palette.HIGHLIGHT, HORIZONTAL_ALIGNMENT_RIGHT)
 	_more.hide()
 	box.add_child(_more)
 	_choices = VBoxContainer.new()
 	_choices.add_theme_constant_override("separation", 3)
 	box.add_child(_choices)
+
+
+## Quem fala aparece no pé do painel, como no original: retrato com o nome embaixo e a
+## fala num balão ao lado.
+func _build_speaker() -> HBoxContainer:
+	_speaker = HBoxContainer.new()
+	_speaker.add_theme_constant_override("separation", 6)
+	_speaker.hide()
+	var column := VBoxContainer.new()
+	column.size_flags_vertical = Control.SIZE_SHRINK_END
+	_speaker.add_child(column)
+	_avatar = ColorRect.new()
+	_avatar.custom_minimum_size = AVATAR
+	column.add_child(_avatar)
+	_avatar_caption = _label(Palette.TEXT_DIM, HORIZONTAL_ALIGNMENT_CENTER)
+	_avatar_caption.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+	_avatar_caption.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_avatar.add_child(_avatar_caption)
+	_speaker_name = _label(Palette.TEXT, HORIZONTAL_ALIGNMENT_CENTER)
+	_speaker_name.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_speaker_name.custom_minimum_size.x = AVATAR.x
+	column.add_child(_speaker_name)
+	var bubble := PanelContainer.new()
+	bubble.add_theme_stylebox_override("panel", PfTheme.box(Palette.TEXT, Palette.TEXT, 6))
+	bubble.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	bubble.size_flags_vertical = Control.SIZE_SHRINK_END
+	_speaker.add_child(bubble)
+	_bubble = RichTextLabel.new()
+	_bubble.bbcode_enabled = true
+	_bubble.fit_content = true
+	_bubble.scroll_active = false
+	_bubble.add_theme_color_override("default_color", Palette.INK)
+	_bubble.gui_input.connect(_on_text_input)
+	bubble.add_child(_bubble)
+	return _speaker
 
 
 func _build_notes() -> void:
@@ -275,7 +331,9 @@ func set_notes(text: String) -> void:
 	_notes.text = text
 
 
+## Também tira quem estava falando.
 func clear_text() -> void:
+	hide_speaker()
 	_text.clear()
 	_text.visible_characters = 0
 	_typed = 0.0
@@ -295,6 +353,64 @@ func say(text: String) -> void:
 		_typed = _text.get_total_character_count()
 		_text.visible_characters = int(_typed)
 	_text.append_text(text + "\n")
+
+
+## Mostra quem fala no pé do painel; a fala entra em máquina de escrever.
+func show_speaker(speaker: String, caption: String, tint: Color, text: String) -> void:
+	_speaker_name.text = speaker
+	_avatar.color = tint
+	_avatar_caption.text = caption
+	_bubble.text = text
+	_bubble.visible_ratio = 0.0
+	_speaker.show()
+	if _bubble_tween:
+		_bubble_tween.kill()
+	_bubble_tween = create_tween()
+	_bubble_tween.tween_property(_bubble, "visible_ratio", 1.0, text.length() / TYPE_SPEED)
+
+
+func hide_speaker() -> void:
+	if _bubble_tween:
+		_bubble_tween.kill()
+	_speaker.hide()
+
+
+## Espera o texto do painel terminar de aparecer (inclusive as páginas).
+func wait_typing() -> void:
+	if is_typing():
+		await typing_finished
+
+
+## Toca uma animação na cena. Até a arte existir, mostra o nome do arquivo esperado.
+func play_animation(title: String, caption: String, tint: Color) -> void:
+	show_scene(title, caption, tint)
+	_animation += 1
+	_animating = true
+	get_tree().create_timer(ANIMATION_SECONDS).timeout.connect(_end_animation.bind(_animation))
+	await animation_finished
+
+
+func _end_animation(id: int) -> void:
+	if _animating and id == _animation:
+		_animating = false
+		animation_finished.emit()
+
+
+## Pausa com um botão no pé do painel; qualquer tecla também segue.
+func wait_for_continue(label: String) -> void:
+	clear_choices()
+	var bar := add_choice_bar()
+	add_spacer(bar)
+	add_choice(bar, label, _continue)
+	_waiting_continue = true
+	await continued
+
+
+func _continue() -> void:
+	if _waiting_continue:
+		_waiting_continue = false
+		clear_choices()
+		continued.emit()
 
 
 ## Verdadeiro enquanto o texto ainda está sendo escrito ou espera virar a página.
@@ -331,6 +447,7 @@ func _reach(shown: int) -> void:
 		return
 	if shown >= _text.get_total_character_count():
 		_text.visible_characters = -1
+		typing_finished.emit()
 	else:
 		_waiting_page = true
 		_more.text = tr("MORE")
@@ -385,6 +502,10 @@ func _on_text_input(event: InputEvent) -> void:
 
 
 func _advance_text() -> bool:
+	if _bubble_tween and _bubble_tween.is_running():
+		_bubble_tween.kill()
+		_bubble.visible_ratio = 1.0
+		return true
 	if _waiting_page:
 		_next_page()
 		return true
@@ -445,12 +566,20 @@ func add_choice_control(control: Control) -> void:
 	_choices.add_child(control)
 
 
-## Qualquer tecla vira a página ou termina a máquina de escrever; as teclas 1 a 3
-## acionam os verbos.
+## Qualquer tecla pula a animação, vira a página, termina a máquina de escrever ou
+## segue depois de uma pausa; as teclas 1 a 3 acionam os verbos.
 func _unhandled_input(event: InputEvent) -> void:
 	if not (event is InputEventKey and event.pressed and not event.echo):
 		return
+	if _animating:
+		_end_animation(_animation)
+		get_viewport().set_input_as_handled()
+		return
 	if _advance_text():
+		get_viewport().set_input_as_handled()
+		return
+	if _waiting_continue:
+		_continue()
 		get_viewport().set_input_as_handled()
 		return
 	var index: int = event.keycode - KEY_1

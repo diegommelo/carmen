@@ -53,6 +53,7 @@ Os textos da tela (botões, status, mensagens de fim de caso) não ficam no paco
 | `rules.graph.min_hops` | Só liga cidades que estejam a mais de N saltos no grafo (original: 4 com 30 cidades; o pacote provisório usa 2 porque tem só 12). |
 | `rules.travel` | Horas de voo = `min(d / distance_per_hour + base_hours, max_hours)`, com `d = |Δx| + |Δy| + 1` (original: 40, 2, 7). |
 | `rules.investigate` | A primeira investigação na cidade custa `first_hours`, e cada uma seguinte custa 1 h a mais, até `max_hours` (original: 2 e 4). |
+| `rules.warrant` | Opcional. Horas do sistema de mandados: `search_hours` para uma busca pelos traços e `issue_hours` para expedir o mandado. Pedido de mandado com mais de um compatível (ou nenhum) conta como busca. Sem o campo, nada custa horas. |
 | `rules.money` | Opcional. Com ele, cada caso tem uma verba para passagens e cada passagem custa `ticket_per_hour` por hora de voo. Se depois de um voo a verba não paga nenhum destino (fora da cidade do esconderijo), o caso acaba. Sem ele, voar é de graça, como no original. |
 | `rules.shortcut_min_flights` | Opcional. Quantos voos da rota o agente precisa fazer antes de o atalho (`shortcut_chance` da patente) poder acontecer. Sem ele, 0. |
 | `rules.clock` | Dia e hora de início, prazo, e janela de sono: terminar uma ação fora de `[wake_hour, sleep_hour)` faz o agente dormir `sleep_hours`. |
