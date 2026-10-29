@@ -149,10 +149,10 @@ func _test_languages(pack: ContentPack) -> void:
 	check(pack.best_language("pt") == "pt_BR", "pt usa pt_BR")
 	check(pack.best_language("fr_FR") == pack.default_language, "idioma desconhecido usa o padrão")
 	pack.set_language("en")
-	check(pack.city("toquio").name == "Tokyo", "nome da cidade em inglês")
+	check(pack.city("tokyo").name == "Tokyo", "nome da cidade em inglês")
 	check(typeof(pack.location_types[0].name) == TYPE_STRING, "texto traduzido virou String")
 	pack.set_language("pt_BR")
-	check(pack.city("toquio").name == "Tóquio", "nome da cidade em português")
+	check(pack.city("tokyo").name == "Tóquio", "nome da cidade em português")
 
 
 func _test_dossier(pack: ContentPack) -> void:
@@ -166,10 +166,10 @@ func _test_dossier(pack: ContentPack) -> void:
 			check(id in trait_ids, "dossiê de %s cita traço desconhecido: %s" % [s.id, id])
 	pack.set_language("en")
 	var rows := {}
-	for row in pack.dossier("dedo_leve").traits:
+	for row in pack.dossier("light_fingers").traits:
 		rows[row.id] = row.value
-	check(rows.sexo == "Male", "traço sem texto próprio mostra o valor: %s" % rows.sexo)
-	check(rows.veiculo == "Muddy dirt bike", "texto próprio do traço: %s" % rows.veiculo)
+	check(rows.sex == "Male", "traço sem texto próprio mostra o valor: %s" % rows.sex)
+	check(rows.vehicle == "Muddy dirt bike", "texto próprio do traço: %s" % rows.vehicle)
 	pack.set_language("pt_BR")
 
 
