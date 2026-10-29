@@ -49,6 +49,10 @@
    {
     "pt_BR": "{ele} embarcou num avião para a Hungria",
     "en": "{he} boarded a plane to Hungary"
+   },
+   {
+    "pt_BR": "{ele} perguntou se tinha voo direto para a Europa Central",
+    "en": "{he} asked if there were direct flights to Central Europe"
    }
   ],
   "gun_club": [
@@ -67,6 +71,10 @@
    {
     "pt_BR": "{ele} queria provar goulash",
     "en": "{he} wanted to try goulash"
+   },
+   {
+    "pt_BR": "{ele} queria provar páprica de verdade",
+    "en": "{he} wanted to try real paprika"
    }
   ],
   "any": [
@@ -81,6 +89,14 @@
    {
     "pt_BR": "{ele} disse que duas noites em embaixada não é asilo, é visita",
     "en": "{he} said two nights at an embassy isn't asylum, just a visit"
+   },
+   {
+    "pt_BR": "{ele} queria tomar banho nas termas Széchenyi",
+    "en": "{he} wanted to soak in the Széchenyi baths"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o Castelo de Buda aceita hóspede",
+    "en": "{he} asked if Buda Castle takes guests"
    }
   ]
  }

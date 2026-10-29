@@ -37,6 +37,10 @@
    {
     "pt_BR": "{ele} queria sacar dinheiro vivo perto da Esplanada",
     "en": "{he} wanted to withdraw cash near the Esplanade"
+   },
+   {
+    "pt_BR": "{ele} perguntou se a Caixa do Senado aceita depósito em espécie",
+    "en": "{he} asked if the Senate bank branch takes cash deposits"
    }
   ],
   "church": [
@@ -49,6 +53,10 @@
    {
     "pt_BR": "{ele} pegou um voo para o Planalto Central",
     "en": "{he} caught a flight to the Central Plateau"
+   },
+   {
+    "pt_BR": "{ele} reclamou que o avião presidencial não estava mais disponível",
+    "en": "{he} complained that the presidential plane wasn't available anymore"
    }
   ],
   "gun_club": [
@@ -81,6 +89,14 @@
    {
     "pt_BR": "{ele} queria ver o Palácio da Alvorada de longe, com saudade",
     "en": "{he} wanted to look at the Alvorada Palace from afar, wistfully"
+   },
+   {
+    "pt_BR": "{ele} queria tirar foto com a estátua da Justiça, de longe",
+    "en": "{he} wanted a photo with the statue of Justice, from a distance"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o cercadinho do Alvorada ainda existe",
+    "en": "{he} asked if the fan pen outside the Alvorada Palace still exists"
    }
   ]
  }

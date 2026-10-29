@@ -37,6 +37,10 @@
    {
     "pt_BR": "{ele} trocou dinheiro por yuans e lavou as mãos depois",
     "en": "{he} changed money into yuan and washed {his} hands afterward"
+   },
+   {
+    "pt_BR": "{ele} perguntou se pode pagar com Pix na China",
+    "en": "{he} asked if {he} could pay with Pix in China"
    }
   ],
   "church": [
@@ -67,6 +71,10 @@
    {
     "pt_BR": "{ele} queria comer pato laqueado",
     "en": "{he} wanted to eat Peking duck"
+   },
+   {
+    "pt_BR": "{ele} perguntou se a soja do prato era brasileira",
+    "en": "{he} asked if the soy on {his} plate came from Brazil"
    }
   ],
   "any": [
@@ -81,6 +89,14 @@
    {
     "pt_BR": "{ele} queria andar na Grande Muralha",
     "en": "{he} wanted to walk the Great Wall"
+   },
+   {
+    "pt_BR": "{ele} queria visitar a fábrica de onde vem a vacina",
+    "en": "{he} wanted to visit the factory the vaccine comes from"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o TikTok espiona mesmo",
+    "en": "{he} asked if TikTok really spies on people"
    }
   ]
  }

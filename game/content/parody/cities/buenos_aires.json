@@ -43,12 +43,20 @@
    {
     "pt_BR": "{ele} queria visitar a catedral do Papa Francisco",
     "en": "{he} wanted to visit Pope Francis's old cathedral"
+   },
+   {
+    "pt_BR": "{ele} queria rezar na Basílica de Luján",
+    "en": "{he} wanted to pray at the Basilica of Luján"
    }
   ],
   "airport": [
    {
     "pt_BR": "{ele} ia pousar em Ezeiza",
     "en": "{he} was landing at Ezeiza"
+   },
+   {
+    "pt_BR": "{ele} ia pousar no Aeroparque, de frente para o rio da Prata",
+    "en": "{he} was landing at Aeroparque, on the River Plate"
    }
   ],
   "gun_club": [
@@ -77,6 +85,14 @@
    {
     "pt_BR": "{ele} queria aprender a dançar tango",
     "en": "{he} wanted to learn tango"
+   },
+   {
+    "pt_BR": "{ele} queria ver a Bombonera",
+    "en": "{he} wanted to see La Bombonera"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde compra costeletas postiças",
+    "en": "{he} asked where to buy fake sideburns"
    }
   ]
  }

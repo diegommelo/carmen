@@ -1,0 +1,91 @@
+{
+ "name": "Miami",
+ "map": {
+  "x": 77,
+  "y": 42
+ },
+ "description": [
+  {
+   "pt_BR": "Praias de areia branca, prédios art déco e mais brasileiro por metro quadrado do que em muita capital. Em Miami, todo mundo tem um primo que vende imóvel e um tio que fugiu de alguma coisa.",
+   "en": "White-sand beaches, art deco buildings and more Brazilians per square meter than many state capitals. In Miami, everyone has a cousin who sells real estate and an uncle who ran away from something."
+  },
+  {
+   "pt_BR": "O sol da Flórida aquece lanchas, mansões em ilhas privadas e lojas de grife em Brickell. É o destino favorito de quem acha que o Brasil virou a Venezuela.",
+   "en": "The Florida sun warms speedboats, mansions on private islands and designer stores in Brickell. It's the favorite destination for people who think Brazil turned into Venezuela."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o título de cidadão honorário de Miami",
+   "en": "the honorary Miami citizenship certificate"
+  },
+  {
+   "pt_BR": "a lancha da Biscayne Bay",
+   "en": "the Biscayne Bay speedboat"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria abrir uma conta em dólar em Brickell",
+    "en": "{he} wanted to open a dollar account in Brickell"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria ir a um culto brasileiro em Pompano Beach",
+    "en": "{he} wanted to attend a Brazilian service in Pompano Beach"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia pousar no aeroporto de Miami com três malas vazias",
+    "en": "{he} was landing at Miami airport with three empty suitcases"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se na Flórida dá para comprar fuzil no supermercado",
+    "en": "{he} asked if you can buy a rifle at the supermarket in Florida"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou onde fica o consulado brasileiro na Flórida",
+    "en": "{he} asked where the Brazilian consulate in Florida is"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer num rodízio brasileiro de frente para o mar",
+    "en": "{he} wanted to eat at a Brazilian all-you-can-eat steakhouse by the sea"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria passear de lancha em South Beach",
+    "en": "{he} wanted a speedboat ride off South Beach"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde fica Mar-a-Lago",
+    "en": "{he} asked where Mar-a-Lago is"
+   },
+   {
+    "pt_BR": "{ele} queria comprar um apartamento em Brickell",
+    "en": "{he} wanted to buy an apartment in Brickell"
+   },
+   {
+    "pt_BR": "{ele} disse que ia encontrar uns brasileiros que vivem de live",
+    "en": "{he} said {he} was meeting some Brazilians who make a living from livestreams"
+   }
+  ]
+ }
+}

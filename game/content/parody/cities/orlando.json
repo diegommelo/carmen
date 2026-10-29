@@ -43,6 +43,10 @@
    {
     "pt_BR": "{ele} queria ir a uma igreja brasileira na Flórida",
     "en": "{he} wanted to visit a Brazilian church in Florida"
+   },
+   {
+    "pt_BR": "{ele} queria rezar numa igreja com estacionamento para trailer",
+    "en": "{he} wanted to pray at a church with RV parking"
    }
   ],
   "airport": [
@@ -61,6 +65,10 @@
    {
     "pt_BR": "{ele} perguntou se o visto de turista dá para três meses",
     "en": "{he} asked if a tourist visa lasts three months"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o consulado de Miami atende em Orlando",
+    "en": "{he} asked if the Miami consulate covers Orlando"
    }
   ],
   "steakhouse": [
@@ -81,6 +89,14 @@
    {
     "pt_BR": "{ele} queria visitar os parques temáticos",
     "en": "{he} wanted to visit the theme parks"
+   },
+   {
+    "pt_BR": "{ele} queria comprar um enxoval inteiro nos outlets",
+    "en": "{he} wanted to buy a whole wardrobe at the outlets"
+   },
+   {
+    "pt_BR": "{ele} disse que ia passar só uns dias, que viraram meses",
+    "en": "{he} said {he}'d stay just a few days, which turned into months"
    }
   ]
  }

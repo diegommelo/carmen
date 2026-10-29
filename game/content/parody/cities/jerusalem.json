@@ -37,6 +37,10 @@
    {
     "pt_BR": "{ele} trocou dinheiro por shekels",
     "en": "{he} changed money into shekels"
+   },
+   {
+    "pt_BR": "{ele} trocou dinheiro para comprar lembrancinha da Terra Santa",
+    "en": "{he} changed money to buy Holy Land souvenirs"
    }
   ],
   "church": [
@@ -67,6 +71,10 @@
    {
     "pt_BR": "{ele} queria comer falafel",
     "en": "{he} wanted to eat falafel"
+   },
+   {
+    "pt_BR": "{ele} queria provar homus de verdade",
+    "en": "{he} wanted to try real hummus"
    }
   ],
   "any": [
@@ -77,6 +85,14 @@
    {
     "pt_BR": "{ele} queria conhecer a Terra Santa",
     "en": "{he} wanted to see the Holy Land"
+   },
+   {
+    "pt_BR": "{ele} queria andar pela Via Dolorosa",
+    "en": "{he} wanted to walk the Via Dolorosa"
+   },
+   {
+    "pt_BR": "{ele} perguntou se dava para trazer água benta na mala",
+    "en": "{he} asked if {he} could bring holy water in {his} suitcase"
    }
   ]
  }

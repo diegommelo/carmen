@@ -37,6 +37,10 @@
    {
     "pt_BR": "{ele} queria pagar as contas de uma casa no interior paulista",
     "en": "{he} wanted to pay the bills for a house in the São Paulo countryside"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o banco do interior faz menos pergunta",
+    "en": "{he} asked if small-town banks ask fewer questions"
    }
   ],
   "church": [
@@ -67,6 +71,10 @@
    {
     "pt_BR": "{ele} queria comer morango com chocolate",
     "en": "{he} wanted strawberries with chocolate"
+   },
+   {
+    "pt_BR": "{ele} queria comprar geleia de morango na beira da estrada",
+    "en": "{he} wanted to buy strawberry jam at a roadside stand"
    }
   ],
   "any": [
@@ -81,6 +89,14 @@
    {
     "pt_BR": "{ele} queria subir a Pedra Grande",
     "en": "{he} wanted to climb Pedra Grande"
+   },
+   {
+    "pt_BR": "{ele} perguntou se tinha casa para alugar com muro bem alto",
+    "en": "{he} asked if there were houses for rent with very tall walls"
+   },
+   {
+    "pt_BR": "{ele} disse que ia passar um tempo no interior até a poeira baixar",
+    "en": "{he} said {he}'d spend some time in the countryside until things cooled down"
    }
   ]
  }

@@ -1,0 +1,91 @@
+{
+ "name": "Moscou",
+ "map": {
+  "x": 177,
+  "y": 17
+ },
+ "description": [
+  {
+   "pt_BR": "Cúpulas coloridas, a Praça Vermelha e um inverno de trinta graus negativos. Um certo presidente brasileiro veio aqui prestar solidariedade dias antes de os tanques cruzarem a fronteira.",
+   "en": "Colorful onion domes, Red Square and a winter of minus thirty degrees. A certain Brazilian president came here to express solidarity days before the tanks crossed the border."
+  },
+  {
+   "pt_BR": "No Kremlin, as mesas de reunião são compridas o bastante para manter qualquer visita bem longe. Moscou tem metrô de palácio e caviar a preço de banana.",
+   "en": "In the Kremlin, meeting tables are long enough to keep any visitor at a distance. Moscow has a palace-like subway and caviar at bargain prices."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a mesa comprida do Kremlin",
+   "en": "the Kremlin's long table"
+  },
+  {
+   "pt_BR": "o ovo Fabergé do Palácio do Arsenal",
+   "en": "the Fabergé egg from the Armory"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por rublos e reclamou das sanções",
+    "en": "{he} changed money into rubles and complained about sanctions"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria acender uma vela na Catedral de São Basílio",
+    "en": "{he} wanted to light a candle at Saint Basil's Cathedral"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} comprou uma passagem para a Rússia com casaco de pele na mala",
+    "en": "{he} bought a ticket to Russia with a fur coat in {his} suitcase"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria ver um Kalashnikov de perto",
+    "en": "{he} wanted to see a Kalashnikov up close"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria marcar uma reunião no Kremlin, com mesa comprida",
+    "en": "{he} wanted to book a meeting at the Kremlin, long table included"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer caviar com vodca",
+    "en": "{he} wanted caviar with vodka"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria visitar a Praça Vermelha",
+    "en": "{he} wanted to visit Red Square"
+   },
+   {
+    "pt_BR": "{ele} disse que ia prestar solidariedade a um amigo",
+    "en": "{he} said {he} was going to express solidarity with a friend"
+   },
+   {
+    "pt_BR": "{ele} perguntou se fertilizante russo vem com desconto",
+    "en": "{he} asked if Russian fertilizer comes at a discount"
+   },
+   {
+    "pt_BR": "{ele} queria andar no metrô que parece palácio",
+    "en": "{he} wanted to ride the subway that looks like a palace"
+   }
+  ]
+ }
+}

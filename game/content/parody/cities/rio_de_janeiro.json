@@ -43,6 +43,10 @@
    {
     "pt_BR": "{ele} queria ir a um culto na Barra da Tijuca",
     "en": "{he} wanted to go to a service in Barra da Tijuca"
+   },
+   {
+    "pt_BR": "{ele} queria visitar um templo na zona oeste carioca",
+    "en": "{he} wanted to visit a church in Rio's west zone"
    }
   ],
   "airport": [
@@ -55,6 +59,10 @@
    {
     "pt_BR": "{ele} queria praticar tiro perto da Vila Militar",
     "en": "{he} wanted to practice shooting near the Military Village"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde fica o clube de tiro dos milicianos aposentados",
+    "en": "{he} asked where the retired militiamen's gun club is"
    }
   ],
   "embassy": [
@@ -81,6 +89,14 @@
    {
     "pt_BR": "{ele} queria ver o Cristo Redentor",
     "en": "{he} wanted to see Christ the Redeemer"
+   },
+   {
+    "pt_BR": "{ele} queria tomar um mate na praia de Ipanema",
+    "en": "{he} wanted to drink iced mate on Ipanema beach"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde mora o Queiroz",
+    "en": "{he} asked where Queiroz lives"
    }
   ]
  }

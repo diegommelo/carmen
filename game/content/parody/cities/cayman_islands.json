@@ -40,6 +40,10 @@
    {
     "pt_BR": "{ele} queria abrir uma conta numa offshore",
     "en": "{he} wanted to open an offshore account"
+   },
+   {
+    "pt_BR": "{ele} perguntou quantas empresas cabem numa salinha",
+    "en": "{he} asked how many companies fit in one small office"
    }
   ],
   "church": [
@@ -64,6 +68,10 @@
    {
     "pt_BR": "{ele} perguntou se a ilha tem acordo de cooperação com a PF",
     "en": "{he} asked if the island cooperates with the Federal Police"
+   },
+   {
+    "pt_BR": "{ele} perguntou se as ilhas ainda são da coroa britânica",
+    "en": "{he} asked if the islands still belong to the British Crown"
    }
   ],
   "steakhouse": [
@@ -80,6 +88,14 @@
    {
     "pt_BR": "{ele} queria mergulhar com arraias",
     "en": "{he} wanted to swim with stingrays"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde o dinheiro descansa sem imposto",
+    "en": "{he} asked where money can rest tax-free"
+   },
+   {
+    "pt_BR": "{ele} queria tomar sol na praia de Seven Mile",
+    "en": "{he} wanted to sunbathe on Seven Mile Beach"
    }
   ]
  }
