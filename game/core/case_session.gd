@@ -18,8 +18,10 @@ var pack: ContentPack
 var rng: MscRng
 var graph: WorldGraph
 var clock: GameClock
-## {name, cases, rank}
+## {name, cases, rank, caught: [ids dos suspeitos já presos]}
 var detective: Dictionary
+## Regras da patente em que o caso começou (ContentPack.rank_rules).
+var difficulty: Dictionary
 
 var suspect: Dictionary
 var crime_city: String
@@ -35,6 +37,8 @@ var places: Array = []
 var arrival_index: int
 var outcome: String = ONGOING
 var promoted: bool = false
+## O caso terminou com a prisão do chefe.
+var boss_arrested: bool = false
 var warrant_id: String = ""
 
 var _investigate_cost: int
@@ -53,28 +57,42 @@ func _init(content: ContentPack, seed: int) -> void:
 	rng = MscRng.new(seed)
 
 
-## Começa um caso novo para o detetive {name, cases, rank}.
+## Começa um caso novo para o detetive {name, cases, rank, caught}.
 func start(agent: Dictionary) -> void:
 	detective = agent
+	if not detective.has("caught"):
+		detective.caught = []
 	var rules := pack.rules
+	difficulty = pack.rank_rules(detective.rank)
 	graph = WorldGraph.generate(pack.city_ids(), rng, rules.graph.max_links, rules.graph.min_hops)
-	clock = GameClock.new(rules.clock)
-	if detective.cases < rules.boss_after_cases:
-		suspect = rng.pick(pack.henchmen())
-	else:
-		suspect = pack.boss()
+	var clock_rules: Dictionary = rules.clock.duplicate()
+	clock_rules.deadline_day = difficulty.deadline.day
+	clock_rules.deadline_hour = difficulty.deadline.hour
+	clock = GameClock.new(clock_rules)
+	suspect = _pick_suspect()
 	crime_city = rng.pick(pack.city_ids())
 	treasure_index = rng.index(pack.city(crime_city).treasures)
-	steps_left = detective.rank + rules.route_base_steps
+	steps_left = difficulty.route_steps
 	next_city = crime_city
 	trail_city = ""
 	outcome = ONGOING
+	promoted = false
+	boss_arrested = false
 	warrant_id = ""
 	_used_clues.clear()
 	_arrive(crime_city)
 
 
 ## Troca o idioma dos textos, inclusive no meio do caso.
+## O alvo é sorteado entre os comparsas que o detetive ainda não prendeu; o original
+## repetia. Com todos presos (ou com `boss_after_cases` casos), o alvo é o chefe.
+func _pick_suspect() -> Dictionary:
+	var free := pack.henchmen().filter(func(s): return not (s.id in detective.caught))
+	if detective.cases >= int(pack.rules.boss_after_cases) or free.is_empty():
+		return pack.boss()
+	return rng.pick(free)
+
+
 func set_language(language: String) -> void:
 	pack.set_language(language)
 	suspect = pack.suspect(suspect.id)
@@ -113,7 +131,8 @@ func travel_hours(to_city: String) -> int:
 	return mini(d / int(t.distance_per_hour) + int(t.base_hours), int(t.max_hours))
 
 
-## Voa para um vizinho. Devolve {hours, slept, expired}.
+## Voa para um vizinho. Devolve {hours, slept, expired, shortcut}. `shortcut` diz que o
+## mandado certo encurtou a rota: a cidade de chegada já é o esconderijo.
 func travel(to_city: String) -> Dictionary:
 	assert(outcome == ONGOING, "o caso já terminou")
 	assert(to_city in destinations())
@@ -121,9 +140,21 @@ func travel(to_city: String) -> Dictionary:
 	var tick := clock.advance(hours, true)
 	if tick.expired:
 		outcome = ESCAPED_TIME
-		return {"hours": hours, "slept": tick.slept, "expired": true}
+		return {"hours": hours, "slept": tick.slept, "expired": true, "shortcut": false}
+	var shortcut := _try_shortcut(to_city)
 	_arrive(to_city)
-	return {"hours": hours, "slept": tick.slept, "expired": false}
+	return {"hours": hours, "slept": tick.slept, "expired": false, "shortcut": shortcut}
+
+
+## Com o mandado certo emitido, cada voo certo da rota tem `shortcut_chance` de levar
+## direto ao esconderijo. Não existe no original.
+func _try_shortcut(to_city: String) -> bool:
+	if to_city != next_city or steps_left <= 0 or warrant_id != suspect.id:
+		return false
+	if rng.roll(999) >= int(difficulty.shortcut_chance * 1000.0):
+		return false
+	steps_left = 0
+	return true
 
 
 ## Interroga a testemunha do local `slot` (0..2).
@@ -218,7 +249,7 @@ func _statement(type: Dictionary, there: Dictionary) -> Dictionary:
 	while true:
 		var trait_def: Dictionary = clue_traits[c]
 		var value: String = suspect.traits[trait_def.id]
-		var chance := int(type.clue_chance.get(trait_def.id, 0) * float(trait_def.get("clue_weight", {}).get(value, 1.0)))
+		var chance := int(type.clue_chance.get(trait_def.id, 0) * float(trait_def.get("clue_weight", {}).get(value, 1.0)) * difficulty.trait_clues)
 		if rng.roll(255) <= chance:
 			var phrases: Array = trait_def.clues.get(value, [])
 			recipe.trait = trait_def.id
@@ -283,6 +314,9 @@ func _resolve_capture() -> void:
 	else:
 		outcome = ARRESTED
 		detective.cases += 1
+		if not (suspect.id in detective.caught):
+			detective.caught.append(suspect.id)
+		boss_arrested = suspect.get("boss", false)
 		var new_rank := pack.rank_for_cases(detective.cases)
 		promoted = new_rank > detective.rank
 		detective.rank = new_rank

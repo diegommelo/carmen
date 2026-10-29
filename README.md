@@ -21,6 +21,12 @@ Testes do núcleo:
 godot --headless --path game -s res://tests/run_tests.gd
 ```
 
+Simulação de balanceamento da paródia (1000 casos por argumento `patente,taxa_de_voo_errado`):
+
+```
+godot --headless --path game -s res://tests/balance_sim.gd -- 0,0.4 4,0.4
+```
+
 ## Ferramentas
 
 Precisam de Python 3. O jogo original **não** está neste repositório; aponte as ferramentas para a sua cópia.

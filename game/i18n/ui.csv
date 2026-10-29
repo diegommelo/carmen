@@ -35,3 +35,7 @@ DOSSIER_TITLE,Dossier,Dossiê
 DOSSIER_NAME,Name,Nome
 DOSSIER_OCCUPATION,Occupation,Ocupação
 DOSSIER_NOTES,Other,Outros
+SHORTCUT,"[b]With the warrant in hand, headquarters traced the suspect's phone: the hideout is in this city![/b]","[b]Com o mandado em mãos, a central rastreou o celular: o esconderijo é nesta cidade![/b]"
+CAREER_DONE,[b]The boss is behind bars. Career complete![/b],[b]O chefe está atrás das grades. Carreira concluída![/b]
+CAREER_RESUMED,"Welcome back, %s: %d cases solved.","Bem-vindo de volta, %s: %d casos resolvidos."
+BTN_NEW_CAREER,New career,Nova carreira

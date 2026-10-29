@@ -8,7 +8,7 @@ const LANGUAGES := {"pt_BR": "Português (Brasil)", "en": "English"}
 
 var pack: ContentPack
 var session: CaseSession
-var detective := {"name": "", "cases": 0, "rank": 0}
+var detective: Dictionary
 
 var _status: Label
 var _language: OptionButton
@@ -21,6 +21,11 @@ func _ready() -> void:
 	pack = ContentPack.load_dir(PACK_DIR, OS.get_locale())
 	TranslationServer.set_locale(pack.locale)
 	_build_layout()
+	detective = Career.load_saved()
+	if detective.is_empty():
+		detective = Career.fresh(tr("DEFAULT_AGENT"))
+	elif detective.cases > 0:
+		_say(tr("CAREER_RESUMED") % [detective.name, detective.cases])
 	_new_case()
 
 
@@ -73,12 +78,22 @@ func _new_case() -> void:
 	session = CaseSession.new(pack, randi())
 	session.start(detective)
 	_marks.clear()
-	_log.clear()
-	var clock: Dictionary = pack.rules.clock
+	var deadline: Dictionary = session.difficulty.deadline
 	_say(tr("ALERT_THEFT") % [session.treasure(), pack.city(session.crime_city).name])
 	_say(tr("SUSPECT_SEEN") % _sex_name().to_lower())
-	_say(tr("DEADLINE") % [_day_name(clock.deadline_day), tr("HOUR_FMT") % clock.deadline_hour])
+	_say(tr("DEADLINE") % [_day_name(deadline.day), tr("HOUR_FMT") % deadline.hour])
 	_show_city()
+
+
+func _on_new_case() -> void:
+	_log.clear()
+	_new_case()
+
+
+func _on_new_career() -> void:
+	Career.erase()
+	detective = Career.fresh(tr("DEFAULT_AGENT"))
+	_on_new_case()
 
 
 func _sex_name() -> String:
@@ -171,6 +186,8 @@ func _on_travel(city_id: String) -> void:
 		_say(tr("SLEEPING"))
 	if session.outcome == CaseSession.ONGOING:
 		_show_city()
+		if r.shortcut:
+			_say(tr("SHORTCUT"))
 	else:
 		_show_main_actions()
 
@@ -240,4 +257,9 @@ func _show_outcome() -> void:
 			_say(tr("OUTCOME_WRONG_WARRANT") % name)
 		CaseSession.ESCAPED_TIME:
 			_say(tr("OUTCOME_TIME") % name)
-	_button(tr("BTN_NEW_CASE"), _new_case)
+	Career.save(detective)
+	if session.boss_arrested:
+		_say(tr("CAREER_DONE"))
+	else:
+		_button(tr("BTN_NEW_CASE"), _on_new_case)
+	_button(tr("BTN_NEW_CAREER"), _on_new_career)

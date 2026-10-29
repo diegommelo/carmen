@@ -29,6 +29,11 @@ func _initialize() -> void:
 	_test_switch_language_mid_case(pack)
 	_test_boss(pack)
 	_test_clue_weight(pack)
+	_test_rank_defaults(pack)
+	_test_no_repeat(pack)
+	_test_shortcut(pack)
+	_test_trait_clues_factor(pack)
+	_test_career_save()
 	_test_pack_consistency(pack, "provisório")
 	_test_parody()
 	_test_scripts_compile()
@@ -116,7 +121,8 @@ func _test_full_case(pack: ContentPack, seed: int) -> void:
 		hops += 1
 	if s.outcome == CaseSession.ESCAPED_TIME:
 		return
-	check(hops == pack.rules.route_base_steps, "rota de %d saltos (semente %d deu %d)" % [pack.rules.route_base_steps, seed, hops])
+	var steps: int = pack.rank_rules(0).route_steps
+	check(hops == steps, "rota de %d saltos (semente %d deu %d)" % [steps, seed, hops])
 	var r := {}
 	for slot in 3:
 		r = s.investigate(slot)
@@ -124,7 +130,9 @@ func _test_full_case(pack: ContentPack, seed: int) -> void:
 			break
 	check(r.event == "capture", "achou o esconderijo (semente %d)" % seed)
 	check(s.outcome == CaseSession.ARRESTED, "prendeu com mandado certo (semente %d): %s" % [seed, s.outcome])
-	check(s.detective.cases == 1 and s.promoted and s.detective.rank == 1, "ganhou um caso e foi promovido")
+	var rank := pack.rank_for_cases(1)
+	check(s.detective.cases == 1 and s.detective.rank == rank and s.promoted == (rank > 0), "ganhou um caso (e a promoção, se for o caso)")
+	check(s.detective.caught == [s.suspect.id], "o preso entra na lista da carreira")
 
 
 ## Na cidade final, qualquer um dos três locais pode ser o esconderijo, inclusive o primeiro visitado.
@@ -315,6 +323,97 @@ func _test_parody() -> void:
 		for seed in range(1, 41):
 			_test_full_case(pack, seed)
 	_test_hideout_any_slot(pack)
+	_test_no_repeat(pack)
+	check(pack.rules.boss_after_cases == pack.henchmen().size(), "paródia: o Jair vem depois de todos os comparsas")
+	for rank in pack.ranks.size():
+		var s := CaseSession.new(pack, 100 + rank)
+		s.start({"name": "Teste", "cases": pack.ranks[rank].cases, "rank": rank})
+		var r := pack.rank_rules(rank)
+		check(s.clock.rules.deadline_day == r.deadline.day and s.clock.rules.deadline_hour == r.deadline.hour, "paródia: prazo da patente %d" % rank)
+		var hops := 0
+		while not s.is_final_city() and s.outcome == CaseSession.ONGOING:
+			s.travel(s.next_city)
+			hops += 1
+		check(hops == r.route_steps, "paródia: patente %d com %d voos (deu %d)" % [rank, r.route_steps, hops])
+	var top := pack.rank_rules(pack.ranks.size() - 1)
+	var low := pack.rank_rules(0)
+	check(top.trait_clues < low.trait_clues and top.shortcut_chance > low.shortcut_chance, "paródia: patente alta dá menos pistas e mais atalho")
+
+
+## Sem nada na patente, valem as regras do original: rota de patente + 4, prazo do relógio.
+func _test_rank_defaults(pack: ContentPack) -> void:
+	for rank in pack.ranks.size():
+		var r := pack.rank_rules(rank)
+		check(r.route_steps == rank + pack.rules.route_base_steps, "rota padrão da patente %d" % rank)
+		check(r.trait_clues == 1.0 and r.shortcut_chance == 0.0, "pistas e atalho padrão")
+		check(r.deadline.day == pack.rules.clock.deadline_day and r.deadline.hour == pack.rules.clock.deadline_hour, "prazo padrão")
+
+
+## Os comparsas não se repetem: a cada caso o alvo é alguém ainda não preso, e o chefe
+## vem quando não sobra ninguém.
+func _test_no_repeat(pack: ContentPack) -> void:
+	var agent := {"name": "Teste", "cases": 0, "rank": 0, "caught": []}
+	var henchmen := pack.henchmen().size()
+	for i in henchmen:
+		var s := CaseSession.new(pack, 300 + i)
+		s.start(agent)
+		check(not s.suspect.get("boss", false), "%s: o chefe só depois de todos (caso %d)" % [pack.locale, i])
+		check(not (s.suspect.id in agent.caught), "%s: %s repetiu" % [pack.locale, s.suspect.id])
+		agent.caught.append(s.suspect.id)
+	var last := CaseSession.new(pack, 999)
+	last.start(agent)
+	check(last.suspect.get("boss", false), "todos presos: o alvo é o chefe")
+
+
+## Com o mandado certo e chance 1, o próximo voo certo já cai no esconderijo.
+func _test_shortcut(pack: ContentPack) -> void:
+	for with_warrant in [true, false]:
+		var s := CaseSession.new(pack, 8)
+		s.start({"name": "Teste", "cases": 0, "rank": 2})
+		s.difficulty.shortcut_chance = 1.0
+		var marks := {}
+		if with_warrant:
+			for t in pack.warrant_traits():
+				marks[t.id] = s.suspect.traits[t.id]
+		s.compute_warrant(marks)
+		var r := s.travel(s.next_city)
+		check(r.shortcut == with_warrant and s.is_final_city() == with_warrant, "atalho só com o mandado certo (%s)" % with_warrant)
+		if with_warrant:
+			var caught := false
+			for slot in 3:
+				if s.investigate(slot).event == "capture":
+					caught = true
+					break
+			check(caught and s.outcome == CaseSession.ARRESTED, "o atalho leva ao esconderijo de verdade")
+
+
+## O fator de pistas da patente multiplica a chance de a testemunha falar de um traço.
+## Com 0 sobra só o 1 em 256 que o sorteio do original sempre deixa.
+func _test_trait_clues_factor(pack: ContentPack) -> void:
+	var counts := {}
+	for factor in [1.0, 0.0]:
+		var traits := 0
+		for seed in range(1, 60):
+			var s := CaseSession.new(pack, seed)
+			s.start({"name": "Teste", "cases": 0, "rank": 0})
+			s.difficulty.trait_clues = factor
+			s.travel(s.next_city)
+			for p in s.places:
+				if p.statement.get("trait", "") != "":
+					traits += 1
+		counts[factor] = traits
+	check(counts[1.0] > 20 and counts[0.0] * 10 < counts[1.0], "fator 0 quase zera as pistas de traço: %s" % [counts])
+
+
+func _test_career_save() -> void:
+	var path := "user://test_career.json"
+	Career.erase(path)
+	check(Career.load_saved(path).is_empty(), "sem arquivo, sem carreira")
+	var agent := {"name": "Moro", "cases": 3, "rank": 2, "caught": ["a", "b", "c"]}
+	check(Career.save(agent, path), "salvou a carreira")
+	check(Career.load_saved(path) == agent, "carreira lida igual à salva: %s" % [Career.load_saved(path)])
+	Career.erase(path)
+	check(Career.load_saved(path).is_empty(), "apagou a carreira")
 
 
 ## Scripts que os testes não usam direto também precisam compilar.

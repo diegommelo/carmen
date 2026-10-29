@@ -46,15 +46,15 @@ Os textos da tela (botões, status, mensagens de fim de caso) não ficam no paco
 
 | Campo | O que é |
 |---|---|
-| `rules.route_base_steps` | Saltos da rota = patente + este valor (original: 4). |
-| `rules.boss_after_cases` | A partir de quantos casos resolvidos o alvo é a chefe (original: 29). |
+| `rules.route_base_steps` | Saltos da rota = patente + este valor (original: 4), quando a patente não define `route_steps`. |
+| `rules.boss_after_cases` | A partir de quantos casos resolvidos o alvo é a chefe (original: 29). Os comparsas não se repetem: o alvo é sorteado entre os que o agente ainda não prendeu, e com todos presos o alvo também é a chefe. |
 | `rules.sex_trait` | Id do traço que define os pronomes. |
 | `rules.graph.max_links` | Máximo de destinos de voo por cidade (original: 4). |
 | `rules.graph.min_hops` | Só liga cidades que estejam a mais de N saltos no grafo (original: 4 com 30 cidades; o pacote provisório usa 2 porque tem só 12). |
 | `rules.travel` | Horas de voo = `min(d / distance_per_hour + base_hours, max_hours)`, com `d = |Δx| + |Δy| + 1` (original: 40, 2, 7). |
 | `rules.investigate` | A primeira investigação na cidade custa `first_hours`, e cada uma seguinte custa 1 h a mais, até `max_hours` (original: 2 e 4). |
 | `rules.clock` | Dia e hora de início, prazo, e janela de sono: terminar uma ação fora de `[wake_hour, sleep_hour)` faz o agente dormir `sleep_hours`. |
-| `ranks` | Lista de patentes `{name, cases}` em ordem; `cases` é o mínimo de casos para ter a patente. |
+| `ranks` | Lista de patentes `{name, cases}` em ordem; `cases` é o mínimo de casos para ter a patente. Cada patente pode ajustar a dificuldade (campos opcionais, sem eles vale o original): `route_steps` (voos da rota), `trait_clues` (multiplica a `clue_chance` dos locais), `deadline` (`{day, hour}`, troca o prazo de `rules.clock`) e `shortcut_chance` (0 a 1: com o mandado certo já emitido, chance de cada voo certo levar direto à cidade do esconderijo). |
 | `location_types` (`locations.json`) | Tipos de local `{id, name, group, witnesses, not_seen, clue_chance}`. Cada cidade mostra um local de cada `group`. `not_seen` são as falas fora da rota. `clue_chance` é a chance (0 a 255) de a testemunha dar uma pista daquele traço do suspeito. |
 | `traits` (`traits.json`) | Traços `{id, name, warrant, values, clues}`. `warrant: true` entra no computador do mandado. `clues` tem as frases por valor; valor sem frase vira `texts.nothing_more`. `clue_weight` (opcional) multiplica a `clue_chance` dos locais quando o suspeito tem aquele valor, como `{"banker": 0.3}`, para que um valor que entrega o suspeito sozinho apareça menos; sem ele, o peso é 1. |
 | `texts` (`texts.json`) | `openers` (começo das falas com pista), `final_warnings` (cidade do esconderijo), `henchman`, `danger`, `nothing_more` e `pronouns`. |
