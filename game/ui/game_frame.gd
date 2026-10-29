@@ -145,7 +145,7 @@ func _build_verbs() -> void:
 		var labels := VBoxContainer.new()
 		labels.set_anchors_preset(Control.PRESET_FULL_RECT)
 		labels.alignment = BoxContainer.ALIGNMENT_CENTER
-		labels.add_theme_constant_override("separation", -2)
+		labels.add_theme_constant_override("separation", 6)
 		labels.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.add_child(labels)
 		_verb_names.append(_label(Palette.TEXT, HORIZONTAL_ALIGNMENT_CENTER))

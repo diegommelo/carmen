@@ -13,7 +13,7 @@ Estudo e recriação em Godot da mecânica de *Where in the World is Carmen Sand
 
 ## Jogo (Godot 4.7)
 
-O projeto fica em [`game/`](game). A mecânica está em `game/core`, sem nenhuma dependência de tela, e o conteúdo vem de pacotes JSON ([formato](docs/content-format.md)). A tela (`game/ui`) segue o guia de estilo: tela lógica de 640 × 360 com escala inteira, tema de terminal da PF (`game/ui/theme`) e uma moldura comum com barra de menu, barra do caso, cena, painel de texto, ficha e quatro verbos (`game/ui/game_frame.gd`). A arte ainda é placeholder. Fonte: VT323, SIL Open Font License. O jogo está em português do Brasil e inglês: os textos do conteúdo ficam nos pacotes e os da tela em `game/i18n/ui.csv` (ver [idiomas](docs/content-format.md#idiomas)).
+O projeto fica em [`game/`](game). A mecânica está em `game/core`, sem nenhuma dependência de tela, e o conteúdo vem de pacotes JSON ([formato](docs/content-format.md)). A tela (`game/ui`) segue o guia de estilo: tela lógica de 640 × 360 com escala inteira, tema de terminal da PF (`game/ui/theme`) e uma moldura comum com barra de menu, barra do caso, cena, painel de texto, ficha e quatro verbos (`game/ui/game_frame.gd`). A arte ainda é placeholder. Fonte: Press Start 2P, SIL Open Font License. O jogo está em português do Brasil e inglês: os textos do conteúdo ficam nos pacotes e os da tela em `game/i18n/ui.csv` (ver [idiomas](docs/content-format.md#idiomas)).
 
 Testes do núcleo:
 

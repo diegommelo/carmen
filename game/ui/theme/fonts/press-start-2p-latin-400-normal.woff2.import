@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://c2kdlrwbo5wik"
-path="res://.godot/imported/vt323-latin-400-normal.woff2-94437476a503db53c79c8772738ecfb1.fontdata"
+uid="uid://btinyogia7ej4"
+path="res://.godot/imported/press-start-2p-latin-400-normal.woff2-88009bcfab21428589798b5d6149f139.fontdata"
 
 [deps]
 
-source_file="res://ui/theme/fonts/vt323-latin-400-normal.woff2"
-dest_files=["res://.godot/imported/vt323-latin-400-normal.woff2-94437476a503db53c79c8772738ecfb1.fontdata"]
+source_file="res://ui/theme/fonts/press-start-2p-latin-400-normal.woff2"
+dest_files=["res://.godot/imported/press-start-2p-latin-400-normal.woff2-88009bcfab21428589798b5d6149f139.fontdata"]
 
 [params]
 

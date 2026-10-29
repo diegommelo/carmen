@@ -1,11 +1,13 @@
 class_name PfTheme
 extends RefCounted
-## Tema de terminal da PF: a fonte bitmap VT323, molduras de 1 px e as cores de Palette.
-## A VT323 só fica nítida no tamanho 20 (múltiplos dele também servem); ela foi importada
-## sem antialiasing, sem hinting e sem posição subpixel (ver o .import).
+## Tema de terminal da PF: a fonte bitmap Press Start 2P, molduras de 1 px e as cores de
+## Palette. A fonte só fica nítida em 8 px (ou múltiplos); ela foi importada sem
+## antialiasing, sem hinting e sem posição subpixel (ver o .import).
 
-const FONT_PATH := "res://ui/theme/fonts/vt323-latin-400-normal.woff2"
-const FONT_SIZE := 20
+const FONT_PATH := "res://ui/theme/fonts/press-start-2p-latin-400-normal.woff2"
+const FONT_SIZE := 8
+## Espaço extra entre linhas: os glifos ocupam a altura toda da fonte.
+const LINE_GAP := 4
 
 
 static func box(bg: Color, border: Color, margin: int = 4) -> StyleBoxFlat:
@@ -23,7 +25,7 @@ static func build() -> Theme:
 	t.default_font = load(FONT_PATH)
 	t.default_font_size = FONT_SIZE
 	t.set_color("font_color", "Label", Palette.TEXT)
-	t.set_constant("line_spacing", "Label", -4)
+	t.set_constant("line_spacing", "Label", LINE_GAP)
 	_text(t)
 	_panels(t)
 	_buttons(t)
@@ -35,7 +37,7 @@ static func build() -> Theme:
 
 static func _text(t: Theme) -> void:
 	t.set_color("default_color", "RichTextLabel", Palette.TEXT)
-	t.set_constant("line_separation", "RichTextLabel", -4)
+	t.set_constant("line_separation", "RichTextLabel", LINE_GAP)
 	t.set_stylebox("normal", "RichTextLabel", StyleBoxEmpty.new())
 	t.set_stylebox("focus", "RichTextLabel", StyleBoxEmpty.new())
 	t.set_stylebox("scroll", "VScrollBar", box(Palette.INK, Palette.INK, 0))
@@ -101,6 +103,5 @@ static func _dialogs(t: Theme) -> void:
 		border.set_expand_margin_all(1)
 		border.expand_margin_top = 22
 		t.set_stylebox(state, "Window", border)
-	t.set_font_size("title_font_size", "Window", FONT_SIZE)
 	t.set_color("title_color", "Window", Palette.HIGHLIGHT)
 	t.set_constant("title_height", "Window", 22)

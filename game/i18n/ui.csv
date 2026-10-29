@@ -52,8 +52,8 @@ MENU_RANK,Rank,Patente
 MENU_LANGUAGE,Language,Idioma
 MENU_ABOUT,About,Sobre
 ABOUT_TEXT,"Where in the World is Bolsonaro Family: a parody of the detective games of the 90s, made in Godot.
-Font: VT323 (SIL Open Font License).","Where in the World is Bolsonaro Family: uma paródia dos jogos de detetive dos anos 90, feita em Godot.
-Fonte: VT323 (SIL Open Font License)."
+Font: Press Start 2P (SIL Open Font License).","Where in the World is Bolsonaro Family: uma paródia dos jogos de detetive dos anos 90, feita em Godot.
+Fonte: Press Start 2P (SIL Open Font License)."
 RANK_INFO,"Agent %s
 Rank: %s
 Cases solved: %d","Agente %s
