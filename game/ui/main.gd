@@ -134,6 +134,7 @@ func _show_main_actions() -> void:
 		_button(type.name, _on_investigate.bind(i))
 	_button(tr("BTN_TRAVEL"), _show_destinations)
 	_button(tr("BTN_COMPUTER"), _show_computer)
+	_button(tr("BTN_DOSSIERS"), _show_dossiers)
 
 
 func _on_investigate(slot: int) -> void:
@@ -205,6 +206,25 @@ func _on_compute() -> void:
 	else:
 		_say(tr("SUSPECTS_LIST") % ", ".join(matches.map(func(s): return s.name)))
 	_show_main_actions()
+
+
+func _show_dossiers() -> void:
+	_clear_actions()
+	for s in pack.suspects:
+		_button(s.name, _on_dossier.bind(s.id))
+	_button(tr("BTN_BACK"), _show_main_actions)
+
+
+func _on_dossier(id: String) -> void:
+	var d := pack.dossier(id)
+	_say("\n[b]%s[/b]" % tr("DOSSIER_TITLE"))
+	_say("%s: %s" % [tr("DOSSIER_NAME"), d.full_name])
+	if d.occupation != "":
+		_say("%s: %s" % [tr("DOSSIER_OCCUPATION"), d.occupation])
+	for row in d.traits:
+		_say("%s: %s" % [row.name, row.value])
+	if not d.notes.is_empty():
+		_say("%s: %s" % [tr("DOSSIER_NOTES"), " ".join(d.notes)])
 
 
 func _show_outcome() -> void:

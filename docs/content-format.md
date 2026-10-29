@@ -49,10 +49,22 @@ As frases podem usar `{chave}`, e a chave é trocada pela tabela `texts.pronouns
 ```json
 { "id": "baronesa", "name": "Baronesa", "boss": false,
   "traits": { "sexo": "f", "hobby": "surfe", "cabelo": "loiro", "marca": "tatuagem", "veiculo": "moto", "comida": "frutos_do_mar" },
-  "dossier": "..." }
+  "dossier": {
+    "full_name": "Baronesa Valquíria von Onda",
+    "occupation": "Surfista que vive de cidade em cidade",
+    "traits": { "marca": "Tatuagem de onda no tornozelo" },
+    "notes": ["Come camarão no café da manhã."] } }
 ```
 
-Um único suspeito deve ter `boss: true`. Para o mandado funcionar, a combinação dos traços com `warrant: true` precisa ser diferente para cada suspeito.
+Um único suspeito deve ter `boss: true`.
+
+O `dossier` segue a ficha do original, que tem os campos Nome, Sexo, Ocupação, Hobby, Cabelo, Veículo, Marca e Outros. A tela mostra o nome completo, a ocupação, uma linha por traço com `warrant: true` (na ordem de `traits` do `pack.json`) e as `notes` em "Outros". Todos os campos são opcionais:
+
+- `full_name`: sem ele, aparece o `name`.
+- `traits[id]`: texto livre para o traço, como "Conversível vermelho de 1957". Sem ele, aparece o nome do valor ("Conversível"). O texto deve combinar com o valor, porque o jogador usa o dossiê para preencher o mandado.
+- `notes`: pistas soltas, como a comida preferida, que o original também guarda em "Outros".
+
+`ContentPack.dossier(id)` devolve a ficha pronta, já no idioma atual. Para o mandado funcionar, a combinação dos traços com `warrant: true` precisa ser diferente para cada suspeito.
 
 ## `cities.json`
 

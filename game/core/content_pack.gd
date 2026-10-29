@@ -141,6 +141,24 @@ func warrant_traits() -> Array:
 	return traits.filter(func(t): return t.warrant)
 
 
+## Ficha do suspeito como na tela de dossiê: {full_name, occupation, traits, notes}.
+## `traits` traz um item {id, name, value} por traço do mandado, na ordem do pacote. Traço
+## sem texto próprio em `dossier.traits` mostra o nome do valor ("moto").
+func dossier(id: String) -> Dictionary:
+	var s := suspect(id)
+	var d: Dictionary = s.get("dossier", {})
+	var custom: Dictionary = d.get("traits", {})
+	var rows := []
+	for t in warrant_traits():
+		rows.append({"id": t.id, "name": t.name, "value": custom.get(t.id, t.values[s.traits[t.id]])})
+	return {
+		"full_name": d.get("full_name", s.name),
+		"occupation": d.get("occupation", ""),
+		"traits": rows,
+		"notes": d.get("notes", []),
+	}
+
+
 func boss() -> Dictionary:
 	for s in suspects:
 		if s.get("boss", false):

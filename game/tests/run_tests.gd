@@ -15,6 +15,7 @@ func _initialize() -> void:
 	_test_graph(pack)
 	_test_warrant(pack)
 	_test_languages(pack)
+	_test_dossier(pack)
 	for language in pack.languages:
 		pack.set_language(language)
 		for seed in range(1, 41):
@@ -152,6 +153,24 @@ func _test_languages(pack: ContentPack) -> void:
 	check(typeof(pack.location_types[0].name) == TYPE_STRING, "texto traduzido virou String")
 	pack.set_language("pt_BR")
 	check(pack.city("toquio").name == "Tóquio", "nome da cidade em português")
+
+
+func _test_dossier(pack: ContentPack) -> void:
+	var trait_ids := pack.traits.map(func(t): return t.id)
+	for s in pack.suspects:
+		var d := pack.dossier(s.id)
+		check(d.traits.size() == pack.warrant_traits().size(), "dossiê de %s com um campo por traço do mandado" % s.id)
+		for row in d.traits:
+			check(typeof(row.value) == TYPE_STRING and row.value != "", "campo vazio no dossiê de %s" % s.id)
+		for id in s.get("dossier", {}).get("traits", {}):
+			check(id in trait_ids, "dossiê de %s cita traço desconhecido: %s" % [s.id, id])
+	pack.set_language("en")
+	var rows := {}
+	for row in pack.dossier("dedo_leve").traits:
+		rows[row.id] = row.value
+	check(rows.sexo == "Male", "traço sem texto próprio mostra o valor: %s" % rows.sexo)
+	check(rows.veiculo == "Muddy dirt bike", "texto próprio do traço: %s" % rows.veiculo)
+	pack.set_language("pt_BR")
 
 
 ## Trocar de idioma no meio do caso muda o texto, mas não a fala sorteada.
