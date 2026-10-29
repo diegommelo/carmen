@@ -95,11 +95,13 @@ O `dossier` segue a ficha do original, que tem os campos Nome, Sexo, Ocupação,
 { "name": "Roma", "map": { "x": 159, "y": 33 },
   "description": ["..."], "treasures": ["..."],
   "locations": ["bank", "hotel", "airport", "library", "market", "embassy"],
-  "clues": { "bank": ["{ele} trocou dinheiro por euros"], "...": [] } }
+  "clues": { "bank": ["{ele} trocou dinheiro por euros"], "any": ["{ele} queria conhecer o Coliseu"] } }
 ```
 
 - `map` usa a escala do original: `x` de oeste para leste (0 a ~300) e `y` de norte para sul (0 a ~100).
 - `clues[tipo]` são as pistas **sobre esta cidade**. Quem as diz é uma testemunha da cidade anterior da rota, num local daquele tipo.
+- `clues.any` são pistas gerais sobre a cidade, que qualquer tipo de local pode dar. Por isso `any` não pode ser id de tipo de local.
+- A testemunha sorteia uma pista entre as do tipo dela e as gerais. Dentro de um caso, uma pista não se repete enquanto houver outras sobre a mesma cidade; quando todas já apareceram, o sorteio volta a usar todas. Quanto mais frases por cidade, menos o jogador vê a mesma dica. O original sorteia sem esse controle e não tem pistas gerais.
 - Cada grupo de `location_types` precisa ter pelo menos um tipo presente em `locations`.
 
 ## Imagens e sons

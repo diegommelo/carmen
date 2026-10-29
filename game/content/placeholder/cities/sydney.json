@@ -64,6 +64,16 @@
     "pt_BR": "{ele} queria surfar em Bondi",
     "en": "{he} wanted to surf at Bondi"
    }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria ver a Ópera de Sydney",
+    "en": "{he} wanted to see the Sydney Opera House"
+   },
+   {
+    "pt_BR": "{ele} falou em atravessar a Harbour Bridge",
+    "en": "{he} talked about crossing the Harbour Bridge"
+   }
   ]
  }
 }

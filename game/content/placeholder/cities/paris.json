@@ -64,6 +64,16 @@
     "pt_BR": "{ele} treinava frases em francês",
     "en": "{he} was practicing French phrases"
    }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria subir na Torre Eiffel",
+    "en": "{he} wanted to climb the Eiffel Tower"
+   },
+   {
+    "pt_BR": "{ele} falou em ver a Mona Lisa",
+    "en": "{he} talked about seeing the Mona Lisa"
+   }
   ]
  }
 }

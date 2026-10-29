@@ -17,6 +17,7 @@ func _initialize() -> void:
 	_test_layout(pack)
 	_test_languages(pack)
 	_test_dossier(pack)
+	_test_clue_rotation(pack)
 	for language in pack.languages:
 		pack.set_language(language)
 		for seed in range(1, 41):
@@ -152,6 +153,23 @@ func _test_layout(pack: ContentPack) -> void:
 	var sorted := ids.duplicate()
 	sorted.sort()
 	check(ids == sorted, "cidades em ordem alfabética")
+
+
+## As pistas sobre uma cidade não se repetem no caso enquanto houver outras, e as
+## gerais (clues.any) entram no sorteio de qualquer tipo de local.
+func _test_clue_rotation(pack: ContentPack) -> void:
+	var s := CaseSession.new(pack, 5)
+	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	var rome := pack.city("rome")
+	var pool := s._clue_pool(rome, "bank")
+	check(pool.size() == rome.clues.bank.size() + rome.clues.any.size(), "banco usa as pistas do tipo e as gerais")
+	var seen := {}
+	for i in pool.size():
+		seen[str(s._pick_clue(rome, "bank"))] = true
+	check(seen.size() == pool.size(), "nenhuma pista repetida antes de usar todas: %d de %d" % [seen.size(), pool.size()])
+	check(s._pick_clue(rome, "bank") != null, "depois de usar todas, volta a sortear")
+	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	check(s._used_clues.size() <= 3, "caso novo esquece as pistas usadas")
 
 
 func _test_languages(pack: ContentPack) -> void:

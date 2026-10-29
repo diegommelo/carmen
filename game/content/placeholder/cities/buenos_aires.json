@@ -64,6 +64,16 @@
     "pt_BR": "{ele} queria conhecer a Casa Rosada",
     "en": "{he} wanted to see the Casa Rosada"
    }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria aprender a dançar tango",
+    "en": "{he} wanted to learn to dance the tango"
+   },
+   {
+    "pt_BR": "{ele} perguntou o caminho da Casa Rosada",
+    "en": "{he} asked the way to the Casa Rosada"
+   }
   ]
  }
 }

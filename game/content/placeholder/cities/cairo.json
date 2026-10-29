@@ -64,6 +64,16 @@
     "pt_BR": "{ele} queria navegar pelo Nilo",
     "en": "{he} wanted to sail on the Nile"
    }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria ver as pirâmides de Gizé",
+    "en": "{he} wanted to see the pyramids of Giza"
+   },
+   {
+    "pt_BR": "{ele} falou de um passeio de barco pelo Nilo",
+    "en": "{he} talked about a boat trip on the Nile"
+   }
   ]
  }
 }
