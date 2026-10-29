@@ -34,6 +34,7 @@ func _initialize() -> void:
 	_test_shortcut(pack)
 	_test_trait_clues_factor(pack)
 	_test_career_save()
+	_test_no_money(pack)
 	_test_pack_consistency(pack, "provisório")
 	_test_parody()
 	_test_scripts_compile()
@@ -338,6 +339,7 @@ func _test_parody() -> void:
 	var top := pack.rank_rules(pack.ranks.size() - 1)
 	var low := pack.rank_rules(0)
 	check(top.trait_clues < low.trait_clues and top.shortcut_chance > low.shortcut_chance, "paródia: patente alta dá menos pistas e mais atalho")
+	_test_money(pack)
 
 
 ## Sem nada na patente, valem as regras do original: rota de patente + 4, prazo do relógio.
@@ -403,6 +405,40 @@ func _test_trait_clues_factor(pack: ContentPack) -> void:
 					traits += 1
 		counts[factor] = traits
 	check(counts[1.0] > 20 and counts[0.0] * 10 < counts[1.0], "fator 0 quase zera as pistas de traço: %s" % [counts])
+
+
+## Pacote sem `rules.money`: passagem de graça e sem verba.
+func _test_no_money(pack: ContentPack) -> void:
+	var s := CaseSession.new(pack, 4)
+	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	check(s.budget == -1 and s.ticket_price(s.next_city) == 0 and s.can_afford(s.next_city), "sem dinheiro no pacote provisório")
+	check(s.travel(s.next_city).price == 0 and s.budget == -1, "voo sem custo")
+
+
+## A passagem custa `ticket_per_hour` por hora e sai da verba; sem verba para nenhum voo
+## o caso acaba.
+func _test_money(pack: ContentPack) -> void:
+	var s := CaseSession.new(pack, 4)
+	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	check(s.budget == pack.ranks[0].budget, "verba da patente: %d" % s.budget)
+	var price := s.ticket_price(s.next_city)
+	check(price == s.travel_hours(s.next_city) * int(pack.rules.money.ticket_per_hour), "preço por hora de voo")
+	var before := s.budget
+	var r := s.travel(s.next_city)
+	check(r.price == price and s.budget == before - price, "a passagem sai da verba")
+	var broke := false
+	for seed in range(1, 40):
+		var t := CaseSession.new(pack, seed)
+		t.start({"name": "Teste", "cases": 0, "rank": 0})
+		t.budget = t.ticket_price(t.next_city)
+		t.travel(t.next_city)
+		if t.is_final_city():
+			continue
+		check(t.budget == 0 and not t.destinations().any(t.can_afford), "verba zerada não paga voo")
+		check(t.outcome == CaseSession.OUT_OF_MONEY, "sem verba para voar, o caso acaba")
+		broke = true
+		break
+	check(broke, "achou um caso para testar a verba zerada")
 
 
 func _test_career_save() -> void:

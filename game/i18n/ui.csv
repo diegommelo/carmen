@@ -39,3 +39,6 @@ SHORTCUT,"[b]With the warrant in hand, headquarters traced the suspect's phone: 
 CAREER_DONE,[b]The boss is behind bars. Career complete![/b],[b]O chefe está atrás das grades. Carreira concluída![/b]
 CAREER_RESUMED,"Welcome back, %s: %d cases solved.","Bem-vindo de volta, %s: %d casos resolvidos."
 BTN_NEW_CAREER,New career,Nova carreira
+STATUS_BUDGET," · Budget: %s"," · Verba: %s"
+MONEY_FMT,R$ %d,R$ %d
+OUTCOME_MONEY,The operation ran out of money for tickets. %s got away.,A verba da operação acabou e não dá para comprar passagem. %s escapou.

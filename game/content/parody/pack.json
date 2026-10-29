@@ -38,6 +38,9 @@
    "wake_hour": 8,
    "sleep_hour": 23,
    "sleep_hours": 9
+  },
+  "money": {
+   "ticket_per_hour": 150
   }
  },
  "ranks": [
@@ -53,7 +56,8 @@
     "day": 6,
     "hour": 17
    },
-   "shortcut_chance": 0.0
+   "shortcut_chance": 0.0,
+   "budget": 5000
   },
   {
    "name": {
@@ -67,7 +71,8 @@
     "day": 5,
     "hour": 17
    },
-   "shortcut_chance": 0.25
+   "shortcut_chance": 0.25,
+   "budget": 4500
   },
   {
    "name": {
@@ -81,7 +86,8 @@
     "day": 5,
     "hour": 17
    },
-   "shortcut_chance": 0.25
+   "shortcut_chance": 0.25,
+   "budget": 5000
   },
   {
    "name": {
@@ -95,7 +101,8 @@
     "day": 5,
     "hour": 12
    },
-   "shortcut_chance": 0.35
+   "shortcut_chance": 0.35,
+   "budget": 4500
   },
   {
    "name": {
@@ -109,7 +116,8 @@
     "day": 5,
     "hour": 12
    },
-   "shortcut_chance": 0.5
+   "shortcut_chance": 0.5,
+   "budget": 5000
   }
  ]
 }

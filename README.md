@@ -21,7 +21,7 @@ Testes do núcleo:
 godot --headless --path game -s res://tests/run_tests.gd
 ```
 
-Simulação de balanceamento da paródia (1000 casos por argumento `patente,taxa_de_voo_errado`):
+Simulação de balanceamento da paródia (1000 casos por argumento `patente,taxa_de_voo_errado[,verba]`):
 
 ```
 godot --headless --path game -s res://tests/balance_sim.gd -- 0,0.4 4,0.4

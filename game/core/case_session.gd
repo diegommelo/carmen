@@ -11,6 +11,8 @@ const ESCAPED_TIME := "escaped_time"
 const NO_WARRANT := "no_warrant"
 const WRONG_WARRANT := "wrong_warrant"
 const ARRESTED := "arrested"
+## A verba acabou e não dá para comprar nenhuma passagem.
+const OUT_OF_MONEY := "out_of_money"
 ## Lista de pistas da cidade que qualquer tipo de local pode dar.
 const ANY_CLUES := "any"
 
@@ -40,6 +42,8 @@ var promoted: bool = false
 ## O caso terminou com a prisão do chefe.
 var boss_arrested: bool = false
 var warrant_id: String = ""
+## Verba que sobra para passagens; -1 quando o pacote não usa dinheiro.
+var budget: int = -1
 
 var _investigate_cost: int
 ## Local do esconderijo na cidade final, sorteado na chegada entre os três.
@@ -73,6 +77,7 @@ func start(agent: Dictionary) -> void:
 	crime_city = rng.pick(pack.city_ids())
 	treasure_index = rng.index(pack.city(crime_city).treasures)
 	steps_left = difficulty.route_steps
+	budget = difficulty.budget
 	next_city = crime_city
 	trail_city = ""
 	outcome = ONGOING
@@ -131,19 +136,39 @@ func travel_hours(to_city: String) -> int:
 	return mini(d / int(t.distance_per_hour) + int(t.base_hours), int(t.max_hours))
 
 
-## Voa para um vizinho. Devolve {hours, slept, expired, shortcut}. `shortcut` diz que o
-## mandado certo encurtou a rota: a cidade de chegada já é o esconderijo.
+## Preço da passagem para `to_city`: `rules.money.ticket_per_hour` por hora de voo.
+## 0 quando o pacote não usa dinheiro.
+func ticket_price(to_city: String) -> int:
+	if budget < 0:
+		return 0
+	return travel_hours(to_city) * int(pack.rules.money.ticket_per_hour)
+
+
+func can_afford(to_city: String) -> bool:
+	return budget < 0 or ticket_price(to_city) <= budget
+
+
+## Voa para um vizinho. Devolve {hours, price, slept, expired, shortcut}. `shortcut` diz
+## que o mandado certo encurtou a rota: a cidade de chegada já é o esconderijo.
+## Se depois do voo não der para pagar nenhuma passagem fora do esconderijo, o caso
+## acaba em OUT_OF_MONEY.
 func travel(to_city: String) -> Dictionary:
 	assert(outcome == ONGOING, "o caso já terminou")
 	assert(to_city in destinations())
+	assert(can_afford(to_city), "sem verba para a passagem")
 	var hours := travel_hours(to_city)
+	var price := ticket_price(to_city)
+	if budget >= 0:
+		budget -= price
 	var tick := clock.advance(hours, true)
 	if tick.expired:
 		outcome = ESCAPED_TIME
-		return {"hours": hours, "slept": tick.slept, "expired": true, "shortcut": false}
+		return {"hours": hours, "price": price, "slept": tick.slept, "expired": true, "shortcut": false}
 	var shortcut := _try_shortcut(to_city)
 	_arrive(to_city)
-	return {"hours": hours, "slept": tick.slept, "expired": false, "shortcut": shortcut}
+	if not is_final_city() and not destinations().any(can_afford):
+		outcome = OUT_OF_MONEY
+	return {"hours": hours, "price": price, "slept": tick.slept, "expired": false, "shortcut": shortcut}
 
 
 ## Com o mandado certo emitido, cada voo certo da rota tem `shortcut_chance` de levar

@@ -124,6 +124,12 @@ func _refresh_status() -> void:
 		warrant = pack.suspect(session.warrant_id).name
 	_status.text = tr("STATUS") % [detective.name, pack.ranks[detective.rank].name,
 		_day_name(c.day), tr("HOUR_FMT") % c.hour, warrant]
+	if session.budget >= 0:
+		_status.text += tr("STATUS_BUDGET") % _money(session.budget)
+
+
+func _money(amount: int) -> String:
+	return tr("MONEY_FMT") % amount
 
 
 func _clear_actions() -> void:
@@ -131,9 +137,10 @@ func _clear_actions() -> void:
 		child.queue_free()
 
 
-func _button(text: String, action: Callable) -> void:
+func _button(text: String, action: Callable, enabled: bool = true) -> void:
 	var b := Button.new()
 	b.text = text
+	b.disabled = not enabled
 	b.pressed.connect(action)
 	_actions.add_child(b)
 
@@ -174,7 +181,10 @@ func _on_investigate(slot: int) -> void:
 func _show_destinations() -> void:
 	_clear_actions()
 	for id in session.destinations():
-		_button(tr("TRAVEL_OPTION") % [pack.city(id).name, session.travel_hours(id)], _on_travel.bind(id))
+		var label: String = tr("TRAVEL_OPTION") % [pack.city(id).name, session.travel_hours(id)]
+		if session.budget >= 0:
+			label += " · " + _money(session.ticket_price(id))
+		_button(label, _on_travel.bind(id), session.can_afford(id))
 	_button(tr("BTN_BACK"), _show_main_actions)
 
 
@@ -257,6 +267,8 @@ func _show_outcome() -> void:
 			_say(tr("OUTCOME_WRONG_WARRANT") % name)
 		CaseSession.ESCAPED_TIME:
 			_say(tr("OUTCOME_TIME") % name)
+		CaseSession.OUT_OF_MONEY:
+			_say(tr("OUTCOME_MONEY") % name)
 	Career.save(detective)
 	if session.boss_arrested:
 		_say(tr("CAREER_DONE"))
