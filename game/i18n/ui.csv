@@ -40,7 +40,6 @@ OUTCOME_MONEY,The operation ran out of money for tickets. %s got away.,A verba d
 BTN_START,Start,Começar
 NEXT_RANK,%d more cases until your promotion to %s.,Faltam %d casos para a promoção a %s.
 NEXT_RANK_ONE,One more case until your promotion to %s.,Falta 1 caso para a promoção a %s.
-CONFIRM_NEW_CAREER,Start a new career? The current one will be lost.,Começar uma nova carreira? A atual será perdida.
 BTN_INVESTIGATE,Investigate,Investigar
 BTN_WARRANT,Warrant,Mandado
 KEY_HINT,key %d,tecla %d
@@ -94,3 +93,9 @@ JUDGE_TITLE,Supreme Court,Supremo Tribunal Federal
 BTN_SEARCH,Search,Buscar
 ONE_MATCH,Only %s matches these traits.,Só %s bate com esses traços.
 WARRANT_NOT_ISSUED,No warrant: it must point to a single suspect. The request counted as a search.,Sem mandado: ele precisa apontar um único suspeito. O pedido contou como busca.
+MENU_AGENTS,Agents,Agentes
+AGENTS_TITLE,[b]FEDERAL POLICE AGENT FILES[/b],[b]FICHÁRIO DE AGENTES DA PF[/b]
+AGENTS_ONGOING,* case in progress,* caso em andamento
+BTN_NEW_AGENT,New agent,Novo agente
+BTN_DELETE,Delete,Apagar
+CONFIRM_DELETE_AGENT,Delete agent %s? Their career will be lost.,Apagar o agente %s? A carreira dele será perdida.

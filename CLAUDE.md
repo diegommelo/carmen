@@ -44,7 +44,8 @@ Sem o `--import`, as chaves novas de `ui.csv` aparecem cruas na tela. O reposit�
 - **Diferenças do original**: o esconderijo é sorteado entre os três locais na chegada; com o mandado certo, um voo certo pode levar direto ao esconderijo (nunca no primeiro voo); passagens custam verba.
 - **Mandado**: marcar traços não filtra nada. O jogador busca pelos traços (`rules.warrant.search_hours`) ou pede o mandado direto (`issue_hours`, um pouco mais caro); pedido com mais de um compatível conta como busca. Tela no layout padrão: caricatura do Alexandre de Moraes na cena e animação dele batendo o martelo quando o mandado sai. O dossiê risca quem ficou fora da última busca.
 - **Horas de investigação**: progressivas como no original (2h, 3h, depois 4h; voltam a 2h ao chegar numa cidade).
-- **Fluxo**: o caso é salvo depois de cada ação (semente + ações, refeitas por `CaseSession.replay()`). Ao abrir, agente salvo entra identificado: com caso em andamento pergunta se retoma; sem caso mostra a carreira e oferece nova investigação, que passa pelo briefing ("*** URGENTE ***") antes da primeira cidade.
+- **Agentes**: fichário como o `ACME.DAT` do original, em `user://agents.json` (até 8 agentes, cada um com carreira e caso próprios; o antigo `career.json` vira o primeiro agente). O menu Agentes troca, cadastra ou apaga. Nova carreira só aparece depois de prender o chefe e recomeça o mesmo agente.
+- **Fluxo**: o caso é salvo depois de cada ação (semente + ações, refeitas por `CaseSession.replay()`). Ao abrir, o último agente escolhido entra identificado: com caso em andamento pergunta se retoma; sem caso mostra a carreira e oferece nova investigação, que passa pelo briefing ("*** URGENTE ***") antes da primeira cidade.
 - **Pistas** somem do painel a cada investigação, como no original; não há caderno de pistas.
 - **Dossiê**: no menu de cima, no formato do PowerPoint do Dallagnol (chefe no centro, os outros em volta com setas, só os nomes, quebrados com hífen). Clicar abre um cartão no estilo do original; quem já foi preso leva o carimbo PRESO.
 
@@ -53,7 +54,7 @@ Sem o `--import`, as chaves novas de `ui.csv` aparecem cruas na tela. O reposit�
 - Visual DOS puxado para um VGA moderno (referências: Skald, Forbidden Solitaire), mantendo o esqueleto da tela do original.
 - Tela lógica de 640 × 360, escala inteira, filtro nearest, grade de 8 px.
 - Interface com as 8 cores de `ui/theme/palette.gd` (tema de terminal da PF: azul-marinho, dourado, creme). Fonte Press Start 2P em 8 px (ou múltiplos) em tudo.
-- Moldura: barra de menu (Nova carreira, Patente, Dossiês, Idioma, Sobre), barra do caso (verba à esquerda, prazo à direita), cena à esquerda, texto à direita começando no alto, notas e três verbos (Investigar, Viajar, Mandado).
+- Moldura: barra de menu (Agentes, Patente, Dossiês, Idioma, Sobre), barra do caso (verba à esquerda, prazo à direita), cena à esquerda, texto à direita começando no alto, notas e três verbos (Investigar, Viajar, Mandado).
 - Os verbos estão sempre disponíveis, por isso Investigar, Viajar e Mandado não têm botão Voltar. Onde há Voltar (dossiê), ele fica à direita.
 - A cena mostra o lugar (a cidade ao chegar, o local ao investigar). Quem fala aparece no pé do painel de texto, como no original: retrato com nome e a fala num balão.
 - Sequência ao investigar, também usada em captura e desfecho: animação na cena (se houver evento), texto do evento, depois a testemunha com a fala (`play_animation`, `wait_typing`, `show_speaker` em `game_frame.gd`).

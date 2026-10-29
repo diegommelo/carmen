@@ -10,7 +10,7 @@ signal typing_finished
 signal animation_finished
 signal continued
 
-const MENU_IDS := ["new_career", "rank", "dossier", "language", "about"]
+const MENU_IDS := ["agents", "rank", "dossier", "language", "about"]
 const VERB_COUNT := 3
 ## Caracteres por segundo da máquina de escrever.
 const TYPE_SPEED := 60.0
