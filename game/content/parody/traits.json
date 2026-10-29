@@ -1,0 +1,504 @@
+{
+ "traits": [
+  {
+   "id": "sex",
+   "name": {
+    "pt_BR": "Sexo",
+    "en": "Sex"
+   },
+   "warrant": true,
+   "values": {
+    "m": {
+     "pt_BR": "Masculino",
+     "en": "Male"
+    },
+    "f": {
+     "pt_BR": "Feminino",
+     "en": "Female"
+    }
+   }
+  },
+  {
+   "id": "profession",
+   "name": {
+    "pt_BR": "Profissão",
+    "en": "Profession"
+   },
+   "warrant": true,
+   "values": {
+    "ex_president": {
+     "pt_BR": "Ex-presidente",
+     "en": "Former president"
+    },
+    "senator": {
+     "pt_BR": "Senador(a)",
+     "en": "Senator"
+    },
+    "congressman": {
+     "pt_BR": "Deputado(a)",
+     "en": "Congressman"
+    },
+    "councilor": {
+     "pt_BR": "Vereador",
+     "en": "City councilor"
+    },
+    "banker": {
+     "pt_BR": "Banqueiro",
+     "en": "Banker"
+    },
+    "coach": {
+     "pt_BR": "Coach",
+     "en": "Coach"
+    },
+    "lawyer": {
+     "pt_BR": "Advogado",
+     "en": "Lawyer"
+    }
+   },
+   "clue_weight": {
+    "ex_president": 0.6,
+    "banker": 0.6,
+    "coach": 0.6,
+    "lawyer": 0.6
+   },
+   "clues": {
+    "ex_president": [
+     {
+      "pt_BR": "{Ele} exigiu ser chamado de presidente, mesmo sendo ex",
+      "en": "{He} insisted on being called Mr. President, even though {he}'s a former one"
+     },
+     {
+      "pt_BR": "{Ele} disse que ainda tem a faixa presidencial guardada no armário",
+      "en": "{He} said {he} still keeps the presidential sash in the closet"
+     }
+    ],
+    "senator": [
+     {
+      "pt_BR": "{Ele} reclamou que o gabinete no Senado é apertado",
+      "en": "{He} complained that {his} Senate office is too small"
+     },
+     {
+      "pt_BR": "{Ele} lembrou que tem foro privilegiado, então nem adianta",
+      "en": "{He} reminded me {he} has parliamentary immunity, so don't bother"
+     }
+    ],
+    "congressman": [
+     {
+      "pt_BR": "{Ele} mostrou um crachá de deputado",
+      "en": "{He} flashed a congressional badge"
+     },
+     {
+      "pt_BR": "{Ele} disse que representa o eleitor à distância, bem à distância",
+      "en": "{He} said {he} represents the voters remotely, very remotely"
+     }
+    ],
+    "councilor": [
+     {
+      "pt_BR": "{Ele} avisou que vereador também é autoridade, viu?",
+      "en": "{He} made it clear that a city councilor is an authority too, okay?"
+     },
+     {
+      "pt_BR": "{Ele} disse que estava faltando a sessão da Câmara Municipal de novo",
+      "en": "{He} said {he} was skipping the city council session again"
+     }
+    ],
+    "banker": [
+     {
+      "pt_BR": "{Ele} me ofereceu um CDB que rendia 140% do CDI",
+      "en": "{He} offered me a bond paying 140% of the interbank rate"
+     },
+     {
+      "pt_BR": "{Ele} garantiu que o FGC cobre tudo, pode confiar",
+      "en": "{He} swore the deposit insurance fund covers everything, trust me"
+     }
+    ],
+    "coach": [
+     {
+      "pt_BR": "{Ele} cobrou mil reais por uma mentoria de cinco minutos",
+      "en": "{He} charged me a thousand reais for a five-minute mentoring session"
+     },
+     {
+      "pt_BR": "{Ele} gritou que eu precisava sair da matrix",
+      "en": "{He} yelled that I needed to escape the matrix"
+     }
+    ],
+    "lawyer": [
+     {
+      "pt_BR": "{Ele} me deu um cartão de advogado e ofereceu uma casa em Atibaia",
+      "en": "{He} handed me a lawyer's card and offered me a house in Atibaia"
+     },
+     {
+      "pt_BR": "{Ele} explicou que o cliente {dele} não estava escondido, só hospedado",
+      "en": "{He} explained that {his} client wasn't hiding, just staying over"
+     }
+    ]
+   }
+  },
+  {
+   "id": "hobby",
+   "name": {
+    "pt_BR": "Hobby",
+    "en": "Hobby"
+   },
+   "warrant": true,
+   "values": {
+    "fishing": {
+     "pt_BR": "Pesca",
+     "en": "Fishing"
+    },
+    "worship": {
+     "pt_BR": "Louvor",
+     "en": "Gospel worship"
+    },
+    "real_estate": {
+     "pt_BR": "Comprar imóveis",
+     "en": "Buying real estate"
+    },
+    "shooting": {
+     "pt_BR": "Tiro esportivo",
+     "en": "Sport shooting"
+    },
+    "social_media": {
+     "pt_BR": "Redes sociais",
+     "en": "Social media"
+    },
+    "gym": {
+     "pt_BR": "Academia",
+     "en": "Gym"
+    }
+   },
+   "clues": {
+    "fishing": [
+     {
+      "pt_BR": "{Ele} perguntou onde dava para pescar sem fiscal do Ibama por perto",
+      "en": "{He} asked where {he} could fish without an environmental inspector around"
+     },
+     {
+      "pt_BR": "{Ele} carregava uma vara de pesca e um bote inflável",
+      "en": "{He} was carrying a fishing rod and an inflatable boat"
+     }
+    ],
+    "worship": [
+     {
+      "pt_BR": "{Ele} puxou um louvor na fila do embarque",
+      "en": "{He} started a worship song in the boarding line"
+     },
+     {
+      "pt_BR": "{Ele} disse que estava em jejum e oração pelo Brasil",
+      "en": "{He} said {he} was fasting and praying for Brazil"
+     }
+    ],
+    "real_estate": [
+     {
+      "pt_BR": "{Ele} perguntou se dava para pagar o apartamento em dinheiro vivo",
+      "en": "{He} asked if {he} could pay for the apartment in cash"
+     },
+     {
+      "pt_BR": "{Ele} queria visitar mansões à venda",
+      "en": "{He} wanted to tour mansions for sale"
+     }
+    ],
+    "shooting": [
+     {
+      "pt_BR": "{Ele} perguntou onde fica o clube de tiro mais próximo",
+      "en": "{He} asked where the nearest gun club is"
+     },
+     {
+      "pt_BR": "{Ele} fazia arminha com a mão para tudo",
+      "en": "{He} made finger guns at everything"
+     }
+    ],
+    "social_media": [
+     {
+      "pt_BR": "{Ele} não largava o celular, postava sem parar",
+      "en": "{He} never put the phone down, posting nonstop"
+     },
+     {
+      "pt_BR": "{Ele} gravou um story dizendo que estava sendo perseguido",
+      "en": "{He} recorded a story saying {he} was being persecuted"
+     }
+    ],
+    "gym": [
+     {
+      "pt_BR": "{Ele} perguntou onde tinha academia aberta 24 horas",
+      "en": "{He} asked where to find a 24-hour gym"
+     },
+     {
+      "pt_BR": "{Ele} tirou foto sem camisa no espelho do banheiro",
+      "en": "{He} took a shirtless mirror selfie in the bathroom"
+     }
+    ]
+   }
+  },
+  {
+   "id": "vehicle",
+   "name": {
+    "pt_BR": "Veículo",
+    "en": "Vehicle"
+   },
+   "warrant": true,
+   "values": {
+    "motorcycle": {
+     "pt_BR": "Moto",
+     "en": "Motorcycle"
+    },
+    "armored_suv": {
+     "pt_BR": "SUV blindado",
+     "en": "Armored SUV"
+    },
+    "pickup": {
+     "pt_BR": "Picape",
+     "en": "Pickup truck"
+    },
+    "electric_car": {
+     "pt_BR": "Carro elétrico",
+     "en": "Electric car"
+    },
+    "private_jet": {
+     "pt_BR": "Jatinho",
+     "en": "Private jet"
+    }
+   },
+   "clues": {
+    "motorcycle": [
+     {
+      "pt_BR": "{Ele} chegou numa motociata de uma pessoa só",
+      "en": "{He} showed up in a one-man motorcycle rally"
+     },
+     {
+      "pt_BR": "{Ele} carregava um capacete sem viseira",
+      "en": "{He} was carrying a helmet without a visor"
+     }
+    ],
+    "armored_suv": [
+     {
+      "pt_BR": "{Ele} desceu de um SUV preto blindado",
+      "en": "{He} got out of a black armored SUV"
+     },
+     {
+      "pt_BR": "{Ele} perguntou se o estacionamento aguentava o peso de um carro blindado",
+      "en": "{He} asked if the parking lot could take the weight of an armored car"
+     }
+    ],
+    "pickup": [
+     {
+      "pt_BR": "{Ele} dirigia uma picape enorme com adesivo da bandeira americana",
+      "en": "{He} drove a huge pickup with an American flag sticker"
+     },
+     {
+      "pt_BR": "{Ele} reclamou que a picape não cabia na vaga",
+      "en": "{He} complained that {his} pickup didn't fit in the parking spot"
+     }
+    ],
+    "electric_car": [
+     {
+      "pt_BR": "{Ele} chegou num carro elétrico que disse ter ganhado de presente",
+      "en": "{He} arrived in an electric car {he} said was a gift"
+     },
+     {
+      "pt_BR": "{Ele} procurava uma tomada para carregar o carro",
+      "en": "{He} was looking for an outlet to charge {his} car"
+     }
+    ],
+    "private_jet": [
+     {
+      "pt_BR": "{Ele} perguntou onde podia estacionar o jatinho",
+      "en": "{He} asked where to park {his} private jet"
+     },
+     {
+      "pt_BR": "{Ele} disse que voo comercial é coisa de pobre",
+      "en": "{He} said commercial flights are for poor people"
+     }
+    ]
+   }
+  },
+  {
+   "id": "feature",
+   "name": {
+    "pt_BR": "Marca",
+    "en": "Feature"
+   },
+   "warrant": true,
+   "values": {
+    "ankle_monitor": {
+     "pt_BR": "Tornozeleira",
+     "en": "Ankle monitor"
+    },
+    "jewelry": {
+     "pt_BR": "Joias",
+     "en": "Jewelry"
+    },
+    "cbf_jersey": {
+     "pt_BR": "Camisa da CBF",
+     "en": "Brazil jersey"
+    },
+    "maga_cap": {
+     "pt_BR": "Boné MAGA",
+     "en": "MAGA cap"
+    },
+    "phone": {
+     "pt_BR": "Celular na mão",
+     "en": "Phone in hand"
+    },
+    "sunglasses": {
+     "pt_BR": "Óculos escuros",
+     "en": "Sunglasses"
+    },
+    "rolex": {
+     "pt_BR": "Rolex",
+     "en": "Rolex"
+    }
+   },
+   "clues": {
+    "ankle_monitor": [
+     {
+      "pt_BR": "{Ele} usava uma tornozeleira com marca de solda",
+      "en": "{He} wore an ankle monitor with soldering marks"
+     },
+     {
+      "pt_BR": "{Ele} perguntou se alguém tinha um ferro de solda para emprestar",
+      "en": "{He} asked if anyone could lend {him} a soldering iron"
+     }
+    ],
+    "jewelry": [
+     {
+      "pt_BR": "{Ele} usava um colar de diamantes que disse ter ganhado das Arábias",
+      "en": "{He} wore a diamond necklace {he} said was a gift from Arabia"
+     },
+     {
+      "pt_BR": "{Ele} tentou passar um estojo de joias sem declarar",
+      "en": "{He} tried to sneak a jewelry case through without declaring it"
+     }
+    ],
+    "cbf_jersey": [
+     {
+      "pt_BR": "{Ele} vestia a camisa amarela da CBF",
+      "en": "{He} was wearing the yellow Brazil jersey"
+     },
+     {
+      "pt_BR": "{Ele} estava enrolado numa bandeira do Brasil",
+      "en": "{He} was wrapped in a Brazilian flag"
+     }
+    ],
+    "maga_cap": [
+     {
+      "pt_BR": "{Ele} usava um boné vermelho escrito Make America Great Again",
+      "en": "{He} wore a red Make America Great Again cap"
+     },
+     {
+      "pt_BR": "{Ele} disse que o boné vermelho foi presente de um amigo importante",
+      "en": "{He} said {his} red cap was a gift from an important friend"
+     }
+    ],
+    "phone": [
+     {
+      "pt_BR": "{Ele} tinha três celulares no bolso",
+      "en": "{He} had three phones in {his} pocket"
+     },
+     {
+      "pt_BR": "{Ele} filmava tudo com o celular",
+      "en": "{He} was filming everything on {his} phone"
+     }
+    ],
+    "sunglasses": [
+     {
+      "pt_BR": "{Ele} usava óculos escuros até dentro do prédio",
+      "en": "{He} kept {his} sunglasses on even indoors"
+     }
+    ],
+    "rolex": [
+     {
+      "pt_BR": "{Ele} usava um Rolex e perguntou quanto valia",
+      "en": "{He} wore a Rolex and asked how much it was worth"
+     },
+     {
+      "pt_BR": "{Ele} disse que comprou o Rolex de volta numa loja dos Estados Unidos",
+      "en": "{He} said {he} bought the Rolex back at a store in the United States"
+     }
+    ]
+   }
+  },
+  {
+   "id": "food",
+   "name": {
+    "pt_BR": "Comida",
+    "en": "Food"
+   },
+   "warrant": false,
+   "values": {
+    "condensed_milk_bread": {
+     "pt_BR": "Pão com leite condensado",
+     "en": "Bread with condensed milk"
+    },
+    "chocolate": {
+     "pt_BR": "Chocolate",
+     "en": "Chocolate"
+    },
+    "burger": {
+     "pt_BR": "Hambúrguer",
+     "en": "Burger"
+    },
+    "pizza": {
+     "pt_BR": "Pizza",
+     "en": "Pizza"
+    },
+    "acai": {
+     "pt_BR": "Açaí",
+     "en": "Açaí"
+    },
+    "protein_shake": {
+     "pt_BR": "Whey",
+     "en": "Protein shake"
+    },
+    "caviar": {
+     "pt_BR": "Caviar",
+     "en": "Caviar"
+    }
+   },
+   "clues": {
+    "condensed_milk_bread": [
+     {
+      "pt_BR": "{Ele} passou leite condensado no pão francês",
+      "en": "{He} spread condensed milk on {his} bread roll"
+     }
+    ],
+    "chocolate": [
+     {
+      "pt_BR": "{Ele} perguntou onde abrir uma franquia de chocolates",
+      "en": "{He} asked where to open a chocolate franchise"
+     }
+    ],
+    "burger": [
+     {
+      "pt_BR": "{Ele} contou que fritou hambúrguer nos Estados Unidos e que isso conta como experiência diplomática",
+      "en": "{He} said {he} flipped burgers in the United States and that counts as diplomatic experience"
+     }
+    ],
+    "pizza": [
+     {
+      "pt_BR": "{Ele} pediu uma pizza às três da manhã",
+      "en": "{He} ordered a pizza at three in the morning"
+     }
+    ],
+    "acai": [
+     {
+      "pt_BR": "{Ele} tomou um açaí de um litro",
+      "en": "{He} had a one-liter açaí bowl"
+     }
+    ],
+    "protein_shake": [
+     {
+      "pt_BR": "{Ele} sacudia uma garrafinha de whey",
+      "en": "{He} was shaking a bottle of protein shake"
+     }
+    ],
+    "caviar": [
+     {
+      "pt_BR": "{Ele} pediu caviar e mandou pôr na conta do banco",
+      "en": "{He} ordered caviar and put it on the bank's tab"
+     }
+    ]
+   }
+  }
+ ]
+}

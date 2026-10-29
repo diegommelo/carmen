@@ -1,0 +1,39 @@
+{
+ "name": "Wassef",
+ "boss": false,
+ "traits": {
+  "sex": "m",
+  "profession": "lawyer",
+  "hobby": "real_estate",
+  "vehicle": "armored_suv",
+  "feature": "rolex",
+  "food": "pizza"
+ },
+ "dossier": {
+  "full_name": "Frederick Wassef",
+  "occupation": {
+   "pt_BR": "Advogado da família",
+   "en": "The family's lawyer"
+  },
+  "traits": {
+   "hobby": {
+    "pt_BR": "Imóveis, em especial uma casa em Atibaia",
+    "en": "Real estate, especially a house in Atibaia"
+   },
+   "feature": {
+    "pt_BR": "Rolex que ele recomprou numa loja dos Estados Unidos",
+    "en": "A Rolex he bought back at a store in the United States"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Hospedou o Queiroz em Atibaia sem saber, segundo ele.",
+    "en": "Hosted Queiroz in Atibaia without knowing it, or so he says."
+   },
+   {
+    "pt_BR": "Sempre de terno preto.",
+    "en": "Always in a black suit."
+   }
+  ]
+ }
+}

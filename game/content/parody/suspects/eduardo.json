@@ -1,0 +1,35 @@
+{
+ "name": "Eduardo",
+ "boss": false,
+ "traits": {
+  "sex": "m",
+  "profession": "congressman",
+  "hobby": "shooting",
+  "vehicle": "pickup",
+  "feature": "maga_cap",
+  "food": "burger"
+ },
+ "dossier": {
+  "full_name": "Eduardo Nantes Bolsonaro",
+  "occupation": {
+   "pt_BR": "Deputado federal, morando bem longe do eleitor",
+   "en": "Congressman, living very far from his voters"
+  },
+  "traits": {
+   "vehicle": {
+    "pt_BR": "Picape americana com adesivo de bandeira",
+    "en": "American pickup with a flag sticker"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "O filho 03. Quase virou embaixador nos Estados Unidos.",
+    "en": "Son number 03. Almost became ambassador to the United States."
+   },
+   {
+    "pt_BR": "Escrivão da PF licenciado. Conhece seus truques, agente.",
+    "en": "A Federal Police clerk on leave. Knows your tricks, agent."
+   }
+  ]
+ }
+}

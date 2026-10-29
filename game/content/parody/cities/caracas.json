@@ -1,0 +1,99 @@
+{
+ "name": "Caracas",
+ "map": {
+  "x": 88,
+  "y": 54
+ },
+ "description": [
+  {
+   "pt_BR": "Espremida num vale entre montanhas verdes, a cidade convive com apagões, inflação e retratos do presidente em toda parede. Por muito tempo, foi o destino que os grupos de WhatsApp garantiam que o Brasil ia ter.",
+   "en": "Squeezed into a valley between green mountains, the city lives with blackouts, inflation and portraits of the president on every wall. For years, it was the future the WhatsApp groups swore Brazil was headed for."
+  },
+  {
+   "pt_BR": "Arepas no café da manhã, beisebol à tarde e uma fila para trocar dinheiro que dá a volta no quarteirão. Na Venezuela, uma mala de bolívares compra um cafezinho.",
+   "en": "Arepas for breakfast, baseball in the afternoon and a currency exchange line that wraps around the block. In Venezuela, a suitcase of bolívares buys a cup of coffee."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o mapa do petróleo do Orinoco",
+   "en": "the Orinoco oil map"
+  },
+  {
+   "pt_BR": "o bigode de bronze do Maduro",
+   "en": "Maduro's bronze mustache"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria trocar reais por bolívares, e precisou de uma mala",
+    "en": "{he} wanted to swap reais for bolívares and needed a suitcase"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria rezar para o Brasil não virar a Venezuela",
+    "en": "{he} wanted to pray that Brazil wouldn't become Venezuela"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} disse que ia ver de perto o país que o Brasil ia virar",
+    "en": "{he} said {he} was going to see the country Brazil was supposed to become"
+   },
+   {
+    "pt_BR": "{ele} perguntou se tinha voo para a Venezuela sem escala em Cuba",
+    "en": "{he} asked for a flight to Venezuela without a stopover in Cuba"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se o Maduro tem clube de tiro",
+    "en": "{he} asked if Maduro has a gun club"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou se o Palácio de Miraflores aceita visita",
+    "en": "{he} asked if Miraflores Palace takes visitors"
+   },
+   {
+    "pt_BR": "{ele} queria visitar a Assembleia Nacional venezuelana",
+    "en": "{he} wanted to visit Venezuela's National Assembly"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer arepa",
+    "en": "{he} wanted to eat an arepa"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria ver o Salto Ángel",
+    "en": "{he} wanted to see Angel Falls"
+   },
+   {
+    "pt_BR": "{ele} disse que, se ganharem eles, o Brasil vira isso aí",
+    "en": "{he} said that if the other side wins, Brazil turns into this"
+   },
+   {
+    "pt_BR": "{ele} perguntou quanto custa a gasolina mais barata do mundo",
+    "en": "{he} asked how much the world's cheapest gasoline costs"
+   },
+   {
+    "pt_BR": "{ele} queria subir o teleférico do monte Ávila",
+    "en": "{he} wanted to take the cable car up Mount Ávila"
+   }
+  ]
+ }
+}

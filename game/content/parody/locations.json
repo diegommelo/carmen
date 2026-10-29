@@ -1,0 +1,238 @@
+{
+ "location_types": [
+  {
+   "id": "bank",
+   "name": {
+    "pt_BR": "Banco",
+    "en": "Bank"
+   },
+   "group": 0,
+   "witnesses": [
+    {
+     "pt_BR": "Gerente",
+     "en": "Manager"
+    },
+    {
+     "pt_BR": "Doleiro",
+     "en": "Money changer"
+    },
+    {
+     "pt_BR": "Caixa",
+     "en": "Teller"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém assim sacou dinheiro vivo aqui hoje.",
+     "en": "Nobody like that withdrew cash here today."
+    },
+    {
+     "pt_BR": "Não vi essa pessoa. E o Coaf também não.",
+     "en": "I haven't seen that person. Neither has the financial watchdog."
+    }
+   ],
+   "clue_chance": {
+    "profession": 32,
+    "hobby": 32,
+    "vehicle": 0,
+    "feature": 48,
+    "food": 0
+   }
+  },
+  {
+   "id": "church",
+   "name": {
+    "pt_BR": "Igreja",
+    "en": "Church"
+   },
+   "group": 0,
+   "witnesses": [
+    {
+     "pt_BR": "Pastor",
+     "en": "Pastor"
+    },
+    {
+     "pt_BR": "Obreira",
+     "en": "Church volunteer"
+    },
+    {
+     "pt_BR": "Fiel do dízimo",
+     "en": "Tithe-paying member"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém assim veio ao culto, que Deus te abençoe.",
+     "en": "Nobody like that came to the service, God bless you."
+    },
+    {
+     "pt_BR": "Aqui só vem gente de bem, agente.",
+     "en": "Only good people come here, agent."
+    }
+   ],
+   "clue_chance": {
+    "profession": 32,
+    "hobby": 48,
+    "vehicle": 32,
+    "feature": 32,
+    "food": 0
+   }
+  },
+  {
+   "id": "airport",
+   "name": {
+    "pt_BR": "Aeroporto",
+    "en": "Airport"
+   },
+   "group": 1,
+   "witnesses": [
+    {
+     "pt_BR": "Piloto de jatinho",
+     "en": "Private jet pilot"
+    },
+    {
+     "pt_BR": "Fiscal da Receita",
+     "en": "Customs officer"
+    },
+    {
+     "pt_BR": "Comissária",
+     "en": "Flight attendant"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Não passou ninguém assim pela alfândega.",
+     "en": "Nobody like that went through customs."
+    },
+    {
+     "pt_BR": "Hoje só embarcou gente comum, de voo comercial.",
+     "en": "Only ordinary people flew today, on commercial flights."
+    }
+   ],
+   "clue_chance": {
+    "profession": 32,
+    "hobby": 0,
+    "vehicle": 48,
+    "feature": 48,
+    "food": 32
+   }
+  },
+  {
+   "id": "gun_club",
+   "name": {
+    "pt_BR": "Clube de tiro",
+    "en": "Gun club"
+   },
+   "group": 1,
+   "witnesses": [
+    {
+     "pt_BR": "Instrutor de tiro",
+     "en": "Shooting instructor"
+    },
+    {
+     "pt_BR": "Atirador CAC",
+     "en": "Licensed collector"
+    },
+    {
+     "pt_BR": "Armeiro",
+     "en": "Gunsmith"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém assim apareceu no estande.",
+     "en": "Nobody like that showed up at the range."
+    },
+    {
+     "pt_BR": "Não vi ninguém. Estava de abafador.",
+     "en": "Didn't see anyone. I had my ear protection on."
+    }
+   ],
+   "clue_chance": {
+    "profession": 32,
+    "hobby": 48,
+    "vehicle": 32,
+    "feature": 32,
+    "food": 0
+   }
+  },
+  {
+   "id": "embassy",
+   "name": {
+    "pt_BR": "Embaixada",
+    "en": "Embassy"
+   },
+   "group": 2,
+   "witnesses": [
+    {
+     "pt_BR": "Embaixador",
+     "en": "Ambassador"
+    },
+    {
+     "pt_BR": "Cônsul",
+     "en": "Consul"
+    },
+    {
+     "pt_BR": "Segurança da portaria",
+     "en": "Gate guard"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém pediu para dormir aqui esta semana.",
+     "en": "Nobody asked to sleep over here this week."
+    },
+    {
+     "pt_BR": "Não vi ninguém assim. Pode conferir as câmeras, se quiser.",
+     "en": "I haven't seen anyone like that. You can check the cameras if you like."
+    }
+   ],
+   "clue_chance": {
+    "profession": 48,
+    "hobby": 32,
+    "vehicle": 48,
+    "feature": 32,
+    "food": 0
+   }
+  },
+  {
+   "id": "steakhouse",
+   "name": {
+    "pt_BR": "Churrascaria",
+    "en": "Steakhouse"
+   },
+   "group": 2,
+   "witnesses": [
+    {
+     "pt_BR": "Garçom",
+     "en": "Waiter"
+    },
+    {
+     "pt_BR": "Churrasqueiro",
+     "en": "Grill master"
+    },
+    {
+     "pt_BR": "Cliente de camisa amarela",
+     "en": "Customer in a yellow jersey"
+    }
+   ],
+   "not_seen": [
+    {
+     "pt_BR": "Ninguém assim comeu aqui. E ninguém pagou a conta, também.",
+     "en": "Nobody like that ate here. And nobody paid the bill either."
+    },
+    {
+     "pt_BR": "Só vi gente comendo picanha, nada de suspeito.",
+     "en": "Just people eating picanha, nothing suspicious."
+    }
+   ],
+   "clue_chance": {
+    "profession": 32,
+    "hobby": 32,
+    "vehicle": 32,
+    "feature": 32,
+    "food": 48
+   }
+  }
+ ]
+}

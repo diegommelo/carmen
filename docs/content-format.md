@@ -1,6 +1,6 @@
 # Formato dos pacotes de conteúdo
 
-O núcleo em Godot (`game/core`) não sabe nada de cidades ou suspeitos: tudo vem de um pacote de conteúdo, uma pasta de arquivos JSON. O pacote de teste fica em [`game/content/placeholder`](../game/content/placeholder), e a paródia será outro pacote no mesmo formato.
+O núcleo em Godot (`game/core`) não sabe nada de cidades ou suspeitos: tudo vem de um pacote de conteúdo, uma pasta de arquivos JSON. O pacote de teste fica em [`game/content/placeholder`](../game/content/placeholder), e o da paródia, que é o que o jogo carrega, fica em [`game/content/parody`](../game/content/parody). Os testes usam os dois.
 
 ```
 pack.json          versão do formato, nome, idiomas, regras e patentes
@@ -56,7 +56,7 @@ Os textos da tela (botões, status, mensagens de fim de caso) não ficam no paco
 | `rules.clock` | Dia e hora de início, prazo, e janela de sono: terminar uma ação fora de `[wake_hour, sleep_hour)` faz o agente dormir `sleep_hours`. |
 | `ranks` | Lista de patentes `{name, cases}` em ordem; `cases` é o mínimo de casos para ter a patente. |
 | `location_types` (`locations.json`) | Tipos de local `{id, name, group, witnesses, not_seen, clue_chance}`. Cada cidade mostra um local de cada `group`. `not_seen` são as falas fora da rota. `clue_chance` é a chance (0 a 255) de a testemunha dar uma pista daquele traço do suspeito. |
-| `traits` (`traits.json`) | Traços `{id, name, warrant, values, clues}`. `warrant: true` entra no computador do mandado. `clues` tem as frases por valor; valor sem frase vira `texts.nothing_more`. |
+| `traits` (`traits.json`) | Traços `{id, name, warrant, values, clues}`. `warrant: true` entra no computador do mandado. `clues` tem as frases por valor; valor sem frase vira `texts.nothing_more`. `clue_weight` (opcional) multiplica a `clue_chance` dos locais quando o suspeito tem aquele valor, como `{"banker": 0.3}`, para que um valor que entrega o suspeito sozinho apareça menos; sem ele, o peso é 1. |
 | `texts` (`texts.json`) | `openers` (começo das falas com pista), `final_warnings` (cidade do esconderijo), `henchman`, `danger`, `nothing_more` e `pronouns`. |
 
 ### Pronomes
@@ -115,3 +115,4 @@ Ver [spec-original.md](spec-original.md), seções 3 e 4. Diferenças conhecidas
 - O original testa se os nomes das cidades cabem no mapa antes de ligar duas cidades (`1ea0:091e`). O núcleo pula esse teste, porque depende da tela.
 - O sorteio dos locais da cidade usa uma lista de tipos válidos em vez de sortear e repetir, o que dá a mesma distribuição, mas não a mesma sequência de números aleatórios.
 - As animações de perigo viram o evento `danger`, e cada tela decide como mostrar.
+- Na cidade final, o esconderijo é sorteado entre os três locais na chegada, então o jogador pode acertar de primeira. No original, o primeiro local visitado nunca é o esconderijo.

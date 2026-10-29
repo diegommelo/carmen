@@ -1,0 +1,35 @@
+{
+ "name": "Vorcaro",
+ "boss": false,
+ "traits": {
+  "sex": "m",
+  "profession": "banker",
+  "hobby": "real_estate",
+  "vehicle": "private_jet",
+  "feature": "rolex",
+  "food": "caviar"
+ },
+ "dossier": {
+  "full_name": "Daniel Vorcaro",
+  "occupation": {
+   "pt_BR": "Banqueiro de banco que não existe mais",
+   "en": "Banker at a bank that no longer exists"
+  },
+  "traits": {
+   "vehicle": {
+    "pt_BR": "Jatinho particular, sempre com o tanque cheio",
+    "en": "Private jet, always fueled up"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "Vendia CDB que rendia demais para ser verdade.",
+    "en": "Sold bonds that paid too much to be true."
+   },
+   {
+    "pt_BR": "Já foi preso no aeroporto, a caminho do exterior.",
+    "en": "Was once arrested at the airport on his way abroad."
+   }
+  ]
+ }
+}

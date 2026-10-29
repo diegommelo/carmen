@@ -1,0 +1,103 @@
+{
+ "name": "Orlando",
+ "map": {
+  "x": 75,
+  "y": 40
+ },
+ "description": [
+  {
+   "pt_BR": "Parques temáticos, outlets e um calor úmido que lembra o Rio. Foi para cá que um certo ex-presidente veio passar uns meses quando não quis entregar a faixa, e de onde só voltou com saudade do pão com leite condensado.",
+   "en": "Theme parks, outlets and a muggy heat that feels like Rio. This is where a certain former president came to spend a few months when he didn't want to hand over the sash, and he only came back missing his bread with condensed milk."
+  },
+  {
+   "pt_BR": "Na Flórida, o castelo da Cinderela divide a paisagem com lojas de armas e churrascarias brasileiras. Tem mais brasileiro na fila da Disney do que no Congresso.",
+   "en": "In Florida, Cinderella's castle shares the skyline with gun shops and Brazilian steakhouses. There are more Brazilians in the Disney lines than in Congress."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o cartão de vacina",
+   "en": "the vaccine card"
+  },
+  {
+   "pt_BR": "o ingresso anual da Disney",
+   "en": "the annual Disney pass"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou reais por dólares para gastar na Flórida",
+    "en": "{he} changed reais into dollars to spend in Florida"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria ir a uma igreja brasileira na Flórida",
+    "en": "{he} wanted to visit a Brazilian church in Florida"
+   },
+   {
+    "pt_BR": "{ele} queria rezar numa igreja com estacionamento para trailer",
+    "en": "{he} wanted to pray at a church with RV parking"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} perguntou se o avião da FAB ainda faz voo para a Flórida",
+    "en": "{he} asked if the Air Force plane still flies to Florida"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria comprar munição num Walmart",
+    "en": "{he} wanted to buy ammo at a Walmart"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou se o visto de turista dá para três meses",
+    "en": "{he} asked if a tourist visa lasts three months"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o consulado de Miami atende em Orlando",
+    "en": "{he} asked if the Miami consulate covers Orlando"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer frango frito no KFC",
+    "en": "{he} wanted fried chicken at KFC"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria tirar foto com o Mickey",
+    "en": "{he} wanted a photo with Mickey"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o cartão de vacina é exigido na Disney",
+    "en": "{he} asked if Disney requires a vaccine card"
+   },
+   {
+    "pt_BR": "{ele} queria visitar os parques temáticos",
+    "en": "{he} wanted to visit the theme parks"
+   },
+   {
+    "pt_BR": "{ele} queria comprar um enxoval inteiro nos outlets",
+    "en": "{he} wanted to buy a whole wardrobe at the outlets"
+   },
+   {
+    "pt_BR": "{ele} disse que ia passar só uns dias, que viraram meses",
+    "en": "{he} said {he}'d stay just a few days, which turned into months"
+   }
+  ]
+ }
+}

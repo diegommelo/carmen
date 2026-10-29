@@ -1,0 +1,99 @@
+{
+ "name": "Jerusalém",
+ "map": {
+  "x": 182,
+  "y": 38
+ },
+ "description": [
+  {
+   "pt_BR": "Muralhas de pedra dourada guardam três mil anos de história e lugares sagrados para judeus, cristãos e muçulmanos. Muito político brasileiro já veio aqui rezar, tirar foto e prometer mudar a embaixada.",
+   "en": "Golden stone walls guard three thousand years of history and places sacred to Jews, Christians and Muslims. Plenty of Brazilian politicians have come here to pray, take pictures and promise to move the embassy."
+  },
+  {
+   "pt_BR": "Na Terra Santa, o rio Jordão recebe excursões de batismo toda semana. Algumas autoridades já foram batizadas mais de uma vez, por garantia.",
+   "en": "In the Holy Land, the Jordan River hosts baptism tours every week. Some officials have been baptized more than once, just to be safe."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a garrafa de água do rio Jordão",
+   "en": "the bottle of Jordan River water"
+  },
+  {
+   "pt_BR": "a placa da embaixada que nunca mudou",
+   "en": "the sign for the embassy that never moved"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por shekels",
+    "en": "{he} changed money into shekels"
+   },
+   {
+    "pt_BR": "{ele} trocou dinheiro para comprar lembrancinha da Terra Santa",
+    "en": "{he} changed money to buy Holy Land souvenirs"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria ser batizado de novo no rio Jordão",
+    "en": "{he} wanted to be baptized again in the Jordan River"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia pousar em Tel Aviv",
+    "en": "{he} was landing in Tel Aviv"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria conhecer um fuzil israelense",
+    "en": "{he} wanted to see an Israeli rifle"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou onde fica a embaixada brasileira, a que ia mudar de cidade",
+    "en": "{he} asked where the Brazilian embassy is, the one that was supposed to move"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer falafel",
+    "en": "{he} wanted to eat falafel"
+   },
+   {
+    "pt_BR": "{ele} queria provar homus de verdade",
+    "en": "{he} wanted to try real hummus"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria rezar no Muro das Lamentações",
+    "en": "{he} wanted to pray at the Western Wall"
+   },
+   {
+    "pt_BR": "{ele} queria conhecer a Terra Santa",
+    "en": "{he} wanted to see the Holy Land"
+   },
+   {
+    "pt_BR": "{ele} queria andar pela Via Dolorosa",
+    "en": "{he} wanted to walk the Via Dolorosa"
+   },
+   {
+    "pt_BR": "{ele} perguntou se dava para trazer água benta na mala",
+    "en": "{he} asked if {he} could bring holy water in {his} suitcase"
+   }
+  ]
+ }
+}

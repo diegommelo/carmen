@@ -1,0 +1,103 @@
+{
+ "name": "Rio de Janeiro",
+ "map": {
+  "x": 112,
+  "y": 77
+ },
+ "description": [
+  {
+   "pt_BR": "Entre o Cristo Redentor e a Barra da Tijuca cabe toda a carreira política da família: gabinetes na Câmara Municipal e na Alerj, assessores que nunca apareceram e um condomínio de frente para o mar que entrou para o noticiário policial.",
+   "en": "Between Christ the Redeemer and Barra da Tijuca lies the family's whole political career: offices at city hall and in the state assembly, staffers who never showed up, and a beachfront condo that made the crime pages."
+  },
+  {
+   "pt_BR": "Calor de 40 graus, biscoito Globo na areia e vista para o Pão de Açúcar. No Rio, até a rachadinha tem samba-enredo.",
+   "en": "Forty-degree heat, Globo cookies on the sand and a view of Sugarloaf Mountain. In Rio, even the salary kickback scheme has its own carnival song."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o laptop do gabinete do ódio",
+   "en": "the hate office laptop"
+  },
+  {
+   "pt_BR": "a planilha de salários da Alerj",
+   "en": "the state assembly payroll spreadsheet"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria depositar uns cheques na agência da Alerj",
+    "en": "{he} wanted to deposit some checks at the state assembly's bank branch"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria ir a um culto na Barra da Tijuca",
+    "en": "{he} wanted to go to a service in Barra da Tijuca"
+   },
+   {
+    "pt_BR": "{ele} queria visitar um templo na zona oeste carioca",
+    "en": "{he} wanted to visit a church in Rio's west zone"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou para o Galeão",
+    "en": "{he} boarded a flight to Galeão"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria praticar tiro perto da Vila Militar",
+    "en": "{he} wanted to practice shooting near the Military Village"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde fica o clube de tiro dos milicianos aposentados",
+    "en": "{he} asked where the retired militiamen's gun club is"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria visitar o Palácio Guanabara",
+    "en": "{he} wanted to visit the Guanabara Palace"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer um biscoito Globo na praia",
+    "en": "{he} wanted to eat Globo cookies on the beach"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} perguntou como chegar no condomínio Vivendas da Barra",
+    "en": "{he} asked how to get to the Vivendas da Barra condo"
+   },
+   {
+    "pt_BR": "{ele} queria visitar a Câmara Municipal, que fica na Cinelândia",
+    "en": "{he} wanted to visit the city council at Cinelândia"
+   },
+   {
+    "pt_BR": "{ele} queria ver o Cristo Redentor",
+    "en": "{he} wanted to see Christ the Redeemer"
+   },
+   {
+    "pt_BR": "{ele} queria tomar um mate na praia de Ipanema",
+    "en": "{he} wanted to drink iced mate on Ipanema beach"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde mora o Queiroz",
+    "en": "{he} asked where Queiroz lives"
+   }
+  ]
+ }
+}

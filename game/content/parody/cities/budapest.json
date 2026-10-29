@@ -1,0 +1,103 @@
+{
+ "name": "Budapeste",
+ "map": {
+  "x": 162,
+  "y": 22
+ },
+ "description": [
+  {
+   "pt_BR": "O Danúbio corta a cidade em duas: Buda, com seus castelos, e Peste, com o Parlamento iluminado. O primeiro-ministro é um grande amigo da família e tem fama de ser ótimo anfitrião.",
+   "en": "The Danube splits the city in two: Buda with its castles and Pest with its floodlit Parliament. The prime minister is a close friend of the family and is known as a great host."
+  },
+  {
+   "pt_BR": "Banhos termais, goulash e embaixadas com quarto de hóspedes. Na Hungria, quem precisa de duas noites longe da imprensa sempre encontra um sofá.",
+   "en": "Thermal baths, goulash and embassies with guest rooms. In Hungary, anyone who needs two nights away from the press can always find a couch."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o colchão da embaixada húngara",
+   "en": "the Hungarian embassy mattress"
+  },
+  {
+   "pt_BR": "a coroa de Santo Estêvão",
+   "en": "the Holy Crown of Saint Stephen"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por florins",
+    "en": "{he} changed money into forints"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria rezar na Basílica de Santo Estêvão",
+    "en": "{he} wanted to pray at Saint Stephen's Basilica"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} embarcou num avião para a Hungria",
+    "en": "{he} boarded a plane to Hungary"
+   },
+   {
+    "pt_BR": "{ele} perguntou se tinha voo direto para a Europa Central",
+    "en": "{he} asked if there were direct flights to Central Europe"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou onde tinha um estande de tiro às margens do Danúbio",
+    "en": "{he} asked about a shooting range on the Danube"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou se a embaixada da Hungria ainda tem quarto de hóspedes",
+    "en": "{he} asked if the Hungarian embassy still has a guest room"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria provar goulash",
+    "en": "{he} wanted to try goulash"
+   },
+   {
+    "pt_BR": "{ele} queria provar páprica de verdade",
+    "en": "{he} wanted to try real paprika"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria visitar o amigo Orbán",
+    "en": "{he} wanted to visit {his} friend Orbán"
+   },
+   {
+    "pt_BR": "{ele} queria ver o Parlamento à beira do Danúbio",
+    "en": "{he} wanted to see Parliament on the Danube"
+   },
+   {
+    "pt_BR": "{ele} disse que duas noites em embaixada não é asilo, é visita",
+    "en": "{he} said two nights at an embassy isn't asylum, just a visit"
+   },
+   {
+    "pt_BR": "{ele} queria tomar banho nas termas Széchenyi",
+    "en": "{he} wanted to soak in the Széchenyi baths"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o Castelo de Buda aceita hóspede",
+    "en": "{he} asked if Buda Castle takes guests"
+   }
+  ]
+ }
+}

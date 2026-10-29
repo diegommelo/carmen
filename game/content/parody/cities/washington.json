@@ -1,0 +1,103 @@
+{
+ "name": "Washington",
+ "map": {
+  "x": 82,
+  "y": 31
+ },
+ "description": [
+  {
+   "pt_BR": "Avenidas largas, monumentos de mármore e lobistas por todo lado. Em Washington, um deputado brasileiro pode passar a semana pedindo sanções contra o próprio país, e ainda tirar foto na frente do Capitólio.",
+   "en": "Wide avenues, marble monuments and lobbyists everywhere. In Washington, a Brazilian congressman can spend the week asking for sanctions against his own country and still take a selfie in front of the Capitol."
+  },
+  {
+   "pt_BR": "A Casa Branca fica a poucas quadras de lanchonetes onde qualquer um pode fritar hambúrguer, o que aparentemente conta como experiência diplomática.",
+   "en": "The White House is a few blocks from diners where anyone can flip burgers, which apparently counts as diplomatic experience."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a lista de sanções da Lei Magnitsky",
+   "en": "the Magnitsky Act sanctions list"
+  },
+  {
+   "pt_BR": "o boné autografado do Trump",
+   "en": "Trump's signed cap"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} perguntou se o Tesouro americano aceita pedido de sanção",
+    "en": "{he} asked if the US Treasury takes sanction requests"
+   },
+   {
+    "pt_BR": "{ele} perguntou como bloquear o cartão de crédito de um ministro do Supremo",
+    "en": "{he} asked how to block a Supreme Court justice's credit card"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria rezar num café da manhã de oração em Washington",
+    "en": "{he} wanted to pray at a Washington prayer breakfast"
+   },
+   {
+    "pt_BR": "{ele} queria rezar pelo sucesso do lobby",
+    "en": "{he} wanted to pray for the success of {his} lobbying"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia pousar no aeroporto Dulles",
+    "en": "{he} was landing at Dulles airport"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria visitar a sede da NRA",
+    "en": "{he} wanted to visit NRA headquarters"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria marcar uma reunião na Casa Branca",
+    "en": "{he} wanted to book a meeting at the White House"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} disse que ia fritar hambúrguer perto do Capitólio",
+    "en": "{he} said {he}'d be flipping burgers near the Capitol"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria pedir uma tarifa de 50% contra o Brasil",
+    "en": "{he} wanted to ask for a 50% tariff on Brazil"
+   },
+   {
+    "pt_BR": "{ele} queria tirar foto na frente do Capitólio",
+    "en": "{he} wanted a photo in front of the Capitol"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde o Trump costuma almoçar",
+    "en": "{he} asked where Trump usually has lunch"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde fica o Departamento de Estado",
+    "en": "{he} asked where the State Department is"
+   },
+   {
+    "pt_BR": "{ele} disse que precisava conversar com uns senadores republicanos",
+    "en": "{he} said {he} needed to talk to some Republican senators"
+   }
+  ]
+ }
+}

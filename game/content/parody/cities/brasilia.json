@@ -1,0 +1,103 @@
+{
+ "name": "Brasília",
+ "map": {
+  "x": 106,
+  "y": 70
+ },
+ "description": [
+  {
+   "pt_BR": "O avião pousa sobre um desenho de avião: Brasília foi planejada assim, com os ministérios enfileirados como num formulário. Na Praça dos Três Poderes, os vidros do Planalto e do Supremo já foram trocados, mas a turma do 8 de janeiro ainda manda lembranças.",
+   "en": "The plane lands on a city shaped like a plane: Brasília was planned that way, with ministries lined up like boxes on a form. On Three Powers Square the windows of the palace and the Supreme Court have been replaced, but the January 8 crowd still sends its regards."
+  },
+  {
+   "pt_BR": "Seca, plana e cheia de tesourinhas, a capital tem mais carros oficiais do que esquinas. Do outro lado do Eixo Monumental fica a Superintendência da PF, onde algumas celas ganharam fama de suíte.",
+   "en": "Dry, flat and full of cloverleaf junctions, the capital has more official cars than street corners. Across the Monumental Axis stands the Federal Police headquarters, where some cells are famous for being more like suites."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a faixa presidencial",
+   "en": "the presidential sash"
+  },
+  {
+   "pt_BR": "o relógio de Dom João VI do Palácio do Planalto",
+   "en": "King João VI's clock from the presidential palace"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria sacar dinheiro vivo perto da Esplanada",
+    "en": "{he} wanted to withdraw cash near the Esplanade"
+   },
+   {
+    "pt_BR": "{ele} perguntou se a Caixa do Senado aceita depósito em espécie",
+    "en": "{he} asked if the Senate bank branch takes cash deposits"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria ir ao culto da Esplanada com a bancada evangélica",
+    "en": "{he} wanted to attend a service on the Esplanade with the evangelical caucus"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} pegou um voo para o Planalto Central",
+    "en": "{he} caught a flight to the Central Plateau"
+   },
+   {
+    "pt_BR": "{ele} reclamou que o avião presidencial não estava mais disponível",
+    "en": "{he} complained that the presidential plane wasn't available anymore"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se o quartel-general do Exército aceita acampamento",
+    "en": "{he} asked if the Army headquarters allows camping"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria visitar a Praça dos Três Poderes, mas sem quebrar nada desta vez",
+    "en": "{he} wanted to visit Three Powers Square, without breaking anything this time"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer no restaurante favorito dos deputados",
+    "en": "{he} wanted to eat at the congressmen's favorite restaurant"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} perguntou como chegar no Eixo Monumental",
+    "en": "{he} asked how to get to the Monumental Axis"
+   },
+   {
+    "pt_BR": "{ele} disse que ia resolver umas pendências no STF",
+    "en": "{he} said {he} had some business to settle at the Supreme Court"
+   },
+   {
+    "pt_BR": "{ele} queria ver o Palácio da Alvorada de longe, com saudade",
+    "en": "{he} wanted to look at the Alvorada Palace from afar, wistfully"
+   },
+   {
+    "pt_BR": "{ele} queria tirar foto com a estátua da Justiça, de longe",
+    "en": "{he} wanted a photo with the statue of Justice, from a distance"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o cercadinho do Alvorada ainda existe",
+    "en": "{he} asked if the fan pen outside the Alvorada Palace still exists"
+   }
+  ]
+ }
+}

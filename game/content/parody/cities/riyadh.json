@@ -1,0 +1,103 @@
+{
+ "name": "Riad",
+ "map": {
+  "x": 190,
+  "y": 42
+ },
+ "description": [
+  {
+   "pt_BR": "Torres de vidro brotam do deserto e o petróleo paga tudo, inclusive os presentes. Quem visita a Arábia Saudita em missão oficial costuma voltar com um estojo de veludo na bagagem de mão.",
+   "en": "Glass towers rise from the desert and oil pays for everything, gifts included. Anyone who visits Saudi Arabia on official business tends to fly home with a velvet case in their carry-on."
+  },
+  {
+   "pt_BR": "Calor de 45 graus, shoppings gigantes e um príncipe generoso. Em Riad, colar de diamantes é lembrancinha.",
+   "en": "Forty-five-degree heat, giant malls and a generous prince. In Riyadh, a diamond necklace counts as a souvenir."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o estojo de joias de diamante",
+   "en": "the diamond jewelry case"
+  },
+  {
+   "pt_BR": "a escultura de cavalo dourado",
+   "en": "the golden horse sculpture"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por riais sauditas",
+    "en": "{he} changed money into Saudi riyals"
+   },
+   {
+    "pt_BR": "{ele} perguntou se presente de príncipe paga imposto",
+    "en": "{he} asked if gifts from princes are taxed"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} perguntou se dava para fazer culto no deserto",
+    "en": "{he} asked if {he} could hold a worship service in the desert"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia voar para a Arábia Saudita e voltar com mala extra",
+    "en": "{he} was flying to Saudi Arabia and coming back with an extra suitcase"
+   },
+   {
+    "pt_BR": "{ele} perguntou como passar na alfândega com uma mochila cheia de estojos",
+    "en": "{he} asked how to get through customs with a backpack full of cases"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria caçar com falcão",
+    "en": "{he} wanted to go falconry hunting"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria agradecer pessoalmente pelos presentes do príncipe",
+    "en": "{he} wanted to thank the prince in person for the gifts"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria provar tâmaras",
+    "en": "{he} wanted to try dates"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} perguntou onde vendem joias sem precisar declarar",
+    "en": "{he} asked where to buy jewelry without declaring it"
+   },
+   {
+    "pt_BR": "{ele} queria ver o deserto",
+    "en": "{he} wanted to see the desert"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o príncipe estava recebendo visitas",
+    "en": "{he} asked if the crown prince was taking visitors"
+   },
+   {
+    "pt_BR": "{ele} queria visitar um shopping com pista de patinação no meio do deserto",
+    "en": "{he} wanted to visit a mall with an ice rink in the middle of the desert"
+   },
+   {
+    "pt_BR": "{ele} perguntou se as joias vêm com nota fiscal",
+    "en": "{he} asked if the jewelry comes with a receipt"
+   }
+  ]
+ }
+}

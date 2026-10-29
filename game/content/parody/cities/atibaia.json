@@ -1,0 +1,103 @@
+{
+ "name": "Atibaia",
+ "map": {
+  "x": 108,
+  "y": 78
+ },
+ "description": [
+  {
+   "pt_BR": "No interior paulista, entre plantações de morango e a Pedra Grande, fica uma cidade pacata que ficou famosa por uma casa de advogado. Foi lá que um ex-assessor muito procurado passou mais de um ano sem ninguém notar.",
+   "en": "In the São Paulo countryside, among strawberry fields and the Pedra Grande rock, sits a quiet town made famous by a lawyer's house. That's where a much-wanted former aide spent over a year without anyone noticing."
+  },
+  {
+   "pt_BR": "Ar fresco, flores, chocolate quente e muros altos. Em Atibaia, o hóspede discreto é tradição local.",
+   "en": "Fresh air, flowers, hot chocolate and tall walls. In Atibaia, the discreet house guest is a local tradition."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a chave da casa do advogado",
+   "en": "the key to the lawyer's house"
+  },
+  {
+   "pt_BR": "a caixa de morangos premiada da Festa das Flores",
+   "en": "the prize-winning strawberry box from the Flower Festival"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria pagar as contas de uma casa no interior paulista",
+    "en": "{he} wanted to pay the bills for a house in the São Paulo countryside"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o banco do interior faz menos pergunta",
+    "en": "{he} asked if small-town banks ask fewer questions"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} perguntou onde fica a igreja mais perto da Festa das Flores",
+    "en": "{he} asked for the church nearest to the Flower Festival"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} disse que ia de carro, porque o lugar nem tem aeroporto",
+    "en": "{he} said {he} was driving, since the place doesn't even have an airport"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se tinha tiro ao alvo na Pedra Grande",
+    "en": "{he} asked if there was target shooting at Pedra Grande"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria saber se casa de advogado conta como território neutro",
+    "en": "{he} wanted to know if a lawyer's house counts as neutral territory"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer morango com chocolate",
+    "en": "{he} wanted strawberries with chocolate"
+   },
+   {
+    "pt_BR": "{ele} queria comprar geleia de morango na beira da estrada",
+    "en": "{he} wanted to buy strawberry jam at a roadside stand"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria visitar uma casa de advogado onde dá para ficar escondido um ano",
+    "en": "{he} wanted to visit a lawyer's house where you can hide for a year"
+   },
+   {
+    "pt_BR": "{ele} perguntou quando é a Festa das Flores e Morangos",
+    "en": "{he} asked when the Flower and Strawberry Festival is"
+   },
+   {
+    "pt_BR": "{ele} queria subir a Pedra Grande",
+    "en": "{he} wanted to climb Pedra Grande"
+   },
+   {
+    "pt_BR": "{ele} perguntou se tinha casa para alugar com muro bem alto",
+    "en": "{he} asked if there were houses for rent with very tall walls"
+   },
+   {
+    "pt_BR": "{ele} disse que ia passar um tempo no interior até a poeira baixar",
+    "en": "{he} said {he}'d spend some time in the countryside until things cooled down"
+   }
+  ]
+ }
+}

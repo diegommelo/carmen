@@ -1,0 +1,35 @@
+{
+ "name": "Carlos",
+ "boss": false,
+ "traits": {
+  "sex": "m",
+  "profession": "councilor",
+  "hobby": "social_media",
+  "vehicle": "motorcycle",
+  "feature": "phone",
+  "food": "pizza"
+ },
+ "dossier": {
+  "full_name": "Carlos Nantes Bolsonaro",
+  "occupation": {
+   "pt_BR": "Vereador no Rio e chefe das redes da família",
+   "en": "Rio city councilor and the family's social media boss"
+  },
+  "traits": {
+   "feature": {
+    "pt_BR": "Sempre com o celular na mão, postando",
+    "en": "Always holding a phone, posting"
+   }
+  },
+  "notes": [
+   {
+    "pt_BR": "O filho 02, conhecido como Carluxo.",
+    "en": "Son number 02, known as Carluxo."
+   },
+   {
+    "pt_BR": "Dizem que comanda o gabinete do ódio.",
+    "en": "Rumored to run the hate office."
+   }
+  ]
+ }
+}

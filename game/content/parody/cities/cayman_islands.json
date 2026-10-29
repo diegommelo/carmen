@@ -1,0 +1,102 @@
+{
+ "name": {
+  "pt_BR": "Ilhas Cayman",
+  "en": "Cayman Islands"
+ },
+ "map": {
+  "x": 76,
+  "y": 46
+ },
+ "description": [
+  {
+   "pt_BR": "Água azul-turquesa, arraias mansas e mais empresas registradas do que habitantes. Nas Ilhas Cayman, uma salinha em George Town pode ser a sede de mil offshores.",
+   "en": "Turquoise water, friendly stingrays and more registered companies than residents. In the Cayman Islands, one small office in George Town can be the headquarters of a thousand offshore firms."
+  },
+  {
+   "pt_BR": "O paraíso fiscal do Caribe não cobra imposto de renda, não faz muita pergunta e tem uma praia de sete milhas para quem cansou de contar dinheiro.",
+   "en": "The Caribbean tax haven charges no income tax, asks few questions and has a seven-mile beach for anyone tired of counting money."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o livro-caixa da offshore",
+   "en": "the offshore company's ledger"
+  },
+  {
+   "pt_BR": "o cofre do banco de George Town",
+   "en": "the George Town bank vault"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria abrir uma conta numa offshore",
+    "en": "{he} wanted to open an offshore account"
+   },
+   {
+    "pt_BR": "{ele} perguntou quantas empresas cabem numa salinha",
+    "en": "{he} asked how many companies fit in one small office"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria rezar para a Receita não descobrir nada",
+    "en": "{he} wanted to pray that the tax authority wouldn't find out"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia voar para George Town",
+    "en": "{he} was flying to George Town"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se dava para caçar arraia no Caribe",
+    "en": "{he} asked if {he} could hunt stingrays in the Caribbean"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou se a ilha tem acordo de cooperação com a PF",
+    "en": "{he} asked if the island cooperates with the Federal Police"
+   },
+   {
+    "pt_BR": "{ele} perguntou se as ilhas ainda são da coroa britânica",
+    "en": "{he} asked if the islands still belong to the British Crown"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer lagosta caribenha",
+    "en": "{he} wanted Caribbean lobster"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} perguntou onde fica o paraíso fiscal mais discreto do Caribe",
+    "en": "{he} asked where the most discreet tax haven in the Caribbean is"
+   },
+   {
+    "pt_BR": "{ele} queria mergulhar com arraias",
+    "en": "{he} wanted to swim with stingrays"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde o dinheiro descansa sem imposto",
+    "en": "{he} asked where money can rest tax-free"
+   },
+   {
+    "pt_BR": "{ele} queria tomar sol na praia de Seven Mile",
+    "en": "{he} wanted to sunbathe on Seven Mile Beach"
+   }
+  ]
+ }
+}

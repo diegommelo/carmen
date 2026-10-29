@@ -1,0 +1,103 @@
+{
+ "name": "Balneário Camboriú",
+ "map": {
+  "x": 104,
+  "y": 84
+ },
+ "description": [
+  {
+   "pt_BR": "Arranha-céus tão altos que a praia fica na sombra depois do almoço. A cidade se chama de Dubai brasileira e tem uma roda-gigante, uma vida noturna agitada e um vereador muito conhecido pelo sobrenome.",
+   "en": "Skyscrapers so tall the beach is in shade by early afternoon. The city calls itself Brazil's Dubai and has a Ferris wheel, a busy nightlife and a city councilor best known for his last name."
+  },
+  {
+   "pt_BR": "No litoral de Santa Catarina, os apartamentos de frente para o mar custam mais que em Miami, e as caminhonetes param em fila dupla na avenida Atlântica.",
+   "en": "On the Santa Catarina coast, beachfront apartments cost more than in Miami, and pickup trucks double-park on Atlântica Avenue."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "a roda-gigante do FG Big Wheel",
+   "en": "the FG Big Wheel"
+  },
+  {
+   "pt_BR": "a cadeira do vereador na Câmara Municipal",
+   "en": "the councilor's seat at city hall"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} queria comprar um apartamento num arranha-céu à beira-mar",
+    "en": "{he} wanted to buy an apartment in a beachfront skyscraper"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria ir a um culto na praia catarinense",
+    "en": "{he} wanted to attend a beach service in Santa Catarina"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} ia descer no aeroporto de Navegantes",
+    "en": "{he} was landing at Navegantes airport"
+   },
+   {
+    "pt_BR": "{ele} queria voar para Santa Catarina e ir direto para a balada",
+    "en": "{he} wanted to fly to Santa Catarina and head straight to the club"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se tinha clube de tiro em Santa Catarina",
+    "en": "{he} asked if there are gun clubs in Santa Catarina"
+   },
+   {
+    "pt_BR": "{ele} perguntou se dava para atirar e depois ir à praia",
+    "en": "{he} asked if {he} could go shooting and then hit the beach"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria passar na Câmara de Vereadores de BC",
+    "en": "{he} wanted to stop by the BC city council"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer em frente à roda-gigante",
+    "en": "{he} wanted to eat facing the Ferris wheel"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria ver a praia com sombra de prédio",
+    "en": "{he} wanted to see the beach shaded by towers"
+   },
+   {
+    "pt_BR": "{ele} queria andar na roda-gigante",
+    "en": "{he} wanted to ride the Ferris wheel"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde fica a Dubai brasileira",
+    "en": "{he} asked where Brazil's Dubai is"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde ficam as boates mais caras do litoral sul",
+    "en": "{he} asked where the priciest clubs on the southern coast are"
+   },
+   {
+    "pt_BR": "{ele} queria conhecer o prédio mais alto do Brasil",
+    "en": "{he} wanted to see the tallest building in Brazil"
+   }
+  ]
+ }
+}

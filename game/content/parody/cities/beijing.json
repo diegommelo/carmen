@@ -1,0 +1,103 @@
+{
+ "name": "Pequim",
+ "map": {
+  "x": 247,
+  "y": 30
+ },
+ "description": [
+  {
+   "pt_BR": "A Cidade Proibida, a Praça da Paz Celestial e a Grande Muralha logo ali. A China é a maior compradora da soja brasileira, mas nos grupos da família é a culpada por tudo, do vírus ao 5G.",
+   "en": "The Forbidden City, Tiananmen Square and the Great Wall nearby. China is the biggest buyer of Brazilian soybeans, yet in the family group chats it's to blame for everything, from the virus to 5G."
+  },
+  {
+   "pt_BR": "Vinte milhões de pessoas, metrô impecável e pato laqueado em toda esquina. Em Pequim, até as câmeras de vigilância têm câmeras de vigilância.",
+   "en": "Twenty million people, a spotless subway and Peking duck on every corner. In Beijing, even the surveillance cameras have surveillance cameras."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o lote de vacina chinesa",
+   "en": "the batch of Chinese vaccines"
+  },
+  {
+   "pt_BR": "o 5G do grupo da família",
+   "en": "the family group chat's 5G"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por yuans e lavou as mãos depois",
+    "en": "{he} changed money into yuan and washed {his} hands afterward"
+   },
+   {
+    "pt_BR": "{ele} perguntou se pode pagar com Pix na China",
+    "en": "{he} asked if {he} could pay with Pix in China"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} perguntou se tem igreja evangélica na China",
+    "en": "{he} asked if there are evangelical churches in China"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} comprou um voo para a China disfarçado de comunista",
+    "en": "{he} booked a flight to China disguised as a communist"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} queria ver o Exército de Terracota",
+    "en": "{he} wanted to see the Terracotta Army"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} queria pedir desculpas pelos tuítes contra a China",
+    "en": "{he} wanted to apologize for the tweets against China"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria comer pato laqueado",
+    "en": "{he} wanted to eat Peking duck"
+   },
+   {
+    "pt_BR": "{ele} perguntou se a soja do prato era brasileira",
+    "en": "{he} asked if the soy on {his} plate came from Brazil"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria ver a Cidade Proibida",
+    "en": "{he} wanted to see the Forbidden City"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o chip da vacina pega 5G lá",
+    "en": "{he} asked if the vaccine chip gets 5G there"
+   },
+   {
+    "pt_BR": "{ele} queria andar na Grande Muralha",
+    "en": "{he} wanted to walk the Great Wall"
+   },
+   {
+    "pt_BR": "{ele} queria visitar a fábrica de onde vem a vacina",
+    "en": "{he} wanted to visit the factory the vaccine comes from"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o TikTok espiona mesmo",
+    "en": "{he} asked if TikTok really spies on people"
+   }
+  ]
+ }
+}

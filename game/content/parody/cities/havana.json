@@ -1,0 +1,103 @@
+{
+ "name": "Havana",
+ "map": {
+  "x": 73,
+  "y": 44
+ },
+ "description": [
+  {
+   "pt_BR": "Carros americanos dos anos 50 desfilam pelo Malecón enquanto o mar bate na mureta. Durante anos, a família mandou os adversários se mudarem para cá, e nunca imaginou que ia precisar da passagem.",
+   "en": "1950s American cars cruise the Malecón as waves crash against the seawall. For years the family told its opponents to move here, never imagining it would need the ticket itself."
+  },
+  {
+   "pt_BR": "Prédios coloniais descascados, salsa nas ruas e charuto em toda esquina. Em Cuba, a palavra comunismo é dita sem medo, o que deixa certos turistas brasileiros nervosos.",
+   "en": "Peeling colonial buildings, salsa in the streets and cigars on every corner. In Cuba people say the word communism without flinching, which makes some Brazilian tourists nervous."
+  }
+ ],
+ "treasures": [
+  {
+   "pt_BR": "o charuto do Fidel",
+   "en": "Fidel's cigar"
+  },
+  {
+   "pt_BR": "o Chevrolet 1957 do Malecón",
+   "en": "the 1957 Chevrolet from the Malecón"
+  }
+ ],
+ "locations": [
+  "bank",
+  "church",
+  "airport",
+  "gun_club",
+  "embassy",
+  "steakhouse"
+ ],
+ "clues": {
+  "bank": [
+   {
+    "pt_BR": "{ele} trocou dinheiro por pesos cubanos e reclamou de comunismo",
+    "en": "{he} changed money into Cuban pesos and complained about communism"
+   },
+   {
+    "pt_BR": "{ele} perguntou se cartão de crédito americano funciona em Cuba",
+    "en": "{he} asked if American credit cards work in Cuba"
+   }
+  ],
+  "church": [
+   {
+    "pt_BR": "{ele} queria rezar para não ser reconhecido em Cuba",
+    "en": "{he} wanted to pray not to be recognized in Cuba"
+   }
+  ],
+  "airport": [
+   {
+    "pt_BR": "{ele} comprou uma passagem para o lugar onde mandava os outros irem",
+    "en": "{he} bought a ticket to the place {he} used to tell people to go"
+   }
+  ],
+  "gun_club": [
+   {
+    "pt_BR": "{ele} perguntou se em Cuba pode ter CAC",
+    "en": "{he} asked if Cuba allows gun collectors"
+   },
+   {
+    "pt_BR": "{ele} perguntou onde guardar as armas antes de entrar em Cuba",
+    "en": "{he} asked where to leave {his} guns before entering Cuba"
+   }
+  ],
+  "embassy": [
+   {
+    "pt_BR": "{ele} perguntou onde fica a embaixada brasileira em Cuba",
+    "en": "{he} asked where the Brazilian embassy in Cuba is"
+   }
+  ],
+  "steakhouse": [
+   {
+    "pt_BR": "{ele} queria provar um mojito escondido",
+    "en": "{he} wanted to sneak a mojito"
+   }
+  ],
+  "any": [
+   {
+    "pt_BR": "{ele} queria passear de carro antigo no Malecón",
+    "en": "{he} wanted a vintage car ride along the Malecón"
+   },
+   {
+    "pt_BR": "{ele} disse que vai para Cuba, mas só para conhecer o inimigo",
+    "en": "{he} said {he}'s going to Cuba, but only to know the enemy"
+   },
+   {
+    "pt_BR": "{ele} perguntou se os médicos cubanos ainda estavam por lá",
+    "en": "{he} asked if the Cuban doctors were still there"
+   },
+   {
+    "pt_BR": "{ele} queria ver a Praça da Revolução, só para criticar",
+    "en": "{he} wanted to see Revolution Square, just to criticize it"
+   },
+   {
+    "pt_BR": "{ele} perguntou se o porto de Mariel foi pago com dinheiro do BNDES",
+    "en": "{he} asked if the port of Mariel was built with Brazilian development bank money"
+   }
+  ]
+ }
+}
