@@ -285,7 +285,7 @@ func _show_home() -> void:
 	add_choice(bar, tr("BTN_NEW_CASE"), _new_case)
 
 
-## Um save que não serve mais (outra versão do pacote) é descartado.
+## Um save que não serve mais (outra versão do pacote) é descartado, com aviso.
 func _on_resume() -> void:
 	var saved: Dictionary = detective.case
 	detective.erase("case")
@@ -293,6 +293,7 @@ func _on_resume() -> void:
 		session = null
 		_autosave()
 		_show_home()
+		_show_info(tr("MENU_GAME"), tr("CASE_DISCARDED"))
 
 
 func _on_abandon() -> void:

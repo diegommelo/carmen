@@ -97,8 +97,12 @@ func start(agent: Dictionary) -> void:
 	_arrive(crime_city)
 
 
-## Recria um caso salvo por save_state(). Devolve null se o save não serve mais.
+## Recria um caso salvo por save_state(). Devolve null se o save não serve mais: o
+## pacote mudou de um jeito que muda os sorteios (ou o save é de antes da impressão
+## digital), ou alguma ação não cabe no caso.
 static func resume(content: ContentPack, agent: Dictionary, saved: Dictionary) -> CaseSession:
+	if saved.get("pack") != content.fingerprint():
+		return null
 	var s := CaseSession.new(content, int(saved.get("seed", 0)))
 	s.start(agent)
 	if typeof(saved.get("actions")) != TYPE_ARRAY or not s.replay(saved.actions):
@@ -139,7 +143,8 @@ func replay(saved: Array) -> bool:
 
 
 func save_state() -> Dictionary:
-	return {"seed": case_seed, "actions": actions.duplicate(true), "marks": marks.duplicate()}
+	return {"seed": case_seed, "pack": pack.fingerprint(), "actions": actions.duplicate(true),
+		"marks": marks.duplicate()}
 
 
 ## Marca (ou desmarca, com valor "") um traço do mandado. Traço ou valor que o pacote

@@ -546,6 +546,22 @@ func _test_saved_case(pack: ContentPack) -> void:
 	var u := CaseSession.new(pack, int(saved.seed))
 	u.start(loaded)
 	check(not u.replay([["travel", "nowhere"]]), "ação que não cabe no caso invalida o save")
+	var old := saved.duplicate()
+	old.erase("pack")
+	check(CaseSession.resume(pack, loaded, old) == null, "save sem impressão digital é descartado")
+	_test_fingerprint(saved, loaded)
+
+
+## Corrigir um texto não invalida o save; acrescentar uma frase numa lista, sim.
+func _test_fingerprint(saved: Dictionary, agent: Dictionary) -> void:
+	var typo := ContentPack.load_dir(PACK_DIR)
+	typo._raw.texts.openers[0].pt_BR += "!"
+	check(typo.fingerprint() == saved.pack and CaseSession.resume(typo, agent, saved) != null,
+		"texto corrigido mantém o save")
+	var longer := ContentPack.load_dir(PACK_DIR)
+	longer._raw.texts.openers.append({"pt_BR": "Dizem que", "en": "They say"})
+	check(longer.fingerprint() != saved.pack and CaseSession.resume(longer, agent, saved) == null,
+		"frase nova numa lista descarta o save")
 
 
 ## Na paródia, busca e mandado custam horas; pedido ambíguo conta como busca.

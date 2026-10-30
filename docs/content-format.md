@@ -17,6 +17,10 @@ O id de cada cidade e de cada suspeito é o nome do arquivo, sem `.json`, e não
 
 `pack.json` traz `"format_version": 1`. O jogo avisa com um erro quando a versão do pacote é diferente da que ele lê (`ContentPack.FORMAT_VERSION`). A versão sobe só quando uma mudança faz um pacote antigo deixar de ser lido do mesmo jeito; campos opcionais novos não mudam a versão.
 
+## Casos salvos
+
+O caso em andamento é salvo como semente + ações e refeito ao retomar, então depende do conteúdo do pacote. O save leva uma impressão digital do pacote (`ContentPack.fingerprint()`): regras, ids, valores e o tamanho de cada lista, sem o texto. Corrigir ou traduzir uma frase não afeta os saves. Acrescentar ou tirar um item de uma lista (testemunhas, pistas, descrições), mudar uma regra ou um id descarta o caso salvo na próxima retomada, com aviso.
+
 ## Ids e chaves
 
 Todas as chaves e todos os ids do JSON ficam em inglês, em `snake_case` (`hair`, `blond`, `mexico_city`, `light_fingers`), e os nomes dos arquivos também. Cada traço, valor e tipo de local é definido uma única vez, em `traits.json` e `locations.json`, e o resto do pacote se refere a ele pelo id. Os textos mostrados ao jogador ficam nos objetos de idioma. A exceção são os marcadores de pronome dentro das frases (`{ele}`, `{his}`), que são parte do texto traduzido e por isso mudam com o idioma.

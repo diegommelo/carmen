@@ -103,3 +103,4 @@ AGENTS_EMPTY,No agents on file.,Nenhum agente no fichário.
 AGENTS_FULL,The agent file is full. Delete an agent in the PF menu to register a new one.,O fichário está cheio. Apague um agente no menu PF para cadastrar outro.
 AGENT_ONGOING_CASE,Case in progress.,Caso em andamento.
 CONFIRM_NEW_CASE,Start a new case? The open case will be lost.,Começar um caso novo? O caso aberto será perdido.
+CASE_DISCARDED,"The saved case no longer fits this version of the game and was discarded.","O caso salvo não serve mais nesta versão do jogo e foi descartado."

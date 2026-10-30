@@ -27,6 +27,7 @@ var _suspects_by_id: Dictionary = {}
 var _traits_by_id: Dictionary = {}
 ## O JSON como foi lido, com os textos em todos os idiomas.
 var _raw: Dictionary
+var _fingerprint := ""
 
 
 static func load_dir(path: String, language: String = "") -> ContentPack:
@@ -79,6 +80,28 @@ func best_language(language: String) -> String:
 		if language != "" and (l.begins_with(language) or language.begins_with(l.get_slice("_", 0))):
 			return l
 	return default_language
+
+
+## Impressão digital do que o replay de um caso salvo depende: regras, ids, valores e o
+## tamanho de cada lista. Corrigir ou traduzir um texto não muda o resultado; acrescentar
+## ou tirar uma frase de uma lista muda, porque muda os sorteios seguintes.
+func fingerprint() -> String:
+	if _fingerprint == "":
+		_fingerprint = JSON.stringify(_shape(_raw), "", true).md5_text()
+	return _fingerprint
+
+
+func _shape(value):
+	if _is_localized(value):
+		return ""
+	if typeof(value) == TYPE_DICTIONARY:
+		var out := {}
+		for k in value:
+			out[k] = _shape(value[k])
+		return out
+	if typeof(value) == TYPE_ARRAY:
+		return value.map(func(v): return _shape(v))
+	return value
 
 
 ## Lista os textos sem tradução em algum idioma (caminho no JSON).
