@@ -13,12 +13,9 @@ var roster: Dictionary
 ## O agente que entrou pelo nome (o mesmo dicionário que está em roster.agents).
 var detective: Dictionary
 
-var _marks: Dictionary = {}
-## Ids do resultado da última busca ou pedido de mandado; vazio antes da primeira.
-## O dossiê risca quem ficou de fora.
-var _matches: Array = []
-## Cidades visitadas no caso, da cena do crime até a atual, para desenhar no mapa.
-var _route: Array = []
+## O que Career.apply_outcome() devolveu no fim do caso ({promoted, boss_arrested});
+## vazio enquanto o caso está em andamento.
+var _result: Dictionary = {}
 var _confirm: ConfirmationDialog
 var _confirm_action := Callable()
 var _info: AcceptDialog
@@ -49,7 +46,6 @@ func _ready() -> void:
 func _autosave() -> void:
 	if session != null and session.outcome == CaseSession.ONGOING:
 		detective.case = session.save_state()
-		detective.case.marks = _marks
 	else:
 		detective.erase("case")
 	Career.save_roster(roster)
@@ -130,14 +126,26 @@ func _show_info(title: String, text: String) -> void:
 
 ## Ficha do agente na tela PF: nome, patente, casos, quanto falta para a promoção.
 func _agent_sheet(agent: Dictionary) -> String:
-	var text: String = tr("RANK_INFO") % [agent.name, pack.ranks[agent.rank].name, agent.cases]
-	var left := pack.cases_to_next_rank(agent.cases)
-	if left > 0:
-		var next_rank: String = pack.ranks[agent.rank + 1].name
-		text += "\n\n" + (tr("NEXT_RANK_ONE") % next_rank if left == 1 else tr("NEXT_RANK") % [left, next_rank])
+	var text: String = tr("RANK_INFO") % [agent.name, _rank_name(agent.cases), agent.cases]
+	var next := _next_rank_text(agent.cases)
+	if next != "":
+		text += "\n\n" + next
 	if agent.has("case"):
 		text += "\n\n" + tr("AGENT_ONGOING_CASE")
 	return text
+
+
+func _rank_name(cases: int) -> String:
+	return pack.ranks[pack.rank_for_cases(cases)].name
+
+
+## Quantos casos faltam para a próxima patente; "" na última.
+func _next_rank_text(cases: int) -> String:
+	var left := pack.cases_to_next_rank(cases)
+	if left == 0:
+		return ""
+	var next_rank: String = pack.ranks[pack.rank_for_cases(cases) + 1].name
+	return tr("NEXT_RANK_ONE") % next_rank if left == 1 else tr("NEXT_RANK") % [left, next_rank]
 
 
 func _on_language_selected(index: int) -> void:
@@ -225,7 +233,7 @@ func _on_identified(field: LineEdit) -> void:
 ## Tela PF, por cima do que estiver aberto. Quem tem caso em andamento leva *.
 func _show_agents() -> void:
 	var rows: Array = roster.agents.map(func(a): return "%s · %s%s" % [
-		a.name, pack.ranks[a.rank].name, " *" if a.has("case") else ""])
+		a.name, _rank_name(a.cases), " *" if a.has("case") else ""])
 	var ongoing: bool = roster.agents.any(func(a): return a.has("case"))
 	var screen := AgentsScreen.new()
 	screen.setup(tr("AGENTS_TITLE"), rows, tr("AGENTS_HINT") if not rows.is_empty() else tr("AGENTS_EMPTY"),
@@ -269,11 +277,10 @@ func _show_home() -> void:
 		say(tr("CAREER_DONE"))
 		add_choice(bar, tr("BTN_NEW_CAREER"), _on_new_career)
 		return
-	say(tr("CAREER_STATUS") % [pack.ranks[detective.rank].name, detective.cases])
-	var left := pack.cases_to_next_rank(detective.cases)
-	if left > 0:
-		var next_rank: String = pack.ranks[detective.rank + 1].name
-		say(tr("NEXT_RANK_ONE") % next_rank if left == 1 else tr("NEXT_RANK") % [left, next_rank])
+	say(tr("CAREER_STATUS") % [_rank_name(detective.cases), detective.cases])
+	var next := _next_rank_text(detective.cases)
+	if next != "":
+		say(next)
 	say(tr("ASK_NEW_CASE"))
 	add_choice(bar, tr("BTN_NEW_CASE"), _new_case)
 
@@ -297,27 +304,16 @@ func _on_abandon() -> void:
 func _new_case() -> void:
 	session = CaseSession.new(pack, randi())
 	session.start(detective)
-	_marks.clear()
-	_matches.clear()
-	_route = [session.crime_city]
+	_result = {}
 	_autosave()
 	_show_briefing()
 
 
 func _resume_case(saved: Dictionary) -> bool:
-	session = CaseSession.new(pack, int(saved.get("seed", 0)))
-	session.start(detective)
-	var actions: Array = saved.get("actions", [])
-	if not session.replay(actions):
+	session = CaseSession.resume(pack, detective, saved)
+	if session == null:
 		return false
-	_marks = saved.get("marks", {})
-	_matches.clear()
-	_route = [session.crime_city]
-	for a in actions:
-		if a[0] == "travel":
-			_route.append(a[1])
-		elif a[0] in ["search", "warrant"]:
-			_matches = _ids(session.matching(a[1]))
+	_result = {}
 	_redraw = Callable()
 	_show_city()
 	return true
@@ -351,7 +347,7 @@ func _show_briefing() -> void:
 		say(tr("BUDGET_AND_DEADLINE") % [_money(session.budget), when])
 	else:
 		say(tr("CAPTURE_DEADLINE") % when)
-	say(tr("GOOD_LUCK") % [pack.ranks[detective.rank].name, detective.name])
+	say(tr("GOOD_LUCK") % [_rank_name(detective.cases), detective.name])
 	var bar := add_choice_bar()
 	add_spacer(bar)
 	add_choice(bar, tr("BTN_ACCEPT"), _accept_case)
@@ -364,18 +360,14 @@ func _accept_case() -> void:
 
 ## Depois de prender o chefe: o mesmo agente recomeça do zero.
 func _on_new_career() -> void:
-	detective.merge(Career.fresh(detective.name), true)
-	detective.erase("case")
+	Career.restart(detective)
 	Career.save_roster(roster)
 	_show_home()
 
 
 func _sex_name() -> String:
 	var sex_trait: String = pack.rules.sex_trait
-	for t in pack.traits:
-		if t.id == sex_trait:
-			return t.values[session.suspect.traits[sex_trait]]
-	return ""
+	return pack.trait_def(sex_trait).values[session.suspect.traits[sex_trait]]
 
 
 func _day_name(day: int) -> String:
@@ -412,7 +404,7 @@ func _refresh_status() -> void:
 	set_header("%s · %s" % [pack.city(session.current_city).name, _when(c.day, c.hour)])
 	var budget := tr("STATUS_BUDGET") % _money(session.budget) if session.budget >= 0 else ""
 	var deadline: Dictionary = session.difficulty.deadline
-	set_case(budget, tr("DEADLINE_SHORT") % _when(deadline.day, deadline.hour), _time_left())
+	set_case(budget, tr("DEADLINE_SHORT") % _when(deadline.day, deadline.hour), session.time_left())
 	set_notes(_notes_text())
 
 
@@ -423,20 +415,10 @@ func _notes_text() -> String:
 		warrant = pack.suspect(session.warrant_id).name
 	var marked := []
 	for t in pack.warrant_traits():
-		if _marks.has(t.id):
-			marked.append(t.values[_marks[t.id]])
+		if session.marks.has(t.id):
+			marked.append(t.values[session.marks[t.id]])
 	var traits: String = tr("NOTES_TRAITS") % " · ".join(marked) if not marked.is_empty() else tr("NOTES_NONE")
 	return tr("NOTES_WARRANT") % warrant + "\n" + traits
-
-
-## Fração do prazo que ainda resta: 1 no início do caso, 0 no fim.
-func _time_left() -> float:
-	var rules: Dictionary = pack.rules.clock
-	var deadline: Dictionary = session.difficulty.deadline
-	var start := int(rules.start_day) * 24 + int(rules.start_hour)
-	var end := int(deadline.day) * 24 + int(deadline.hour)
-	var now := session.clock.day * 24 + session.clock.hour
-	return float(end - now) / float(maxi(end - start, 1))
 
 
 func _money(amount: int) -> String:
@@ -444,6 +426,8 @@ func _money(amount: int) -> String:
 
 
 func _show_main_actions() -> void:
+	if session.outcome != CaseSession.ONGOING and _result.is_empty():
+		_result = Career.apply_outcome(detective, pack, session)
 	_autosave()
 	_refresh_status()
 	clear_choices()
@@ -529,7 +513,7 @@ func _travel_map() -> TravelMap:
 	for id in pack.city_ids():
 		points[id] = Vector2(pack.city(id).map.x, pack.city(id).map.y)
 		names[id] = pack.city(id).name
-	map.setup(points, names, session.current_city, session.destinations(), _route)
+	map.setup(points, names, session.current_city, session.destinations(), session.route)
 	return map
 
 
@@ -553,7 +537,6 @@ func _on_travel(city_id: String) -> void:
 	if session.outcome != CaseSession.ONGOING:
 		return
 	var r := session.travel(city_id)
-	_route.append(city_id)
 	if session.outcome == CaseSession.ONGOING:
 		_show_city()
 		if r.slept:
@@ -601,16 +584,13 @@ func _add_trait_row(grid: GridContainer, t: Dictionary) -> void:
 	var values: Array = t.values.keys()
 	for v in values:
 		opt.add_item(t.values[v])
-	opt.selected = values.find(_marks[t.id]) + 1 if _marks.has(t.id) else 0
+	opt.selected = values.find(session.marks[t.id]) + 1 if session.marks.has(t.id) else 0
 	opt.item_selected.connect(_on_mark.bind(t.id, values))
 	grid.add_child(opt)
 
 
 func _on_mark(index: int, trait_id: String, values: Array) -> void:
-	if index == 0:
-		_marks.erase(trait_id)
-	else:
-		_marks[trait_id] = values[index - 1]
+	session.set_mark(trait_id, values[index - 1] if index > 0 else "")
 	_refresh_status()
 	_autosave()
 
@@ -621,15 +601,13 @@ func _with_hours(label: String, rule: String) -> String:
 
 
 func _on_search() -> void:
-	var r := session.search(_marks)
-	_matches = _ids(r.matches)
+	var r := session.search(session.marks)
 	_after_warrant(r, _search_lines(r.matches))
 
 
 ## Mandado com um só compatível: o ministro bate o martelo. Senão, conta como busca.
 func _on_issue() -> void:
-	var r := session.issue_warrant(_marks)
-	_matches = _ids(r.matches)
+	var r := session.issue_warrant(session.marks)
 	if not r.issued:
 		_after_warrant(r, [tr("WARRANT_NOT_ISSUED")] + _search_lines(r.matches))
 		return
@@ -664,21 +642,22 @@ func _after_warrant(r: Dictionary, lines: Array) -> void:
 	_show_main_actions()
 
 
-static func _ids(suspects: Array) -> Array:
-	return suspects.map(func(s): return s.id)
-
-
 ## Dossiê no formato do PowerPoint, aberto pelo menu a qualquer hora. Quem não bate com
 ## os traços marcados aparece riscado; clicar num nome abre a ficha.
 func _show_dossier() -> void:
-	var compatible := _matches if not _matches.is_empty() else _ids(pack.suspects)
+	var matches := _last_matches()
 	var entries := pack.suspects.map(func(s): return {
-		"name": s.name, "boss": s.get("boss", false), "ruled_out": not (s.id in compatible)})
+		"name": s.name, "boss": s.get("boss", false),
+		"ruled_out": not matches.is_empty() and not (s.id in matches)})
 	var screen := DossierScreen.new()
 	screen.setup(entries, tr("BTN_BACK"), tr("BTN_CLOSE"))
 	screen.picked.connect(_show_card.bind(screen))
 	screen.back_pressed.connect(hide_overlay)
 	show_overlay(screen, true)
+
+
+func _last_matches() -> Array:
+	return session.last_matches if session != null else []
 
 
 ## Ficha no estilo do cartão do original. Preso na carreira ganha carimbo verde.
@@ -691,7 +670,7 @@ func _show_card(index: int, screen: DossierScreen) -> void:
 	if s.id in detective.get("caught", []):
 		stamp = tr("STAMP_CAUGHT")
 		color = Palette.OK
-	elif not _matches.is_empty() and not (s.id in _matches):
+	elif not _last_matches().is_empty() and not (s.id in _last_matches()):
 		stamp = tr("STAMP_RULED_OUT")
 	var rows := [[tr("DOSSIER_NAME"), d.full_name]]
 	if d.occupation != "":
@@ -711,8 +690,8 @@ func _render_outcome() -> void:
 		tr("SCENE_ART") % ("outcomes/" + ("arrest" if arrested else "escape")),
 		Palette.OK.darkened(0.6) if arrested else Palette.ALERT.darkened(0.6))
 	say(_outcome_text())
-	if session.promoted:
-		say(tr("PROMOTED") % pack.ranks[detective.rank].name)
+	if _result.promoted:
+		say(tr("PROMOTED") % _rank_name(detective.cases))
 	_show_next_step()
 
 
@@ -734,12 +713,11 @@ func _outcome_text() -> String:
 ## Depois do desfecho: fim da carreira, ou quanto falta para a próxima patente e um caso novo.
 func _show_next_step() -> void:
 	var row := add_choice_row()
-	if session.boss_arrested:
+	if _result.boss_arrested:
 		say(tr("CAREER_DONE"))
 		add_choice(row, tr("BTN_NEW_CAREER"), _on_new_career)
 		return
-	var left := pack.cases_to_next_rank(detective.cases)
-	if left > 0:
-		var next_rank: String = pack.ranks[detective.rank + 1].name
-		say(tr("NEXT_RANK_ONE") % next_rank if left == 1 else tr("NEXT_RANK") % [left, next_rank])
+	var next := _next_rank_text(detective.cases)
+	if next != "":
+		say(next)
 	add_choice(row, tr("BTN_NEW_CASE"), _new_case)

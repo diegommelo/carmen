@@ -1,7 +1,8 @@
 class_name Career
 extends RefCounted
 ## Fichário de agentes salvo entre partidas, como o ACME.DAT do original:
-## {"agents": [{name, cases, rank, caught}]}. O caso em andamento de cada agente fica no
+## {"agents": [{name, cases, caught}]}. A patente não é salva: sai de `cases` pelas regras
+## do pacote (ContentPack.rank_for_cases). O caso em andamento de cada agente fica no
 ## próprio agente, em "case" ({seed, actions, marks}). Como no original, o jogador entra
 ## dizendo o nome; um nome novo cadastra um agente.
 ## No navegador, user:// fica guardado pelo próprio navegador.
@@ -15,7 +16,26 @@ const MAX_NAME := 16
 
 
 static func fresh(agent_name: String) -> Dictionary:
-	return {"name": agent_name, "cases": 0, "rank": 0, "caught": []}
+	return {"name": agent_name, "cases": 0, "caught": []}
+
+
+## Aplica no agente o resultado de um caso que terminou: com prisão, mais um caso e o
+## suspeito na lista dos presos. Devolve {promoted, boss_arrested}.
+static func apply_outcome(agent: Dictionary, pack: ContentPack, session: CaseSession) -> Dictionary:
+	if session.outcome != CaseSession.ARRESTED:
+		return {"promoted": false, "boss_arrested": false}
+	var before := pack.rank_for_cases(agent.cases)
+	agent.cases += 1
+	if not (session.suspect.id in agent.caught):
+		agent.caught.append(session.suspect.id)
+	return {"promoted": pack.rank_for_cases(agent.cases) > before,
+		"boss_arrested": session.suspect.get("boss", false)}
+
+
+## Depois de prender o chefe: o mesmo agente recomeça do zero.
+static func restart(agent: Dictionary) -> void:
+	agent.merge(fresh(agent.name), true)
+	agent.erase("case")
 
 
 static func empty_roster() -> Dictionary:
@@ -85,7 +105,6 @@ static func _parse_agent(data: Variant) -> Dictionary:
 	var agent := {
 		"name": str(data.get("name", "")),
 		"cases": int(data.cases),
-		"rank": int(data.get("rank", 0)),
 		"caught": Array(data.get("caught", [])),
 	}
 	if typeof(data.get("case")) == TYPE_DICTIONARY:

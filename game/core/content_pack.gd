@@ -24,6 +24,7 @@ var cities: Array
 var _cities_by_id: Dictionary = {}
 var _types_by_id: Dictionary = {}
 var _suspects_by_id: Dictionary = {}
+var _traits_by_id: Dictionary = {}
 ## O JSON como foi lido, com os textos em todos os idiomas.
 var _raw: Dictionary
 
@@ -60,12 +61,15 @@ func set_language(language: String) -> void:
 	_cities_by_id.clear()
 	_types_by_id.clear()
 	_suspects_by_id.clear()
+	_traits_by_id.clear()
 	for c in cities:
 		_cities_by_id[c.id] = c
 	for t in location_types:
 		_types_by_id[t.id] = t
 	for s in suspects:
 		_suspects_by_id[s.id] = s
+	for t in traits:
+		_traits_by_id[t.id] = t
 
 
 func best_language(language: String) -> String:
@@ -158,6 +162,11 @@ func location_type(id: String) -> Dictionary:
 
 func suspect(id: String) -> Dictionary:
 	return _suspects_by_id[id]
+
+
+## {} quando o pacote não tem o traço.
+func trait_def(id: String) -> Dictionary:
+	return _traits_by_id.get(id, {})
 
 
 func city_ids() -> Array:

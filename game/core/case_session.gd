@@ -19,7 +19,8 @@ var pack: ContentPack
 var rng: MscRng
 var graph: WorldGraph
 var clock: GameClock
-## {name, cases, rank, caught: [ids dos suspeitos já presos]}
+## Cópia do agente no início do caso: {name, cases, caught: [ids dos suspeitos já presos]}.
+## O caso não mexe na carreira; quem aplica o resultado é Career.apply_outcome().
 var detective: Dictionary
 ## Regras da patente em que o caso começou (ContentPack.rank_rules).
 var difficulty: Dictionary
@@ -37,9 +38,14 @@ var steps_left: int
 var places: Array = []
 var arrival_index: int
 var outcome: String = ONGOING
-var promoted: bool = false
-var boss_arrested: bool = false
 var warrant_id: String = ""
+## Traços marcados no mandado, {id_do_traço: valor}. Marcar não gasta tempo, então não
+## entra nas ações: vai para o save à parte.
+var marks: Dictionary = {}
+## Ids do resultado da última busca ou pedido de mandado; vazio antes da primeira.
+var last_matches: Array = []
+## Cidades visitadas, da cena do crime até a atual.
+var route: Array = []
 ## Verba que sobra para passagens; -1 quando o pacote não usa dinheiro.
 var budget: int = -1
 ## Semente do caso e as ações do jogador desde o início. Com as duas, replay() refaz
@@ -65,11 +71,10 @@ func _init(content: ContentPack, seed: int) -> void:
 
 
 func start(agent: Dictionary) -> void:
-	detective = agent
-	if not detective.has("caught"):
-		detective.caught = []
+	detective = {"name": agent.get("name", ""), "cases": int(agent.get("cases", 0)),
+		"caught": agent.get("caught", []).duplicate()}
 	var rules := pack.rules
-	difficulty = pack.rank_rules(detective.rank)
+	difficulty = pack.rank_rules(pack.rank_for_cases(detective.cases))
 	graph = WorldGraph.generate(pack.city_ids(), rng, rules.graph.max_links, rules.graph.min_hops)
 	var clock_rules: Dictionary = rules.clock.duplicate()
 	clock_rules.deadline_day = difficulty.deadline.day
@@ -83,12 +88,25 @@ func start(agent: Dictionary) -> void:
 	next_city = crime_city
 	trail_city = ""
 	outcome = ONGOING
-	promoted = false
-	boss_arrested = false
 	warrant_id = ""
+	marks.clear()
+	last_matches.clear()
+	route = [crime_city]
 	actions.clear()
 	_used_clues.clear()
 	_arrive(crime_city)
+
+
+## Recria um caso salvo por save_state(). Devolve null se o save não serve mais.
+static func resume(content: ContentPack, agent: Dictionary, saved: Dictionary) -> CaseSession:
+	var s := CaseSession.new(content, int(saved.get("seed", 0)))
+	s.start(agent)
+	if typeof(saved.get("actions")) != TYPE_ARRAY or not s.replay(saved.actions):
+		return null
+	if typeof(saved.get("marks")) == TYPE_DICTIONARY:
+		for trait_id in saved.marks:
+			s.set_mark(str(trait_id), str(saved.marks[trait_id]))
+	return s
 
 
 ## Refaz as ações de um caso salvo, depois de start(). Devolve false se alguma não
@@ -121,7 +139,27 @@ func replay(saved: Array) -> bool:
 
 
 func save_state() -> Dictionary:
-	return {"seed": case_seed, "actions": actions.duplicate(true)}
+	return {"seed": case_seed, "actions": actions.duplicate(true), "marks": marks.duplicate()}
+
+
+## Marca (ou desmarca, com valor "") um traço do mandado. Traço ou valor que o pacote
+## não conhece é ignorado, para que um save antigo não quebre o caso.
+func set_mark(trait_id: String, value: String) -> void:
+	if value == "":
+		marks.erase(trait_id)
+		return
+	var t := pack.trait_def(trait_id)
+	if t.get("warrant", false) and t.values.has(value):
+		marks[trait_id] = value
+
+
+## Fração do prazo que ainda resta: 1 no início do caso, 0 no fim.
+func time_left() -> float:
+	var rules: Dictionary = pack.rules.clock
+	var start := int(rules.start_day) * 24 + int(rules.start_hour)
+	var end := int(difficulty.deadline.day) * 24 + int(difficulty.deadline.hour)
+	var now := clock.day * 24 + clock.hour
+	return float(end - now) / float(maxi(end - start, 1))
 
 
 ## O alvo é sorteado entre os comparsas que o detetive ainda não prendeu; o original
@@ -195,7 +233,8 @@ func travel(to_city: String) -> Dictionary:
 	var price := ticket_price(to_city)
 	if budget >= 0:
 		budget -= price
-	var tick := clock.advance(hours, true)
+	route.append(to_city)
+	var tick := clock.advance(hours)
 	if tick.expired:
 		outcome = ESCAPED_TIME
 		return {"hours": hours, "price": price, "slept": tick.slept, "expired": true, "shortcut": false}
@@ -242,7 +281,7 @@ func investigate(slot: int) -> Dictionary:
 		_last_trail_visited = current_city
 	var hours := _investigate_cost
 	_investigate_cost = mini(_investigate_cost + 1, int(pack.rules.investigate.max_hours))
-	var tick := clock.advance(hours, true)
+	var tick := clock.advance(hours)
 	if tick.expired:
 		outcome = ESCAPED_TIME
 	var danger := rng.index(pack.texts.danger) if event == "danger" else -1
@@ -250,46 +289,52 @@ func investigate(slot: int) -> Dictionary:
 		"slept": tick.slept, "event": event, "danger": danger}
 
 
-## Suspeitos compatíveis com `marks` = {id_do_traço: valor}, só com os traços conhecidos.
-func matching(marks: Dictionary) -> Array:
+## Suspeitos compatíveis com `by` = {id_do_traço: valor}, só com os traços conhecidos.
+func matching(by: Dictionary) -> Array:
 	return pack.suspects.filter(func(s):
-		for k in marks:
-			if s.traits[k] != marks[k]:
+		for k in by:
+			if s.traits.get(k) != by[k]:
 				return false
 		return true)
 
 
 ## Busca no sistema de mandados: lista os compatíveis e custa `rules.warrant.search_hours`.
 ## Devolve {matches, hours, slept}.
-func search(marks: Dictionary) -> Dictionary:
+func search(by: Dictionary) -> Dictionary:
 	assert(outcome == ONGOING, "o caso já terminou")
-	actions.append(["search", marks.duplicate()])
+	actions.append(["search", by.duplicate()])
 	var r := _warrant_tick("search_hours")
-	r.matches = matching(marks)
+	r.matches = matching(by)
+	last_matches = _ids(r.matches)
 	return r
 
 
 ## Pedido de mandado. Com exatamente um compatível, o mandado sai no nome dele e custa
 ## `rules.warrant.issue_hours`; senão conta como busca e o mandado anterior continua.
 ## Devolve {matches, issued, hours, slept}.
-func issue_warrant(marks: Dictionary) -> Dictionary:
+func issue_warrant(by: Dictionary) -> Dictionary:
 	assert(outcome == ONGOING, "o caso já terminou")
-	actions.append(["warrant", marks.duplicate()])
-	var matches := matching(marks)
+	actions.append(["warrant", by.duplicate()])
+	var matches := matching(by)
 	var issued := matches.size() == 1
 	var r := _warrant_tick("issue_hours" if issued else "search_hours")
 	if issued:
 		warrant_id = matches[0].id
 	r.matches = matches
 	r.issued = issued
+	last_matches = _ids(matches)
 	return r
+
+
+static func _ids(suspects: Array) -> Array:
+	return suspects.map(func(s): return s.id)
 
 
 func _warrant_tick(rule: String) -> Dictionary:
 	var hours := int(pack.rules.get("warrant", {}).get(rule, 0))
 	if hours == 0:
 		return {"hours": 0, "slept": false}
-	var tick := clock.advance(hours, true)
+	var tick := clock.advance(hours)
 	if tick.expired:
 		outcome = ESCAPED_TIME
 	return {"hours": hours, "slept": tick.slept}
@@ -332,9 +377,7 @@ func _add_lookalike() -> void:
 	var candidates := pack.city_ids().filter(func(id): return id != current_city and not (id in options) and shares.call(id))
 	if candidates.is_empty():
 		return
-	var decoy: String = rng.pick(candidates)
-	graph.links[current_city].append(decoy)
-	graph.links[decoy].append(current_city)
+	graph.link(current_city, rng.pick(candidates))
 
 
 func _build_places() -> void:
@@ -418,9 +461,7 @@ func _render(recipe: Dictionary) -> String:
 			if recipe.trait != "":
 				var nothing: String = texts.nothing_more
 				if recipe.trait_i >= 0:
-					for t in pack.traits:
-						if t.id == recipe.trait:
-							nothing = t.clues[suspect.traits[t.id]][recipe.trait_i]
+					nothing = pack.trait_def(recipe.trait).clues[suspect.traits[recipe.trait]][recipe.trait_i]
 				text += " " + nothing + "."
 	return pack.with_pronouns(text, suspect.traits[pack.rules.sex_trait])
 
@@ -432,10 +473,3 @@ func _resolve_capture() -> void:
 		outcome = WRONG_WARRANT
 	else:
 		outcome = ARRESTED
-		detective.cases += 1
-		if not (suspect.id in detective.caught):
-			detective.caught.append(suspect.id)
-		boss_arrested = suspect.get("boss", false)
-		var new_rank := pack.rank_for_cases(detective.cases)
-		promoted = new_rank > detective.rank
-		detective.rank = new_rank
