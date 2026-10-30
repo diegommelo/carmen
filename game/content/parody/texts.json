@@ -2,46 +2,46 @@
  "texts": {
   "openers": [
    {
-    "pt_BR": "Me mandaram no grupo da família que",
-    "en": "Someone posted in the family group chat that"
+	"pt_BR": "Me mandaram no grupo da família que",
+	"en": "Someone posted in the family group chat that"
    },
    {
-    "pt_BR": "Ouvi num áudio de WhatsApp que",
-    "en": "I heard in a WhatsApp voice note that"
+	"pt_BR": "Ouvi num áudio de WhatsApp que",
+	"en": "I heard in a WhatsApp voice note that"
    },
    {
-    "pt_BR": "Uma fonte da Abin paralela me contou que",
-    "en": "A source in the shadow intelligence agency told me that"
+	"pt_BR": "Uma fonte da Abin paralela me contou que",
+	"en": "A source in the shadow intelligence agency told me that"
    },
    {
-    "pt_BR": "Não sei se é fake news, mas",
-    "en": "I don't know if it's fake news, but"
+	"pt_BR": "Não sei se é fake news, mas",
+	"en": "I don't know if it's fake news, but"
    },
    {
-    "pt_BR": "Essa pessoa passou aqui e, pelo que entendi,",
-    "en": "That person came by and, from what I gathered,"
+	"pt_BR": "Essa pessoa passou aqui e, pelo que entendi,",
+	"en": "That person came by and, from what I gathered,"
    },
    {
-    "pt_BR": "Um tio no Facebook jurou que",
-    "en": "An uncle on Facebook swore that"
+	"pt_BR": "Um tio no Facebook jurou que",
+	"en": "An uncle on Facebook swore that"
    }
   ],
   "final_warnings": [
    {
-    "pt_BR": "Tem um acampamento na frente do quartel aqui perto. Cuidado.",
-    "en": "There's a protest camp outside the barracks nearby. Careful."
+	"pt_BR": "Tem um acampamento na frente do quartel aqui perto. Cuidado.",
+	"en": "There's a protest camp outside the barracks nearby. Careful."
    },
    {
-    "pt_BR": "Dizem que tem gente escondida na casa de um advogado por aqui.",
-    "en": "They say someone is hiding at a lawyer's house around here."
+	"pt_BR": "Dizem que tem gente escondida na casa de um advogado por aqui.",
+	"en": "They say someone is hiding at a lawyer's house around here."
    },
    {
-    "pt_BR": "Você está chegando perto demais, agente. Perdeu, mané.",
-    "en": "You're getting too close, agent. Game over, pal."
+	"pt_BR": "Você está chegando perto demais, agente. Perdeu, mané.",
+	"en": "You're getting too close, agent. Game over, pal."
    },
    {
-    "pt_BR": "Ouvi falar de uma minuta escondida numa gaveta aqui perto.",
-    "en": "I heard about a draft decree hidden in a drawer nearby."
+	"pt_BR": "Ouvi falar de uma minuta escondida numa gaveta aqui perto.",
+	"en": "I heard about a draft decree hidden in a drawer nearby."
    }
   ],
   "nothing_more": {
@@ -54,56 +54,56 @@
   },
   "danger": [
    {
-    "pt_BR": "Um patriota se agarrou no para-brisa do seu carro!",
-    "en": "A patriot clung to your windshield!"
+	"pt_BR": "Um patriota se agarrou no para-brisa do seu carro!",
+	"en": "A patriot clung to your windshield!"
    },
    {
-    "pt_BR": "Alguém arremessou uma cadeira em você!",
-    "en": "Someone threw a chair at you!"
+	"pt_BR": "Alguém arremessou uma cadeira em você!",
+	"en": "Someone threw a chair at you!"
    },
    {
-    "pt_BR": "Um caminhão de manifestantes bloqueou a sua rua!",
-    "en": "A truck full of protesters blocked your street!"
+	"pt_BR": "Um caminhão de manifestantes bloqueou a sua rua!",
+	"en": "A truck full of protesters blocked your street!"
    },
    {
-    "pt_BR": "Um coach tentou te vender uma mentoria!",
-    "en": "A coach tried to sell you a mentoring session!"
+	"pt_BR": "Um coach tentou te vender uma mentoria!",
+	"en": "A coach tried to sell you a mentoring session!"
    },
    {
-    "pt_BR": "Um carro de som tocou o hino no último volume no seu ouvido!",
-    "en": "A sound truck blasted the national anthem right in your ear!"
+	"pt_BR": "Um carro de som tocou o hino no último volume no seu ouvido!",
+	"en": "A sound truck blasted the national anthem right in your ear!"
    },
    {
-    "pt_BR": "Alguém tentou te dar um golpe de Pix!",
-    "en": "Someone tried to scam you with a fake payment!"
+	"pt_BR": "Alguém tentou te dar um golpe de Pix!",
+	"en": "Someone tried to scam you with a fake payment!"
    }
   ],
   "pronouns": {
    "pt_BR": {
-    "m": {
-     "Ele": "Ele",
-     "ele": "ele",
-     "dele": "dele"
-    },
-    "f": {
-     "Ele": "Ela",
-     "ele": "ela",
-     "dele": "dela"
-    }
+	"m": {
+	 "Ele": "Ele",
+	 "ele": "ele",
+	 "dele": "dele"
+	},
+	"f": {
+	 "Ele": "Ela",
+	 "ele": "ela",
+	 "dele": "dela"
+	}
    },
    "en": {
-    "m": {
-     "He": "He",
-     "he": "he",
-     "his": "his",
-     "him": "him"
-    },
-    "f": {
-     "He": "She",
-     "he": "she",
-     "his": "her",
-     "him": "her"
-    }
+	"m": {
+	 "He": "He",
+	 "he": "he",
+	 "his": "his",
+	 "him": "him"
+	},
+	"f": {
+	 "He": "She",
+	 "he": "she",
+	 "his": "her",
+	 "him": "her"
+	}
    }
   }
  }

@@ -22,8 +22,11 @@ window/size/viewport_height=360
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
-window/stretch/aspect="keep"
 window/stretch/scale_mode="integer"
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://i18n/ui.en.translation", "res://i18n/ui.pt_BR.translation")
 
 [physics]
 
@@ -32,10 +35,5 @@ window/stretch/scale_mode="integer"
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"
-
-[internationalization]
-
-locale/translations=PackedStringArray("res://i18n/ui.en.translation", "res://i18n/ui.pt_BR.translation")

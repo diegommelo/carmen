@@ -23,14 +23,14 @@
   },
   "traits": {
    "feature": {
-    "pt_BR": "Tatuagem de onda no tornozelo",
-    "en": "Wave tattoo on her ankle"
+	"pt_BR": "Tatuagem de onda no tornozelo",
+	"en": "Wave tattoo on her ankle"
    }
   },
   "notes": [
    {
-    "pt_BR": "Come camarão no café da manhã.",
-    "en": "Eats shrimp for breakfast."
+	"pt_BR": "Come camarão no café da manhã.",
+	"en": "Eats shrimp for breakfast."
    }
   ]
  }
