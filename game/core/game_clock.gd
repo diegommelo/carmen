@@ -2,8 +2,6 @@ class_name GameClock
 extends RefCounted
 ## Relógio do caso: dia 0 = segunda-feira, horas de 0 a 23 (2356:0566).
 
-signal hour_passed(day: int, hour: int)
-
 var day: int = 0
 var hour: int = 0
 var rules: Dictionary
@@ -17,10 +15,10 @@ func _init(clock_rules: Dictionary) -> void:
 
 ## Avança `hours` horas. Se a ação terminar fora do horário acordado, o agente
 ## dorme (`sleep_hours`). Devolve {"slept": bool, "expired": bool}.
-func advance(hours: int, allow_sleep: bool = true) -> Dictionary:
+func advance(hours: int) -> Dictionary:
 	_tick(hours)
 	var slept := false
-	if allow_sleep and not is_awake_hour(hour):
+	if not is_awake_hour(hour):
 		slept = true
 		_tick(rules.sleep_hours)
 	return {"slept": slept, "expired": is_expired()}
@@ -40,4 +38,3 @@ func _tick(hours: int) -> void:
 		if hour > 23:
 			hour = 0
 			day += 1
-		hour_passed.emit(day, hour)

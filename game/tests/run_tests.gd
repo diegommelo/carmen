@@ -93,7 +93,7 @@ func _test_graph(pack: ContentPack) -> void:
 
 func _test_warrant(pack: ContentPack) -> void:
 	var s := CaseSession.new(pack, 3)
-	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	s.start({"name": "Teste", "cases": 0})
 	check(s.issue_warrant({}).matches.size() == pack.suspects.size(), "sem traços, todos são suspeitos")
 	check(s.warrant_id == "", "sem traços não sai mandado")
 	var marks := {}
@@ -105,8 +105,9 @@ func _test_warrant(pack: ContentPack) -> void:
 
 ## Um "agente perfeito" segue a rota, emite o mandado certo e prende o suspeito.
 func _test_full_case(pack: ContentPack, seed: int) -> void:
+	var agent := Career.fresh("Teste")
 	var s := CaseSession.new(pack, seed)
-	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	s.start(agent)
 	var hops := 0
 	var marks := {}
 	for t in pack.warrant_traits():
@@ -133,9 +134,10 @@ func _test_full_case(pack: ContentPack, seed: int) -> void:
 			break
 	check(r.event == "capture", "achou o esconderijo (semente %d)" % seed)
 	check(s.outcome == CaseSession.ARRESTED, "prendeu com mandado certo (semente %d): %s" % [seed, s.outcome])
-	var rank := pack.rank_for_cases(1)
-	check(s.detective.cases == 1 and s.detective.rank == rank and s.promoted == (rank > 0), "ganhou um caso (e a promoção, se for o caso)")
-	check(s.detective.caught == [s.suspect.id], "o preso entra na lista da carreira")
+	check(agent.cases == 0 and agent.caught.is_empty(), "o caso não mexe no agente")
+	var result := Career.apply_outcome(agent, pack, s)
+	check(agent.cases == 1 and result.promoted == (pack.rank_for_cases(1) > 0), "ganhou um caso (e a promoção, se for o caso)")
+	check(agent.caught == [s.suspect.id], "o preso entra na lista da carreira")
 
 
 ## Na cidade final, qualquer um dos três locais pode ser o esconderijo, inclusive o primeiro visitado.
@@ -143,7 +145,7 @@ func _test_hideout_any_slot(pack: ContentPack) -> void:
 	var seen := {}
 	for seed in range(1, 200):
 		var s := CaseSession.new(pack, seed)
-		s.start({"name": "Teste", "cases": 0, "rank": 0})
+		s.start({"name": "Teste", "cases": 0})
 		while not s.is_final_city() and s.outcome == CaseSession.ONGOING:
 			s.travel(s.next_city)
 		if s.outcome != CaseSession.ONGOING:
@@ -157,7 +159,7 @@ func _test_hideout_any_slot(pack: ContentPack) -> void:
 
 func _test_wrong_city(pack: ContentPack) -> void:
 	var s := CaseSession.new(pack, 11)
-	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	s.start({"name": "Teste", "cases": 0})
 	s.travel(s.next_city)
 	var wrong := ""
 	for d in s.destinations():
@@ -173,7 +175,7 @@ func _test_wrong_city(pack: ContentPack) -> void:
 
 func _test_boss(pack: ContentPack) -> void:
 	var s := CaseSession.new(pack, 5)
-	s.start({"name": "Teste", "cases": 29, "rank": 4})
+	s.start({"name": "Teste", "cases": 29})
 	check(s.suspect.get("boss", false), "com 29 casos o alvo é a chefe")
 	check(s.steps_left == 4 + 4 - 1, "rota de patente + 4 saltos")
 
@@ -192,7 +194,7 @@ func _test_layout(pack: ContentPack) -> void:
 ## gerais (clues.any) entram no sorteio de qualquer tipo de local.
 func _test_clue_rotation(pack: ContentPack) -> void:
 	var s := CaseSession.new(pack, 5)
-	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	s.start({"name": "Teste", "cases": 0})
 	var rome := pack.city("rome")
 	var pool := s._clue_pool(rome, "bank")
 	check(pool.size() == rome.clues.bank.size() + rome.clues.any.size(), "banco usa as pistas do tipo e as gerais")
@@ -201,7 +203,7 @@ func _test_clue_rotation(pack: ContentPack) -> void:
 		seen[str(s._pick_clue(rome, "bank"))] = true
 	check(seen.size() == pool.size(), "nenhuma pista repetida antes de usar todas: %d de %d" % [seen.size(), pool.size()])
 	check(s._pick_clue(rome, "bank") != null, "depois de usar todas, volta a sortear")
-	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	s.start({"name": "Teste", "cases": 0})
 	check(s._used_clues.size() <= 3, "caso novo esquece as pistas usadas")
 
 
@@ -238,7 +240,7 @@ func _test_dossier(pack: ContentPack) -> void:
 ## Trocar de idioma no meio do caso muda o texto, mas não a fala sorteada.
 func _test_switch_language_mid_case(pack: ContentPack) -> void:
 	var s := CaseSession.new(pack, 21)
-	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	s.start({"name": "Teste", "cases": 0})
 	s.travel(s.next_city)
 	var pt := s.place_text(0)
 	var treasure_pt := s.treasure()
@@ -260,7 +262,7 @@ func _test_clue_weight(pack: ContentPack) -> void:
 		var hits := 0
 		for seed in range(1, 300):
 			var s := CaseSession.new(pack, seed)
-			s.start({"name": "Teste", "cases": 0, "rank": 0})
+			s.start({"name": "Teste", "cases": 0})
 			s.suspect = pack.suspect("baroness")
 			s.travel(s.next_city)
 			for slot in s.places.size():
@@ -332,7 +334,7 @@ func _test_parody() -> void:
 	check(pack.rules.boss_after_cases == pack.henchmen().size(), "paródia: o Jair vem depois de todos os comparsas")
 	for rank in pack.ranks.size():
 		var s := CaseSession.new(pack, 100 + rank)
-		s.start({"name": "Teste", "cases": pack.ranks[rank].cases, "rank": rank})
+		s.start({"name": "Teste", "cases": pack.ranks[rank].cases})
 		var r := pack.rank_rules(rank)
 		check(s.clock.rules.deadline_day == r.deadline.day and s.clock.rules.deadline_hour == r.deadline.hour, "paródia: prazo da patente %d" % rank)
 		var hops := 0
@@ -362,7 +364,7 @@ func _test_rank_defaults(pack: ContentPack) -> void:
 ## Os comparsas não se repetem: a cada caso o alvo é alguém ainda não preso, e o chefe
 ## vem quando não sobra ninguém.
 func _test_no_repeat(pack: ContentPack) -> void:
-	var agent := {"name": "Teste", "cases": 0, "rank": 0, "caught": []}
+	var agent := {"name": "Teste", "cases": 0, "caught": []}
 	var henchmen := pack.henchmen().size()
 	for i in henchmen:
 		var s := CaseSession.new(pack, 300 + i)
@@ -379,7 +381,7 @@ func _test_no_repeat(pack: ContentPack) -> void:
 func _test_shortcut(pack: ContentPack) -> void:
 	for with_warrant in [true, false]:
 		var s := CaseSession.new(pack, 8)
-		s.start({"name": "Teste", "cases": 0, "rank": 2})
+		s.start({"name": "Teste", "cases": pack.ranks[2].cases})
 		s.difficulty.shortcut_chance = 1.0
 		var marks := {}
 		if with_warrant:
@@ -400,7 +402,7 @@ func _test_shortcut(pack: ContentPack) -> void:
 ## Na paródia, o primeiro voo da rota nunca encurta, mesmo com o mandado certo.
 func _test_shortcut_min_flights(pack: ContentPack) -> void:
 	var s := CaseSession.new(pack, 8)
-	s.start({"name": "Teste", "cases": 9, "rank": 4})
+	s.start({"name": "Teste", "cases": 9})
 	s.difficulty.shortcut_chance = 1.0
 	var marks := {}
 	for t in pack.warrant_traits():
@@ -414,7 +416,7 @@ func _test_shortcut_min_flights(pack: ContentPack) -> void:
 func _test_lookalike(pack: ContentPack) -> void:
 	for seed in range(1, 60):
 		var s := CaseSession.new(pack, seed)
-		s.start({"name": "Teste", "cases": 6, "rank": 3})
+		s.start({"name": "Teste", "cases": 6})
 		check(s.difficulty.similar_destinations == 1.0, "paródia: delegado sempre tem destino parecido")
 		while not s.is_final_city() and s.outcome == CaseSession.ONGOING:
 			var regions: Array = pack.city(s.next_city).regions
@@ -433,7 +435,7 @@ func _test_trait_clues_factor(pack: ContentPack) -> void:
 		var traits := 0
 		for seed in range(1, 60):
 			var s := CaseSession.new(pack, seed)
-			s.start({"name": "Teste", "cases": 0, "rank": 0})
+			s.start({"name": "Teste", "cases": 0})
 			s.difficulty.trait_clues = factor
 			s.travel(s.next_city)
 			for p in s.places:
@@ -445,14 +447,14 @@ func _test_trait_clues_factor(pack: ContentPack) -> void:
 
 func _test_no_money(pack: ContentPack) -> void:
 	var s := CaseSession.new(pack, 4)
-	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	s.start({"name": "Teste", "cases": 0})
 	check(s.budget == -1 and s.ticket_price(s.next_city) == 0 and s.can_afford(s.next_city), "sem dinheiro no pacote provisório")
 	check(s.travel(s.next_city).price == 0 and s.budget == -1, "voo sem custo")
 
 
 func _test_money(pack: ContentPack) -> void:
 	var s := CaseSession.new(pack, 4)
-	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	s.start({"name": "Teste", "cases": 0})
 	check(s.budget == pack.ranks[0].budget, "verba da patente: %d" % s.budget)
 	var price := s.ticket_price(s.next_city)
 	check(price == s.travel_hours(s.next_city) * int(pack.rules.money.ticket_per_hour), "preço por hora de voo")
@@ -462,7 +464,7 @@ func _test_money(pack: ContentPack) -> void:
 	var broke := false
 	for seed in range(1, 40):
 		var t := CaseSession.new(pack, seed)
-		t.start({"name": "Teste", "cases": 0, "rank": 0})
+		t.start({"name": "Teste", "cases": 0})
 		t.budget = t.ticket_price(t.next_city)
 		t.travel(t.next_city)
 		if t.is_final_city():
@@ -481,7 +483,7 @@ func _test_career_save() -> void:
 	Career.erase(legacy)
 	var roster := Career.load_roster(path, legacy)
 	check(roster.agents.is_empty(), "sem arquivo, fichário vazio")
-	var moro := {"name": "Moro", "cases": 3, "rank": 2, "caught": ["a", "b", "c"]}
+	var moro := {"name": "Moro", "cases": 3, "caught": ["a", "b", "c"]}
 	check(Career.add(roster, moro) and Career.add(roster, Career.fresh("Dallagnol")), "cadastrou dois agentes")
 	Career.find(roster, "moro").cases = 4
 	check(Career.save_roster(roster, path), "salvou o fichário")
@@ -504,7 +506,7 @@ func _test_career_save() -> void:
 ## Um caso salvo no meio e refeito a partir da semente e das ações fica igual ao original.
 func _test_saved_case(pack: ContentPack) -> void:
 	var path := "user://test_case.json"
-	var agent := {"name": "Moro", "cases": 2, "rank": 1, "caught": []}
+	var agent := {"name": "Moro", "cases": 2, "caught": []}
 	var s := CaseSession.new(pack, 4242)
 	s.start(agent)
 	s.investigate(0)
@@ -515,19 +517,26 @@ func _test_saved_case(pack: ContentPack) -> void:
 		s.travel(s.destinations()[0])
 	s.issue_warrant({pack.rules.sex_trait: s.suspect.traits[pack.rules.sex_trait]})
 	check(s.outcome == CaseSession.ONGOING, "caso de teste ainda em andamento")
+	s.set_mark("sex", "f")
+	s.set_mark("hair", "nao_existe")
+	s.set_mark("food", s.suspect.traits.food)
+	check(s.marks == {"sex": "f"}, "só traço do mandado com valor conhecido vira marca: %s" % [s.marks])
 	var roster := Career.empty_roster()
 	Career.add(roster, agent.duplicate(true))
 	roster.agents[0].case = s.save_state()
-	roster.agents[0].case.marks = {"sex": "f"}
+	roster.agents[0].case.marks["vehicle"] = "nave"
 	check(Career.save_roster(roster, path), "salvou o fichário com caso")
 	var loaded: Dictionary = Career.load_roster(path, "").agents[0]
 	Career.erase(path)
-	check(loaded.has("case") and loaded.case.marks == {"sex": "f"}, "o caso volta junto com o agente")
+	check(loaded.has("case"), "o caso volta junto com o agente")
 	var saved: Dictionary = loaded.case
 	loaded.erase("case")
-	var t := CaseSession.new(pack, int(saved.seed))
-	t.start(loaded)
-	check(t.replay(saved.actions), "refez as ações salvas")
+	var t := CaseSession.resume(pack, loaded, saved)
+	check(t != null, "refez as ações salvas")
+	if t == null:
+		return
+	check(t.marks == {"sex": "f"}, "as marcas voltam, sem as que o pacote não conhece: %s" % [t.marks])
+	check(t.route == s.route and t.last_matches == s.last_matches, "mesma rota percorrida e mesma última busca")
 	check(t.current_city == s.current_city and t.next_city == s.next_city and t.steps_left == s.steps_left,
 		"mesma cidade e mesma rota depois de refazer")
 	check(t.clock.day == s.clock.day and t.clock.hour == s.clock.hour and t.budget == s.budget,
@@ -544,7 +553,7 @@ func _test_warrant_hours() -> void:
 	var pack := ContentPack.load_dir(PARODY_DIR, "pt_BR")
 	var rules: Dictionary = pack.rules.warrant
 	var s := CaseSession.new(pack, 7)
-	s.start({"name": "Teste", "cases": 0, "rank": 0})
+	s.start({"name": "Teste", "cases": 0})
 	var start := s.clock.day * 24 + s.clock.hour
 	var r := s.search({})
 	check(r.hours == int(rules.search_hours) and r.matches.size() == pack.suspects.size(), "busca sem traços lista todos e custa horas")
@@ -558,7 +567,7 @@ func _test_warrant_hours() -> void:
 	var spent := s.clock.day * 24 + s.clock.hour - start
 	check(spent == 2 * int(rules.search_hours) + int(rules.issue_hours), "o relógio andou as horas do mandado: %d" % spent)
 	var t := CaseSession.new(pack, 7)
-	t.start({"name": "Teste", "cases": 0, "rank": 0})
+	t.start({"name": "Teste", "cases": 0})
 	check(t.replay(s.actions) and t.warrant_id == s.warrant_id and t.clock.hour == s.clock.hour, "busca e mandado refeitos no replay")
 
 

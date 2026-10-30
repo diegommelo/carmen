@@ -28,7 +28,7 @@ func _simulate(pack: ContentPack, rank: int, wrong_rate: float, budget: int) -> 
 	for seed in range(1, CASES + 1):
 		var s := CaseSession.new(pack, seed)
 		var dice := MscRng.new(seed * 7 + 3)
-		s.start({"name": "Sim", "cases": pack.ranks[rank].cases, "rank": rank, "caught": []})
+		s.start({"name": "Sim", "cases": pack.ranks[rank].cases, "caught": []})
 		if budget != -2:
 			s.budget = budget
 		var start_budget := s.budget

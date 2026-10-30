@@ -22,10 +22,14 @@ static func generate(city_ids: Array, rng: MscRng, max_links: int, min_hops: int
 			for step in n:
 				var b = city_ids[(start + step) % n]
 				if g.degree(b) < round_limit and not g.within_hops(a, b, min_hops):
-					g.links[a].append(b)
-					g.links[b].append(a)
+					g.link(a, b)
 					break
 	return g
+
+
+func link(a, b) -> void:
+	links[a].append(b)
+	links[b].append(a)
 
 
 func degree(id) -> int:
